@@ -1,22 +1,13 @@
-# vite-plugin-mdoc
+# MDOC
 
-A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project inspirt by [dumi](https://github.com/umijs/dumi).
+Parse markdown content and export the specified template code
 
 ## Setup
 
 ```
-npm i -D vite-plugin-react-mdoc
+npm i -D @mdoc/core
 ```
 
-### Config
-
-```js
-const mdoc = require('vite-plugin-react-mdoc');
-
-module.exports = {
-  plugins: [mdoc(options)],
-};
-```
 
 Then you can import front matter attributes from `.md` file as default.
 
