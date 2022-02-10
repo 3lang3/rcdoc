@@ -1,5 +1,7 @@
 # vite-plugin-mdoc
 
+mdoc for vite
+
 A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project inspirt by [dumi](https://github.com/umijs/dumi).
 
 ## Setup

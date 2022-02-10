@@ -1,5 +1,5 @@
 import slash from 'slash2';
-import remark from '@mdoc/core';
+import mdoc from '@mdoc/core';
 import type { PluginOption } from 'vite';
 
 class ExportedContent {
@@ -21,7 +21,7 @@ class ExportedContent {
 
 export async function transformer(code: string, id: string, reactBabelPlugin: PluginOption, remarkOpts: any) {
   const content = new ExportedContent();
-  const { demos, slugs, meta, value } = await remark(code, id, remarkOpts);
+  const { demos, slugs, meta, value } = await mdoc(code, id, remarkOpts);
 
   const compiledReactCode = `
       function ({ previewer = () => null }) {

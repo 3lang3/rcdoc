@@ -73,6 +73,12 @@ importers:
       mdast: 3.0.0
       tsup: 5.11.11_typescript@4.5.5
 
+  packages/mdoc-loader:
+    specifiers:
+      '@mdoc/core': workspace:*
+    dependencies:
+      '@mdoc/core': link:../core
+
   packages/playground:
     specifiers:
       '@mdoc/preset-previewer': workspace:*
