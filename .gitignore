@@ -1,0 +1,7 @@
+node_modules
+dist
+pnpm-global
+# misc
+.DS_Store
+# log
+*.log

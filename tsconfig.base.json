@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "sourceMap": false,
+    "moduleResolution": "node",
+    "noImplicitAny": false,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "esModuleInterop": true,
+    "emitDeclarationOnly": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "module": "esnext",
+    "lib": ["ESNext", "DOM"]
+  },
+  "exclude": [
+    "**/dist",
+    "**/node_modules",
+    "**/test"
+  ]
+}

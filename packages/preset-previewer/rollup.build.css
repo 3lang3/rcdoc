@@ -1,0 +1,313 @@
+/* 颜色表 */
+/* 尺寸表 */
+.__dumi-default-icon {
+  background: url('data:image/png;base64,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') no-repeat 0 0/230px auto;
+}
+/* 颜色表 - dark */
+/* 颜色表 */
+/* 尺寸表 */
+@import 'prismjs/themes/prism.css';
+.__dumi-default-icon {
+  background: url('data:image/png;base64,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') no-repeat 0 0/230px auto;
+}
+/* 颜色表 - dark */
+.default-pre {
+  position: relative;
+}
+.default-pre:hover .default-pre__btn {
+  opacity: 1;
+}
+.default-pre__btn {
+  opacity: 0;
+  position: absolute;
+  top: 10px;
+  right: 6px;
+  border: none;
+  background: none;
+  padding: 6px;
+  transition: opacity 0.15s linear;
+}
+.default-pre__btn img {
+  display: block;
+  width: 18px;
+}
+.default-previewer {
+  background-color: #fff;
+  border: 1px solid #ebedf1;
+  border-radius: 1px;
+  position: relative;
+}
+.default-previewer__demo {
+  padding: 40px 24px;
+}
+.default-previewer__actions {
+  display: flex;
+  height: 40px;
+  padding: 0 0.4em 0 1em;
+  align-items: center;
+  justify-content: flex-end;
+  border-top: 1px dashed #ebedf1;
+}
+.default-previewer__actions:first-child {
+  border-top: none;
+}
+.default-previewer__btn {
+  border: none;
+  background: none;
+  padding: 6px;
+}
+.default-previewer__btn img {
+  display: block;
+  width: 18px;
+}
+.default-previewer__tabs {
+  display: flex;
+  flex-wrap: wrap;
+}
+.default-previewer__tabs-plane {
+  display: flex;
+  align-items: center;
+  padding: 5px;
+  margin-right: 5px;
+  font-size: 14px;
+  color: #000;
+  position: relative;
+}
+.default-previewer__tabs-plane img {
+  width: 14px;
+  margin: 0 2px;
+}
+.default-previewer__source {
+  border-top: 1px dashed #ebedf1;
+}
+.markdown {
+  color: #454d64;
+  font-size: 15px;
+  line-height: 1.60625;
+}
+.markdown pre[class*='language-'] {
+  margin: 0;
+}
+.markdown .token.operator {
+  background: transparent;
+}
+.markdown:not(:first-child):empty {
+  min-height: 32px;
+}
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
+  margin: 42px 0 18px;
+  color: #000;
+  font-weight: 500;
+  line-height: 1.40625;
+}
+[data-prefers-color='dark'] .markdown h1,
+[data-prefers-color='dark'] .markdown h2,
+[data-prefers-color='dark'] .markdown h3,
+[data-prefers-color='dark'] .markdown h4,
+[data-prefers-color='dark'] .markdown h5,
+[data-prefers-color='dark'] .markdown h6 {
+  color: rgba(255, 255, 255, 0.85);
+}
+.markdown h1:hover > a[aria-hidden],
+.markdown h2:hover > a[aria-hidden],
+.markdown h3:hover > a[aria-hidden],
+.markdown h4:hover > a[aria-hidden],
+.markdown h5:hover > a[aria-hidden],
+.markdown h6:hover > a[aria-hidden] {
+  float: left;
+  margin-top: 0.06em;
+  margin-left: -20px;
+  width: 20px;
+  padding-right: 4px;
+  line-height: 1;
+  box-sizing: border-box;
+}
+@media only screen and (max-width: 767px) {
+  .markdown h1:hover > a[aria-hidden],
+  .markdown h2:hover > a[aria-hidden],
+  .markdown h3:hover > a[aria-hidden],
+  .markdown h4:hover > a[aria-hidden],
+  .markdown h5:hover > a[aria-hidden],
+  .markdown h6:hover > a[aria-hidden] {
+    width: 14px;
+    margin-left: -14px;
+  }
+}
+.markdown h1:hover > a[aria-hidden]::after,
+.markdown h2:hover > a[aria-hidden]::after,
+.markdown h3:hover > a[aria-hidden]::after,
+.markdown h4:hover > a[aria-hidden]::after,
+.markdown h5:hover > a[aria-hidden]::after,
+.markdown h6:hover > a[aria-hidden]::after {
+  content: '#';
+  display: inline-block;
+  vertical-align: middle;
+  font-size: 20px;
+}
+.markdown h1:hover > a[aria-hidden] span,
+.markdown h2:hover > a[aria-hidden] span,
+.markdown h3:hover > a[aria-hidden] span,
+.markdown h4:hover > a[aria-hidden] span,
+.markdown h5:hover > a[aria-hidden] span,
+.markdown h6:hover > a[aria-hidden] span {
+  display: none;
+}
+.markdown h1 + h1,
+.markdown h2 + h1,
+.markdown h3 + h1,
+.markdown h4 + h1,
+.markdown h5 + h1,
+.markdown h6 + h1,
+.markdown h1 + h2,
+.markdown h2 + h2,
+.markdown h3 + h2,
+.markdown h4 + h2,
+.markdown h5 + h2,
+.markdown h6 + h2,
+.markdown h1 + h3,
+.markdown h2 + h3,
+.markdown h3 + h3,
+.markdown h4 + h3,
+.markdown h5 + h3,
+.markdown h6 + h3,
+.markdown h1 + h4,
+.markdown h2 + h4,
+.markdown h3 + h4,
+.markdown h4 + h4,
+.markdown h5 + h4,
+.markdown h6 + h4,
+.markdown h1 + h5,
+.markdown h2 + h5,
+.markdown h3 + h5,
+.markdown h4 + h5,
+.markdown h5 + h5,
+.markdown h6 + h5,
+.markdown h1 + h6,
+.markdown h2 + h6,
+.markdown h3 + h6,
+.markdown h4 + h6,
+.markdown h5 + h6,
+.markdown h6 + h6 {
+  margin-top: 16px;
+}
+.markdown h1 {
+  font-size: 32px;
+}
+.markdown h2 {
+  font-size: 24px;
+}
+.markdown h3 {
+  font-size: 20px;
+}
+.markdown h4 {
+  font-size: 18px;
+}
+.markdown h5 {
+  font-size: 16px;
+}
+.markdown h6 {
+  font-size: 14px;
+}
+.markdown p {
+  margin: 16px 0;
+}
+.markdown *:not(pre) code {
+  padding: 2px 5px;
+  color: #d56161;
+  background: #f6f7f9;
+}
+[data-prefers-color='dark'] .markdown *:not(pre) code {
+  color: #ff7875;
+  background: rgba(255, 255, 255, 0.08);
+}
+.markdown code {
+  font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+}
+.markdown pre {
+  width: 100%;
+  font-size: 14px;
+  box-sizing: border-box;
+  background: #f6f7f9;
+}
+.markdown pre:not([class^='language-']) {
+  padding: 1em;
+}
+.markdown hr {
+  margin: 16px 0;
+  border: 0;
+  border-top: 1px solid #ebedf1;
+}
+.markdown blockquote {
+  margin: 16px 0;
+  padding: 0 24px;
+  color: rgba(69, 77, 100, 0.7);
+  border-left: 4px solid #ebedf1;
+  overflow: hidden;
+}
+[data-prefers-color='dark'] .markdown blockquote {
+  color: rgba(255, 255, 255, 0.55);
+  border-color: #6b6c6d;
+}
+.markdown ul,
+.markdown ol {
+  margin: 8px 0 8px 32px;
+  padding: 0;
+}
+.markdown ul li,
+.markdown ol li {
+  margin-bottom: 4px;
+}
+.markdown table {
+  width: 100%;
+  border-collapse: collapse;
+  border: 1px solid #ebedf1;
+}
+[data-prefers-color='dark'] .markdown table {
+  border: 1px solid #3b434b;
+}
+.markdown table th,
+.markdown table td {
+  padding: 10px 24px;
+  border: 1px solid #ebedf1;
+}
+[data-prefers-color='dark'] .markdown table th,
+[data-prefers-color='dark'] .markdown table td {
+  border: 1px solid #3b434b;
+}
+.markdown table th {
+  font-weight: 600;
+  background: #f9fafb;
+}
+[data-prefers-color='dark'] .markdown table th {
+  background: rgba(255, 255, 255, 0.08);
+}
+.markdown table td:first-child {
+  font-weight: 500;
+}
+.markdown table a svg {
+  display: none;
+}
+.markdown a {
+  color: #4569d4;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  outline: none;
+}
+[data-prefers-color='dark'] .markdown a {
+  color: #7395f7;
+}
+.markdown a:hover {
+  opacity: 0.7;
+  text-decoration: underline;
+}
+.markdown a:active {
+  opacity: 0.9;
+}
+.markdown img {
+  max-width: 100%;
+}
