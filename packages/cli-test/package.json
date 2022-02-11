@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "dev": "mdoc-cli dev",
+    "dev": "mdoc dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

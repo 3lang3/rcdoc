@@ -1,0 +1,47 @@
+{
+  "name": "@mdoc/cli",
+  "version": "0.0.0-dev.1",
+  "description": "",
+  "type": "module",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "bin": {
+    "mdoc": "./bin.js"
+  },
+  "files": [
+    "dist",
+    "site",
+    "bin.js"
+  ],
+  "scripts": {
+    "build": "tsup --dts",
+    "dev": "tsup --watch",
+    "prepare": "pnpm build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vitejs/plugin-react": "^1.0.7",
+    "chalk": "^5.0.0",
+    "commander": "^9.0.0",
+    "consola": "^2.15.3",
+    "execa": "^6.0.0",
+    "fast-glob": "^3.2.11",
+    "fs-extra": "^10.0.0",
+    "less": "^4.1.2",
+    "lodash-es": "^4.17.21",
+    "ora": "^6.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.1",
+    "slash2": "^2.0.0",
+    "vite": "^2.8.0",
+    "vite-plugin-html": "^3.0.6",
+    "vite-plugin-react-mdoc": "workspace: *"
+  },
+  "devDependencies": {
+    "tsup": "^5.11.11"
+  }
+}
