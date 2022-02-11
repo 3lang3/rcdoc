@@ -104,7 +104,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     resolve: {
       alias: {
         [projectPackageJson.name]: PROJECT_SRC_DIR,
-        'mdoc-site-shared': SITE_SHARED_FILE,
+        'site-shared': SITE_SHARED_FILE,
         ...projectDepsAlias,
       },
     },

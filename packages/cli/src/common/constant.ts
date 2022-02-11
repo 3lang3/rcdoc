@@ -39,14 +39,14 @@ export const PROJECT_CONFIG_FILE = join(ROOT, CONFIG_FILE_NAME);
 
 // Relative paths
 export const SITE_SRC_DIR = join(__dirname, '..', 'site');
-export const DIST_DIR = join(__dirname, '..', 'bundle');
+export const DIST_DIR = join(__dirname, '..', '.mdoc');
 export const CONFIG_DIR = join(__dirname, '..', 'config');
 
 // Dist files
-export const PACKAGE_ENTRY_FILE = join(DIST_DIR, 'mdoc-package-entry.js');
-export const PACKAGE_STYLE_FILE = join(DIST_DIR, 'mdoc-package-style.css');
-export const SITE_SHARED_FILE = join(DIST_DIR, 'mdoc-site-shared.js');
-export const STYLE_DEPS_JSON_FILE = join(DIST_DIR, 'mdoc-style-deps.json');
+export const PACKAGE_ENTRY_FILE = join(DIST_DIR, 'package-entry.js');
+export const PACKAGE_STYLE_FILE = join(DIST_DIR, 'package-style.css');
+export const SITE_SHARED_FILE = join(DIST_DIR, 'site-shared.js');
+export const STYLE_DEPS_JSON_FILE = join(DIST_DIR, 'style-deps.json');
 
 export const SCRIPT_EXTS = ['.js', '.jsx', '.ts', '.tsx'];
 export const STYLE_EXTS = ['.css', '.less', '.scss'];
