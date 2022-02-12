@@ -1,13 +1,9 @@
 import React from 'react';
-import { config, documents } from 'mdoc-site-shared';
-
-const PresetTheme = ({ config, documents }) => {
-  console.log(config, documents);
-  return <div>this is PresetTheme</div>;
-};
+import SiteTheme from 'mdoc-theme-default';
+import { config, documents } from 'site-shared';
 
 const App = () => {
-  return <PresetTheme config={config} documents={documents} />;
+  return <SiteTheme config={config} documents={documents} />;
 };
 
 export default App;

@@ -1,5 +1,5 @@
 export default {
-  name: 'react-vant',
+  name: 'mdoc-demo',
   build: {
     packageManager: 'pnpm',
     srcDir: 'src',

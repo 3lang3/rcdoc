@@ -24,6 +24,7 @@
   "license": "ISC",
   "dependencies": {
     "@vitejs/plugin-react": "^1.0.7",
+    "ajv": "^8.10.0",
     "chalk": "^5.0.0",
     "commander": "^9.0.0",
     "consola": "^2.15.3",
@@ -32,6 +33,7 @@
     "fs-extra": "^10.0.0",
     "less": "^4.1.2",
     "lodash-es": "^4.17.21",
+    "mdoc-theme-default": "workspace:*",
     "ora": "^6.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -39,7 +41,7 @@
     "slash2": "^2.0.0",
     "vite": "^2.8.0",
     "vite-plugin-html": "^3.0.6",
-    "vite-plugin-react-mdoc": "workspace: *"
+    "vite-plugin-react-mdoc": "workspace:*"
   },
   "devDependencies": {
     "tsup": "^5.11.11"

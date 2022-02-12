@@ -1,25 +1,29 @@
-import { get } from 'lodash-es';
 import { existsSync, readFileSync } from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
-import { dirname, isAbsolute, join } from 'path';
+import { dirname, join } from 'path';
 
-export const CONFIG_FILE_NAME = 'mdoc.config.js';
+export const ACCEPT_USER_CONFIG_FILES = [
+  '.mdoc.config.js',
+  '.mdoc.config.ts',
+];
+
+export let CONFIG_FILE_NAME = '.mdoc.config.ts';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-console.log(__dirname)
-
 function findRootDir(dir: string): string {
-  if (existsSync(join(dir, CONFIG_FILE_NAME))) {
+  if (ACCEPT_USER_CONFIG_FILES.some(file => {
+    const match = existsSync(join(dir, file))
+    if (match) CONFIG_FILE_NAME = file
+    return match
+  })) {
     return dir;
   }
-
   const parentDir = dirname(dir);
   if (dir === parentDir) {
     return dir;
   }
-
   return findRootDir(parentDir);
 }
 
@@ -60,7 +64,7 @@ async function getMdocConfigAsync() {
   try {
     // https://github.com/nodejs/node/issues/31710
     // absolute file paths don't work on Windows
-    return (await import(pathToFileURL(PROJECT_CONFIG_FILE).href)).default;
+    return (await import(pathToFileURL(CONFIG_FILE_NAME).href)).default;
   } catch (err) {
     return {};
   }

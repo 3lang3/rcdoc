@@ -14,6 +14,7 @@ import {
   getPackageJson,
   ROOT,
 } from '../common/constant';
+import { getConfigThemeAlias } from './theme'
 
 function getSiteConfig(vantConfig: any) {
   const siteConfig = vantConfig.site;
@@ -56,7 +57,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
   const title = getTitle(siteConfig);
   const baiduAnalytics = get(vantConfig, 'site.baiduAnalytics');
   const enableVConsole = isDev() && get(vantConfig, 'site.enableVConsole');
-
+  const themeAlias = getConfigThemeAlias(vantConfig);
   // @hack
   // enforce alias redirect to not root dir
   const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
@@ -106,6 +107,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
         [projectPackageJson.name]: PROJECT_SRC_DIR,
         'site-shared': SITE_SHARED_FILE,
         ...projectDepsAlias,
+        ...themeAlias,
       },
     },
     optimizeDeps: {
