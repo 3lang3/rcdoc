@@ -6,8 +6,7 @@ import { PROJECT_STYLE_DIR, PROJECT_SRC_DIR } from './constant';
 
 type CSSLANG = 'css' | 'less' | 'scss';
 
-function getCssLang(): CSSLANG {
-  const mdocConfig = getMdocConfig();
+async function getCssLang(mdocConfig): Promise<CSSLANG> {
   const preprocessor = get(mdocConfig, 'build.css.preprocessor', 'less');
 
   if (preprocessor === 'sass') {
@@ -17,10 +16,9 @@ function getCssLang(): CSSLANG {
   return preprocessor;
 }
 
-export const CSS_LANG = getCssLang();
-
-export function getCssBaseFile() {
-  const vantConfig = getMdocConfig();
+export async function getCssBaseFile() {
+  const vantConfig = await getMdocConfig();
+  const CSS_LANG = getCssLang(vantConfig);
   let path = join(PROJECT_STYLE_DIR, `base.${CSS_LANG}`);
 
   const baseFile = get(vantConfig, 'build.css.base', '');
@@ -37,6 +35,8 @@ export function getCssBaseFile() {
 const IMPORT_STYLE_RE = /import\s+?(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g;
 
 // "import 'a.less';" => "import 'a.css';"
-export function replaceCssImport(code: string) {
+export async function replaceCssImport(code: string) {
+  const vantConfig = await getMdocConfig();
+  const CSS_LANG = getCssLang(vantConfig);
   return code.replace(IMPORT_STYLE_RE, (str) => str.replace(`.${CSS_LANG}`, '.css'));
 }

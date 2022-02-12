@@ -18,8 +18,8 @@ export function hasYarn() {
   return hasYarnCache;
 }
 
-function getPackageManager() {
-  const { build } = getMdocConfig();
+async function getPackageManager() {
+  const { build } = await getMdocConfig();
 
   if (build?.packageManager) {
     return build?.packageManager;
@@ -32,7 +32,7 @@ export async function installDependencies() {
   consola.info('Install Dependencies\n');
 
   try {
-    const manager = getPackageManager();
+    const manager = await getPackageManager();
 
     await execa(manager, ['install', '--prod=false'], {
       stdio: 'inherit',

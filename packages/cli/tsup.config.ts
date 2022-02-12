@@ -5,7 +5,6 @@ export default defineConfig({
   sourcemap: false,
   clean: true,
   outDir: 'dist',
-  format: ['esm'],
-  target: 'node16',
+  format: ['esm', 'cjs'],
   watch: process.env.NODE_ENV === 'development'
 })

@@ -39,9 +39,10 @@ function formatName(component: string, lang?: string) {
  * default mode:
  *   - action-sheet/README.md => ActionSheet
  */
-function resolveComponentDocuments(components: string[]): DocumentItem[] {
+async function resolveComponentDocuments(components: string[]): Promise<DocumentItem[]> {
   const projectPackageJson = getPackageJson();
-  const vantConfig = getMdocConfig();
+  const vantConfig = await getMdocConfig();
+  console.log(vantConfig)
   const { locales, defaultLang } = vantConfig.site;
 
   const docs: DocumentItem[] = [];
@@ -73,8 +74,8 @@ function resolveComponentDocuments(components: string[]): DocumentItem[] {
   return componentDocs;
 }
 
-function resolveStaticDocuments(): DocumentItem[] {
-  const vantConfig = getMdocConfig();
+async function resolveStaticDocuments(): Promise<DocumentItem[]> {
+  const vantConfig = await getMdocConfig();
   const { defaultLang } = vantConfig.site;
 
   const staticDocs = glob.sync(normalizePath(join(PROJECT_DOCS_DIR, '**/*.md'))).map((path) => {
@@ -126,10 +127,10 @@ function genExportDocuments(items: DocumentItem[]) {
   ];`;
 }
 
-export function genSiteDesktopShared() {
+export async function genSiteDesktopShared() {
   const dirs = readdirSync(PROJECT_SRC_DIR);
-  const componentDocuments = resolveComponentDocuments(dirs);
-  const staticDocuments = resolveStaticDocuments();
+  const componentDocuments = await resolveComponentDocuments(dirs);
+  const staticDocuments = await resolveStaticDocuments();
   const documents = [...staticDocuments, ...componentDocuments];
   const code = `${genImportConfig()}
 ${genImportDocuments(documents)}

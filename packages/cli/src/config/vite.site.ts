@@ -48,11 +48,11 @@ function getHTMLMeta(vantConfig: any) {
   return '';
 }
 
-export function getViteConfigForSiteDev(): InlineConfig {
+export async function getViteConfigForSiteDev(): Promise<InlineConfig> {
   setBuildTarget('site');
 
   const projectPackageJson = getPackageJson();
-  const vantConfig = getMdocConfig();
+  const vantConfig = await getMdocConfig();
   const siteConfig = getSiteConfig(vantConfig);
   const title = getTitle(siteConfig);
   const baiduAnalytics = get(vantConfig, 'site.baiduAnalytics');
@@ -119,9 +119,9 @@ export function getViteConfigForSiteDev(): InlineConfig {
   };
 }
 
-export function getViteConfigForSiteProd(): InlineConfig {
+export async function getViteConfigForSiteProd(): Promise<InlineConfig> {
   const devConfig = getViteConfigForSiteDev();
-  const vantConfig = getMdocConfig();
+  const vantConfig = await getMdocConfig();
   const outDir = get(vantConfig, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
   const publicPath = get(vantConfig, 'build.site.publicPath', '/');
 

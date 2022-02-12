@@ -19,10 +19,10 @@ export async function genSiteEntry(): Promise<void> {
 export async function compileSite(production = false) {
   await genSiteEntry();
   if (production) {
-    const config = mergeCustomViteConfig(getViteConfigForSiteProd());
+    const config = await mergeCustomViteConfig(await getViteConfigForSiteProd());
     await build(config);
   } else {
-    const config = mergeCustomViteConfig(getViteConfigForSiteDev());
+    const config = await mergeCustomViteConfig(await getViteConfigForSiteDev());
     const server = await createServer(config);
     await server.listen();
 

@@ -150,8 +150,8 @@ export function kebabCase(str: string): string {
     .replace(/^-/, '');
 }
 
-export function mergeCustomViteConfig(config: InlineConfig) {
-  const vantConfig = getMdocConfig();
+export async function mergeCustomViteConfig(config: InlineConfig) {
+  const vantConfig = await getMdocConfig();
   const configureVite = get(vantConfig, 'build.configureVite');
 
   if (configureVite) {

@@ -1,13 +1,17 @@
 import { existsSync, readFileSync } from 'fs';
 import { fileURLToPath, pathToFileURL } from 'url';
 import { dirname, join } from 'path';
+import { createRequire } from 'module';
+
+const require = createRequire(import.meta.url);
+
 
 export const ACCEPT_USER_CONFIG_FILES = [
   '.mdoc.config.js',
   '.mdoc.config.ts',
 ];
 
-export let CONFIG_FILE_NAME = '.mdoc.config.ts';
+export let CONFIG_FILE_NAME = '.mdoc.config.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -60,30 +64,26 @@ export function getPackageJson() {
   return JSON.parse(rawJson);
 }
 
-async function getMdocConfigAsync() {
+export async function getMdocConfig() {
   try {
     // https://github.com/nodejs/node/issues/31710
     // absolute file paths don't work on Windows
-    return (await import(pathToFileURL(CONFIG_FILE_NAME).href)).default;
+    const s = require(PROJECT_CONFIG_FILE)
+    return s
   } catch (err) {
+    console.log(err)
     return {};
   }
-}
-
-const mdocConfig = await getMdocConfigAsync();
-
-export function getMdocConfig() {
-  return mdocConfig;
 }
 
 export const PROJECT_SRC_DIR = join(ROOT, 'src');
 export const PROJECT_STYLE_DIR = join(PROJECT_SRC_DIR, 'styles');
 
-function ComponentClassification(): {
+export async function ComponentClassification(): Promise<{
   ComponentClassificationArray: Array<string>;
   navArray: Array<any>;
-} {
-  const mdocConfig = getMdocConfig();
+}> {
+  const mdocConfig = await getMdocConfig();
   let ComponentClassificationArray = [];
   let navArray = [];
   if (existsSync(PROJECT_CONFIG_FILE)) {
@@ -95,6 +95,3 @@ function ComponentClassification(): {
   }
   return { ComponentClassificationArray, navArray };
 }
-
-export const { ComponentClassificationArray: COMPONENT_CLASSIFICATION, navArray: nav } =
-  ComponentClassification();
