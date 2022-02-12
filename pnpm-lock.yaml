@@ -55,7 +55,7 @@ importers:
     devDependencies:
       tsup: 5.11.11_typescript@4.5.5
 
-  packages/cli-test:
+  packages/cli-playground:
     specifiers:
       '@mdoc/cli': workspace:*
       react: ^17.0.2
@@ -147,41 +147,6 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
 
-  packages/playground:
-    specifiers:
-      '@react-vant/icons': ^0.0.6
-      '@types/react': ^17.0.33
-      '@types/react-dom': ^17.0.10
-      '@vitejs/plugin-react': ^1.0.7
-      copy-text-to-clipboard: ^3.0.1
-      less: ^4.1.2
-      lz-string: ^1.4.4
-      prism-react-renderer: ^1.2.1
-      prismjs: ^1.26.0
-      react: ^17.0.2
-      react-dom: ^17.0.2
-      react-vant: ^2.0.0-alpha.19
-      typescript: ^4.4.4
-      vite: ^2.7.2
-      vite-plugin-react-mdoc: workspace:*
-    dependencies:
-      '@react-vant/icons': 0.0.6
-      copy-text-to-clipboard: 3.0.1
-      lz-string: 1.4.4
-      prism-react-renderer: 1.2.1_react@17.0.2
-      prismjs: 1.26.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-vant: 2.0.0-alpha.19_react-dom@17.0.2+react@17.0.2
-    devDependencies:
-      '@types/react': 17.0.38
-      '@types/react-dom': 17.0.11
-      '@vitejs/plugin-react': 1.1.4
-      less: 4.1.2
-      typescript: 4.5.5
-      vite: 2.7.13_less@4.1.2
-      vite-plugin-react-mdoc: link:../vite-plugin-react-mdoc
-
   packages/preset-previewer:
     specifiers:
       '@rollup/plugin-commonjs': ^21.0.1
@@ -218,6 +183,41 @@ importers:
       rollup-plugin-react-svg: 3.0.3
       rollup-plugin-terser: 7.0.2_rollup@2.66.1
       typescript: 4.5.5
+
+  packages/vite-plugin-playground:
+    specifiers:
+      '@react-vant/icons': ^0.0.6
+      '@types/react': ^17.0.33
+      '@types/react-dom': ^17.0.10
+      '@vitejs/plugin-react': ^1.0.7
+      copy-text-to-clipboard: ^3.0.1
+      less: ^4.1.2
+      lz-string: ^1.4.4
+      prism-react-renderer: ^1.2.1
+      prismjs: ^1.26.0
+      react: ^17.0.2
+      react-dom: ^17.0.2
+      react-vant: ^2.0.0-alpha.19
+      typescript: ^4.4.4
+      vite: ^2.7.2
+      vite-plugin-react-mdoc: workspace:*
+    dependencies:
+      '@react-vant/icons': 0.0.6
+      copy-text-to-clipboard: 3.0.1
+      lz-string: 1.4.4
+      prism-react-renderer: 1.2.1_react@17.0.2
+      prismjs: 1.26.0
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-vant: 2.0.0-alpha.19_react-dom@17.0.2+react@17.0.2
+    devDependencies:
+      '@types/react': 17.0.38
+      '@types/react-dom': 17.0.11
+      '@vitejs/plugin-react': 1.1.4
+      less: 4.1.2
+      typescript: 4.5.5
+      vite: 2.8.0_less@4.1.2
+      vite-plugin-react-mdoc: link:../vite-plugin-react-mdoc
 
   packages/vite-plugin-react-mdoc:
     specifiers:
@@ -1482,6 +1482,7 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-android-arm64/0.14.14:
@@ -1496,6 +1497,7 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-darwin-64/0.14.14:
@@ -1510,6 +1512,7 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-darwin-arm64/0.14.14:
@@ -1524,6 +1527,7 @@ packages:
     cpu: [x64]
     os: [freebsd]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-freebsd-64/0.14.14:
@@ -1538,6 +1542,7 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-freebsd-arm64/0.14.14:
@@ -1552,6 +1557,7 @@ packages:
     cpu: [ia32]
     os: [linux]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-linux-32/0.14.14:
@@ -1566,6 +1572,7 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-linux-64/0.14.14:
@@ -1580,6 +1587,7 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-linux-arm/0.14.14:
@@ -1594,6 +1602,7 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-linux-arm64/0.14.14:
@@ -1608,6 +1617,7 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-linux-mips64le/0.14.14:
@@ -1622,6 +1632,7 @@ packages:
     cpu: [ppc64]
     os: [linux]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-linux-ppc64le/0.14.14:
@@ -1643,6 +1654,7 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-netbsd-64/0.14.14:
@@ -1657,6 +1669,7 @@ packages:
     cpu: [x64]
     os: [openbsd]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-openbsd-64/0.14.14:
@@ -1671,6 +1684,7 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-sunos-64/0.14.14:
@@ -1685,6 +1699,7 @@ packages:
     cpu: [ia32]
     os: [win32]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-windows-32/0.14.14:
@@ -1699,6 +1714,7 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-windows-64/0.14.14:
@@ -1713,6 +1729,7 @@ packages:
     cpu: [arm64]
     os: [win32]
     requiresBuild: true
+    dev: false
     optional: true
 
   /esbuild-windows-arm64/0.14.14:
@@ -1744,6 +1761,7 @@ packages:
       esbuild-windows-32: 0.13.15
       esbuild-windows-64: 0.13.15
       esbuild-windows-arm64: 0.13.15
+    dev: false
 
   /esbuild/0.14.14:
     resolution: {integrity: sha512-aiK4ddv+uui0k52OqSHu4xxu+SzOim7Rlz4i25pMEiC8rlnGU0HJ9r+ZMfdWL5bzifg+nhnn7x4NSWTeehYblg==}
@@ -4169,31 +4187,6 @@ packages:
       fsevents: 2.3.2
     dev: false
 
-  /vite/2.7.13_less@4.1.2:
-    resolution: {integrity: sha512-Mq8et7f3aK0SgSxjDNfOAimZGW9XryfHRa/uV0jseQSilg+KhYDSoNb9h1rknOy6SuMkvNDLKCYAYYUMCE+IgQ==}
-    engines: {node: '>=12.2.0'}
-    hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-    dependencies:
-      esbuild: 0.13.15
-      less: 4.1.2
-      postcss: 8.4.5
-      resolve: 1.22.0
-      rollup: 2.66.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /vite/2.8.0_less@4.1.2:
     resolution: {integrity: sha512-ed5rjyeysttuPJX/aKSA0gTB/8ZKLM5xF6FtEuKy1B9DiQbDNFMVMQxnb9JesgBPUMMIJxC8w5KZ/KNWLKFXoA==}
     engines: {node: '>=12.2.0'}
@@ -4217,7 +4210,6 @@ packages:
       rollup: 2.66.1
     optionalDependencies:
       fsevents: 2.3.2
-    dev: false
 
   /wcwidth/1.0.1:
     resolution: {integrity: sha1-8LDc+RW8X/FSivrbLA4XtTLaL+g=}
