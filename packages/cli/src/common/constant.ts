@@ -71,7 +71,7 @@ export async function getMdocConfig() {
     const s = require(PROJECT_CONFIG_FILE)
     return s
   } catch (err) {
-    console.log(err)
+    console.log('resolveConfigErr: ', err)
     return {};
   }
 }

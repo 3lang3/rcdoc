@@ -27,11 +27,6 @@ export default {
             alt: 'vant官网',
           },
           {
-            url: 'https://github.com/mallfoundry/taroify/',
-            title: 'taroify',
-            alt: 'taro版本',
-          },
-          {
             title: 'GitHub',
             url: 'https://github.com/3lang3/react-vant',
           },
