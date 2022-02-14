@@ -1,4 +1,6 @@
 
+// import { defineConfig } from '@mdoc/cli'
+
 export default {
   name: 'mdoc-demo',
   build: {

@@ -1,27 +1,18 @@
 import { existsSync, readFileSync } from 'fs';
-import { fileURLToPath, pathToFileURL } from 'url';
+import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { createRequire } from 'module';
+import { resolveConfig } from './resolveConfig';
 
-const require = createRequire(import.meta.url);
+const CONFIG_FILE_NAME_EXT = ['.js', '.ts', '.mjs'];
+export const CONFIG_FILE_NAME = '.mdoc.config'
+export const ACCEPT_USER_CONFIG_FILES = CONFIG_FILE_NAME_EXT.map(ext => `${CONFIG_FILE_NAME}${ext}`);
 
-
-export const ACCEPT_USER_CONFIG_FILES = [
-  '.mdoc.config.js',
-  '.mdoc.config.ts',
-];
-
-export let CONFIG_FILE_NAME = '.mdoc.config.js';
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 function findRootDir(dir: string): string {
-  if (ACCEPT_USER_CONFIG_FILES.some(file => {
-    const match = existsSync(join(dir, file))
-    if (match) CONFIG_FILE_NAME = file
-    return match
-  })) {
+  if (ACCEPT_USER_CONFIG_FILES.some(file => existsSync(join(dir, file)))) {
     return dir;
   }
   const parentDir = dirname(dir);
@@ -66,10 +57,7 @@ export function getPackageJson() {
 
 export async function getMdocConfig() {
   try {
-    // https://github.com/nodejs/node/issues/31710
-    // absolute file paths don't work on Windows
-    const s = require(PROJECT_CONFIG_FILE)
-    return s
+    return await resolveConfig('.mdoc.config', false)
   } catch (err) {
     console.log('resolveConfigErr: ', err)
     return {};

@@ -29,6 +29,7 @@
     "chalk": "^5.0.0",
     "commander": "^9.0.0",
     "consola": "^2.15.3",
+    "esbuild": "^0.14.21",
     "execa": "^6.0.0",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
