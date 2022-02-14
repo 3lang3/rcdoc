@@ -12,6 +12,7 @@ importers:
 
   packages/cli:
     specifiers:
+      '@mdoc/theme': workspace:*
       '@vitejs/plugin-react': ^1.0.7
       ajv: ^8.10.0
       chalk: ^5.0.0
@@ -33,6 +34,7 @@ importers:
       vite-plugin-html: ^3.0.6
       vite-plugin-react-mdoc: workspace:*
     dependencies:
+      '@mdoc/theme': link:../theme
       '@vitejs/plugin-react': 1.1.4
       ajv: 8.10.0
       chalk: 5.0.0
@@ -139,13 +141,18 @@ importers:
 
   packages/mdoc-theme-default:
     specifiers:
+      '@mdoc/theme': workspace:*
       react: ^17.0.2
       react-dom: ^17.0.2
       react-router-dom: ^6.2.1
+      typescript: ^4.4.4
     dependencies:
+      '@mdoc/theme': link:../theme
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
+    devDependencies:
+      typescript: 4.5.5
 
   packages/preset-previewer:
     specifiers:

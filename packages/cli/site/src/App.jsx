@@ -1,13 +1,13 @@
 import React from 'react';
 import SiteTheme from 'mdoc-theme-default';
 import { config, documents } from 'site-shared';
-import SiteContext from './context';
+import { MdocSiteContext } from '@mdoc/theme';
 
 const App = () => {
   return (
-    <SiteContext.Consumer value={{ config, documents }}>
+    <MdocSiteContext.Provider value={{ config, documents }}>
       <SiteTheme />
-    </SiteContext.Consumer>
+    </MdocSiteContext.Provider>
   );
 };
 

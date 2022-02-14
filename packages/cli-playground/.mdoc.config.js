@@ -1,5 +1,5 @@
 
-module.exports = {
+export default {
   name: 'mdoc-demo',
   build: {
     packageManager: 'pnpm',

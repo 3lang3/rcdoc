@@ -1,12 +1,5 @@
 import React from "react";
 
-const MdocSiteContext = React.createContext({
-  // user config
-  config: {},
-  // all components documents data
-  documents: {},
-  // custom page nav data
-  navs: []
-})
+const MdocSiteContext = React.createContext<{ config?: any; documents?: any; }>({})
 
 export default MdocSiteContext
