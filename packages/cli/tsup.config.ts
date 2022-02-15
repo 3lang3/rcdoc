@@ -6,6 +6,5 @@ export default defineConfig({
   clean: true,
   outDir: 'dist',
   format: ['esm'],
-  target: 'node14',
   watch: process.env.NODE_ENV === 'development'
 })
