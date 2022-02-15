@@ -72,7 +72,6 @@ export async function resolveConfig(
     })
 
     const data = config.mod.default || config.mod
-    console.log('userConfig:', data)
     fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(data, null, 2))
     return {
       path: configPath,
