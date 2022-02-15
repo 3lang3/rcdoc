@@ -1,30 +1,13 @@
 import { existsSync, readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
-import { resolveConfig } from './resolveConfig';
-
-const CONFIG_FILE_NAME_EXT = ['.js', '.ts', '.mjs'];
-export const CONFIG_FILE_NAME = '.mdoc.config'
-export const ACCEPT_USER_CONFIG_FILES = CONFIG_FILE_NAME_EXT.map(ext => `${CONFIG_FILE_NAME}${ext}`);
-
 
 // eslint-disable-next-line @typescript-eslint/naming-convention
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-function findRootDir(dir: string): string {
-  if (ACCEPT_USER_CONFIG_FILES.some(file => existsSync(join(dir, file)))) {
-    return dir;
-  }
-  const parentDir = dirname(dir);
-  if (dir === parentDir) {
-    return dir;
-  }
-  return findRootDir(parentDir);
-}
-
 // Project root paths
 export const CWD = process.cwd();
-export const ROOT = findRootDir(CWD);
+export const ROOT = CWD;
 export const PROJECT_DIST_DIR = join(ROOT, 'dist');
 export const PROJECT_ES_DIR = join(PROJECT_DIST_DIR, 'es');
 export const PROJECT_CJS_DIR = join(PROJECT_DIST_DIR, 'cjs');
@@ -33,8 +16,8 @@ export const PROJECT_DOCS_DIR = join(PROJECT_DIST_DIR, 'docs');
 export const PACKAGE_JSON_FILE = join(ROOT, 'package.json');
 export const PROJECT_POSTCSS_CONFIG_FILE = join(ROOT, 'postcss.config.js');
 export const PROJECT_CACHE_DIR = join(ROOT, 'node_modules/.cache');
+export const PROJECT_CLI_DIST_DIR = join(ROOT, '.mdoc');
 export const PROJECT_SITE_DIST_DIR = join(ROOT, 'site');
-export const PROJECT_CONFIG_FILE = join(ROOT, CONFIG_FILE_NAME);
 
 // Relative paths
 export const SITE_SRC_DIR = join(__dirname, '..', 'site');
@@ -42,10 +25,11 @@ export const DIST_DIR = join(__dirname, '..', '.mdoc');
 export const CONFIG_DIR = join(__dirname, '..', 'config');
 
 // Dist files
-export const PACKAGE_ENTRY_FILE = join(DIST_DIR, 'package-entry.js');
-export const PACKAGE_STYLE_FILE = join(DIST_DIR, 'package-style.css');
-export const SITE_SHARED_FILE = join(DIST_DIR, 'site-shared.js');
-export const STYLE_DEPS_JSON_FILE = join(DIST_DIR, 'style-deps.json');
+export const PACKAGE_ENTRY_FILE = join(PROJECT_CLI_DIST_DIR, 'package-entry.js');
+export const PACKAGE_STYLE_FILE = join(PROJECT_CLI_DIST_DIR, 'package-style.css');
+export const SITE_SHARED_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared.js');
+export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');
+export const STYLE_DEPS_JSON_FILE = join(PROJECT_CLI_DIST_DIR, 'style-deps.json');
 
 export const SCRIPT_EXTS = ['.js', '.jsx', '.ts', '.tsx'];
 export const STYLE_EXTS = ['.css', '.less', '.scss'];
@@ -55,26 +39,16 @@ export function getPackageJson() {
   return JSON.parse(rawJson);
 }
 
-export async function getMdocConfig() {
-  try {
-    return await resolveConfig('.mdoc.config', false)
-  } catch (err) {
-    console.log('resolveConfigErr: ', err)
-    return {};
-  }
-}
-
 export const PROJECT_SRC_DIR = join(ROOT, 'src');
 export const PROJECT_STYLE_DIR = join(PROJECT_SRC_DIR, 'styles');
 
-export async function ComponentClassification(): Promise<{
+export async function ComponentClassification(mdocConfig): Promise<{
   ComponentClassificationArray: Array<string>;
   navArray: Array<any>;
 }> {
-  const mdocConfig = await getMdocConfig();
   let ComponentClassificationArray = [];
   let navArray = [];
-  if (existsSync(PROJECT_CONFIG_FILE)) {
+  if (existsSync(SITE_SHARD_CONFIG_FILE)) {
     const { nav } = mdocConfig.site.locales['zh-CN'];
     navArray = nav;
     ComponentClassificationArray = nav.map((item) => {

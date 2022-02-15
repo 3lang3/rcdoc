@@ -26,6 +26,7 @@
     "@mdoc/theme": "workspace:*",
     "@vitejs/plugin-react": "^1.0.7",
     "ajv": "^8.10.0",
+    "bundle-require": "^3.0.4",
     "chalk": "^5.0.0",
     "commander": "^9.0.0",
     "consola": "^2.15.3",
@@ -33,6 +34,7 @@
     "execa": "^6.0.0",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",
+    "joycon": "^3.1.1",
     "less": "^4.1.2",
     "lodash-es": "^4.17.21",
     "mdoc-theme-default": "workspace:*",
@@ -41,6 +43,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "^6.2.1",
     "slash2": "^2.0.0",
+    "strip-json-comments": "^4.0.0",
     "vite": "^2.8.0",
     "vite-plugin-html": "^3.0.6",
     "vite-plugin-react-mdoc": "workspace:*"

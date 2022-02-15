@@ -2,7 +2,7 @@ import fse from 'fs-extra';
 import { sep, join } from 'path';
 import { get } from 'lodash-es';
 import type { InlineConfig } from 'vite';
-import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE, getMdocConfig } from './constant';
+import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE } from './constant';
 
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse;
 
@@ -150,14 +150,11 @@ export function kebabCase(str: string): string {
     .replace(/^-/, '');
 }
 
-export async function mergeCustomViteConfig(config: InlineConfig) {
-  const vantConfig = await getMdocConfig();
-  const configureVite = get(vantConfig, 'build.configureVite');
+export async function mergeCustomViteConfig(userConfig, config: InlineConfig) {
+  const configureVite = get(userConfig, 'build.configureVite');
 
   if (configureVite) {
     return configureVite(config);
   }
   return config;
 }
-
-export { getMdocConfig };

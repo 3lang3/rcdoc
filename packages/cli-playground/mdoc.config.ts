@@ -1,7 +1,7 @@
 
-// import { defineConfig } from '@mdoc/cli'
+import { defineConfig } from '@mdoc/cli'
 
-export default {
+export default defineConfig({
   name: 'mdoc-demo',
   build: {
     packageManager: 'pnpm',
@@ -44,4 +44,4 @@ export default {
       },
     },
   },
-}
+} as any)

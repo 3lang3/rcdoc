@@ -5,10 +5,10 @@ import { getViteConfigForSiteDev, getViteConfigForSiteProd } from '../config/vit
 import { mergeCustomViteConfig } from '../common';
 import { genSiteDesktopShared } from './gen-site-shared';
 
-export async function genSiteEntry(): Promise<void> {
+export async function genSiteEntry(userConfig): Promise<void> {
   return new Promise((resolve, reject) => {
     try {
-      genSiteDesktopShared()
+      genSiteDesktopShared(userConfig)
       resolve()
     } catch (error) {
       reject(error)
@@ -16,13 +16,13 @@ export async function genSiteEntry(): Promise<void> {
   });
 }
 
-export async function compileSite(production = false) {
-  await genSiteEntry();
+export async function compileSite(userConfig, production = false) {
+  await genSiteEntry(userConfig);
   if (production) {
-    const config = await mergeCustomViteConfig(await getViteConfigForSiteProd());
+    const config = await mergeCustomViteConfig(userConfig, await getViteConfigForSiteProd(userConfig));
     await build(config);
   } else {
-    const config = await mergeCustomViteConfig(await getViteConfigForSiteDev());
+    const config = await mergeCustomViteConfig(userConfig, await getViteConfigForSiteDev(userConfig));
     const server = await createServer(config);
     await server.listen();
 

@@ -1,7 +1,6 @@
 import { execa } from 'execa';
 import { execSync } from 'child_process';
 import { consola } from './logger';
-import { getMdocConfig } from './constant';
 
 let hasYarnCache: boolean;
 
@@ -18,21 +17,19 @@ export function hasYarn() {
   return hasYarnCache;
 }
 
-async function getPackageManager() {
-  const { build } = await getMdocConfig();
-
-  if (build?.packageManager) {
-    return build?.packageManager;
+async function getPackageManager(userConfig) {
+  if (userConfig?.build?.packageManager) {
+    return userConfig?.build?.packageManager;
   }
 
   return hasYarn() ? 'yarn' : 'npm';
 }
 
-export async function installDependencies() {
+export async function installDependencies(userConfig) {
   consola.info('Install Dependencies\n');
 
   try {
-    const manager = await getPackageManager();
+    const manager = await getPackageManager(userConfig);
 
     await execa(manager, ['install', '--prod=false'], {
       stdio: 'inherit',

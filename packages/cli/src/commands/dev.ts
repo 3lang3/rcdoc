@@ -4,8 +4,10 @@
 
 import { setNodeEnv } from '../common';
 import { compileSite } from '../compiler/compile-site';
+import { resolveConfig } from '../compiler/resolve-config';
 
 export async function dev() {
   setNodeEnv('development');
-  await compileSite();
+  const userConfig = await resolveConfig();
+  await compileSite(userConfig.data);
 }

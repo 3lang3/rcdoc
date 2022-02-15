@@ -15,6 +15,7 @@ importers:
       '@mdoc/theme': workspace:*
       '@vitejs/plugin-react': ^1.0.7
       ajv: ^8.10.0
+      bundle-require: ^3.0.4
       chalk: ^5.0.0
       commander: ^9.0.0
       consola: ^2.15.3
@@ -22,6 +23,7 @@ importers:
       execa: ^6.0.0
       fast-glob: ^3.2.11
       fs-extra: ^10.0.0
+      joycon: ^3.1.1
       less: ^4.1.2
       lodash-es: ^4.17.21
       mdoc-theme-default: workspace:*
@@ -30,6 +32,7 @@ importers:
       react-dom: ^17.0.2
       react-router-dom: ^6.2.1
       slash2: ^2.0.0
+      strip-json-comments: ^4.0.0
       tsup: ^5.11.11
       vite: ^2.8.0
       vite-plugin-html: ^3.0.6
@@ -38,6 +41,7 @@ importers:
       '@mdoc/theme': link:../theme
       '@vitejs/plugin-react': 1.1.4
       ajv: 8.10.0
+      bundle-require: 3.0.4_esbuild@0.14.21
       chalk: 5.0.0
       commander: 9.0.0
       consola: 2.15.3
@@ -45,6 +49,7 @@ importers:
       execa: 6.0.0
       fast-glob: 3.2.11
       fs-extra: 10.0.0
+      joycon: 3.1.1
       less: 4.1.2
       lodash-es: 4.17.21
       mdoc-theme-default: link:../mdoc-theme-default
@@ -53,6 +58,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
       slash2: 2.0.0
+      strip-json-comments: 4.0.0
       vite: 2.8.0_less@4.1.2
       vite-plugin-html: 3.0.6_vite@2.8.0
       vite-plugin-react-mdoc: link:../vite-plugin-react-mdoc
@@ -905,6 +911,16 @@ packages:
     dependencies:
       esbuild: 0.14.21
     dev: true
+
+  /bundle-require/3.0.4_esbuild@0.14.21:
+    resolution: {integrity: sha512-VXG6epB1yrLAvWVQpl92qF347/UXmncQj7J3U8kZEbdVZ1ZkQyr4hYeL/9RvcE8vVVdp53dY78Fd/3pqfRqI1A==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    peerDependencies:
+      esbuild: '>=0.13'
+    dependencies:
+      esbuild: 0.14.21
+      load-tsconfig: 0.2.3
+    dev: false
 
   /cac/6.7.12:
     resolution: {integrity: sha512-rM7E2ygtMkJqD9c7WnFU6fruFcN3xe4FM5yUmgxhZzIKJk4uHl9U/fhwdajGFQbQuv43FAUo1Fe8gX/oIKDeSA==}
@@ -2050,7 +2066,6 @@ packages:
   /joycon/3.1.1:
     resolution: {integrity: sha512-34wB/Y7MW7bzjKRjUKTa46I2Z7eV62Rkhva+KkopW7Qvv/OSWBqvkSY7vusOPrNuZcUG3tApvdVgNB8POj3SPw==}
     engines: {node: '>=10'}
-    dev: true
 
   /js-tokens/4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -2120,6 +2135,11 @@ packages:
   /lines-and-columns/1.2.4:
     resolution: {integrity: sha512-7ylylesZQ/PV29jhEDl3Ufjo6ZX7gCqJr5F7PKrqc93v7fzSymt1BpwEU8nAUXs8qzzvqhbjhK5QZg6Mt/HkBg==}
     dev: true
+
+  /load-tsconfig/0.2.3:
+    resolution: {integrity: sha512-iyT2MXws+dc2Wi6o3grCFtGXpeMvHmJqS27sMPGtV2eUu4PeFnG+33I8BlFK1t1NWMjOpcx9bridn5yxLDX2gQ==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: false
 
   /lodash-es/4.17.21:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
@@ -3284,6 +3304,11 @@ packages:
   /strip-final-newline/3.0.0:
     resolution: {integrity: sha512-dOESqjYr96iWYylGObzd39EuNTa5VJxyvVAEm5Jnh7KGo75V43Hk1odPQkNDyXNmUR6k+gEiDVXnjB8HJ3crXw==}
     engines: {node: '>=12'}
+    dev: false
+
+  /strip-json-comments/4.0.0:
+    resolution: {integrity: sha512-LzWcbfMbAsEDTRmhjWIioe8GcDRl0fa35YMXFoJKDdiD/quGFmjJjdgPjFJJNwCMaLyQqFIDqCdHD2V4HfLgYA==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
     dev: false
 
   /style-to-object/0.3.0:
