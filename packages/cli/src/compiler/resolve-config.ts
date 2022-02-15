@@ -1,4 +1,5 @@
 import fs from 'fs'
+import fse from 'fs-extra';
 import JoyCon from 'joycon'
 import path from 'path'
 import { bundleRequire } from 'bundle-require'
@@ -71,7 +72,8 @@ export async function resolveConfig(
     })
 
     const data = config.mod.default || config.mod
-    fs.writeFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(data, null, 2), 'utf8')
+    console.log('userConfig:', data)
+    fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(data, null, 2))
     return {
       path: configPath,
       data: data,
