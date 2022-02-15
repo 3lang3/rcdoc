@@ -25,7 +25,7 @@ const loadJson = async (filepath: string) => {
   } catch (error) {
     if (error instanceof Error) {
       throw new Error(
-        `Failed to parse ${path.relative(process.cwd(), filepath)}: ${error.message
+        `Failed to parse ${path.relative(ROOT, filepath)}: ${error.message
         }`
       )
     } else {
