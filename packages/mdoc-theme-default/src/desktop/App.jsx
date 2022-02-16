@@ -1,17 +1,21 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
 import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
-import { config, packageVersion } from 'site-shared';
-
+import { MdocSiteContext } from '@mdoc/theme';
 import Doc from './components/index';
-import routes, { getLangFromRoute } from './routes';
-
+import initRoutes, { getLangFromRoute } from './routes';
 import './index.less';
 
 const App = () => {
+  const { config, packageVersion, documents, navs } =
+    React.useContext(MdocSiteContext);
+
+  const routes = initRoutes({ config, documents });
   const { pathname } = useLocation();
+
   const lang = useMemo(() => {
-    return getLangFromRoute(pathname);
-  }, [pathname]);
+    const { locales } = config.site;
+    return getLangFromRoute(pathname, locales);
+  }, [config.site, pathname]);
 
   const currentCompnentName = useMemo(
     () => pathname.replace(/\/.*\//, ''),
@@ -35,16 +39,9 @@ const App = () => {
     }));
   }, []);
 
-  const navItems = useMemo(() => {
-    return localeConfig.nav.reduce(
-      (result, nav) => [...result, ...nav.items],
-      [],
-    );
-  }, [localeConfig.nav]);
-
   const currentNav = useMemo(
-    () => navItems.find(item => item.path === currentCompnentName),
-    [navItems, currentCompnentName],
+    () => navs.find(item => item.path === currentCompnentName),
+    [navs, currentCompnentName],
   );
 
   // 更新标题
@@ -74,6 +71,7 @@ const App = () => {
     <Doc
       lang={lang}
       config={localeConfig}
+      navs={navs}
       langConfigs={langConfigs}
       versions={versions}
       currentCompnentName={currentCompnentName}

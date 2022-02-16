@@ -10,6 +10,7 @@ const Doc = props => {
     versions,
     langConfigs,
     config,
+    navs,
     currentCompnentName,
   } = props;
 
@@ -20,7 +21,7 @@ const Doc = props => {
       <Nav
         config={config}
         lang={lang}
-        navConfig={config.nav}
+        navs={navs}
         versions={versions}
       />
       <Container>
