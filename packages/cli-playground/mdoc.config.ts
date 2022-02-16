@@ -33,14 +33,6 @@ export default defineConfig({
             url: 'https://github.com/3lang3/react-vant',
           },
         ],
-        nav: [
-          {
-            title: '基础组件',
-            items: [
-              { path: 'button', title: 'Button 按钮' },
-            ],
-          },
-        ],
       },
     },
   },
