@@ -70,7 +70,7 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
     plugins: [
       react() as any,
       mdoc({
-        codeBlockOutput: ['independent'],
+        codeBlockOutput: ['markdown'],
         replaceHtml: (JSX) => {
           const group = JSX.replace(/(<h3\s+id=)/g, ':::$1')
             .replace(/<h2/g, ':::<h2')
