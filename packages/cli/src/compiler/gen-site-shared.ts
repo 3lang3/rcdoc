@@ -40,12 +40,14 @@ function formatName(component: string, lang?: string) {
  */
 async function resolveComponentDocuments(userConfig, components: string[]): Promise<DocumentItem[]> {
   const projectPackageJson = getPackageJson();
-  const { locales, defaultLang } = userConfig.site;
+  const { locales } = userConfig;
+  const defaultLang = locales[0][0];
 
   const docs: DocumentItem[] = [];
 
-  if (locales) {
-    const langs = Object.keys(locales);
+  if (locales.length > 1) {
+    const langs = locales.map(el => el[0]);
+
     langs.forEach((lang) => {
       const fileName = lang === defaultLang ? 'README.md' : `README.${lang}.md`;
       components.forEach((component) => {
@@ -72,7 +74,8 @@ async function resolveComponentDocuments(userConfig, components: string[]): Prom
 }
 
 async function resolveStaticDocuments(userConfig): Promise<DocumentItem[]> {
-  const { defaultLang } = userConfig.site;
+  const { locales } = userConfig;
+  const defaultLang = locales[0][0];
 
   const staticDocs = glob.sync(normalizePath(join(PROJECT_DOCS_DIR, '**/*.md'))).map((path) => {
     const pairs = parse(path).name.split('.');

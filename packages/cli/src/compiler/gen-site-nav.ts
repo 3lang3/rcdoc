@@ -15,6 +15,7 @@ const { existsSync, readdirSync } = fse;
 type NavItem = {
   title: string;
   path: string;
+  lang?: string;
 };
 
 function resolveComponentNavs(userConfig, components: string[]): NavItem[] {
@@ -23,32 +24,23 @@ function resolveComponentNavs(userConfig, components: string[]): NavItem[] {
 
   const navs: NavItem[] = [];
 
-  if (locales.length > 1) {
-    const langs = locales.map(el => el[0]);
-    langs.forEach((lang) => {
-      const isDefaultLang = lang === defaultLang
-      const fileName = isDefaultLang ? 'README.md' : `README.${lang}.md`;
-      components.forEach((component) => {
-        const mdfilePath = join(PROJECT_SRC_DIR, component, fileName)
-        if (existsSync(mdfilePath)) {
-          navs.push({
-            title: pascalize(component),
-            path: join(isDefaultLang ? '' : lang, component),
-          });
-        }
-      });
-    });
-  } else {
+
+  const langs = locales.map(el => el[0]);
+  langs.forEach((lang) => {
+    const isDefaultLang = lang === defaultLang
+    const fileName = isDefaultLang ? 'README.md' : `README.${lang}.md`;
     components.forEach((component) => {
-      const mdfilePath = join(PROJECT_SRC_DIR, component, 'README.md')
+      const mdfilePath = join(PROJECT_SRC_DIR, component, fileName)
       if (existsSync(mdfilePath)) {
         navs.push({
           title: pascalize(component),
-          path: component,
+          path: join(isDefaultLang ? '' : lang, component),
+          lang
         });
       }
     });
-  }
+  });
+
 
   return navs;
 }
