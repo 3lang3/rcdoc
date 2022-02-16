@@ -3,7 +3,6 @@ import { join, parse } from 'path';
 import fse from 'fs-extra';
 import {
   pascalize,
-  removeExt,
   smartOutputFile,
   normalizePath,
 } from '../common';
@@ -14,6 +13,7 @@ import {
   SITE_SHARED_FILE,
   SITE_SHARD_CONFIG_FILE,
 } from '../common/constant';
+import { genSiteNavShared } from './gen-site-nav'
 
 const { existsSync, readdirSync } = fse;
 
@@ -122,17 +122,24 @@ function genExportDocuments(items: DocumentItem[]) {
     ${items.map((item) => `'${item.name}'`).join(',\n  ')}
   ];`;
 }
+// 导出所有组件.md
+function genExportNavs(items) {
+  return `export const navs = ${JSON.stringify(items)}`;
+}
 
 export async function genSiteDesktopShared(userConfig) {
   const dirs = readdirSync(PROJECT_SRC_DIR);
+  console.log(dirs)
   const componentDocuments = await resolveComponentDocuments(userConfig, dirs);
   const staticDocuments = await resolveStaticDocuments(userConfig);
   const documents = [...staticDocuments, ...componentDocuments];
+  const navs = genSiteNavShared(userConfig)
   const code = `${genImportConfig()}
 ${genImportDocuments(documents)}
 ${genExportConfig()}
 ${genExportAllDocuments(documents)}
 ${genExportDocuments(componentDocuments)}
+${genExportNavs(navs)}
 ${genExportVersion()}
 `;
   smartOutputFile(SITE_SHARED_FILE, code);

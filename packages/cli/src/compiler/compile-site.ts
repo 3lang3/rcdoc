@@ -6,9 +6,9 @@ import { mergeCustomViteConfig } from '../common';
 import { genSiteDesktopShared } from './gen-site-shared';
 
 export async function genSiteEntry(userConfig): Promise<void> {
-  return new Promise((resolve, reject) => {
+  return new Promise(async (resolve, reject) => {
     try {
-      genSiteDesktopShared(userConfig)
+      await genSiteDesktopShared(userConfig)
       resolve()
     } catch (error) {
       reject(error)
