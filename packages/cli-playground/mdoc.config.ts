@@ -3,6 +3,10 @@ import { defineConfig } from '@mdoc/cli'
 
 export default defineConfig({
   name: 'mdoc-demo',
+  title: 'react vant',
+  description: '轻量、可靠的移动端 React 组件库',
+  favicon: '',
+  logo: 'https://github.com/3lang3/react-vant/blob/main/public/logo.svg?raw=true',
   build: {
     packageManager: 'pnpm',
     srcDir: 'src',
@@ -10,30 +14,20 @@ export default defineConfig({
     css: { preprocessor: 'less' },
     site: { publicPath: './' },
   },
+  links: [
+    {
+      url: 'https://github.com/youzan/vant',
+      title: 'vant',
+      alt: 'vant官网',
+    },
+    {
+      title: 'GitHub',
+      url: 'https://github.com/3lang3/react-vant',
+    },
+  ],
   site: {
-    defaultLang: 'zh-CN',
-    versions: [{ label: 'v1', link: 'https://3lang3.github.io/react-vant/v1' }],
     htmlMeta: {
       'docsearch:version': 'v3',
-    },
-    locales: {
-      'zh-CN': {
-        title: 'react vant',
-        description: '轻量、可靠的移动端 React 组件库',
-        logo: 'https://github.com/3lang3/react-vant/blob/main/public/logo.svg?raw=true',
-        langLabel: '中文',
-        links: [
-          {
-            url: 'https://github.com/youzan/vant',
-            title: 'vant',
-            alt: 'vant官网',
-          },
-          {
-            title: 'GitHub',
-            url: 'https://github.com/3lang3/react-vant',
-          },
-        ],
-      },
     },
   },
 } as any)

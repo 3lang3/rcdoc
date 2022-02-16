@@ -6,36 +6,41 @@ import initRoutes, { getLangFromRoute } from './routes';
 import './index.less';
 
 const App = () => {
-  const { config, packageVersion, documents, navs } =
-    React.useContext(MdocSiteContext);
-
-  const routes = initRoutes({ config, documents });
   const { pathname } = useLocation();
 
+  const {
+    config,
+    packageVersion,
+    documents,
+    navs: allNavs,
+  } = React.useContext(MdocSiteContext);
+
   const lang = useMemo(() => {
-    const { locales } = config.site;
+    const { locales } = config;
     return getLangFromRoute(pathname, locales);
-  }, [config.site, pathname]);
+  }, [config.locales, pathname]);
+
+  const navs = useMemo(
+    () => allNavs.filter(n => n.lang === lang),
+    [lang, allNavs],
+  );
+
+  const routes = useMemo(() => {
+    const allRoutes = initRoutes({ config, documents });
+    return allRoutes.filter(r => r.state.lang === lang);
+  }, [lang, config, documents]);
 
   const currentCompnentName = useMemo(
     () => pathname.replace(/\/.*\//, ''),
     [pathname],
   );
 
-  const localeConfig = useMemo(() => {
-    const { locales } = config.site;
-    if (locales) {
-      return locales[lang];
-    }
-    return config.site;
-  }, [lang]);
-
   // 文档语言数据
   const langConfigs = React.useMemo(() => {
-    const { locales = {} } = config.site;
-    return Object.keys(locales).map(key => ({
-      lang: key,
-      label: locales[key].langLabel || '',
+    const { locales = [] } = config;
+    return locales.map(locale => ({
+      lang: locale[0],
+      label: locale[1],
     }));
   }, []);
 
@@ -46,16 +51,16 @@ const App = () => {
 
   // 更新标题
   const setTitle = useCallback(() => {
-    let { title } = localeConfig;
+    let { title } = config;
 
     if (currentNav && currentNav.title) {
       title = `${currentNav.title} - ${title}`;
-    } else if (localeConfig.description) {
-      title += ` - ${localeConfig.description}`;
+    } else if (config.description) {
+      title += ` - ${config.description}`;
     }
 
     document.title = title;
-  }, [localeConfig, currentNav]);
+  }, [config, currentNav]);
 
   useEffect(setTitle);
 
@@ -70,7 +75,7 @@ const App = () => {
   return (
     <Doc
       lang={lang}
-      config={localeConfig}
+      config={config}
       navs={navs}
       langConfigs={langConfigs}
       versions={versions}

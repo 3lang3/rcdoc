@@ -52,8 +52,7 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
   setBuildTarget('site');
 
   const projectPackageJson = getPackageJson();
-  const siteConfig = getSiteConfig(userConfig);
-  const title = getTitle(siteConfig);
+  const title = getTitle(userConfig);
   const baiduAnalytics = get(userConfig, 'site.baiduAnalytics');
   const enableVConsole = isDev() && get(userConfig, 'site.enableVConsole');
   const themeAlias = getConfigThemeAlias(userConfig);
@@ -92,7 +91,7 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
       createHtmlPlugin({
         inject: {
           data: {
-            ...siteConfig,
+            ...userConfig,
             title,
             baiduAnalytics,
             enableVConsole,

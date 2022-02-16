@@ -14,7 +14,7 @@ const NavLink = (props) => {
     const name = (item.title || item.name).split(' ');
     return `${name[0]} <span>${name.slice(1).join(' ')}</span>`;
   }, [item.name, item.title]);
-
+  
   const path = useMemo(() => {
     return `${base}${item.path}`;
   }, [base, item.path]);

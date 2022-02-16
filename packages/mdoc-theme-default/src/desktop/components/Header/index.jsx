@@ -4,14 +4,15 @@ import { useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import SearchInput from '../SearchInput';
 import { GitHubIcon, HttpLinkIcon } from '../Icons';
+import { getLang } from '../../../common/locales';
 import './index.less';
 
-const Header = (props) => {
+const Header = props => {
   const { lang, config, langConfigs } = props;
   const { pathname } = useLocation();
 
   const anotherLang = useMemo(() => {
-    const items = langConfigs.filter((item) => item.lang !== lang);
+    const items = langConfigs.filter(item => item.lang !== lang);
     if (items.length) {
       return items[0];
     }
@@ -19,7 +20,10 @@ const Header = (props) => {
   }, [lang, langConfigs]);
 
   const langLink = useMemo(() => {
-    return `#${pathname.replace(lang, anotherLang.lang)}`;
+    return `#${pathname.replace(
+      lang === getLang() ? '' : `/${lang}`,
+      anotherLang.lang === getLang() ? '' : anotherLang.lang,
+    )}`;
   }, [anotherLang.lang, lang, pathname]);
 
   const langLabel = useMemo(() => {
@@ -30,12 +34,15 @@ const Header = (props) => {
     <div className="vant-doc-header">
       <div className="vant-doc-row">
         <div className="vant-doc-header__top">
-          {config.searchConfig && <SearchInput lang={lang} searchConfig={config.searchConfig} />}
+          {config.searchConfig && (
+            <SearchInput lang={lang} searchConfig={config.searchConfig} />
+          )}
           <ul className="vant-doc-header__top-nav">
             {config.links &&
               config.links.length &&
-              config.links.map((item) => {
-                const guessGithub = item.title?.toLowerCase() === 'github' && !item.logo;
+              config.links.map(item => {
+                const guessGithub =
+                  item.title?.toLowerCase() === 'github' && !item.logo;
                 const hasImg = item.logo || guessGithub;
                 return (
                   <li

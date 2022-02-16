@@ -1,8 +1,8 @@
 const ZH_CN = 'zh-CN';
 const EN_US = 'en-US';
-const CACHE_KEY = 'vant-cli-lang';
+const CACHE_KEY = '@mdoc-lang';
 
-let currentLang = ZH_CN;
+let currentLang = EN_US;
 
 export function getLang() {
   return currentLang;
