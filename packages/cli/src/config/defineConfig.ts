@@ -12,6 +12,11 @@ export type UserConfigExport = {
       skipPropsWithoutDoc?: false,
     },
   },
+  /**
+   * i18n
+   * @default [['en-US', 'English'], ['zh-CN', '中文']]
+   */
+  locales: Array<[String, String]>;
   /** 
    * 配置文档的名称
    * @default package.name
