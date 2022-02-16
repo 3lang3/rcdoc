@@ -1,10 +1,16 @@
 import fs from 'fs'
 import fse from 'fs-extra';
+import { merge } from 'lodash-es'
 import JoyCon from 'joycon'
 import path from 'path'
 import { bundleRequire } from 'bundle-require'
 import strip from 'strip-json-comments'
 import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant'
+import type { UserConfigExport } from '../config/defineConfig';
+
+const defaultConfig: UserConfigExport = {
+  locales: [['en-US', 'English'], ['zh-CN', '中文']]
+} as any
 
 function jsoncParse(data: string) {
   try {
@@ -71,11 +77,13 @@ export async function resolveConfig(
       filepath: configPath,
     })
 
-    const data = config.mod.default || config.mod
-    fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(data, null, 2))
+    const data = config.mod.default || config.mod;
+
+    const mergedData = merge(defaultConfig, data)
+    fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2))
     return {
       path: configPath,
-      data: data,
+      data: mergedData,
     }
   }
 
