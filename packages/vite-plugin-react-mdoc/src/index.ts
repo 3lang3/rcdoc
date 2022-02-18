@@ -25,9 +25,6 @@ const FILE_PATH_EXPORT_NAME = '___vitePluginReactMdocCodestring___';
 
 const cache: Map<string, MDocDemoType[]> = new Map();
 const importedIdSet: Map<string, string> = new Map();
-
-export type CodeBlockOutputType = 'independent' | 'markdown';
-
 export interface MDocOptions {
   include?: FilterPattern;
   exclude?: FilterPattern;
@@ -55,15 +52,16 @@ export interface MDocOptions {
    * ```
    */
   localPkgs?: Record<string, { version: string; css?: string; }>;
-
   /**
-   * 代码块输出形式
-   * @default ["independent"]
+   * 是否额外输出demo组件
    * 
-   * - independent 将代码块组件独立输出
-   * - markdown 将代码块组件直接输出到文档中
+   * 开启后会额外输出 `MdDemos`
+   * ```tsx
+   * import { MdContent, frontmatter, slugs, MdDemos } from 'test.md';
+   * type MdDemos = ReactComponent[]
+   * ```
    */
-  codeBlockOutput?: CodeBlockOutputType[];
+  demos?: boolean;
   /**
    * 自定义替换html
    */
@@ -72,8 +70,7 @@ export interface MDocOptions {
 
 const pluginOptions: MDocOptions = {
   include: /\.md$/,
-  previewLangs: ['jsx', 'tsx'],
-  codeBlockOutput: ['independent']
+  previewLangs: ['jsx', 'tsx']
 }
 
 

@@ -55,7 +55,7 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
   content.addExporting('MdContent');
 
   let exportDemosStr = '';
-  if (remarkOpts?.codeBlockOutput.includes('independent')) {
+  if (remarkOpts?.demos) {
     const exportDemos = demos.filter(el => !el.inline)
     exportDemos.forEach((el, i) => {
       if (i === 0) exportDemosStr += '[';
@@ -64,9 +64,11 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
       if (i === exportDemos.length - 1) exportDemosStr += ']';
     });
   }
-  if (!exportDemosStr) exportDemosStr = '[]';
-  content.addContext(`const MdDemos = ${exportDemosStr}`);
-  content.addExporting('MdDemos');
+  
+  if (exportDemosStr.length) {
+    content.addContext(`const MdDemos = ${exportDemosStr}`);
+    content.addExporting('MdDemos');
+  }
 
   content.addContext(`const frontmatter = ${JSON.stringify(meta)}`)
   content.addExporting('frontmatter');
