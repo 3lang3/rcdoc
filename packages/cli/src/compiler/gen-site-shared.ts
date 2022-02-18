@@ -132,7 +132,6 @@ function genExportNavs(items) {
 
 export async function genSiteDesktopShared(userConfig) {
   const dirs = readdirSync(PROJECT_SRC_DIR);
-  console.log(dirs)
   const componentDocuments = await resolveComponentDocuments(userConfig, dirs);
   const staticDocuments = await resolveStaticDocuments(userConfig);
   const documents = [...staticDocuments, ...componentDocuments];
