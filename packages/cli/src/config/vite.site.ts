@@ -54,6 +54,7 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
   const projectPackageJson = getPackageJson();
   const title = getTitle(userConfig);
   const baiduAnalytics = get(userConfig, 'site.baiduAnalytics');
+  const exportDemos = get(userConfig, 'exportDemos', false);
   const enableVConsole = isDev() && get(userConfig, 'site.enableVConsole');
   const themeAlias = getConfigThemeAlias(userConfig);
   // @hack
@@ -69,7 +70,7 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
     plugins: [
       react() as any,
       mdoc({
-        codeBlockOutput: ['markdown'],
+        demos: exportDemos,
         replaceHtml: (JSX) => {
           const group = JSX.replace(/(<h3\s+id=)/g, ':::$1')
             .replace(/<h2/g, ':::<h2')
