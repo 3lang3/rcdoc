@@ -7,6 +7,8 @@ export default defineConfig({
   description: '轻量、可靠的移动端 React 组件库',
   favicon: '',
   logo: 'https://github.com/3lang3/react-vant/blob/main/public/logo.svg?raw=true',
+  /** 是否额外导出demo组件 */
+  exportDemos: true,
   build: {
     packageManager: 'pnpm',
     srcDir: 'src',

@@ -7,7 +7,6 @@ export default defineConfig({
   plugins: [
     react(),
     mdoc({
-      codeBlockOutput: ['independent'],
       replaceHtml: (htmlString) => {
         const group = htmlString.replace(/(<h3\s+id=)/g, ':::$1').replace(/<h2/g, ':::<h2').split(':::');
         const replaceHtml = group
@@ -20,6 +19,6 @@ export default defineConfig({
           .join('');
         return replaceHtml;
       }
-    })
+    }) as any
   ]
 })

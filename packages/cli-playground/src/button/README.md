@@ -3,6 +3,11 @@
 hello mdoc!
 
 ```jsx
+/**
+ * title: hello
+ * export: false
+ */
+
 import React from 'react';
 
 export default () => {
