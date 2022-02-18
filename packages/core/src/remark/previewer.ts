@@ -252,13 +252,13 @@ export default function previewer(): MDocUnifiedTransformer<MDocElmNode> {
             tagName: 'Previewer', properties: {
               'data-previewer-props-replaced': `${vFile.data.demos.length}`,
             },
-            children: remarkOpts?.codeBlockOutput.includes('markdown') ? [
+            children: [
               {
                 type: 'element',
                 tagName: `${remarkOpts.prefix}${vFile.data.demos.length}`,
                 properties: {},
               },
-            ] : [],
+            ],
           } as any;
         }
       }
