@@ -237,7 +237,6 @@ export default function previewer(): MDocUnifiedTransformer<MDocElmNode> {
           props: componentProps
         });
 
-
         if (previewerProps.inline) {
           // append demo component directly for inline demo and other transformer result
           parent.children[i] = {
@@ -249,7 +248,8 @@ export default function previewer(): MDocUnifiedTransformer<MDocElmNode> {
           parent.children[i] = {
             previewer: true,
             type: 'element',
-            tagName: 'Previewer', properties: {
+            tagName: 'Previewer',
+            properties: {
               'data-previewer-props-replaced': `${vFile.data.demos.length}`,
             },
             children: [
