@@ -54,6 +54,7 @@ export default async function remark(source, id, options: MDocCoreOptions = {}):
 
   const { data, value } = processor.processSync(source);
   const { demos = [], slugs, ...mdMeta } = data as (RemarkReturn & Record<string, string>)
+
   // console.log(value.toString());
   return { demos, slugs, meta: mdMeta, value: value.toString() };
 }

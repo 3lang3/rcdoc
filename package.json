@@ -1,6 +1,9 @@
 {
   "private": true,
   "packageManager": "pnpm",
+  "scripts": {
+    "clean": "rm -rf node_modules && rm -rf packages/**/node_modules"
+  },
   "devDependencies": {
     "prettier": "^2.5.1",
     "typescript": "^4.5.4"
