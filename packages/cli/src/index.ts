@@ -2,6 +2,7 @@ import fs from 'fs';
 import { URL, fileURLToPath } from 'url';
 import { dev } from './commands/dev';
 import { clean } from './commands/clean';
+import { test } from './commands/jest';
 import defineConfig from './config/defineConfig';
 
 const packagePath = fileURLToPath(new URL('../package.json', import.meta.url));
@@ -10,4 +11,4 @@ export const cliVersion: string = packageJson.version;
 
 process.env.REACT_VANT_CLI_VERSION = cliVersion;
 
-export { dev, clean, defineConfig };
+export { dev, clean, test, defineConfig };
