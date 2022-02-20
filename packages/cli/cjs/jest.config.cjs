@@ -18,7 +18,7 @@ const DEFAULT_CONFIG = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'md'],
   testPathIgnorePatterns: ['/node_modules/', '_site', 'site'],
-  transformIgnorePatterns: ['/node_modules/(?!(@react-vant/cli))/'],
+  transformIgnorePatterns: ['/node_modules/(?!(@mdoc/cli))/'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/demo/**'],
   coverageDirectory: './tests/coverage',
   snapshotSerializers: ['enzyme-to-json/serializer'],
