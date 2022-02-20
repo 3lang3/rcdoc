@@ -6,7 +6,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "mdoc dev",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mdoc test"
   },
   "keywords": [],
   "author": "",
