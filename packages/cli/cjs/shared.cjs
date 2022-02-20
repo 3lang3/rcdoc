@@ -1,8 +1,15 @@
 const { join, dirname } = require('path');
 const { existsSync } = require('fs');
 
+const ACCEPT_FILES = [
+  'mdoc.config.ts',
+  'mdoc.config.js',
+  'mdoc.config.mjs',
+  'mdoc.config.json',
+]
+
 function findRootDir(dir) {
-  if (existsSync(join(dir, 'vant.config.mjs'))) {
+  if (ACCEPT_FILES.some(cfg => existsSync(join(dir, cfg)))) {
     return dir;
   }
 
