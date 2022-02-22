@@ -32,8 +32,9 @@ export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');
 export const STYLE_DEPS_JSON_FILE = join(PROJECT_CLI_DIST_DIR, 'style-deps.json');
 
 // Config files
-export const CJS_DIR = join(__dirname, '..', '..', 'cjs');
+export const CJS_DIR = join(__dirname, '..', 'cjs');
 export const JEST_CONFIG_FILE = join(CJS_DIR, 'jest.config.cjs');
+export const BABEL_CONFIG_FILE = join(CJS_DIR, 'babel.config.cjs');
 
 export const SCRIPT_EXTS = ['.js', '.jsx', '.ts', '.tsx'];
 export const STYLE_EXTS = ['.css', '.less', '.scss'];
