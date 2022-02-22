@@ -24,13 +24,11 @@
   "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.16.10",
-    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/runtime": "^7.17.2",
     "@mdoc/theme": "workspace:*",
     "@vitejs/plugin-react": "^1.0.7",
-    "ajv": "^8.10.0",
     "babel-jest": "^27.5.1",
     "bundle-require": "^3.0.4",
     "chalk": "^5.0.0",
