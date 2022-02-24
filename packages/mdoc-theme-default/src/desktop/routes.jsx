@@ -1,4 +1,5 @@
 /* eslint-disable react/react-in-jsx-scope */
+import React from 'react';
 import { decamelize } from '../common';
 import { getLang, setDefaultLang } from '../common/locales';
 import MdPage from './components/MdPage';
@@ -13,23 +14,7 @@ export function getLangFromRoute(pathname, locales) {
   return getLang();
 }
 
-function parseName(name) {
-  if (name.indexOf('_') !== -1) {
-    const pairs = name.split('_');
-    const component = pairs.shift();
-
-    return {
-      component: `${decamelize(component)}`,
-      lang: pairs.join('-'),
-    };
-  }
-  return {
-    component: `${decamelize(name)}`,
-    lang: '',
-  };
-}
-
-function initRoutes({ config, documents }) {
+function initRoutes({ config, menus }) {
   const { locales } = config;
   const defaultLang = locales[0][0];
 
@@ -37,40 +22,35 @@ function initRoutes({ config, documents }) {
 
   const getRoutes = () => {
     const routes = [];
-    const names = Object.keys(documents);
 
-    function addHomeRoute(Home, lang) {
-      routes.push({
-        name: lang,
-        exact: true,
-        path: `/${lang || ''}`,
-        component: Home,
-        state: { lang },
-      });
-    }
-
-    names.forEach(name => {
-      const { component, lang } = parseName(name);
-      const { MdContent, frontmatter = {}, slugs = [] } = documents[name];
-      const isDefaultLang = lang === defaultLang;
-
-      const PreviewerComp = props => (
-        <MdPage {...props} frontmatter={frontmatter} slugs={slugs}>
-          {({ previewer }) => <MdContent previewer={previewer} />}
-        </MdPage>
+    menus.forEach(menu => {
+      const { lang, path } = menu;
+      console.log(menu)
+      const LazyComponent = React.lazy(() =>
+        import(/* @vite-ignore */ menu.filePath),
       );
 
-      if (component === 'home') {
-        addHomeRoute(p => <PreviewerComp {...p} />, lang);
-      }
-      
+      const PreviewerComp = props => (
+        <LazyComponent>
+          {({ MdContent, frontmatter = {}, slugs = [] }) => {
+            return (
+              <MdPage {...props} frontmatter={frontmatter} slugs={slugs}>
+                {({ previewer }) => <MdContent previewer={previewer} />}
+              </MdPage>
+            );
+          }}
+        </LazyComponent>
+      );
+
+      const isDefaultLang = lang === defaultLang;
+
       routes.push({
-        name: `${lang}/${component}`,
-        path: isDefaultLang ? `/${component}` : `/${lang}/${component}`,
+        name: `${lang}/${path}`,
+        path: isDefaultLang ? `${path}` : `/${lang}${path}`,
         component: p => <PreviewerComp {...p} />,
         state: {
           lang,
-          name: component,
+          name: path,
         },
       });
     });

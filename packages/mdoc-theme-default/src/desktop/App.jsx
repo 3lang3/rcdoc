@@ -11,8 +11,8 @@ const App = () => {
   const {
     config,
     packageVersion,
-    documents,
-    navs: allNavs,
+    flattenMenus,
+    navs: allMenus,
   } = React.useContext(MdocSiteContext);
 
   const lang = useMemo(() => {
@@ -21,14 +21,13 @@ const App = () => {
   }, [config.locales, pathname]);
 
   const navs = useMemo(
-    () => allNavs.filter(n => n.lang === lang),
-    [lang, allNavs],
+    () => allMenus[lang],
+    [lang, allMenus],
   );
 
   const routes = useMemo(() => {
-    const allRoutes = initRoutes({ config, documents });
-    return allRoutes.filter(r => r.state.lang === lang);
-  }, [lang, config, documents]);
+    return initRoutes({ config, menus: flattenMenus })
+  }, [config, flattenMenus]);
 
   const currentCompnentName = useMemo(
     () => pathname.replace(/\/.*\//, ''),
@@ -81,22 +80,24 @@ const App = () => {
       versions={versions}
       currentCompnentName={currentCompnentName}
     >
-      <Switch>
-        {routes.map(route =>
-          route.redirect ? (
-            <Redirect key={route.path} to={route.redirect(pathname)} />
-          ) : (
-            <Route
-              key={route.path}
-              exact={route.exact}
-              path={route.path}
-              render={props => (
-                <route.component {...props} routes={route.routes} />
-              )}
-            />
-          ),
-        )}
-      </Switch>
+      <React.Suspense fallback={<div>loading</div>}>
+        <Switch>
+          {routes.map(route =>
+            route.redirect ? (
+              <Redirect key={route.path} to={route.redirect(pathname)} />
+            ) : (
+              <Route
+                key={route.path}
+                exact={true}
+                path={route.path}
+                render={props => (
+                  <route.component {...props} routes={route.routes} />
+                )}
+              />
+            ),
+          )}
+        </Switch>
+      </React.Suspense>
     </Doc>
   );
 };

@@ -6,7 +6,7 @@ import './index.less';
 const Nav = props => {
   const { navs, config, versions } = props;
   const base = useMemo(() => {
-    return '/';
+    return '';
   }, []);
 
   return (
