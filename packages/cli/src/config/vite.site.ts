@@ -9,6 +9,7 @@ import { setBuildTarget, isDev } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,
   SITE_SHARED_FILE,
+  SITE_SHARED_LAZY_FILE,
   PROJECT_SRC_DIR,
   SITE_SRC_DIR,
   getPackageJson,
@@ -105,6 +106,7 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
       alias: {
         [projectPackageJson.name]: PROJECT_SRC_DIR,
         'site-shared': SITE_SHARED_FILE,
+        'site-shared-lazy': SITE_SHARED_LAZY_FILE,
         ...projectDepsAlias,
         ...themeAlias,
       },
