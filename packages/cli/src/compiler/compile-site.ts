@@ -4,11 +4,13 @@ import { createServer, build } from 'vite';
 import { getViteConfigForSiteDev, getViteConfigForSiteProd } from '../config/vite.site';
 import { mergeCustomViteConfig } from '../common';
 import { genSiteDesktopShared } from './gen-site-shared';
+import { genSiteDesktopSharedLazy } from './gen-site-shared-lazy';
 
 export async function genSiteEntry(userConfig): Promise<void> {
   return new Promise(async (resolve, reject) => {
     try {
       await genSiteDesktopShared(userConfig)
+      await genSiteDesktopSharedLazy(userConfig)
       resolve()
     } catch (error) {
       reject(error)
