@@ -64,23 +64,22 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
       if (i === exportDemos.length - 1) exportDemosStr += ']';
     });
   }
-  
-  if (exportDemosStr.length) {
-    content.addContext(`const MdDemos = ${exportDemosStr}`);
-    content.addExporting('MdDemos');
-  }
 
-  content.addContext(`const frontmatter = ${JSON.stringify(meta)}`)
+  if (!exportDemosStr.length) {
+    exportDemosStr = '[]'
+  }
+  content.addContext(`const MdDemos = ${exportDemosStr};`);
+  content.addExporting('MdDemos');
+
+  content.addContext(`const frontmatter = ${JSON.stringify(meta)};`)
   content.addExporting('frontmatter');
 
-  content.addContext(`const slugs = ${JSON.stringify(slugs)}`)
+  content.addContext(`const slugs = ${JSON.stringify(slugs)};`)
   content.addExporting('slugs');
-  
-  content.addContext(`
-  export default function (props) {
+
+  content.addContext(`export default (props) => {
     return props.children({ MdContent, MdDemos, frontmatter, slugs })
-  }
-  `)
+  }`)
 
   return {
     code: content.export(),
