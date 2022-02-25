@@ -1,9 +1,28 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
-import { decamelize } from '../common';
 import { getLang, setDefaultLang } from '../common/locales';
 import MdPage from './components/MdPage';
 
+const PreviewerComp = ({ lazyComponent, ...props }) => {
+  const LazyComponent = lazyComponent;
+  return (
+    <React.Suspense fallback={<div>loading</div>}>
+      <LazyComponent>
+        {({ MdContent, frontmatter = {}, slugs = [] }) => {
+          return (
+            <MdPage {...props} frontmatter={frontmatter} slugs={slugs}>
+              {({ previewer }) => (
+                <>
+                  <MdContent previewer={previewer} />
+                </>
+              )}
+            </MdPage>
+          );
+        }}
+      </LazyComponent>
+    </React.Suspense>
+  );
+};
 export function getLangFromRoute(pathname, locales) {
   const currentLang = pathname.split('/')[1];
   const langs = locales.map(el => el[0]);
@@ -25,29 +44,11 @@ function initRoutes({ config, menus }) {
 
     menus.forEach(menu => {
       const { lang, path } = menu;
-      console.log(menu)
-      const LazyComponent = React.lazy(() =>
-        import(/* @vite-ignore */ menu.filePath),
-      );
-
-      const PreviewerComp = props => (
-        <LazyComponent>
-          {({ MdContent, frontmatter = {}, slugs = [] }) => {
-            return (
-              <MdPage {...props} frontmatter={frontmatter} slugs={slugs}>
-                {({ previewer }) => <MdContent previewer={previewer} />}
-              </MdPage>
-            );
-          }}
-        </LazyComponent>
-      );
-
       const isDefaultLang = lang === defaultLang;
-
       routes.push({
         name: `${lang}/${path}`,
         path: isDefaultLang ? `${path}` : `/${lang}${path}`,
-        component: p => <PreviewerComp {...p} />,
+        component: <PreviewerComp lazyComponent={menu.loadable} />,
         state: {
           lang,
           name: path,
@@ -58,7 +59,7 @@ function initRoutes({ config, menus }) {
     locales.forEach(locale => {
       routes.push({
         path: '*',
-        redirect: () => (defaultLang === locale[0] ? '/' : `/${locale[0]}`),
+        redirect: defaultLang === locale[0] ? '/' : `/${locale[0]}`,
         state: {
           lang: locale[0],
         },

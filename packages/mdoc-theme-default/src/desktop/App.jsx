@@ -1,5 +1,5 @@
 import React, { useMemo, useCallback, useEffect } from 'react';
-import { Switch, Route, Redirect, useLocation } from 'react-router-dom';
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { MdocSiteContext } from '@mdoc/theme';
 import Doc from './components/index';
 import initRoutes, { getLangFromRoute } from './routes';
@@ -20,13 +20,10 @@ const App = () => {
     return getLangFromRoute(pathname, locales);
   }, [config.locales, pathname]);
 
-  const navs = useMemo(
-    () => allMenus[lang],
-    [lang, allMenus],
-  );
+  const navs = useMemo(() => allMenus[lang], [lang, allMenus]);
 
   const routes = useMemo(() => {
-    return initRoutes({ config, menus: flattenMenus })
+    return initRoutes({ config, menus: flattenMenus });
   }, [config, flattenMenus]);
 
   const currentCompnentName = useMemo(
@@ -80,24 +77,19 @@ const App = () => {
       versions={versions}
       currentCompnentName={currentCompnentName}
     >
-      <React.Suspense fallback={<div>loading</div>}>
-        <Switch>
-          {routes.map(route =>
-            route.redirect ? (
-              <Redirect key={route.path} to={route.redirect(pathname)} />
-            ) : (
-              <Route
-                key={route.path}
-                exact={true}
-                path={route.path}
-                render={props => (
-                  <route.component {...props} routes={route.routes} />
-                )}
-              />
-            ),
-          )}
-        </Switch>
-      </React.Suspense>
+      <Routes>
+        {routes.map(route =>
+          route.redirect ? (
+            <Route key={route.path} element={<Navigate to={route.redirect} />} />
+          ) : (
+            <Route
+              key={route.path}
+              path={route.path}
+              element={route.component}
+            />
+          ),
+        )}
+      </Routes>
     </Doc>
   );
 };

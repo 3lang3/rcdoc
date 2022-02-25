@@ -1,6 +1,6 @@
 import React from 'react';
 import clsx from 'clsx';
-import { packageVersion } from 'site-shared';
+import { packageVersion } from 'site-shared-lazy';
 import './index.less';
 
 const VersionToggle = ({ versions }) => {
