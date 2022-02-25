@@ -1,8 +1,10 @@
 import glob from 'fast-glob';
 import path from 'path';
+import slash from 'slash2';
 import { kebabCase } from 'lodash-es'
 import {
   PROJECT_SRC_DIR,
+  PROJECT_CLI_DIST_DIR
 } from '../common/constant';
 
 type NavItem = {
@@ -10,8 +12,10 @@ type NavItem = {
   path?: string;
   route?: string;
   filePath?: string;
+  relative?: string;
   lang?: string;
   level?: number;
+  loadable?: any;
   children?: Array<NavItem>;
 };
 
@@ -28,6 +32,8 @@ function resolveStaticNavs(userConfig): NavItem[] {
     const isDefaultFile = title === 'README';
     const routePath = path.join(baseDir, isDefaultFile ? '' : kebabCase(title));
     const level = routePath.split(path.sep).length - 1;
+    const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
+    const loadable = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
 
     if (isDefaultFile && !isBaseDir) {
       // 目录默认路径 title往上取一级
@@ -39,8 +45,10 @@ function resolveStaticNavs(userConfig): NavItem[] {
       title,
       lang,
       level,
+      relative,
       path: routePath,
       filePath,
+      loadable,
     };
   });
   return staticDocs;

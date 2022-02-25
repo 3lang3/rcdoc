@@ -68,7 +68,7 @@ async function resolveComponentDocuments(userConfig, components: string[]): Prom
 
   const componentDocs = docs
     .filter((item) => existsSync(item.path))
-    // .map((el) => ({ ...el, path: el.path.replace(PROJECT_SRC_DIR, projectPackageJson.name) }));
+    .map((el) => ({ ...el, path: el.path.replace(PROJECT_SRC_DIR, '@') }));
 
   return componentDocs;
 }
@@ -123,7 +123,9 @@ function genExportNavs(items) {
 }
 
 function genExportFlattenNavs(items) {
-  return `export const flattenMenus = ${JSON.stringify(items)}`;
+  return `export const flattenMenus = [
+    ${items.map(({ loadable, ...item }) => (`{ loadable: ${loadable}, ...${JSON.stringify(item)} }`)).join(',\n  ')}
+  ];`;
 }
 
 export async function genSiteDesktopSharedLazy(userConfig) {
@@ -132,7 +134,7 @@ export async function genSiteDesktopSharedLazy(userConfig) {
   const staticDocuments = await resolveStaticDocuments(userConfig);
   const documents = [...staticDocuments, ...componentDocuments];
   const { menus, flattenMenus } = genSiteNavShared(userConfig)
-  const code = `${genImportConfig()}
+  const code = `import React from 'react';\n${genImportConfig()}
 ${genExportConfig()}
 ${genExportAllDocuments(documents)}
 ${genExportDocuments(componentDocuments)}

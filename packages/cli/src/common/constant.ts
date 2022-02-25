@@ -21,8 +21,6 @@ export const PROJECT_SITE_DIST_DIR = join(ROOT, 'site');
 
 // Relative paths
 export const SITE_SRC_DIR = join(__dirname, '..', 'site');
-export const DIST_DIR = join(__dirname, '..', '.mdoc');
-export const CONFIG_DIR = join(__dirname, '..', 'config');
 
 // Dist files
 export const PACKAGE_ENTRY_FILE = join(PROJECT_CLI_DIST_DIR, 'package-entry.js');
@@ -38,7 +36,7 @@ export const JEST_CONFIG_FILE = join(CJS_DIR, 'jest.config.cjs');
 export const BABEL_CONFIG_FILE = join(CJS_DIR, 'babel.config.cjs');
 
 export const SCRIPT_EXTS = ['.js', '.jsx', '.ts', '.tsx'];
-export const STYLE_EXTS = ['.css', '.less', '.scss'];
+export const STYLE_EXTS = ['.css', '.less'];
 
 export function getPackageJson() {
   const rawJson = readFileSync(PACKAGE_JSON_FILE, 'utf-8');
