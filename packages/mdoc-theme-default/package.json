@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@loadable/component": "^5.15.2",
     "@mdoc/theme": "workspace:*",
     "clsx": "^1.1.1",
     "prism-react-renderer": "^1.2.1",
