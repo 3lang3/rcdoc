@@ -4,10 +4,11 @@ import NavLink from '../NavLink';
 import './index.less';
 
 const Nav = props => {
-  const { navs, config, versions } = props;
+  const { navs, lang, defaultLang, config, versions } = props;
+
   const base = useMemo(() => {
-    return '';
-  }, []);
+    return  lang === defaultLang  ? '' : `/${lang}` ;
+  }, [lang, defaultLang]);
 
   return (
     <div className="vant-doc-nav">

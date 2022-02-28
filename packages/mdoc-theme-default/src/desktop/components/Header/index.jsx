@@ -1,14 +1,13 @@
 /* eslint-disable no-nested-ternary */
 import React, { useMemo } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 import clsx from 'clsx';
 import SearchInput from '../SearchInput';
 import { GitHubIcon, HttpLinkIcon } from '../Icons';
-import { getLang } from '../../../common/locales';
 import './index.less';
 
 const Header = props => {
-  const { lang, config, langConfigs } = props;
+  const { lang, config, defaultLang, langConfigs } = props;
   const { pathname } = useLocation();
 
   const anotherLang = useMemo(() => {
@@ -20,10 +19,10 @@ const Header = props => {
   }, [lang, langConfigs]);
 
   const langLink = useMemo(() => {
-    return `#${pathname.replace(
-      lang === getLang() ? '' : `/${lang}`,
-      anotherLang.lang === getLang() ? '' : anotherLang.lang,
-    )}`;
+    const currentDefault = defaultLang === lang;
+    return currentDefault
+      ? `/${anotherLang.lang}${pathname}`
+      : pathname.replace(`/${lang}`, '');
   }, [anotherLang.lang, lang, pathname]);
 
   const langLabel = useMemo(() => {
@@ -80,9 +79,9 @@ const Header = props => {
               })}
             {langLabel && langLink && (
               <li className="vant-doc-header__top-nav-item">
-                <a className="vant-doc-header__cube" href={langLink}>
+                <Link className="vant-doc-header__cube" to={langLink}>
                   {langLabel}
-                </a>
+                </Link>
               </li>
             )}
           </ul>

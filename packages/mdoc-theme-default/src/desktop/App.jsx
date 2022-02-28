@@ -15,6 +15,11 @@ const App = () => {
     navs: allMenus,
   } = React.useContext(MdocSiteContext);
 
+  const defaultLang = useMemo(() => {
+    const { locales } = config;
+    return locales[0][0];
+  }, [config.locales])
+
   const lang = useMemo(() => {
     const { locales } = config;
     return getLangFromRoute(pathname, locales);
@@ -45,6 +50,8 @@ const App = () => {
     [navs, currentCompnentName],
   );
 
+  console.log(allMenus)
+
   // 更新标题
   const setTitle = useCallback(() => {
     let { title } = config;
@@ -71,6 +78,7 @@ const App = () => {
   return (
     <Doc
       lang={lang}
+      defaultLang={defaultLang}
       config={config}
       navs={navs}
       langConfigs={langConfigs}

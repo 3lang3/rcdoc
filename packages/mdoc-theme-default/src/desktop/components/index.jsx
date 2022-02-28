@@ -7,6 +7,7 @@ import Content from './Content';
 const Doc = props => {
   const {
     lang,
+    defaultLang,
     versions,
     langConfigs,
     config,
@@ -21,11 +22,12 @@ const Doc = props => {
       <Nav
         config={config}
         lang={lang}
+        defaultLang={defaultLang}
         navs={navs}
         versions={versions}
       />
       <Container>
-        <Header lang={lang} config={config} langConfigs={langConfigs} />
+        <Header lang={lang} defaultLang={defaultLang} config={config} langConfigs={langConfigs} />
         <Content currentCompnentName={currentCompnentName}>
           {props.children}
         </Content>
