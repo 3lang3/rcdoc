@@ -2,29 +2,36 @@ import chalk from 'chalk';
 import { createRequire } from 'module';
 import { createServer, build } from 'vite';
 import { getViteConfigForSiteDev, getViteConfigForSiteProd } from '../config/vite.site';
-import { mergeCustomViteConfig } from '../common';
-import { genSiteDesktopShared } from './gen-site-shared';
+import { mergeCustomViteConfig, replaceExt } from '../common';
+import { PACKAGE_STYLE_FILE } from '../common/constant';
+import { genStyleDepsMap } from './gen-style-deps-map';
+import { genPackageStyle } from './gen-package-style';
 import { genSiteDesktopSharedLazy } from './gen-site-shared-lazy';
+import { getCssLang } from '../common/css';
 
-export async function genSiteEntry(userConfig): Promise<void> {
-  return new Promise(async (resolve, reject) => {
-    try {
-      await genSiteDesktopShared(userConfig)
-      await genSiteDesktopSharedLazy(userConfig)
-      resolve()
-    } catch (error) {
-      reject(error)
-    }
+export async function genSiteEntry(): Promise<void> {
+  const CSS_LANG = getCssLang();
+  return new Promise((resolve, reject) => {
+    genStyleDepsMap()
+      .then(() => {
+        genPackageStyle({ outputPath: replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`) })
+        genSiteDesktopSharedLazy();
+        resolve();
+      })
+      .catch((err) => {
+        console.log(err);
+        reject(err);
+      });
   });
 }
 
-export async function compileSite(userConfig, production = false) {
-  await genSiteEntry(userConfig);
+export async function compileSite(production = false) {
+  await genSiteEntry();
   if (production) {
-    const config = await mergeCustomViteConfig(userConfig, await getViteConfigForSiteProd(userConfig));
+    const config = mergeCustomViteConfig(getViteConfigForSiteProd());
     await build(config);
   } else {
-    const config = await mergeCustomViteConfig(userConfig, await getViteConfigForSiteDev(userConfig));
+    const config = mergeCustomViteConfig(getViteConfigForSiteDev());
     const server = await createServer(config);
     await server.listen();
 

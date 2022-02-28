@@ -7,6 +7,7 @@ import { bundleRequire } from 'bundle-require'
 import strip from 'strip-json-comments'
 import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant'
 import type { UserConfigExport } from '../config/defineConfig';
+import { init } from '../common/context'
 
 const defaultConfig: UserConfigExport = {
   locales: [['en-US', 'English'], ['zh-CN', '中文']]
@@ -68,6 +69,7 @@ export async function resolveConfig(
     if (configPath.endsWith('.json')) {
       let data = await loadJson(configPath)
       if (data) {
+        init(data)
         return { path: configPath, data }
       }
       return {}
@@ -81,6 +83,9 @@ export async function resolveConfig(
 
     const mergedData = merge(defaultConfig, data)
     fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2))
+
+    init(mergedData)
+    
     return {
       path: configPath,
       data: mergedData,

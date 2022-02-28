@@ -6,6 +6,7 @@ import {
   PROJECT_SRC_DIR,
   PROJECT_CLI_DIST_DIR
 } from '../common/constant';
+import context from '../common/context';
 
 type NavItem = {
   title: string;
@@ -54,8 +55,8 @@ function resolveStaticNavs(userConfig): NavItem[] {
   return staticDocs;
 }
 
-export function genSiteNavShared(userConfig) {
-  const flattenMenus = resolveStaticNavs(userConfig);
+export function genSiteNavShared() {
+  const flattenMenus = resolveStaticNavs(context.opts);
   return { flattenMenus, menus: generateRoutes(JSON.parse(JSON.stringify(flattenMenus))) }
 }
 

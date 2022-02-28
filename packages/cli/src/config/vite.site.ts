@@ -16,6 +16,7 @@ import {
   ROOT,
 } from '../common/constant';
 import { getConfigThemeAlias } from './theme'
+import context from '../common/context';
 
 function getSiteConfig(vantConfig: any) {
   const siteConfig = vantConfig.site;
@@ -49,15 +50,15 @@ function getHTMLMeta(vantConfig: any) {
   return '';
 }
 
-export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig> {
+export function getViteConfigForSiteDev(): InlineConfig {
   setBuildTarget('site');
 
   const projectPackageJson = getPackageJson();
-  const title = getTitle(userConfig);
-  const baiduAnalytics = get(userConfig, 'site.baiduAnalytics');
-  const exportDemos = get(userConfig, 'exportDemos', false);
-  const enableVConsole = isDev() && get(userConfig, 'site.enableVConsole');
-  const themeAlias = getConfigThemeAlias(userConfig);
+  const title = getTitle(context.opts);
+  const baiduAnalytics = get(context.opts, 'site.baiduAnalytics');
+  const exportDemos = get(context.opts, 'exportDemos', false);
+  const enableVConsole = isDev() && get(context.opts, 'site.enableVConsole');
+  const themeAlias = getConfigThemeAlias();
   // @hack
   // enforce alias redirect to not root dir
   const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
@@ -93,11 +94,11 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
       createHtmlPlugin({
         inject: {
           data: {
-            ...userConfig,
+            ...context.opts,
             title,
             baiduAnalytics,
             enableVConsole,
-            meta: getHTMLMeta(userConfig),
+            meta: getHTMLMeta(context.opts),
           },
         }
       }),
@@ -120,10 +121,10 @@ export async function getViteConfigForSiteDev(userConfig): Promise<InlineConfig>
   };
 }
 
-export async function getViteConfigForSiteProd(userConfig): Promise<InlineConfig> {
-  const devConfig = getViteConfigForSiteDev(userConfig);
-  const outDir = get(userConfig, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
-  const publicPath = get(userConfig, 'build.site.publicPath', '/');
+export function getViteConfigForSiteProd(): InlineConfig {
+  const devConfig = getViteConfigForSiteDev();
+  const outDir = get(context.opts, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
+  const publicPath = get(context.opts, 'build.site.publicPath', '/');
 
   return {
     ...devConfig,

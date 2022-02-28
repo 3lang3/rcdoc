@@ -2,11 +2,12 @@ import { get } from 'lodash-es';
 import { existsSync } from 'fs';
 import { join, isAbsolute } from 'path';
 import { PROJECT_STYLE_DIR, PROJECT_SRC_DIR } from './constant';
+import context from './context';
 
 type CSSLANG = 'css' | 'less' | 'scss';
 
-async function getCssLang(mdocConfig): Promise<CSSLANG> {
-  const preprocessor = get(mdocConfig, 'build.css.preprocessor', 'less');
+export function getCssLang(): CSSLANG {
+  const preprocessor = get(context.opts, 'build.css.preprocessor', 'less');
 
   if (preprocessor === 'sass') {
     return 'scss';
@@ -15,11 +16,11 @@ async function getCssLang(mdocConfig): Promise<CSSLANG> {
   return preprocessor;
 }
 
-export async function getCssBaseFile(userConfig) {
-  const CSS_LANG = getCssLang(userConfig);
+export  function getCssBaseFile() {
+  const CSS_LANG = getCssLang();
   let path = join(PROJECT_STYLE_DIR, `base.${CSS_LANG}`);
 
-  const baseFile = get(userConfig, 'build.css.base', '');
+  const baseFile = get(context.opts, 'build.css.base', '');
   if (baseFile) {
     path = isAbsolute(baseFile) ? baseFile : join(PROJECT_SRC_DIR, baseFile);
   }
@@ -33,7 +34,7 @@ export async function getCssBaseFile(userConfig) {
 const IMPORT_STYLE_RE = /import\s+?(?:(?:".*?")|(?:'.*?'))[\s]*?(?:;|$|)/g;
 
 // "import 'a.less';" => "import 'a.css';"
-export async function replaceCssImport(userConfig, code: string) {
-  const CSS_LANG = getCssLang(userConfig);
+export async function replaceCssImport(code: string) {
+  const CSS_LANG = getCssLang();
   return code.replace(IMPORT_STYLE_RE, (str) => str.replace(`.${CSS_LANG}`, '.css'));
 }

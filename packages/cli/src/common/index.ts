@@ -3,6 +3,7 @@ import { sep, join } from 'path';
 import { get } from 'lodash-es';
 import type { InlineConfig } from 'vite';
 import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE } from './constant';
+import context from './context';
 
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse;
 
@@ -24,6 +25,8 @@ export function replaceExt(path: string, ext: string) {
 }
 
 export function hasDefaultExport(code: string) {
+  // @TODO
+  // Maybe use babel/ast to get right
   return code.includes('export default') || code.includes('export { default }');
 }
 
@@ -150,8 +153,8 @@ export function kebabCase(str: string): string {
     .replace(/^-/, '');
 }
 
-export async function mergeCustomViteConfig(userConfig, config: InlineConfig) {
-  const configureVite = get(userConfig, 'build.configureVite');
+export function mergeCustomViteConfig(config: InlineConfig) {
+  const configureVite = get(context.opts, 'build.configureVite');
 
   if (configureVite) {
     return configureVite(config);

@@ -14,6 +14,7 @@ import {
   SITE_SHARD_CONFIG_FILE,
 } from '../common/constant';
 import { genSiteNavShared } from './gen-site-nav'
+import context from '../common/context';
 
 const { existsSync, readdirSync } = fse;
 
@@ -39,7 +40,6 @@ function formatName(component: string, lang?: string) {
  *   - action-sheet/README.md => ActionSheet
  */
 async function resolveComponentDocuments(userConfig, components: string[]): Promise<DocumentItem[]> {
-  const projectPackageJson = getPackageJson();
   const { locales } = userConfig;
   const defaultLang = locales[0][0];
 
@@ -128,12 +128,13 @@ function genExportFlattenNavs(items) {
   ];`;
 }
 
-export async function genSiteDesktopSharedLazy(userConfig) {
+export async function genSiteDesktopSharedLazy() {
+  const userConfig = context.opts
   const dirs = readdirSync(PROJECT_SRC_DIR);
   const componentDocuments = await resolveComponentDocuments(userConfig, dirs);
   const staticDocuments = await resolveStaticDocuments(userConfig);
   const documents = [...staticDocuments, ...componentDocuments];
-  const { menus, flattenMenus } = genSiteNavShared(userConfig)
+  const { menus, flattenMenus } = genSiteNavShared()
   const code = `import React from 'react';\n${genImportConfig()}
 ${genExportConfig()}
 ${genExportAllDocuments(documents)}

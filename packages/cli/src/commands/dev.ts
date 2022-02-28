@@ -8,6 +8,6 @@ import { resolveConfig } from '../compiler/resolve-config';
 
 export async function dev() {
   setNodeEnv('development');
-  const userConfig = await resolveConfig();
-  await compileSite(userConfig.data);
+  await resolveConfig();
+  await compileSite();
 }
