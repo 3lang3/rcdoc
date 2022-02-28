@@ -50,8 +50,6 @@ const App = () => {
     [navs, currentCompnentName],
   );
 
-  console.log(allMenus)
-
   // 更新标题
   const setTitle = useCallback(() => {
     let { title } = config;

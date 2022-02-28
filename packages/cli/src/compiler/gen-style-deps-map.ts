@@ -95,7 +95,6 @@ export async function genStyleDepsMap() {
   const components = getComponents();
 
   const CSS_LANG = getCssLang();
-  console.log(CSS_LANG)
 
   return new Promise((resolve) => {
     clearDepsCache();

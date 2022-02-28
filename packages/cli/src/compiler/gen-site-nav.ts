@@ -20,7 +20,6 @@ type NavItem = {
   children?: Array<NavItem>;
 };
 
-
 function resolveStaticNavs(userConfig): NavItem[] {
   const { locales } = userConfig;
   const defaultLang = locales[0][0];
@@ -57,15 +56,44 @@ function resolveStaticNavs(userConfig): NavItem[] {
 
 export function genSiteNavShared() {
   const flattenMenus = resolveStaticNavs(context.opts);
-  return { flattenMenus, menus: generateRoutes(JSON.parse(JSON.stringify(flattenMenus))) }
+  localesCompatibleRoute(flattenMenus, context.opts?.locales)
+  return { flattenMenus, menus: generateRoutes(flattenMenus) }
 }
 
+// For missing translation 
+// Use the documents in the default language as the untranslated language documents
+function localesCompatibleRoute(allRoutes: NavItem[], locales: [string, string]) {
+  const defaultLang = locales[0][0]
+  const defaultLangRoutes = allRoutes.filter(r => r.lang === defaultLang);
+  const othersLangRoutes = allRoutes.reduce((a, v) => {
+    if (v.lang !== defaultLang) {
+      if (!a[v.lang]) {
+        a[v.lang] = [v]
+      } else {
+        a[v.lang].push(v)
+      }
+    }
+    return a
+  }, {});
+
+  Object.entries(othersLangRoutes).forEach(([lang, routes]: [string, any[]]) => {
+    defaultLangRoutes.forEach((defaultRoute) => {
+      if (!routes.find(r => r.path === defaultRoute.path)) {
+        const idx = allRoutes.findIndex(r => r.path === defaultRoute.path)
+        allRoutes.splice(idx, 0, { ...defaultRoute, lang })
+      }
+    })
+  })
+}
+
+// get langs arr by locales
 function getLangs(data: NavItem[]) {
   return data.reduce<string[]>((a, v) => {
     if (!a.includes(v.lang)) a.push(v.lang);
     return a;
   }, [])
 }
+
 
 function getRoutesDataByLang(data, lang) {
   let flattenRoutes = data.filter(r => r.lang === lang);
@@ -119,9 +147,12 @@ function getRoutesDataByLang(data, lang) {
 }
 
 function generateRoutes(data: NavItem[]) {
-  const langs = getLangs(data);
-  return langs.reduce((a, v) => {
-    a[v] = getRoutesDataByLang(data, v)
+  const cloneData = JSON.parse(JSON.stringify(data))
+  const filterData = cloneData
+  const langs = getLangs(filterData);
+  const langsRoutes = langs.reduce((a, v) => {
+    a[v] = getRoutesDataByLang(filterData, v)
     return a;
-  }, {})
+  }, {});
+  return langsRoutes
 }
