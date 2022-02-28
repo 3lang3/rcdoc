@@ -2,7 +2,7 @@
 import { defineConfig } from '@mdoc/cli'
 
 export default defineConfig({
-  title: 'react vant',
+  title: 'MDOC DEMO',
   description: '轻量、可靠的移动端 React 组件库',
   favicon: '',
   logo: 'https://github.com/3lang3/react-vant/blob/main/public/logo.svg?raw=true',

@@ -9,10 +9,11 @@ hello mdoc!
  */
 
 import React from 'react';
+import { Button } from 'mdoc-demo'
 
 export default () => {
   const [count, updateCount] = React.useState(0)
-  return <button onClick={() => updateCount(c => c + 1)}>count: {count}</button>
+  return <Button onClick={() => updateCount(c => c + 1)}>count: {count}</Button>
 }
 
 ```

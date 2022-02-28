@@ -1,9 +1,13 @@
 import React from 'react';
 import clsx from 'clsx';
-import { packageVersion } from 'site-shared-lazy';
+import { MdocSiteContext } from '@mdoc/theme';
 import './index.less';
 
 const VersionToggle = ({ versions }) => {
+  const {
+    packageVersion,
+  } = React.useContext(MdocSiteContext);
+
   const versionRef = React.useRef(null);
   const [showVersionPop, setShowVersionPop] = React.useState(false);
 
@@ -28,7 +32,7 @@ const VersionToggle = ({ versions }) => {
   };
 
   return (
-    <div ref={versionRef} style={{ width: 130 }} className="vant-doc-header__top-nav-item">
+    <div ref={versionRef} style={{ margin: 0}} className="vant-doc-header__top-nav-item">
       <span
         className={clsx('vant-doc-header__cube vant-doc-header__version')}
         onClick={toggleVersionPop}
