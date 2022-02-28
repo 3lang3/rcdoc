@@ -5,6 +5,7 @@ import {
   pascalize,
   smartOutputFile,
   normalizePath,
+  replaceExt,
 } from '../common';
 import {
   PROJECT_SRC_DIR,
@@ -12,9 +13,11 @@ import {
   getPackageJson,
   SITE_SHARED_LAZY_FILE,
   SITE_SHARD_CONFIG_FILE,
+  PACKAGE_STYLE_FILE,
 } from '../common/constant';
 import { genSiteNavShared } from './gen-site-nav'
 import context from '../common/context';
+import { getCssLang } from '../common/css';
 
 const { existsSync, readdirSync } = fse;
 
@@ -95,6 +98,11 @@ function genImportConfig() {
   return `import config from '${normalizePath(SITE_SHARD_CONFIG_FILE)}';`;
 }
 
+function genStyles() {
+  const CSS_LANG = getCssLang();
+  return `import '${replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`)}'`
+}
+
 function genExportConfig() {
   return 'export { config };';
 }
@@ -136,6 +144,7 @@ export async function genSiteDesktopSharedLazy() {
   const documents = [...staticDocuments, ...componentDocuments];
   const { menus, flattenMenus } = genSiteNavShared()
   const code = `import React from 'react';\n${genImportConfig()}
+${genStyles()}
 ${genExportConfig()}
 ${genExportAllDocuments(documents)}
 ${genExportDocuments(componentDocuments)}
