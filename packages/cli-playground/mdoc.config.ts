@@ -2,7 +2,6 @@
 import { defineConfig } from '@mdoc/cli'
 
 export default defineConfig({
-  name: 'mdoc-demo',
   title: 'react vant',
   description: '轻量、可靠的移动端 React 组件库',
   favicon: '',
@@ -13,7 +12,10 @@ export default defineConfig({
     packageManager: 'pnpm',
     srcDir: 'src',
     namedExport: true,
-    css: { preprocessor: 'less' },
+    css: { 
+      preprocessor: 'less',
+      // component: './style'
+    },
     site: { publicPath: './' },
   },
   links: [

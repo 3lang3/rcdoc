@@ -1,6 +1,5 @@
 {
-  "private": true,
-  "name": "cli-playground",
+  "name": "mdoc-demo",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
