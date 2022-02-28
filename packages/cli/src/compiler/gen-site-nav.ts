@@ -1,6 +1,5 @@
 import glob from 'fast-glob';
 import path from 'path';
-import slash from 'slash2';
 import { kebabCase } from 'lodash-es'
 import {
   PROJECT_SRC_DIR,
