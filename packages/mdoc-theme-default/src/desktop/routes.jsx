@@ -8,9 +8,9 @@ const PreviewerComp = ({ lazyComponent, ...props }) => {
   return (
     <React.Suspense fallback={<div>loading</div>}>
       <LazyComponent>
-        {({ MdContent, frontmatter = {}, slugs = [] }) => {
+        {({ MdContent, frontmatter = {}, slugs = [], filePath }) => {
           return (
-            <MdPage {...props} frontmatter={frontmatter} slugs={slugs}>
+            <MdPage {...props} frontmatter={frontmatter} slugs={slugs} filePath={filePath}>
               {({ previewer }) => (
                 <>
                   <MdContent previewer={previewer} />

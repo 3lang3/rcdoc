@@ -25,9 +25,6 @@ const MdPageComponent = ({
 
   React.useEffect(() => {
     window.scrollTo(0, 0);
-    // anchor format
-    replaceHeadingsId(hashPath, '.vant-doc-md-page h2');
-    replaceHeadingsId(hashPath, '.vant-doc-md-page h3');
   }, [hashPath]);
 
   return (
@@ -49,10 +46,3 @@ const MdPageComponent = ({
 export default props => {
   return <MdPageComponent {...props} />;
 };
-
-function replaceHeadingsId(hashPath, target) {
-  const headings = [...document.querySelectorAll(target)].filter(el => el.id);
-  headings.forEach(el => {
-    el.id = el.id.replace(/(.*)/, `${hashPath}#$1`);
-  });
-}
