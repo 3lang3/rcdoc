@@ -27,6 +27,7 @@ importers:
       esbuild: ^0.14.21
       execa: ^6.0.0
       fast-glob: ^3.2.11
+      front-matter: ^4.0.2
       fs-extra: ^10.0.0
       jest: ^27.5.1
       joycon: ^3.1.1
@@ -58,6 +59,7 @@ importers:
       esbuild: 0.14.21
       execa: 6.0.0
       fast-glob: 3.2.11
+      front-matter: 4.0.2
       fs-extra: 10.0.0
       jest: 27.5.1
       joycon: 3.1.1
@@ -3326,6 +3328,12 @@ packages:
   /format/0.2.2:
     resolution: {integrity: sha1-1hcBB+nv3E7TDJ3DkBbflCtctYs=}
     engines: {node: '>=0.4.x'}
+    dev: false
+
+  /front-matter/4.0.2:
+    resolution: {integrity: sha512-I8ZuJ/qG92NWX8i5x1Y8qyj3vizhXS31OxjKDu3LKP+7/qBgfIKValiZIEwoVoJKUHlhWtYrktkxV1XsX+pPlg==}
+    dependencies:
+      js-yaml: 3.14.1
     dev: false
 
   /fs-extra/10.0.0:
