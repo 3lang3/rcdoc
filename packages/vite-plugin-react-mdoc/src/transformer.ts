@@ -77,8 +77,11 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
   content.addContext(`const slugs = ${JSON.stringify(slugs)};`)
   content.addExporting('slugs');
 
+  content.addContext(`const filePath = "${id}";`)
+  content.addExporting('filePath');
+
   content.addContext(`export default (props) => {
-    return props.children({ MdContent, MdDemos, frontmatter, slugs })
+    return props.children({ MdContent, MdDemos, frontmatter, slugs, filePath })
   }`)
 
   return {

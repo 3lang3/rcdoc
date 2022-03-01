@@ -8,11 +8,15 @@ export default defineConfig({
   logo: 'https://github.com/3lang3/react-vant/blob/main/public/logo.svg?raw=true',
   /** 是否额外导出demo组件 */
   exportDemos: true,
+  resolve: {
+    includes: ['docs', 'src'],
+    excludes: [],
+  },
   build: {
     packageManager: 'pnpm',
     srcDir: 'src',
     namedExport: true,
-    css: { 
+    css: {
       preprocessor: 'less',
       // component: './style'
     },
@@ -34,4 +38,25 @@ export default defineConfig({
       'docsearch:version': 'v3',
     },
   },
+  // menus: {
+  //   '/components': [
+  //     { 
+  //       title: 'Base Components',
+  //       children: [
+  //         '/components/button',
+  //       ],
+  //     },
+  //     { 
+  //       title: 'Layout Components',
+  //       children: [
+  //         '/components/space',
+  //       ],
+  //     }
+  //   ],
+  //   '/zh-CN/components': [
+  //     { 
+  //       title: '基础组件',
+  //     }
+  //   ],
+  // }
 } as any)

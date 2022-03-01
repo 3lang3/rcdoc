@@ -1,7 +1,8 @@
 import React from 'react';
+import { Space } from 'mdoc-demo';
 
 export default ({ children, ...props }) => (
-  <button className="button" {...props}>
+  <Space className="button" {...props}>
     {children}
-  </button>
+  </Space>
 );

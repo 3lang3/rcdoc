@@ -74,8 +74,10 @@ declare module '*.md' {
 
   const slugs: { depth: number; text: string; id: string; }[];
 
+  const filePath: string;
+
   // Modify below per your usage
-  export { MdContent, MdDemos, frontmatter, slugs };
+  export { MdContent, MdDemos, frontmatter, slugs, filePath };
 }
 ```
 

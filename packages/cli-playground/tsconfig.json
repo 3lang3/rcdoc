@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "react-vant": ["src/index.ts"]
+      "mdoc-demo": ["src/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist", "site"]
