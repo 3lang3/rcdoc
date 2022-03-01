@@ -1,10 +1,10 @@
-import { join } from 'path';
+import path from 'path';
 import { get } from 'lodash-es';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
-import { smartOutputFile, normalizePath } from '../common/index';
+import { smartOutputFile, normalizePath } from '../common';
 import { getCssLang, getCssBaseFile } from '../common/css';
-import { PROJECT_SRC_DIR, STYLE_DEPS_JSON_FILE } from '../common/constant';
+import { STYLE_DEPS_JSON_FILE } from '../common/constant';
 import context from '../common/context';
 
 const { existsSync } = fse;
@@ -35,18 +35,18 @@ export function genPackageStyle(options: Options) {
   const componentRltDir = get(context.opts, 'build.css.component', './');
 
   content += styleDepsJson.sequence
-    .map((name: string) => {
-      let path = join(PROJECT_SRC_DIR, name, componentRltDir, `index${ext}`);
-
-      if (!existsSync(path)) {
+    .map((componentFilePath: string) => {
+      let stylePath = path.join(path.dirname(componentFilePath), componentRltDir, `index${ext}`);
+      
+      if (!existsSync(stylePath)) {
         return '';
       }
 
       if (options.pathResolver) {
-        path = options.pathResolver(path);
+        stylePath = options.pathResolver(stylePath);
       }
-
-      return `@import "${normalizePath(path)}";`;
+      
+      return `@import "${normalizePath(stylePath)}";`;
     })
     .filter((item: string) => !!item)
     .join('\n');

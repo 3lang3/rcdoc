@@ -1,5 +1,6 @@
+import glob from 'fast-glob';
 import fse from 'fs-extra';
-import { sep, join } from 'path';
+import path from 'path';
 import { get } from 'lodash-es';
 import type { InlineConfig } from 'vite';
 import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE } from './constant';
@@ -8,8 +9,8 @@ import context from './context';
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse;
 
 export const EXT_REGEXP = /\.\w+$/;
-export const DEMO_REGEXP = new RegExp(`\\${sep}demo$`);
-export const TEST_REGEXP = new RegExp(`\\${sep}test$`);
+export const DEMO_REGEXP = new RegExp(`\\${path.sep}demo$`);
+export const TEST_REGEXP = new RegExp(`\\${path.sep}test$`);
 export const ASSET_REGEXP = /\.(png|jpe?g|gif|webp|ico|jfif|svg|woff2?|ttf)$/i;
 export const STYLE_REGEXP = /\.(css|less|scss)$/;
 export const SCRIPT_REGEXP = /\.(js|ts|jsx|tsx)$/;
@@ -31,22 +32,23 @@ export function hasDefaultExport(code: string) {
 }
 
 /**
- * Get components Array
- * return ['action-bar','action-sheet','cascader',……]
+ * Get components path Array
+ * return ['/Users/3lang/Workspace/github/mdoc/packages/cli-playground/src/components/button/index.tsx']
  */
 export function getComponents(): Array<string> {
   const EXCLUDES = ['.DS_Store'];
-  const dirs = readdirSync(PROJECT_SRC_DIR);
+  const dirs = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/index.*')))
   return dirs
     .filter((dir) => !EXCLUDES.includes(dir))
     .filter((dir) =>
-      ENTRY_EXTS.some((ext) => {
-        const path = join(PROJECT_SRC_DIR, dir, `index.${ext}`);
-        if (existsSync(path)) {
-          return hasDefaultExport(readFileSync(path, 'utf-8'));
+      ENTRY_EXTS.some(ext => {
+        const guessPath = path.extname(dir) === `.${ext}`;
+        const guessMdPath = path.join(path.dirname(dir), 'README.md');
+        if (guessPath && existsSync(guessMdPath)) {
+          return hasDefaultExport(readFileSync(dir, 'utf-8'));
         }
         return false;
-      }),
+      })
     );
 }
 

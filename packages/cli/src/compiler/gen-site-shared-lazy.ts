@@ -71,7 +71,6 @@ async function resolveComponentDocuments(userConfig, components: string[]): Prom
 
   const componentDocs = docs
     .filter((item) => existsSync(item.path))
-    .map((el) => ({ ...el, path: el.path.replace(PROJECT_SRC_DIR, '@') }));
 
   return componentDocs;
 }

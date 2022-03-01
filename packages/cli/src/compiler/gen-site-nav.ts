@@ -1,4 +1,6 @@
+import fse from 'fs-extra';
 import glob from 'fast-glob';
+import fm from 'front-matter';
 import path from 'path';
 import { kebabCase } from 'lodash-es'
 import {
@@ -15,6 +17,7 @@ type NavItem = {
   relative?: string;
   lang?: string;
   level?: number;
+  isLink?: boolean;
   loadable?: any;
   children?: Array<NavItem>;
 };
@@ -28,18 +31,28 @@ function resolveStaticNavs(userConfig): NavItem[] {
     const isBaseDir = dir === PROJECT_SRC_DIR;
     const baseDir = path.join('/', path.relative(PROJECT_SRC_DIR, dir))
     let [title, lang = defaultLang] = name.split('.');
-    const isDefaultFile = title === 'README';
-    const routePath = path.join(baseDir, isDefaultFile ? '' : kebabCase(title));
+    const defaultLangFile = title === 'README';
+    const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
     const level = routePath.split(path.sep).length - 1;
     const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
+    // Lazy load for reduce bundle
     const loadable = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
+    // Get md frontmatter attributes
+    const { attributes } = fm<{ title: string; link: boolean; }>(fse.readFileSync(filePath, 'utf-8'))
 
-    if (isDefaultFile && !isBaseDir) {
-      // 目录默认路径 title往上取一级
+    // Default is link type
+    let isLink = true
+    if (attributes?.link === false) {
+      isLink = false
+    }
+    if (defaultLangFile && !isBaseDir) {
+      // If is default lang path, title get basename value
       // /src/button/README.md
       // button ✅ README ❌
       title = path.basename(dir)
     }
+    // Overwrite title
+    title = attributes?.title || title
     return {
       title,
       lang,
@@ -47,6 +60,7 @@ function resolveStaticNavs(userConfig): NavItem[] {
       relative,
       path: routePath,
       filePath,
+      isLink,
       loadable,
     };
   });
@@ -124,6 +138,8 @@ function getRoutesDataByLang(data, lang) {
       } else {
         target.children = [el]
       }
+    } else {
+      children.push(el)
     }
   }
 

@@ -23,14 +23,12 @@ export function checkStyleExists(component: string) {
 }
 
 // analyze component dependencies
-function analyzeComponentDeps(components: string[], component: string) {
+function analyzeComponentDeps(components: string[], componentEntry: string) {
   const checkList: string[] = [];
-  const componentEntry = fillExt(join(PROJECT_SRC_DIR, component, 'index'));
   const record = new Set();
 
   function search(filePath: string) {
     record.add(filePath);
-
     getDeps(filePath).forEach((key) => {
       if (record.has(key)) {
         return;
@@ -39,7 +37,7 @@ function analyzeComponentDeps(components: string[], component: string) {
       components
         .filter((item) => matchPath(key, item))
         .forEach((item) => {
-          if (!checkList.includes(item) && item !== component) {
+          if (!checkList.includes(item)) {
             checkList.push(item);
           }
         });
@@ -93,8 +91,6 @@ function getSequence(components: string[], depsMap: DepsMap) {
 
 export async function genStyleDepsMap() {
   const components = getComponents();
-
-  const CSS_LANG = getCssLang();
 
   return new Promise((resolve) => {
     clearDepsCache();
