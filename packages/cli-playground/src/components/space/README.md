@@ -1,4 +1,4 @@
-# Space2
+# Space
 
 hello mdoc!
 

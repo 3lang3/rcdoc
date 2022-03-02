@@ -71,7 +71,7 @@ function resolveStaticNavs(userConfig): NavItem[] {
 export function genSiteMenu() {
   const routes = resolveStaticNavs(context.opts);
   localesCompatibleRoute(routes, context.opts?.locales);
-  const menuRoutes = routes.map(({ lang, title, path, level, isLink }) => ({ lang, title, path, level, isLink }))
+  const menuRoutes = routes.map(({ lang, title, path, level, isLink, filePath }) => ({ lang, title, path, level, isLink, filePath }))
   return { routes, menus: generateMenus(menuRoutes) }
 }
 

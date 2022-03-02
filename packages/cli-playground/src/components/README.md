@@ -1,5 +1,5 @@
 ---
-title: Base Components1111
+title: Base Components
 link: false
 ---
 
