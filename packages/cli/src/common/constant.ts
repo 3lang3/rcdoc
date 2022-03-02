@@ -20,7 +20,7 @@ export const PROJECT_CLI_DIST_DIR = join(ROOT, '.mdoc');
 export const PROJECT_SITE_DIST_DIR = join(ROOT, 'docs-dist');
 
 // Relative paths
-export const SITE_SRC_DIR = join(__dirname, '..', 'site');
+export const SITE_SRC_DIR = join(__dirname, '..', 'docs');
 
 // Dist files
 export const PACKAGE_ENTRY_FILE = join(PROJECT_CLI_DIST_DIR, 'package-entry.js');
