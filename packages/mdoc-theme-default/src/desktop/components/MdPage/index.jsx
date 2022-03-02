@@ -11,7 +11,7 @@ const MdPageComponent = ({
   frontmatter = {},
   slugs = [],
 }) => {
-  const { fluid, slugs: showSlugs = true } = frontmatter;
+  const { fluid, slugs: showSlugs = true, style, className } = frontmatter;
 
   const hashPath = React.useMemo(
     () => window.location.hash.split('#').filter(Boolean)[0],
@@ -29,7 +29,8 @@ const MdPageComponent = ({
 
   return (
     <div
-      className={clsx('vant-doc-md-wrapper')}
+      style={style}
+      className={clsx('vant-doc-md-wrapper', className)}
     >
       {!!slugs.length && showSlugs && !fluid && <SlugNav slugs={formatSlugs} />}
       <section
