@@ -8,7 +8,7 @@ import { PROJECT_SITE_DIST_DIR } from '../common/constant';
 import { compileSite } from '../compiler/compile-site';
 import { resolveConfig } from '../compiler/resolve-config';
 
-export async function buildSite() {
+export async function docsBuild() {
   setNodeEnv('production');
   await fse.emptyDir(PROJECT_SITE_DIST_DIR);
   await resolveConfig();

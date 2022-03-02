@@ -1,7 +1,7 @@
 import fs from 'fs';
 import { URL, fileURLToPath } from 'url';
 import { dev } from './commands/dev';
-import { buildSite } from './commands/build-site';
+import { docsBuild } from './commands/docs-build';
 import { clean } from './commands/clean';
 import { test } from './commands/jest';
 import defineConfig from './config/defineConfig';
@@ -12,4 +12,4 @@ export const cliVersion: string = packageJson.version;
 
 process.env.REACT_VANT_CLI_VERSION = cliVersion;
 
-export { dev, buildSite, clean, test, defineConfig };
+export { dev, docsBuild, clean, test, defineConfig };
