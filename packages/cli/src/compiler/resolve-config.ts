@@ -52,7 +52,7 @@ joycon.addLoader(jsonLoader)
 
 export async function resolveConfig(
   cwd: string = ROOT
-): Promise<{ path?: string; data?: ReturnType<any> }> {
+): Promise<void> {
   const configJoycon = new JoyCon()
   const configPath = await configJoycon.resolve(
     [
@@ -66,31 +66,27 @@ export async function resolveConfig(
   )
 
   if (configPath) {
-    if (configPath.endsWith('.json')) {
-      let data = await loadJson(configPath)
-      if (data) {
-        init(data)
-        return { path: configPath, data }
-      }
-      return {}
-    }
+    await parseConfig(configPath)
+  }
+}
 
-    const config = await bundleRequire({
-      filepath: configPath,
-    })
-
-    const data = config.mod.default || config.mod;
-
-    const mergedData = merge(defaultConfig, data)
-    fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2))
-
-    init(mergedData)
-    
-    return {
-      path: configPath,
-      data: mergedData,
+export async function parseConfig(configPath) {
+  if (configPath.endsWith('.json')) {
+    let data = await loadJson(configPath)
+    if (data) {
+      init(data, configPath)
+      return
     }
   }
 
-  return {}
+  const config = await bundleRequire({
+    filepath: configPath,
+  })
+
+  const data = config.mod.default || config.mod;
+
+  const mergedData = merge(defaultConfig, data)
+  fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2))
+
+  init(mergedData, configPath)
 }

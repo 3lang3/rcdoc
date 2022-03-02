@@ -1,13 +1,13 @@
-import path from 'path'
 import fse from 'fs-extra'
 import watch from 'node-watch'
 import { PROJECT_SRC_DIR, SITE_SHARED_MENU_FILE } from '../common/constant';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown'
 import { smartOutputFile } from '../common';
+import context from '../common/context';
 
 export function watchSiteShared() {
   // Watch all md file
-  const watcher = watch(path.join(PROJECT_SRC_DIR), { recursive: true, filter: /\.md$/ }, async (eventType, filePath) => {
+  const watcher = watch(PROJECT_SRC_DIR, { recursive: true, filter: /\.md$/ }, async (eventType, filePath) => {
     if (eventType !== 'update') return;
     let needUpdate = false
     // Get new title
@@ -40,7 +40,5 @@ export function watchSiteShared() {
     }
   })
 
-  process.once('SIGINT', () => {
-    watcher.close()
-  })
+  context.closes.push(watcher.close)
 }

@@ -9,6 +9,9 @@ import { genPackageStyle } from './gen-package-style';
 import { genSiteDesktopShared } from './gen-site-shared';
 import { getCssLang } from '../common/css';
 import { watchSiteShared } from './watch-site-shared';
+import { updateServer } from '../common/context';
+import { signit } from '../common/sigint';
+import { watchConfig } from './watch-config';
 
 export async function genSiteEntry(): Promise<void> {
   const CSS_LANG = getCssLang();
@@ -34,17 +37,20 @@ export async function compileSite(production = false) {
   } else {
     const config = mergeCustomViteConfig(getViteConfigForSiteDev());
     const server = await createServer(config);
+
+    updateServer(server);
+
     await server.listen();
 
-    await watchSiteShared()
+    watchSiteShared();
+    watchConfig();
+
+    signit()
 
     const require = createRequire(import.meta.url);
     const { version } = require('vite/package.json');
     const viteInfo = chalk.cyan(`vite v${version}`);
     console.log(`\n  ${viteInfo}${chalk.green(` dev server running at:\n`)}`);
     server.printUrls();
-    process.on('SIGINT', () => {
-      server.close();
-    })
   }
 }
