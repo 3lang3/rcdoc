@@ -8,6 +8,7 @@ import { genStyleDepsMap } from './gen-style-deps-map';
 import { genPackageStyle } from './gen-package-style';
 import { genSiteDesktopSharedLazy } from './gen-site-shared-lazy';
 import { getCssLang } from '../common/css';
+import { watchSiteShared } from './watch-site-shared';
 
 export async function genSiteEntry(): Promise<void> {
   const CSS_LANG = getCssLang();
@@ -34,6 +35,8 @@ export async function compileSite(production = false) {
     const config = mergeCustomViteConfig(getViteConfigForSiteDev());
     const server = await createServer(config);
     await server.listen();
+
+    await watchSiteShared()
 
     const require = createRequire(import.meta.url);
     const { version } = require('vite/package.json');

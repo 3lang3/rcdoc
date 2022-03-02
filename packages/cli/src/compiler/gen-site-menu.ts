@@ -1,6 +1,4 @@
-import fse from 'fs-extra';
 import glob from 'fast-glob';
-import fm from 'front-matter';
 import path from 'path';
 import { kebabCase } from 'lodash-es'
 import {
@@ -8,19 +6,23 @@ import {
   PROJECT_CLI_DIST_DIR
 } from '../common/constant';
 import context from '../common/context';
+import { getHeadingsAndFrontmatter } from '../common/markdown';
 
-type NavItem = {
+type MenuItem = {
   title: string;
   path?: string;
-  route?: string;
+  isLink?: boolean;
+  children?: Array<MenuItem>;
+};
+
+type NavItem = {
   filePath?: string;
   relative?: string;
   lang?: string;
   level?: number;
-  isLink?: boolean;
   loadable?: any;
   children?: Array<NavItem>;
-};
+} & MenuItem;
 
 function resolveStaticNavs(userConfig): NavItem[] {
   const { locales } = userConfig;
@@ -37,12 +39,11 @@ function resolveStaticNavs(userConfig): NavItem[] {
     const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
     // Lazy load for reduce bundle
     const loadable = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
-    // Get md frontmatter attributes
-    const { attributes } = fm<{ title: string; link: boolean; }>(fse.readFileSync(filePath, 'utf-8'))
+    const { headings, frontmatter } = getHeadingsAndFrontmatter(filePath)
 
     // Default is link type
     let isLink = true
-    if (attributes?.link === false) {
+    if (frontmatter?.link === false) {
       isLink = false
     }
     if (defaultLangFile && !isBaseDir) {
@@ -52,7 +53,7 @@ function resolveStaticNavs(userConfig): NavItem[] {
       title = path.basename(dir)
     }
     // Overwrite title
-    title = attributes?.title || title
+    title = frontmatter?.title || headings?.[0] || title
     return {
       title,
       lang,
@@ -67,7 +68,7 @@ function resolveStaticNavs(userConfig): NavItem[] {
   return staticDocs;
 }
 
-export function genSiteNavShared() {
+export function genSiteMenu() {
   const flattenMenus = resolveStaticNavs(context.opts);
   localesCompatibleRoute(flattenMenus, context.opts?.locales)
   return { flattenMenus, menus: generateRoutes(flattenMenus) }

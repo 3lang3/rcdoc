@@ -14,10 +14,14 @@ import {
   SITE_SHARED_LAZY_FILE,
   SITE_SHARD_CONFIG_FILE,
   PACKAGE_STYLE_FILE,
+  SITE_SHARED_MENU_FILE,
+  SITE_SHARED_ROUTES_FILE,
 } from '../common/constant';
-import { genSiteNavShared } from './gen-site-nav'
+import { genSiteMenu } from './gen-site-menu'
 import context from '../common/context';
 import { getCssLang } from '../common/css';
+import { genSiteMenuShared } from './gen-site-menu-shared'
+import { genSiteRoutesShared } from './gen-site-routes-shared'
 
 const { existsSync, readdirSync } = fse;
 
@@ -87,23 +91,26 @@ async function resolveStaticDocuments(userConfig): Promise<DocumentItem[]> {
     };
   });
 
-  // const docs = staticDocs.filter((item) => existsSync(item.path)).map(el => ({ ...el, path: el.path.replace(DOCS_DIR, projectPackageJson.name) }))
-
   return staticDocs;
 }
 
-// config.js
-function genImportConfig() {
-  return `import config from '${normalizePath(SITE_SHARD_CONFIG_FILE)}';`;
+// Import all json file
+function genImportJSON() {
+  return `
+export { default as config} from '${normalizePath(SITE_SHARD_CONFIG_FILE)}';
+export { default as menus} from '${normalizePath(SITE_SHARED_MENU_FILE)}';
+  `;
+}
+
+function genExportRoutes() {
+  return `
+export { default as routes } from '${normalizePath(SITE_SHARED_ROUTES_FILE)}';
+  `;
 }
 
 function genStyles() {
   const CSS_LANG = getCssLang();
   return `import '${replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`)}'`
-}
-
-function genExportConfig() {
-  return 'export { config };';
 }
 
 function genExportVersion() {
@@ -124,16 +131,7 @@ function genExportDocuments(items: DocumentItem[]) {
     ${items.map((item) => `'${item.name}'`).join(',\n  ')}
   ];`;
 }
-// 导出所有文档
-function genExportNavs(items) {
-  return `export const navs = ${JSON.stringify(items)}`;
-}
 
-function genExportFlattenNavs(items) {
-  return `export const flattenMenus = [
-    ${items.map(({ loadable, ...item }) => (`{ loadable: ${loadable}, ...${JSON.stringify(item)} }`)).join(',\n  ')}
-  ];`;
-}
 
 export async function genSiteDesktopSharedLazy() {
   const userConfig = context.opts
@@ -141,15 +139,15 @@ export async function genSiteDesktopSharedLazy() {
   const componentDocuments = await resolveComponentDocuments(userConfig, dirs);
   const staticDocuments = await resolveStaticDocuments(userConfig);
   const documents = [...staticDocuments, ...componentDocuments];
-  const { menus, flattenMenus } = genSiteNavShared()
-  const code = `import React from 'react';\n${genImportConfig()}
+  const { menus, flattenMenus } = genSiteMenu()
+  const code = `${genImportJSON()}
 ${genStyles()}
-${genExportConfig()}
 ${genExportAllDocuments(documents)}
 ${genExportDocuments(componentDocuments)}
-${genExportNavs(menus)}
-${genExportFlattenNavs(flattenMenus)}
+${genExportRoutes()}
 ${genExportVersion()}
 `;
+  genSiteMenuShared(menus);
+  genSiteRoutesShared(flattenMenus);
   smartOutputFile(SITE_SHARED_LAZY_FILE, code);
 }

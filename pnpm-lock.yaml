@@ -18,6 +18,7 @@ importers:
       '@babel/runtime': ^7.17.2
       '@jest/types': ^27.5.1
       '@mdoc/theme': workspace:*
+      '@types/fs-extra': ^9.0.13
       '@vitejs/plugin-react': ^1.0.7
       babel-jest: ^27.5.1
       bundle-require: ^3.0.4
@@ -34,6 +35,7 @@ importers:
       less: ^4.1.2
       lodash-es: ^4.17.21
       mdoc-theme-default: workspace:*
+      node-watch: ^0.7.3
       ora: ^6.0.1
       react: ^17.0.2
       react-dom: ^17.0.2
@@ -66,6 +68,7 @@ importers:
       less: 4.1.2
       lodash-es: 4.17.21
       mdoc-theme-default: link:../mdoc-theme-default
+      node-watch: 0.7.3
       ora: 6.0.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
@@ -77,6 +80,7 @@ importers:
       vite-plugin-react-mdoc: link:../vite-plugin-react-mdoc
     devDependencies:
       '@jest/types': 27.5.1
+      '@types/fs-extra': 9.0.13
       tsup: 5.11.11_typescript@4.5.5
 
   packages/cli-playground:
@@ -1896,6 +1900,12 @@ packages:
     dependencies:
       '@types/ms': 0.7.31
     dev: false
+
+  /@types/fs-extra/9.0.13:
+    resolution: {integrity: sha512-nEnwB++1u5lVDM2UI4c1+5R+FYaKfaAzS4OococimjVm3nQw3TuzH5UNsocrcTBbhnerblyHj4A49qXbIiZdpA==}
+    dependencies:
+      '@types/node': 17.0.12
+    dev: true
 
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
@@ -5018,6 +5028,11 @@ packages:
 
   /node-releases/2.0.1:
     resolution: {integrity: sha512-CqyzN6z7Q6aMeF/ktcMVTzhAHCEpf8SOarwpzpf8pNBY2k5/oM34UHldUwp8VKI7uxct2HxSRdJjBaZeESzcxA==}
+
+  /node-watch/0.7.3:
+    resolution: {integrity: sha512-3l4E8uMPY1HdMMryPRUAl+oIHtXtyiTlIiESNSVSNxcPfzAFzeTbXFQkZfAwBbo0B1qMSG8nUABx+Gd+YrbKrQ==}
+    engines: {node: '>=6'}
+    dev: false
 
   /normalize-path/3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
