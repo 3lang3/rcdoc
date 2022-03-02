@@ -11,8 +11,8 @@ const App = () => {
   const {
     config,
     packageVersion,
-    flattenMenus,
-    navs: allMenus,
+    routes: unprocessedRoutes,
+    menus: allMenus,
   } = React.useContext(MdocSiteContext);
 
   const defaultLang = useMemo(() => {
@@ -28,8 +28,8 @@ const App = () => {
   const navs = useMemo(() => allMenus[lang], [lang, allMenus]);
 
   const routes = useMemo(() => {
-    return initRoutes({ config, menus: flattenMenus });
-  }, [config, flattenMenus]);
+    return initRoutes({ config, unprocessedRoutes });
+  }, [config, unprocessedRoutes]);
 
   const currentCompnentName = useMemo(
     () => pathname.replace(/\/.*\//, ''),

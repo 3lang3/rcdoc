@@ -33,7 +33,7 @@ export function getLangFromRoute(pathname, locales) {
   return getLang();
 }
 
-function initRoutes({ config, menus }) {
+function initRoutes({ config, unprocessedRoutes }) {
   const { locales } = config;
   const defaultLang = locales[0][0];
 
@@ -42,13 +42,13 @@ function initRoutes({ config, menus }) {
   const getRoutes = () => {
     const routes = [];
 
-    menus.forEach(menu => {
+    unprocessedRoutes.forEach(menu => {
       const { lang, path } = menu;
       const isDefaultLang = lang === defaultLang;
       routes.push({
         name: `${lang}/${path}`,
         path: isDefaultLang ? `${path}` : `/${lang}${path}`,
-        component: <PreviewerComp lazyComponent={menu.loadable} />,
+        component: <PreviewerComp lazyComponent={menu.component} />,
         state: {
           lang,
           name: path,
