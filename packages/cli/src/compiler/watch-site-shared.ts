@@ -7,7 +7,7 @@ import { smartOutputFile } from '../common';
 
 export function watchSiteShared() {
   // Watch all md file
-  watch(path.join(PROJECT_SRC_DIR), { recursive: true, filter: /\.md$/ }, async (eventType, filePath) => {
+  const watcher = watch(path.join(PROJECT_SRC_DIR), { recursive: true, filter: /\.md$/ }, async (eventType, filePath) => {
     if (eventType !== 'update') return;
     let needUpdate = false
     // Get new title
@@ -40,4 +40,7 @@ export function watchSiteShared() {
     }
   })
 
+  process.once('SIGINT', () => {
+    watcher.close()
+  })
 }
