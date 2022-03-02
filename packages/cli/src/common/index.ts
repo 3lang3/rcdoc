@@ -1,9 +1,10 @@
 import glob from 'fast-glob';
 import fse from 'fs-extra';
 import path from 'path';
+import slash from 'slash2';
 import { get } from 'lodash-es';
 import type { InlineConfig } from 'vite';
-import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE } from './constant';
+import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE, ROOT } from './constant';
 import context from './context';
 
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse;
@@ -162,4 +163,13 @@ export function mergeCustomViteConfig(config: InlineConfig) {
     return configureVite(config);
   }
   return config;
+}
+
+export function getConfigThemeAlias() {
+  let siteTheme = get(context.opts, 'site.theme');
+  if (siteTheme) {
+    siteTheme = slash(path.join(ROOT, 'node_modules', siteTheme))
+    return { 'mdoc-theme-default': siteTheme }
+  }
+  return {}
 }

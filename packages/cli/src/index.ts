@@ -1,15 +1,14 @@
-import fs from 'fs';
-import { URL, fileURLToPath } from 'url';
+import path from 'path';
+import fse from 'fs-extra';
 import { dev } from './commands/dev';
 import { docsBuild } from './commands/docs-build';
 import { clean } from './commands/clean';
 import { test } from './commands/jest';
-import defineConfig from './config/defineConfig';
+import defineConfig from './common/defineConfig';
+import { CLI_DIR } from './common/constant';
 
-const packagePath = fileURLToPath(new URL('../package.json', import.meta.url));
-const packageJson = JSON.parse(fs.readFileSync(packagePath, 'utf-8'));
+const packageJson = fse.readJSONSync(path.join(CLI_DIR, 'package.json'), 'utf-8');
 export const cliVersion: string = packageJson.version;
-
-process.env.REACT_VANT_CLI_VERSION = cliVersion;
+process.env.MDOC_CLI_VERSION = cliVersion;
 
 export { dev, docsBuild, clean, test, defineConfig };

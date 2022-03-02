@@ -31,6 +31,7 @@ export const SITE_SHARED_ROUTES_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-r
 export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');
 export const STYLE_DEPS_JSON_FILE = join(PROJECT_CLI_DIST_DIR, 'style-deps.json');
 
+export const CLI_DIR = join(__dirname, '..')
 // Config files
 export const CJS_DIR = join(__dirname, '..', 'cjs');
 export const JEST_CONFIG_FILE = join(CJS_DIR, 'jest.config.cjs');

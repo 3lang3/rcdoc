@@ -14,7 +14,7 @@ import {
   getPackageJson,
   ROOT,
 } from '../common/constant';
-import { getConfigThemeAlias } from './theme'
+import { getConfigThemeAlias } from '../common'
 import context from '../common/context';
 
 function getTitle(config: { title: string; description?: string }) {
