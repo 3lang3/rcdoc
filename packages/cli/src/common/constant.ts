@@ -17,7 +17,7 @@ export const PACKAGE_JSON_FILE = join(ROOT, 'package.json');
 export const PROJECT_POSTCSS_CONFIG_FILE = join(ROOT, 'postcss.config.js');
 export const PROJECT_CACHE_DIR = join(ROOT, 'node_modules/.cache');
 export const PROJECT_CLI_DIST_DIR = join(ROOT, '.mdoc');
-export const PROJECT_SITE_DIST_DIR = join(ROOT, 'site');
+export const PROJECT_SITE_DIST_DIR = join(ROOT, 'docs-dist');
 
 // Relative paths
 export const SITE_SRC_DIR = join(__dirname, '..', 'site');

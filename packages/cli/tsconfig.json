@@ -9,6 +9,6 @@
     "esModuleInterop": true,
     "lib": ["esnext", "dom"]
   },
-  "include": ["src/**/*", "site/src/**/*"],
+  "include": ["src/**/*", "site/src/**/*", "site/main.jsx"],
   "exclude": ["node_modules"]
 }

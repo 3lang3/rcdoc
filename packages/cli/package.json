@@ -28,7 +28,7 @@
     "@babel/preset-react": "^7.16.7",
     "@babel/runtime": "^7.17.2",
     "@mdoc/theme": "workspace:*",
-    "@vitejs/plugin-react": "^1.0.7",
+    "@vitejs/plugin-react": "^1.2.0",
     "babel-jest": "^27.5.1",
     "bundle-require": "^3.0.4",
     "chalk": "^5.0.0",
@@ -51,7 +51,7 @@
     "react-router-dom": "^6.2.1",
     "slash2": "^2.0.0",
     "strip-json-comments": "^4.0.0",
-    "vite": "^2.8.0",
+    "vite": "^2.8.6",
     "vite-plugin-html": "^3.0.6",
     "vite-plugin-react-mdoc": "workspace:*"
   },

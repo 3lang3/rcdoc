@@ -17,16 +17,6 @@ import {
 import { getConfigThemeAlias } from './theme'
 import context from '../common/context';
 
-function getSiteConfig(vantConfig: any) {
-  const siteConfig = vantConfig.site;
-
-  if (siteConfig.locales) {
-    return siteConfig.locales[siteConfig.defaultLang || 'en-US'];
-  }
-
-  return siteConfig;
-}
-
 function getTitle(config: { title: string; description?: string }) {
   let { title } = config;
 
@@ -131,11 +121,10 @@ export function getViteConfigForSiteProd(): InlineConfig {
       outDir,
       brotliSize: false,
       emptyOutDir: true,
-      // https://github.com/youzan/vant/issues/9703
       cssTarget: ['chrome53'],
       rollupOptions: {
         input: {
-          main: join(PROJECT_SITE_DIST_DIR, 'index.html')
+          main: join(SITE_SRC_DIR, 'index.html')
         },
       },
     },

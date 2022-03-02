@@ -3,7 +3,7 @@ import { createRequire } from 'module';
 import { createServer, build } from 'vite';
 import { getViteConfigForSiteDev, getViteConfigForSiteProd } from '../config/vite.site';
 import { mergeCustomViteConfig, replaceExt } from '../common';
-import { PACKAGE_STYLE_FILE } from '../common/constant';
+import { PACKAGE_STYLE_FILE, SITE_SRC_DIR } from '../common/constant';
 import { genStyleDepsMap } from './gen-style-deps-map';
 import { genPackageStyle } from './gen-package-style';
 import { genSiteDesktopShared } from './gen-site-shared';
@@ -23,7 +23,7 @@ export async function genSiteEntry(): Promise<void> {
         resolve();
       })
       .catch((err) => {
-        console.log(err);
+        console.log('genSiteEntry Error:', err);
         reject(err);
       });
   });
@@ -45,7 +45,7 @@ export async function compileSite(production = false) {
     watchSiteShared();
     watchConfig();
 
-    signit()
+    signit();
 
     const require = createRequire(import.meta.url);
     const { version } = require('vite/package.json');

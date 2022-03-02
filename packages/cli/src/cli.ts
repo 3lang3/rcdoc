@@ -2,6 +2,7 @@ import { Command } from 'commander';
 
 import {
   dev,
+  buildSite,
   clean,
   cliVersion,
   test,
@@ -13,6 +14,7 @@ program.version(`@react-vant/cli ${cliVersion}`);
 
 program.command('dev').description('Run dev server').action(dev);
 
+program.command('build-site').description('Compile site in production mode').action(buildSite);
 
 program
   .command('test')

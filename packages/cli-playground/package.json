@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "mdoc dev",
+    "build:site": "mdoc build-site",
     "test": "mdoc test"
   },
   "keywords": [],
