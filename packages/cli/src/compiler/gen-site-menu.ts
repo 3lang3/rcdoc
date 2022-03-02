@@ -6,7 +6,7 @@ import {
   PROJECT_CLI_DIST_DIR
 } from '../common/constant';
 import context from '../common/context';
-import { getHeadingsAndFrontmatter } from '../common/markdown';
+import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 
 type MenuItem = {
   title: string;
@@ -20,7 +20,7 @@ type NavItem = {
   relative?: string;
   lang?: string;
   level?: number;
-  loadable?: any;
+  component?: any;
   children?: Array<NavItem>;
 } & MenuItem;
 
@@ -29,17 +29,17 @@ function resolveStaticNavs(userConfig): NavItem[] {
   const defaultLang = locales[0][0];
 
   const staticDocs = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/*.md'))).map((filePath) => {
-    const { name, dir } = path.parse(filePath);
+    const { dir } = path.parse(filePath);
+    let { title, lang = defaultLang } = getTitleAndLangByFilepath(filePath);
+    const { headings, frontmatter } = getMarkdownContentMeta(filePath)
     const isBaseDir = dir === PROJECT_SRC_DIR;
     const baseDir = path.join('/', path.relative(PROJECT_SRC_DIR, dir))
-    let [title, lang = defaultLang] = name.split('.');
     const defaultLangFile = title === 'README';
     const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
     const level = routePath.split(path.sep).length - 1;
     const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
     // Lazy load for reduce bundle
-    const loadable = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
-    const { headings, frontmatter } = getHeadingsAndFrontmatter(filePath)
+    const component = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
 
     // Default is link type
     let isLink = true
@@ -62,16 +62,17 @@ function resolveStaticNavs(userConfig): NavItem[] {
       path: routePath,
       filePath,
       isLink,
-      loadable,
+      component,
     };
   });
   return staticDocs;
 }
 
 export function genSiteMenu() {
-  const flattenMenus = resolveStaticNavs(context.opts);
-  localesCompatibleRoute(flattenMenus, context.opts?.locales)
-  return { flattenMenus, menus: generateRoutes(flattenMenus) }
+  const routes = resolveStaticNavs(context.opts);
+  localesCompatibleRoute(routes, context.opts?.locales);
+  const menuRoutes = routes.map(({ lang, title, path, level, isLink }) => ({ lang, title, path, level, isLink }))
+  return { routes, menus: generateMenus(menuRoutes) }
 }
 
 // For missing translation 
@@ -162,7 +163,7 @@ function getRoutesDataByLang(data, lang) {
   return arr;
 }
 
-function generateRoutes(data: NavItem[]) {
+function generateMenus(data: NavItem[]) {
   const cloneData = JSON.parse(JSON.stringify(data))
   const filterData = cloneData
   const langs = getLangs(filterData);

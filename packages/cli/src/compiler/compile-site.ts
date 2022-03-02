@@ -6,7 +6,7 @@ import { mergeCustomViteConfig, replaceExt } from '../common';
 import { PACKAGE_STYLE_FILE } from '../common/constant';
 import { genStyleDepsMap } from './gen-style-deps-map';
 import { genPackageStyle } from './gen-package-style';
-import { genSiteDesktopSharedLazy } from './gen-site-shared-lazy';
+import { genSiteDesktopShared } from './gen-site-shared';
 import { getCssLang } from '../common/css';
 import { watchSiteShared } from './watch-site-shared';
 
@@ -16,7 +16,7 @@ export async function genSiteEntry(): Promise<void> {
     genStyleDepsMap()
       .then(() => {
         genPackageStyle({ outputPath: replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`) })
-        genSiteDesktopSharedLazy();
+        genSiteDesktopShared();
         resolve();
       })
       .catch((err) => {

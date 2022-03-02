@@ -8,13 +8,13 @@ import {
 function genExportRoutes(items) {
   return `import React from 'react';
 export default [
-  ${items.map(({ loadable, path, lang, title }) => (`{ path: '${path}', lang: '${lang}', title: '${title}', loadable: ${loadable} }`)).join(',\n  ')}
+  ${items.map(({ component, path, lang, title }) => (`{ path: '${path}', lang: '${lang}', title: '${title}', component: ${component} }`)).join(',\n  ')}
 ]`;
 }
 
-export async function genSiteRoutesShared(flattenMenus) {
+export async function genSiteRoutesShared(routes) {
   const code = `
-${genExportRoutes(flattenMenus)}
+${genExportRoutes(routes)}
 `;
   smartOutputFile(SITE_SHARED_ROUTES_FILE, code);
 }

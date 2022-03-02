@@ -26,7 +26,6 @@ export const SITE_SRC_DIR = join(__dirname, '..', 'site');
 export const PACKAGE_ENTRY_FILE = join(PROJECT_CLI_DIST_DIR, 'package-entry.js');
 export const PACKAGE_STYLE_FILE = join(PROJECT_CLI_DIST_DIR, 'package-style.css');
 export const SITE_SHARED_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared.js');
-export const SITE_SHARED_LAZY_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-lazy.js');
 export const SITE_SHARED_MENU_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-menu.json');
 export const SITE_SHARED_ROUTES_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-routes.js');
 export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');

@@ -11,7 +11,7 @@ import {
   PROJECT_SRC_DIR,
   PROJECT_DOCS_DIR,
   getPackageJson,
-  SITE_SHARED_LAZY_FILE,
+  SITE_SHARED_FILE,
   SITE_SHARD_CONFIG_FILE,
   PACKAGE_STYLE_FILE,
   SITE_SHARED_MENU_FILE,
@@ -133,13 +133,13 @@ function genExportDocuments(items: DocumentItem[]) {
 }
 
 
-export async function genSiteDesktopSharedLazy() {
+export async function genSiteDesktopShared() {
   const userConfig = context.opts
   const dirs = readdirSync(PROJECT_SRC_DIR);
   const componentDocuments = await resolveComponentDocuments(userConfig, dirs);
   const staticDocuments = await resolveStaticDocuments(userConfig);
   const documents = [...staticDocuments, ...componentDocuments];
-  const { menus, flattenMenus } = genSiteMenu()
+  const { menus, routes } = genSiteMenu()
   const code = `${genImportJSON()}
 ${genStyles()}
 ${genExportAllDocuments(documents)}
@@ -148,6 +148,6 @@ ${genExportRoutes()}
 ${genExportVersion()}
 `;
   genSiteMenuShared(menus);
-  genSiteRoutesShared(flattenMenus);
-  smartOutputFile(SITE_SHARED_LAZY_FILE, code);
+  genSiteRoutesShared(routes);
+  smartOutputFile(SITE_SHARED_FILE, code);
 }
