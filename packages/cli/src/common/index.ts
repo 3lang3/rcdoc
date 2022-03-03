@@ -173,3 +173,12 @@ export function getConfigThemeAlias() {
   }
   return {}
 }
+
+export function getExistFile({ cwd, files }) {
+  for (const file of files) {
+    const absFilePath = path.join(cwd, file);
+    if (existsSync(absFilePath)) {
+      return absFilePath
+    }
+  }
+}

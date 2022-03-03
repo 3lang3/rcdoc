@@ -1,7 +1,7 @@
-import { join } from 'path';
 import type { InlineConfig, LibraryFormats } from 'vite';
-import { setBuildTarget } from '../common';
+import { getExistFile, setBuildTarget } from '../common';
 import { CWD, getPackageJson, PROJECT_SRC_DIR } from '../common/constant';
+// import postcss from 'rollup-plugin-postcss'
 
 export function getViteConfigForPackage({
   outputDir,
@@ -16,11 +16,11 @@ export function getViteConfigForPackage({
 
   const pkgJSON = getPackageJson();
   const { name } = pkgJSON
-
+  const external = Object.keys(pkgJSON.peerDependencies)
+  const entry = getExistFile({ cwd: PROJECT_SRC_DIR, files: ['index.ts', 'index.tsx', 'index.js', 'index.jsx'] })
   return {
     root: CWD,
-
-    // logLevel: 'silent',
+    logLevel: 'silent',
     resolve: {
       alias: {
         [pkgJSON.name]: PROJECT_SRC_DIR
@@ -29,7 +29,7 @@ export function getViteConfigForPackage({
     build: {
       lib: {
         name,
-        entry: join(PROJECT_SRC_DIR, 'index.ts'),
+        entry,
         formats,
         // fileName: (format: string) => {
         //   const suffix = format === 'umd' ? '' : `.${format}`;
@@ -39,7 +39,7 @@ export function getViteConfigForPackage({
       // terser has better compression than esbuild
       minify: minify ? 'terser' : false,
       rollupOptions: {
-        external: ['react', 'react-dom'],
+        external,
         output: {
           dir: outputDir,
           exports: 'named',

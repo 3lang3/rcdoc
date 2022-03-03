@@ -9,11 +9,11 @@ import { getViteConfigForPackage } from '../config/vite.package';
 
 const compileBundles = async () => {
   const configs = [
-    getViteConfigForPackage({ outputDir: PROJECT_ES_DIR, minify: false, formats: ['es'] }),
-    getViteConfigForPackage({ outputDir: PROJECT_CJS_DIR, minify: false, formats: ['cjs'] }),
+    getViteConfigForPackage({ outputDir: PROJECT_ES_DIR, minify: true, formats: ['es'] }),
+    getViteConfigForPackage({ outputDir: PROJECT_CJS_DIR, minify: true, formats: ['cjs'] }),
   ]
 
-  await Promise.all(configs.map(cfg => viteBuild(cfg)))
+  await Promise.all(configs.map(async cfg => await viteBuild(cfg)))
 }
 
 
