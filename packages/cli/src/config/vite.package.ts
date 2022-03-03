@@ -1,16 +1,16 @@
 import { join } from 'path';
 import type { InlineConfig, LibraryFormats } from 'vite';
 import { setBuildTarget } from '../common';
-import { CWD, PROJECT_ES_DIR, PROJECT_CJS_DIR, getPackageJson } from '../common/constant';
+import { CWD, getPackageJson, PROJECT_SRC_DIR } from '../common/constant';
 
 export function getViteConfigForPackage({
+  outputDir,
   minify,
   formats,
-  external,
 }: {
+  outputDir: string;
   minify: boolean;
   formats: LibraryFormats[];
-  external: string[];
 }): InlineConfig {
   setBuildTarget('package');
 
@@ -20,25 +20,30 @@ export function getViteConfigForPackage({
   return {
     root: CWD,
 
-    logLevel: 'silent',
-
+    // logLevel: 'silent',
+    resolve: {
+      alias: {
+        [pkgJSON.name]: PROJECT_SRC_DIR
+      },
+    },
     build: {
       lib: {
         name,
-        entry: join(PROJECT_ES_DIR, 'index.js'),
+        entry: join(PROJECT_SRC_DIR, 'index.ts'),
         formats,
-        fileName: (format: string) => {
-          const suffix = format === 'umd' ? '' : `.${format}`;
-          return minify ? `${name}${suffix}.min.js` : `${name}${suffix}.js`;
-        },
+        // fileName: (format: string) => {
+        //   const suffix = format === 'umd' ? '' : `.${format}`;
+        //   return minify ? `${name}${suffix}.min.js` : `${name}${suffix}.js`;
+        // },
       },
       // terser has better compression than esbuild
       minify: minify ? 'terser' : false,
       rollupOptions: {
-        external,
+        external: ['react', 'react-dom'],
         output: {
-          dir: PROJECT_CJS_DIR,
+          dir: outputDir,
           exports: 'named',
+          preserveModules: true,
           globals: {
             react: 'React',
           },

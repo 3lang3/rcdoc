@@ -2,6 +2,7 @@ import { Command } from 'commander';
 
 import {
   dev,
+  build,
   docsBuild,
   clean,
   cliVersion,
@@ -13,6 +14,8 @@ const program = new Command();
 program.version(`@react-vant/cli ${cliVersion}`);
 
 program.command('dev').description('Run dev server').action(dev);
+
+program.command('build').description('Compile components in production mode').action(build);
 
 program.command('docs-build').description('Compile docs in production mode').action(docsBuild);
 
