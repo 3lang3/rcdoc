@@ -1,7 +1,6 @@
 import type { InlineConfig, LibraryFormats } from 'vite';
 import { getExistFile, setBuildTarget } from '../common';
 import { CWD, getPackageJson, PROJECT_SRC_DIR } from '../common/constant';
-// import postcss from 'rollup-plugin-postcss'
 
 export function getViteConfigForPackage({
   outputDir,
@@ -26,6 +25,9 @@ export function getViteConfigForPackage({
         [pkgJSON.name]: PROJECT_SRC_DIR
       },
     },
+    css: {
+      postcss: './'
+    },
     build: {
       lib: {
         name,
@@ -44,10 +46,11 @@ export function getViteConfigForPackage({
           dir: outputDir,
           exports: 'named',
           preserveModules: true,
+          entryFileNames: '[name].js',
           globals: {
             react: 'React',
           },
-        },
+        }
       },
     },
   };

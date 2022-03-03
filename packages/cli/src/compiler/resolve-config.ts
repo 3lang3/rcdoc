@@ -6,7 +6,7 @@ import path from 'path'
 import { bundleRequire } from 'bundle-require'
 import strip from 'strip-json-comments'
 import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant'
-import type { UserConfigExport } from '../config/defineConfig';
+import type { UserConfigExport } from '../common/defineConfig';
 import { init } from '../common/context'
 
 const defaultConfig: UserConfigExport = {

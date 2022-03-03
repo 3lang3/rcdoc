@@ -1,5 +1,6 @@
+import path from 'path';
 import fse from 'fs-extra'
-import watch from 'node-watch'
+import chokidar from 'chokidar'
 import { PROJECT_SRC_DIR, SITE_SHARED_MENU_FILE } from '../common/constant';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown'
 import { smartOutputFile } from '../common';
@@ -7,14 +8,15 @@ import context from '../common/context';
 
 export function watchSiteShared() {
   // Watch all md file
-  const watcher = watch(PROJECT_SRC_DIR, { recursive: true, filter: /\.md$/ }, async (eventType, filePath) => {
-    if (eventType !== 'update') return;
+  const watcher = chokidar.watch(path.join(PROJECT_SRC_DIR, '**/*.md'))
+
+  watcher.on('change', async (filePath) => {
     let needUpdate = false
     // Get new title
     const { headings, frontmatter } = getMarkdownContentMeta(filePath);
     const { title } = getTitleAndLangByFilepath(filePath);
     const updateTitle = frontmatter?.title || headings?.[0] || title;
-    
+
     const menus = fse.readJSONSync(SITE_SHARED_MENU_FILE)
 
     Object.keys(menus).forEach((lang) => {
