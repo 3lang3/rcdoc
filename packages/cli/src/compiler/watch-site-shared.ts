@@ -42,5 +42,5 @@ export function watchSiteShared() {
     }
   })
 
-  context.closes.push(watcher.close)
+  context.closes.push(() => watcher.close())
 }

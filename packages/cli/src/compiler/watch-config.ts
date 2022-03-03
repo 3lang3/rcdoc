@@ -13,5 +13,5 @@ export function watchConfig() {
     await parseConfig(context.configFilePath)
   })
 
-  context.closes.push(watcher.close)
+  context.closes.push(() => watcher.close())
 }
