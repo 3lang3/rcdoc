@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "mdoc dev",
-    "build": "mdoc build",
+    "build": "mdoc-build",
     "docs:build": "mdoc docs-build",
     "test": "mdoc test"
   },
@@ -23,6 +23,7 @@
   },
   "devDependencies": {
     "@mdoc/cli": "workspace:*",
+    "@mdoc/build": "workspace:*",
     "@types/jest": "^27.4.0",
     "@types/react-test-renderer": "^17.0.1",
     "typescript": "^4.4.4"

@@ -1,2 +1,4 @@
 docs-dist
 .mdoc
+/lib
+/es
