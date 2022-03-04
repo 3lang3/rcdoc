@@ -6,7 +6,7 @@ import clsx from 'clsx';
 
 import './index.less';
 
-const NavLink = (props) => {
+const NavLink = props => {
   const { base, item } = props;
   const { pathname } = useLocation();
 
@@ -14,7 +14,7 @@ const NavLink = (props) => {
     const name = (item.title || item.name).split(' ');
     return `${name[0]} <span>${name.slice(1).join(' ')}</span>`;
   }, [item.name, item.title]);
-  
+
   const path = useMemo(() => {
     return `${base}${item.path}`;
   }, [base, item.path]);
@@ -32,13 +32,18 @@ const NavLink = (props) => {
   return (
     <>
       {item.path ? (
-        <Link
-          className={clsx('vant-doc-navlink', {
-            'vant-doc-navlink--active': active,
-          })}
-          to={path}
-          dangerouslySetInnerHTML={{ __html: itemName }}
-        />
+        <>
+          {item.group?.title ? (
+            <div className="vant-doc-nav__title">{item.group.title}</div>
+          ) : null}
+          <Link
+            className={clsx('vant-doc-navlink', {
+              'vant-doc-navlink--active': active,
+            })}
+            to={path}
+            dangerouslySetInnerHTML={{ __html: itemName }}
+          />
+        </>
       ) : item.link ? (
         // eslint-disable-next-line jsx-a11y/control-has-associated-label
         <a href={item.link} dangerouslySetInnerHTML={{ __html: itemName }} />

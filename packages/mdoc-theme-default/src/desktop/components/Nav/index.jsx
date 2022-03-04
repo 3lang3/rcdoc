@@ -32,16 +32,9 @@ const Nav = props => {
             ) : null}
             {item.children ? (
               item.children.map(c => (
-                <React.Fragment key={c.path}>
-                  {c.group?.title ? (
-                    <div className="vant-doc-nav__title">
-                      {c.group.title}
-                    </div>
-                  ) : null}
-                  <div className="vant-doc-nav__item">
-                    <NavLink item={c} base={base} />
-                  </div>
-                </React.Fragment>
+                <div key={c.path} className="vant-doc-nav__item">
+                  <NavLink item={c} base={base} />
+                </div>
               ))
             ) : (
               <div key={item.path} className="vant-doc-nav__item">
