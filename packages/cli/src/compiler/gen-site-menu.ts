@@ -13,6 +13,9 @@ type MenuItem = {
   path?: string;
   isLink?: boolean;
   children?: Array<MenuItem>;
+  group?: {
+    title: string;
+  }
 };
 
 type NavItem = {
@@ -53,8 +56,9 @@ function resolveStaticNavs(userConfig): NavItem[] {
       title = path.basename(dir)
     }
     // Overwrite title
-    title = frontmatter?.title || headings?.[0] || title
-    return {
+    title = frontmatter?.title || headings?.[0] || title;
+
+    let menu: NavItem = {
       title,
       lang,
       level,
@@ -63,7 +67,13 @@ function resolveStaticNavs(userConfig): NavItem[] {
       filePath,
       isLink,
       component,
-    };
+    }
+
+    if (frontmatter?.group) {
+      menu.group = frontmatter?.group
+    }
+
+    return menu;
   });
   return staticDocs;
 }
@@ -71,7 +81,7 @@ function resolveStaticNavs(userConfig): NavItem[] {
 export function genSiteMenu() {
   const routes = resolveStaticNavs(context.opts);
   localesCompatibleRoute(routes, context.opts?.locales);
-  const menuRoutes = routes.map(({ lang, title, path, level, isLink, filePath }) => ({ lang, title, path, level, isLink, filePath }))
+  const menuRoutes = routes.map(({ lang, title, path, level, isLink, filePath, group }) => ({ lang, title, path, level, isLink, filePath, group }))
   return { routes, menus: generateMenus(menuRoutes) }
 }
 

@@ -5,9 +5,14 @@ import NavLink from '../NavLink';
 import './index.less';
 
 const NavTitle = ({ item, base }) => {
-  if (!item.isLink) return <div className="vant-doc-nav__title">{item.title}</div>
-  return <Link to={`${base}${item.path}`} className="vant-doc-nav__title">{item.title}</Link>
-}
+  if (!item.isLink || !item.path)
+    return <div className="vant-doc-nav__title">{item.title}</div>;
+  return (
+    <Link to={`${base}${item.path}`} className="vant-doc-nav__title">
+      {item.title}
+    </Link>
+  );
+};
 
 const Nav = props => {
   const { navs, lang, defaultLang, config, versions } = props;
@@ -27,9 +32,16 @@ const Nav = props => {
             ) : null}
             {item.children ? (
               item.children.map(c => (
-                <div key={c.path} className="vant-doc-nav__item">
-                  <NavLink item={c} base={base} />
-                </div>
+                <React.Fragment key={c.path}>
+                  {c.group?.title ? (
+                    <div className="vant-doc-nav__title">
+                      {c.group.title}
+                    </div>
+                  ) : null}
+                  <div className="vant-doc-nav__item">
+                    <NavLink item={c} base={base} />
+                  </div>
+                </React.Fragment>
               ))
             ) : (
               <div key={item.path} className="vant-doc-nav__item">

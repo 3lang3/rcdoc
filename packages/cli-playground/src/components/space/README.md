@@ -1,3 +1,8 @@
+---
+group:
+  title: 'Inline Group'
+---
+
 # Space
 
 hello mdoc!
