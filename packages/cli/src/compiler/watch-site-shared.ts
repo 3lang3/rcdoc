@@ -1,14 +1,14 @@
 import path from 'path';
 import fse from 'fs-extra'
 import chokidar from 'chokidar'
-import { PROJECT_SRC_DIR, SITE_SHARED_MENU_FILE } from '../common/constant';
+import { PROJECT_SRC_DIR, PROJECT_DOCS_DIR, SITE_SHARED_MENU_FILE } from '../common/constant';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown'
 import { smartOutputFile } from '../common';
 import context from '../common/context';
 
 export function watchSiteShared() {
   // Watch all md file
-  const watcher = chokidar.watch(path.join(PROJECT_SRC_DIR, '**/*.md'))
+  const watcher = chokidar.watch([path.join(PROJECT_SRC_DIR, '**/*.md'), path.join(PROJECT_DOCS_DIR, '**/*.md')])
 
   watcher.on('change', async (filePath) => {
     let needUpdate = false
