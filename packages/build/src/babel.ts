@@ -1,5 +1,5 @@
 import { join, extname, relative } from "path";
-import { existsSync, readFileSync, remove, readJSONSync } from "fs-extra";
+import { existsSync, remove, readJSONSync } from "fs-extra";
 import vfs from "vinyl-fs";
 import signale from "signale";
 import through from "through2";
@@ -56,7 +56,7 @@ export default async function (opts: IBabelOpts) {
   const targetPath = join(cwd, targetDir);
 
   log?.(chalk.gray(`Clean ${targetDir} directory`));
-  remove(targetPath);
+  await remove(targetPath);
 
   function transform(opts: ITransformOpts) {
     const { file, type } = opts;

@@ -1,7 +1,6 @@
 import AJV from 'ajv';
 import slash from 'slash2';
 import { relative, isAbsolute, resolve } from 'path';
-import signale from 'signale';
 import { existsSync } from 'fs';
 import schema from './schema';
 import { getExistFile } from './utils';
@@ -12,14 +11,9 @@ function testDefault(obj) {
 }
 
 export const CONFIG_FILES = [
-  '.fatherrc.js',
-  '.fatherrc.jsx',
-  '.fatherrc.ts',
-  '.fatherrc.tsx',
-  '.umirc.library.js',
-  '.umirc.library.jsx',
-  '.umirc.library.ts',
-  '.umirc.library.tsx',
+  '.mdocrc.js',
+  '.mdocrc.jsx',
+  '.mdocrc.ts',
 ];
 const CLASSES = {
   Function: Function,
@@ -54,10 +48,6 @@ export default function ({ cwd, customPath }: { cwd: string; customPath?: string
     });
 
   if (configFile) {
-    if (configFile.includes('.umirc.library.')) {
-      signale.warn(`.umirc.library.js is deprecated, please use .fatherrc.js instead.`);
-    }
-
     const userConfig = testDefault(require(configFile)); // eslint-disable-line
     const userConfigs = Array.isArray(userConfig) ? userConfig : [userConfig];
     userConfigs.forEach((userConfig) => {

@@ -1,4 +1,4 @@
-export type BundleType = 'rollup' | 'babel';
+export type BundleType = 'babel';
 
 interface IBundleTypeOutput {
   type: BundleType;

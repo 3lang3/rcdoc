@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, remove } from 'fs-extra';
 import { join, isAbsolute } from 'path';
 import * as assert from 'assert';
-import { merge } from 'lodash-es';
+import { merge } from 'lodash';
 import signale from 'signale';
 import chalk from 'chalk';
 import { IOpts, IBundleOptions, IBundleTypeOutput, ICjs, IEsm, Dispose } from './types';
@@ -54,8 +54,7 @@ function validateBundleOpts(bundleOpts: IBundleOptions, { cwd, rootPath }) {
   }
   if (
     bundleOpts.cjs &&
-    (bundleOpts.cjs as ICjs).lazy &&
-    (bundleOpts.cjs as ICjs).type === 'rollup'
+    (bundleOpts.cjs as ICjs).lazy
   ) {
     throw new Error(
       `
@@ -68,7 +67,7 @@ cjs.lazy don't support rollup.
       `
 None format of ${chalk.cyan(
         'cjs | esm | umd'
-      )} is configured, checkout https://github.com/umijs/father for usage details.
+      )} is configured, checkout https://github.com/3lang3/mdoc/build for usage details.
 `.trim()
     );
   }

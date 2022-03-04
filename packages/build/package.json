@@ -2,8 +2,11 @@
   "name": "@mdoc/build",
   "version": "1.0.0",
   "description": "",
-  "main": "./dist/index.js",
-  "module": "./dist/index.mjs",
+  "main": "lib/index.js",
+  "bin": {
+    "mdoc-build": "./bin.js"
+  },
+  "typings": "./lib/index.d.ts",
   "scripts": {
     "build": "tsup --dts",
     "dev": "tsup --watch",
@@ -25,19 +28,21 @@
     "@types/fs-extra": "^9.0.13",
     "ajv": "^8.10.0",
     "babel-plugin-react-require": "^3.1.3",
-    "chalk": "^5.0.0",
+    "chalk": "4",
     "fs-extra": "^10.0.0",
     "gulp": "^4.0.2",
     "gulp-if": "^3.0.0",
     "gulp-less": "^5.0.0",
     "gulp-typescript": "^6.0.0-alpha.1",
     "less": "^4.1.2",
-    "lodash-es": "^4.17.21",
+    "lodash": "^4.17.21",
     "rollup": "^2.69.0",
     "signale": "^1.4.0",
     "slash2": "^2.0.0",
     "through2": "^4.0.2",
-    "vinyl-fs": "^3.0.3"
+    "update-notifier": "^5.1.0",
+    "vinyl-fs": "^3.0.3",
+    "yargs-parser": "^21.0.1"
   },
   "devDependencies": {
     "tsup": "^5.11.11"
