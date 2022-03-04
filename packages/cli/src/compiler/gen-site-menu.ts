@@ -3,6 +3,7 @@ import path from 'path';
 import { kebabCase } from 'lodash-es'
 import {
   PROJECT_SRC_DIR,
+  PROJECT_DOCS_DIR,
   PROJECT_CLI_DIST_DIR
 } from '../common/constant';
 import context from '../common/context';
@@ -27,16 +28,12 @@ type NavItem = {
   children?: Array<NavItem>;
 } & MenuItem;
 
-function resolveStaticNavs(userConfig): NavItem[] {
-  const { locales } = userConfig;
-  const defaultLang = locales[0][0];
-
-  const staticDocs = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/*.md'))).map((filePath) => {
-    const { dir } = path.parse(filePath);
+function getMenuDataByFilepath(root: string, filePath: string, defaultLang: string) {
+  const { dir } = path.parse(filePath);
     let { title, lang = defaultLang } = getTitleAndLangByFilepath(filePath);
     const { headings, frontmatter } = getMarkdownContentMeta(filePath)
-    const isBaseDir = dir === PROJECT_SRC_DIR;
-    const baseDir = path.join('/', path.relative(PROJECT_SRC_DIR, dir))
+    const isBaseDir = dir === root;
+    const baseDir = path.join('/', path.relative(root, dir))
     const defaultLangFile = title === 'README';
     const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
     const level = routePath.split(path.sep).length - 1;
@@ -74,8 +71,20 @@ function resolveStaticNavs(userConfig): NavItem[] {
     }
 
     return menu;
+}
+
+function resolveStaticNavs(userConfig): NavItem[] {
+  const { locales } = userConfig;
+  const defaultLang = locales[0][0];
+
+  const docsMenus = glob.sync(path.normalize(path.join(PROJECT_DOCS_DIR, '**/*.md'))).map((filePath) => {
+    return getMenuDataByFilepath(PROJECT_DOCS_DIR, filePath, defaultLang);
   });
-  return staticDocs;
+
+  const componentMenus = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/*.md'))).map((filePath) => {
+    return getMenuDataByFilepath(PROJECT_SRC_DIR, filePath, defaultLang);
+  });
+  return [...docsMenus, ...componentMenus];
 }
 
 export function genSiteMenu() {
