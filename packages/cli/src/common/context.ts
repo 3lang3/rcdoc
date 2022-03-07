@@ -8,7 +8,8 @@ type CfgMenuItem = {
 
 type ContextType = {
   opts?: {
-    menus?: Record<string, CfgMenuItem[]>
+    menus?: Record<string, CfgMenuItem[]>;
+    locales?: [string, string][];
   } & Record<string, any>;
   configFilePath?: string;
   server?: ViteDevServer;

@@ -98,21 +98,35 @@ export function genSiteMenu() {
 
   const { locales, menus: configMenus } = context.opts
 
+  const langs = locales.map(el => el[0]);
+  const defaultLang = langs[0]
+
   // Comsumer config menu
   if (configMenus) {
+    let loopIdx = 0;
     Object.entries(configMenus).forEach(([cfgMenuPath, cfgMenuCld]) => {
+      let pathLang = langs.find(lang => cfgMenuPath.startsWith('/' + lang)) || defaultLang;
       cfgMenuCld.forEach((menuItem) => {
-        menuItem.children.forEach((cPath, idx) => {
-          const targetMenuIdx = componentMenus.findIndex(el => el.path === cPath
-            || path.join('/', el.lang, el.path) === cPath);
-          const targetMenu = componentMenus[targetMenuIdx]
-          // Replace menu group data
+        menuItem.children?.forEach((cPath, idx) => {
+          // Get target component menu item
+          const targetMenuIdx = componentMenus.findIndex(
+            el => el.lang === pathLang
+            // If not default lang path need add lang to compare
+              && path.join(pathLang !== defaultLang ? '/' + el.lang : '', el.path) === cPath
+          );
+          if (targetMenuIdx === -1) return;
+          const targetMenu = componentMenus[targetMenuIdx];
+          // Replace menu frontmatter.group data
           if (targetMenu && idx === 0) {
             targetMenu.group = { title: menuItem.title };
           }
-          // Recompute menu index
-          [componentMenus[idx], componentMenus[targetMenuIdx]] = [componentMenus[targetMenuIdx], componentMenus[idx]]
+          // Recompute menu position
+          const correctIdx = idx + loopIdx;
+          if (correctIdx !== targetMenuIdx) {
+            ;[componentMenus[correctIdx], componentMenus[targetMenuIdx]] = [componentMenus[targetMenuIdx], componentMenus[correctIdx]];
+          }
         })
+        loopIdx += menuItem.children?.length
       })
     })
   }
@@ -120,7 +134,6 @@ export function genSiteMenu() {
   const mergeMenus = [...docsMenus, ...componentMenus]
 
   // Compatile missing translation 
-  const defaultLang = locales[0][0]
   localesCompatibleRoute(mergeMenus, defaultLang);
 
   // Filter menu property
