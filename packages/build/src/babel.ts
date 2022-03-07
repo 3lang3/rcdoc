@@ -49,6 +49,7 @@ export default async function (opts: IBabelOpts) {
       nodeVersion,
       disableTypeCheck,
       lessInBabelMode,
+      loose,
     },
   } = opts;
   const srcPath = join(cwd, "src");
@@ -63,6 +64,7 @@ export default async function (opts: IBabelOpts) {
     const { opts: babelOpts, isBrowser } = getBabelConfig({
       target,
       type,
+      loose,
       typescript: true,
       runtimeHelpers,
       filePath: slash(relative(cwd, file.path)),

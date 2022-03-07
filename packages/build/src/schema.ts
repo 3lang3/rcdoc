@@ -168,5 +168,8 @@ export default {
     pkgFilter: {
       type: 'object',
     },
+    loose: {
+      type: 'boolean',
+    }
   },
 };

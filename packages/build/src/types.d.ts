@@ -98,6 +98,7 @@ export interface IBundleOptions {
     skipPrivate?: boolean;
   };
   config?: string;
+  loose?: boolean;
 }
 
 export interface IOpts {
