@@ -38,25 +38,31 @@ export default defineConfig({
       'docsearch:version': 'v3',
     },
   },
-  // menus: {
-  //   '/components': [
-  //     { 
-  //       title: 'Base Components',
-  //       children: [
-  //         '/components/button',
-  //       ],
-  //     },
-  //     { 
-  //       title: 'Layout Components',
-  //       children: [
-  //         '/components/space',
-  //       ],
-  //     }
-  //   ],
-  //   '/zh-CN/components': [
-  //     { 
-  //       title: '基础组件',
-  //     }
-  //   ],
-  // }
+  navs: [
+
+  ],
+  menus: {
+    '/': [
+      {
+        title: 'Layout Components',
+        children: [
+          '/space',
+        ],
+      },
+      {
+        title: 'Basic Components',
+        children: [
+          '/button',
+        ],
+      }
+    ],
+    '/zh-CN': [
+      {
+        title: '基础组件',
+        children: [
+          '/zh-CN/space'
+        ]
+      }
+    ],
+  }
 } as any)

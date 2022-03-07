@@ -21,6 +21,7 @@ const Nav = props => {
     return lang === defaultLang ? '' : `/${lang}`;
   }, [lang, defaultLang]);
 
+  console.log(navs)
   return (
     <div className="vant-doc-nav">
       <Logo config={config} versions={versions} />

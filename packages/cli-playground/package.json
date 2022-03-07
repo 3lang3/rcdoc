@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "clsx": "^1.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-test-renderer": "^17.0.2"
@@ -22,8 +23,8 @@
     "react-dom": "^17.0.2"
   },
   "devDependencies": {
-    "@mdoc/cli": "workspace:*",
     "@mdoc/build": "workspace:*",
+    "@mdoc/cli": "workspace:*",
     "@types/jest": "^27.4.0",
     "@types/react-test-renderer": "^17.0.1",
     "typescript": "^4.4.4"
