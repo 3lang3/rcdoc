@@ -16,15 +16,20 @@ export function watchSiteShared() {
     const { headings, frontmatter } = getMarkdownContentMeta(filePath);
     const { title } = getTitleAndLangByFilepath(filePath);
     const updateTitle = frontmatter?.title || headings?.[0] || title;
-
     const menus = fse.readJSONSync(SITE_SHARED_MENU_FILE)
 
     Object.keys(menus).forEach((lang) => {
       const routes = menus[lang];
       function search(route) {
         if (route.filePath === filePath) {
+          // Update title
           if (route.title !== updateTitle) {
             route.title = updateTitle
+            needUpdate = true
+          }
+          // Update frontmatter data
+          if (route.group !== frontmatter?.group) {
+            route.group = frontmatter?.group
             needUpdate = true
           }
           return

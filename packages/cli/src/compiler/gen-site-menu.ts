@@ -9,6 +9,12 @@ import {
 import context from '../common/context';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 
+type CfgMenuItem = {
+  title: string;
+  path?: string;
+  children?: string[]
+}
+
 type MenuItem = {
   title: string;
   path?: string;
@@ -30,50 +36,50 @@ type NavItem = {
 
 function getMenuDataByFilepath(root: string, filePath: string, defaultLang: string) {
   const { dir } = path.parse(filePath);
-    let { title, lang = defaultLang } = getTitleAndLangByFilepath(filePath);
-    const { headings, frontmatter } = getMarkdownContentMeta(filePath)
-    const isBaseDir = dir === root;
-    const baseDir = path.join('/', path.relative(root, dir))
-    const defaultLangFile = title === 'README';
-    const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
-    const level = routePath.split(path.sep).length - 1;
-    const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
-    // Lazy load for reduce bundle
-    const component = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
+  let { title, lang = defaultLang } = getTitleAndLangByFilepath(filePath);
+  const { headings, frontmatter } = getMarkdownContentMeta(filePath)
+  const isBaseDir = dir === root;
+  const baseDir = path.join('/', path.relative(root, dir))
+  const defaultLangFile = title === 'README';
+  const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
+  const level = routePath.split(path.sep).length - 1;
+  const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
+  // Lazy load for reduce bundle
+  const component = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
 
-    // Default is link type
-    let isLink = true
-    if (frontmatter?.link === false) {
-      isLink = false
-    }
-    if (defaultLangFile && !isBaseDir) {
-      // If is default lang path, title get basename value
-      // /src/button/README.md
-      // button ✅ README ❌
-      title = path.basename(dir)
-    }
-    // Overwrite title
-    title = frontmatter?.title || headings?.[0] || title;
+  // Default is link type
+  let isLink = true
+  if (frontmatter?.link === false) {
+    isLink = false
+  }
+  if (defaultLangFile && !isBaseDir) {
+    // If is default lang path, title get basename value
+    // /src/button/README.md
+    // button ✅ README ❌
+    title = path.basename(dir)
+  }
+  // Overwrite title
+  title = frontmatter?.title || headings?.[0] || title;
 
-    let menu: NavItem = {
-      title,
-      lang,
-      level,
-      relative,
-      path: routePath,
-      filePath,
-      isLink,
-      component,
-    }
+  let menu: NavItem = {
+    title,
+    lang,
+    level,
+    relative,
+    path: routePath,
+    filePath,
+    isLink,
+    component,
+  }
 
-    if (frontmatter?.group) {
-      menu.group = frontmatter?.group
-    }
+  if (frontmatter?.group) {
+    menu.group = frontmatter?.group
+  }
 
-    return menu;
+  return menu;
 }
 
-function resolveStaticNavs(userConfig): NavItem[] {
+function resolveStaticNavs(userConfig): Record<string, NavItem[]> {
   const { locales } = userConfig;
   const defaultLang = locales[0][0];
 
@@ -84,20 +90,47 @@ function resolveStaticNavs(userConfig): NavItem[] {
   const componentMenus = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/*.md'))).map((filePath) => {
     return getMenuDataByFilepath(PROJECT_SRC_DIR, filePath, defaultLang);
   });
-  return [...docsMenus, ...componentMenus];
+  return { docsMenus, componentMenus }
 }
 
 export function genSiteMenu() {
-  const routes = resolveStaticNavs(context.opts);
-  localesCompatibleRoute(routes, context.opts?.locales);
-  const menuRoutes = routes.map(({ lang, title, path, level, isLink, filePath, group }) => ({ lang, title, path, level, isLink, filePath, group }))
-  return { routes, menus: generateMenus(menuRoutes) }
+  const { docsMenus, componentMenus } = resolveStaticNavs(context.opts);
+
+  const { locales, menus: configMenus } = context.opts
+
+  // Comsumer config menu
+  if (configMenus) {
+    Object.entries(configMenus).forEach(([cfgMenuPath, cfgMenuCld]) => {
+      cfgMenuCld.forEach((menuItem) => {
+        menuItem.children.forEach((cPath, idx) => {
+          const targetMenuIdx = componentMenus.findIndex(el => el.path === cPath
+            || path.join('/', el.lang, el.path) === cPath);
+          const targetMenu = componentMenus[targetMenuIdx]
+          // Replace menu group data
+          if (targetMenu && idx === 0) {
+            targetMenu.group = { title: menuItem.title };
+          }
+          // Recompute menu index
+          [componentMenus[idx], componentMenus[targetMenuIdx]] = [componentMenus[targetMenuIdx], componentMenus[idx]]
+        })
+      })
+    })
+  }
+
+  const mergeMenus = [...docsMenus, ...componentMenus]
+
+  // Compatile missing translation 
+  const defaultLang = locales[0][0]
+  localesCompatibleRoute(mergeMenus, defaultLang);
+
+  // Filter menu property
+  const menuRoutes = mergeMenus.map(({ lang, title, path, level, isLink, filePath, group }) => ({ lang, title, path, level, isLink, filePath, group }))
+  return { routes: mergeMenus, menus: generateMenus(menuRoutes) }
 }
 
 // For missing translation 
 // Use the documents in the default language as the untranslated language documents
-function localesCompatibleRoute(allRoutes: NavItem[], locales: [string, string]) {
-  const defaultLang = locales[0][0]
+function localesCompatibleRoute(allRoutes: NavItem[], defaultLang: string) {
   const defaultLangRoutes = allRoutes.filter(r => r.lang === defaultLang);
   const othersLangRoutes = allRoutes.reduce((a, v) => {
     if (v.lang !== defaultLang) {
@@ -183,11 +216,11 @@ function getRoutesDataByLang(data, lang) {
 }
 
 function generateMenus(data: NavItem[]) {
-  const cloneData = JSON.parse(JSON.stringify(data))
-  const filterData = cloneData
-  const langs = getLangs(filterData);
+  const cloneData = JSON.parse(JSON.stringify(data)) as NavItem[];
+
+  const langs = getLangs(cloneData);
   const langsRoutes = langs.reduce((a, v) => {
-    a[v] = getRoutesDataByLang(filterData, v)
+    a[v] = getRoutesDataByLang(cloneData, v)
     return a;
   }, {});
   return langsRoutes

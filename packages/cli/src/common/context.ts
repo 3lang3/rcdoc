@@ -1,7 +1,15 @@
 import { ViteDevServer } from "vite";
 
+type CfgMenuItem = {
+  title: string;
+  path?: string;
+  children?: string[]
+}
+
 type ContextType = {
-  opts?: any;
+  opts?: {
+    menus?: Record<string, CfgMenuItem[]>
+  } & Record<string, any>;
   configFilePath?: string;
   server?: ViteDevServer;
   closes?: Array<any>

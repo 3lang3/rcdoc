@@ -1,4 +1,8 @@
 export type UserConfigExport = {
+  /** 站点信息配置 */
+  site?: Record<string, any>;
+  /** 构建配置 */
+  build?: Record<string, any>;
   /** 配置 Algolia 的 DocSearch 服务 */
   algolia?: Record<string, any>;
   apiParser?: {
