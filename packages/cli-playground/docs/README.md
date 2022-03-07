@@ -11,3 +11,5 @@ import { Button } from 'mdoc-demo';
 
 export default () => <Button style={{ margin: '20px 0' }}>button</Button>
 ```
+
+<img src="https://cdn.jsdelivr.net/gh/3lang3/react-vant@main/public/home-music-card-1.jpg" style="width: 200px;" />

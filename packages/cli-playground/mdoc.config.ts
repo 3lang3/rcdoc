@@ -22,25 +22,75 @@ export default defineConfig({
     },
     site: { publicPath: './' },
   },
-  links: [
-    {
-      url: 'https://github.com/youzan/vant',
-      title: 'vant',
-      alt: 'vant官网',
-    },
-    {
-      title: 'GitHub',
-      url: 'https://github.com/3lang3/react-vant',
-    },
-  ],
   site: {
     htmlMeta: {
       'docsearch:version': 'v3',
     },
   },
-  navs: [
-
-  ],
+  navs: {
+    'en-US': [
+      {
+        title: 'Home',
+        path: '/',
+      },
+      {
+        title: 'Guide',
+        path: '/guide',
+      },
+      {
+        title: 'Discover More',
+        children: [
+          {
+            title: 'Playground',
+            path: 'https://codesandbox.io/s/antd-mobile-snrxr?file=/package.json',
+          },
+          {
+            title: 'Roadmap',
+            path: 'https://github.com/ant-design/ant-design-mobile/discussions/3924',
+          },
+          {
+            title: 'Contributing',
+            path: 'https://github.com/ant-design/ant-design-mobile/blob/master/.github/CONTRIBUTING.md',
+          },
+        ],
+      },
+      // {
+      //   path: 'https://github.com/youzan/vant',
+      //   title: 'vant',
+      // },
+      // {
+      //   title: 'GitHub',
+      //   path: 'https://github.com/3lang3/react-vant',
+      // },
+    ],
+    'zh-CN': [
+      {
+        title: '首页',
+        path: '/',
+      },
+      {
+        title: '指南',
+        path: '/guide',
+      },
+      {
+        title: '了解更多',
+        children: [
+          {
+            title: '在线体验',
+            path: 'https://codesandbox.io/s/antd-mobile-snrxr?file=/package.json',
+          },
+          {
+            title: 'Roadmap',
+            path: 'https://github.com/ant-design/ant-design-mobile/discussions/3924',
+          },
+          {
+            title: '参与贡献',
+            path: 'https://github.com/ant-design/ant-design-mobile/blob/master/.github/CONTRIBUTING.md',
+          },
+        ],
+      },
+    ],
+  },
   menus: {
     '/': [
       {

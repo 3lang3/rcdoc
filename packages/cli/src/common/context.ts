@@ -10,16 +10,17 @@ type ContextType = {
   opts?: {
     menus?: Record<string, CfgMenuItem[]>;
     locales?: [string, string][];
+    navs?: Record<string, CfgMenuItem[]> | CfgMenuItem[];
   } & Record<string, any>;
   configFilePath?: string;
   server?: ViteDevServer;
   closes?: Array<any>
 }
 
-const context: ContextType = { 
-  opts: {}, 
-  server: undefined, 
-  closes: [] 
+const context: ContextType = {
+  opts: {},
+  server: undefined,
+  closes: []
 };
 
 export function init(opts: any, configFilePath: string) {
