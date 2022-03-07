@@ -15,6 +15,7 @@ interface IGetBabelConfigOpts {
     [value: string]: any;
   };
   lazy?: boolean;
+  loose?: boolean;
   lessInBabelMode?: boolean | {
     paths?: any[];
     plugins?: any[];
@@ -36,7 +37,7 @@ function transformImportLess2Css() {
 }
 
 export default function (opts: IGetBabelConfigOpts) {
-  const { target, typescript, type, runtimeHelpers, filePath, browserFiles, nodeFiles, nodeVersion, lazy, lessInBabelMode } = opts;
+  const { target, loose, typescript, type, runtimeHelpers, filePath, browserFiles, nodeFiles, nodeVersion, lazy, lessInBabelMode } = opts;
   let isBrowser = target === 'browser';
   // rollup 场景下不会传入 filePath
   if (filePath) {
@@ -58,7 +59,8 @@ export default function (opts: IGetBabelConfigOpts) {
         ...(typescript ? [require.resolve('@babel/preset-typescript')] : []),
         [require.resolve('@babel/preset-env'), {
           targets,
-          modules: type === 'esm' ? false : 'auto'
+          modules: type === 'esm' ? false : 'auto',
+          loose
         }],
         ...(isBrowser ? [require.resolve('@babel/preset-react')] : []),
       ],
