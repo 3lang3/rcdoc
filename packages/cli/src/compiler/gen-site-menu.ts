@@ -111,7 +111,7 @@ export function genSiteMenu() {
           // Get target component menu item
           const targetMenuIdx = componentMenus.findIndex(
             el => el.lang === pathLang
-            // If not default lang path need add lang to compare
+              // If not default lang path need add lang to compare
               && path.join(pathLang !== defaultLang ? '/' + el.lang : '', el.path) === cPath
           );
           if (targetMenuIdx === -1) return;
@@ -176,57 +176,37 @@ function getLangs(data: NavItem[]) {
 }
 
 
-function getRoutesDataByLang(data, lang) {
-  let flattenRoutes = data.filter(r => r.lang === lang);
+function getRoutesDataByLang(data) {
 
-  let level = 1;
-  let arr: NavItem[] = [];
-
-  function makeupRoutesByLevel() {
-    while (flattenRoutes.length) {
-      const levelRoutes = flattenRoutes.filter(r => r.level === level)
-      flattenRoutes = flattenRoutes.filter(el => el.level !== level)
-      if (level === 1) {
-        arr = arr.concat(levelRoutes);
-        level++
-        continue;
-      }
-      for (const route of levelRoutes) {
-        appendRoute(arr, route)
-      }
-      level++;
-    }
-  }
-
-  function appendRoute(children, el: NavItem) {
-    const target = findParentRoute(children, path.dirname(el.path))
-    if (target) {
-      if (target.children) {
-        target.children.push(el)
-      } else {
-        target.children = [el]
-      }
-    } else {
-      children.push(el)
-    }
-  }
-
-  function findParentRoute(children: NavItem[], parentPath: string) {
+  function searchParent(children: NavItem[], parentPath: string) {
     let parent;
     children.some(cld => {
-      if (cld.path === parentPath) {
+      if (cld.path === parentPath && parentPath !== '/') {
         parent = cld
         return true
       }
       if (cld.children && cld.children.length) {
-        parent = findParentRoute(cld.children, parentPath)
+        parent = searchParent(cld.children, parentPath)
       }
     })
     return parent
   }
 
-  makeupRoutesByLevel();
-  return arr;
+  const routes = data.reduce((a, v) => {
+    const target = searchParent(a, path.dirname(v.path))
+    if (target) {
+      if (target.children) {
+        target.children.push(v)
+      } else {
+        target.children = [v]
+      }
+    } else {
+      a.push(v)
+    }
+    return a;
+  }, [])
+  
+  return routes
 }
 
 function generateMenus(data: NavItem[]) {
@@ -234,9 +214,11 @@ function generateMenus(data: NavItem[]) {
 
   const langs = getLangs(cloneData);
   const langsRoutes = langs.reduce((a, v) => {
-    a[v] = getRoutesDataByLang(cloneData, v)
+    const flattenRoutes = data.filter(r => r.lang === v);
+    a[v] = getRoutesDataByLang(flattenRoutes)
     return a;
   }, {});
-  
+
   return langsRoutes
 }
+
