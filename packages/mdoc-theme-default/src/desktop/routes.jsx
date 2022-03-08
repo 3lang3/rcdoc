@@ -6,7 +6,7 @@ import MdPage from './components/MdPage';
 const PreviewerComp = ({ lazyComponent, ...props }) => {
   const LazyComponent = lazyComponent;
   return (
-    <React.Suspense fallback={<div>loading</div>}>
+    <React.Suspense fallback={null}>
       <LazyComponent>
         {({ MdContent, frontmatter = {}, slugs = [], filePath }) => {
           return (

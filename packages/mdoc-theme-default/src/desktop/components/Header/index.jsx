@@ -7,6 +7,7 @@ import SearchInput from '../SearchInput';
 import { GitHubIcon, HttpLinkIcon } from '../Icons';
 import Navbar from './Navbar'
 import './index.less';
+import VersionToggle from './VersionToggle';
 
 
 const Header = props => {
@@ -92,6 +93,7 @@ const Header = props => {
               </li>
             )}
           </ul>
+          {!!versions.length && <VersionToggle versions={versions} />}
         </div>
       </div>
     </div>

@@ -100,25 +100,25 @@ export default defineConfig({
     ],
   },
   menus: {
-    '/': [
+    '/components': [
       {
         title: 'Layout Components',
         children: [
-          '/space',
+          '/components/space',
         ],
       },
       {
         title: 'Basic Components',
         children: [
-          '/button',
+          '/components/button',
         ],
       }
     ],
-    '/zh-CN': [
+    '/zh-CN/components': [
       {
         title: '基础组件',
         children: [
-          '/zh-CN/space'
+          '/zh-CN/components/space'
         ]
       }
     ],
