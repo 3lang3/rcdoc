@@ -4,18 +4,29 @@
   position: fixed;
   top: 0;
   right: 0;
-  left: @van-doc-nav-width;
+  left: 0;
   background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(20px);
   z-index: 9999;
   user-select: none;
   border-bottom: 1px solid @van-doc-border-color;
+  padding: 0 @van-doc-padding;
+
+  .vant-doc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &--left {
+      display: flex;
+      align-items: center;
+    }
+  }
 
   &__top {
     display: flex;
     align-items: center;
     height: @van-doc-header-top-height;
-    padding: 0 @van-doc-padding;
     line-height: @van-doc-header-top-height;
 
     &-nav {

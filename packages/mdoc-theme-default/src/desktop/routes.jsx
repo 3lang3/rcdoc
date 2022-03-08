@@ -43,7 +43,11 @@ function initRoutes({ config, unprocessedRoutes }) {
     const routes = [];
 
     unprocessedRoutes.forEach(menu => {
-      const { lang, path } = menu;
+      const { lang, path, redirect } = menu;
+      if (redirect) {
+        routes.push({ path, redirect })
+        return
+      }
       const isDefaultLang = lang === defaultLang;
       routes.push({
         name: `${lang}/${path}`,

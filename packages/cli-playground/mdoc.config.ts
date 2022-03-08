@@ -38,6 +38,10 @@ export default defineConfig({
         path: '/guide',
       },
       {
+        title: 'Components',
+        path: '/components',
+      },
+      {
         title: 'Discover More',
         children: [
           {
@@ -66,11 +70,15 @@ export default defineConfig({
     'zh-CN': [
       {
         title: '首页',
-        path: '/',
+        path: '/zh-CN',
       },
       {
         title: '指南',
-        path: '/guide',
+        path: '/zh-CN/guide',
+      },
+      {
+        title: '组件',
+        path: '/zh-CN/components',
       },
       {
         title: '了解更多',

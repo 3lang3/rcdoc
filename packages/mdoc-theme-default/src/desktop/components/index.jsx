@@ -1,6 +1,6 @@
 import React from 'react';
 import Header from './Header';
-import Nav from './Nav';
+import Menu from './Menu';
 import Container from './Container';
 import Content from './Content';
 
@@ -11,7 +11,7 @@ const Doc = props => {
     versions,
     langConfigs,
     config,
-    navs,
+    menus,
     currentCompnentName,
   } = props;
 
@@ -19,15 +19,23 @@ const Doc = props => {
 
   return (
     <div className="vant-doc">
-      <Nav
-        config={config}
+      <Header
         lang={lang}
         defaultLang={defaultLang}
-        navs={navs}
+        config={config}
+        langConfigs={langConfigs}
         versions={versions}
       />
+      {!!menus.length && (
+        <Menu
+          config={config}
+          lang={lang}
+          defaultLang={defaultLang}
+          menus={menus}
+          versions={versions}
+        />
+      )}
       <Container>
-        <Header lang={lang} defaultLang={defaultLang} config={config} langConfigs={langConfigs} />
         <Content currentCompnentName={currentCompnentName}>
           {props.children}
         </Content>

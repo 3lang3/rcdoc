@@ -1,5 +1,0 @@
----
-link: false
----
-
-# Guide

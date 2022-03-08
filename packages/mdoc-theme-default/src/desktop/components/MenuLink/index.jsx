@@ -6,8 +6,8 @@ import clsx from 'clsx';
 
 import './index.less';
 
-const NavLink = props => {
-  const { base, item } = props;
+const MenuLink = props => {
+  const { item } = props;
   const { pathname } = useLocation();
 
   const itemName = useMemo(() => {
@@ -15,32 +15,25 @@ const NavLink = props => {
     return `${name[0]} <span>${name.slice(1).join(' ')}</span>`;
   }, [item.name, item.title]);
 
-  const path = useMemo(() => {
-    return `${base}${item.path}`;
-  }, [base, item.path]);
-
   const active = useMemo(() => {
-    if (pathname === path) {
+    if (pathname === item.langPath) {
       return true;
     }
-    if (path.indexOf('/home') !== -1) {
-      return pathname === base;
-    }
     return false;
-  }, [base, path, pathname]);
+  }, [pathname]);
 
   return (
     <>
       {item.path ? (
         <>
           {item.group?.title ? (
-            <div className="vant-doc-nav__title">{item.group.title}</div>
+            <div className="vant-doc-menu__title">{item.group.title}</div>
           ) : null}
           <Link
-            className={clsx('vant-doc-navlink', {
-              'vant-doc-navlink--active': active,
+            className={clsx('vant-doc-menulink', {
+              'vant-doc-menulink--active': active,
             })}
-            to={path}
+            to={item.langPath}
             dangerouslySetInnerHTML={{ __html: itemName }}
           />
         </>
@@ -54,4 +47,4 @@ const NavLink = props => {
   );
 };
 
-export default NavLink;
+export default MenuLink;

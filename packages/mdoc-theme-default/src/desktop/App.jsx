@@ -5,31 +5,45 @@ import Doc from './components/index';
 import initRoutes, { getLangFromRoute } from './routes';
 import './index.less';
 
+function getMenuByPathname(menu, pathname, isDefaultLang) {
+  const paths = pathname.substr(1).split('/');
+  const parentPath = '/' + paths[isDefaultLang ? 0 : 1];
+  return menu.filter(el => el.path.startsWith(parentPath));
+}
+
 const App = () => {
   const { pathname } = useLocation();
 
   const {
     config,
     packageVersion,
-    routes: unprocessedRoutes,
-    menus: allMenus,
+    routes: _routes,
+    menus: _menus,
   } = React.useContext(MdocSiteContext);
 
   const defaultLang = useMemo(() => {
     const { locales } = config;
     return locales[0][0];
-  }, [config.locales])
+  }, [config.locales]);
 
   const lang = useMemo(() => {
     const { locales } = config;
     return getLangFromRoute(pathname, locales);
   }, [config.locales, pathname]);
 
-  const navs = useMemo(() => allMenus[lang], [lang, allMenus]);
+  const currentLangMenus = useMemo(() => _menus[lang], [lang, _menus]);
+
+  const menus = useMemo(() => {
+    if (!config.navs) {
+      return currentLangMenus;
+    }
+    if (pathname === '/') return [];
+    return getMenuByPathname(currentLangMenus, pathname, lang === defaultLang);
+  }, [currentLangMenus, config.navs, pathname]);
 
   const routes = useMemo(() => {
-    return initRoutes({ config, unprocessedRoutes });
-  }, [config, unprocessedRoutes]);
+    return initRoutes({ config, unprocessedRoutes: _routes });
+  }, [config, _routes]);
 
   const currentCompnentName = useMemo(
     () => pathname.replace(/\/.*\//, ''),
@@ -46,8 +60,8 @@ const App = () => {
   }, []);
 
   const currentNav = useMemo(
-    () => navs.find(item => item.path === currentCompnentName),
-    [navs, currentCompnentName],
+    () => menus.find(item => item.path === currentCompnentName),
+    [menus, currentCompnentName],
   );
 
   // 更新标题
@@ -73,12 +87,14 @@ const App = () => {
     return [{ label: packageVersion }];
   }, []);
 
+  // console.log(menus);
+
   return (
     <Doc
       lang={lang}
       defaultLang={defaultLang}
       config={config}
-      navs={navs}
+      menus={menus}
       langConfigs={langConfigs}
       versions={versions}
       currentCompnentName={currentCompnentName}
@@ -86,7 +102,11 @@ const App = () => {
       <Routes>
         {routes.map(route =>
           route.redirect ? (
-            <Route key={route.path} element={<Navigate to={route.redirect} />} />
+            <Route
+              key={route.path}
+              path={route.path}
+              element={<Navigate to={route.redirect} />}
+            />
           ) : (
             <Route
               key={route.path}

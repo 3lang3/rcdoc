@@ -2,12 +2,15 @@
 import React, { useMemo } from 'react';
 import { useLocation, Link } from 'react-router-dom';
 import clsx from 'clsx';
+import Logo from '../Logo';
 import SearchInput from '../SearchInput';
 import { GitHubIcon, HttpLinkIcon } from '../Icons';
+import Navbar from './Navbar'
 import './index.less';
 
+
 const Header = props => {
-  const { lang, config, defaultLang, langConfigs } = props;
+  const { lang, config, defaultLang, langConfigs, versions } = props;
   const { pathname } = useLocation();
 
   const anotherLang = useMemo(() => {
@@ -32,6 +35,10 @@ const Header = props => {
   return (
     <div className="vant-doc-header">
       <div className="vant-doc-row">
+        <div className="vant-doc-row--left">
+          <Logo config={config} versions={versions} />
+          <Navbar navs={config.navs[lang]} />
+        </div>
         <div className="vant-doc-header__top">
           {config.searchConfig && (
             <SearchInput lang={lang} searchConfig={config.searchConfig} />
