@@ -19,7 +19,7 @@ const MdPageComponent = ({
   );
 
   const formatSlugs = React.useMemo(
-    () => slugs.map(slug => ({ ...slug, id: `${hashPath}#${slug.id}` })),
+    () => slugs.map(slug => ({ ...slug, id: hashPath ? `${hashPath}#${slug.id}` : slug.id })),
     [hashPath, slugs],
   );
 

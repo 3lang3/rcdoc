@@ -26,8 +26,7 @@ module.exports = {
 }
 ```
 
-<Alert type="error">
-  即便你使用了 `babel-plugin-import`，你依然需要在入口文件中手动引入 `global` 文件。
-</Alert>
+> 即便你使用了 `babel-plugin-import`，你依然需要在入口文件中手动引入 `global` 文件。
+
 
 不难发现，手动按需加载是非常难以维护的，特别是在你的项目中存在多个入口文件时。所以除非你对打包构建的过程和 antd-mobile 本身都有足够的了解，否则我们非常不推荐这样手动处理。

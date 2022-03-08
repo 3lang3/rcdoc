@@ -1,4 +1,4 @@
-# Server-side Rendering / SSR <Experimental></Experimental>
+# SSR
 
 The support for SSR (server-side rendering) is still in the initial stage. If you find bugs during use, please submit an issue to us.
 

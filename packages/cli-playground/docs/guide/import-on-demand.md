@@ -26,8 +26,7 @@ module.exports = {
 }
 ```
 
-<Alert type="error">
-  Even if you use `babel-plugin-import`, you still need to manually import the `global` file in the entry file.
-</Alert>
+> Even if you use `babel-plugin-import`, you still need to manually import the `global` file in the entry file.
+
 
 It is not difficult to find that manual on-demand loading is very difficult to maintain, especially when there are multiple entry files in your project. So unless you have a sufficient understanding of the packaging and construction process and antd-mobile itself, we do not recommend this manual processing.

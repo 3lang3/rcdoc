@@ -131,13 +131,14 @@ export function genSiteMenu() {
     })
   }
 
-  const mergeMenus = [...docsMenus, ...componentMenus]
+  const mergeMenus = [...docsMenus, ...componentMenus];
 
   // Compatile missing translation 
   localesCompatibleRoute(mergeMenus, defaultLang);
 
   // Filter menu property
   const menuRoutes = mergeMenus.map(({ lang, title, path, level, isLink, filePath, group }) => ({ lang, title, path, level, isLink, filePath, group }))
+
   return { routes: mergeMenus, menus: generateMenus(menuRoutes) }
 }
 
@@ -224,7 +225,7 @@ function getRoutesDataByLang(data, lang) {
     return parent
   }
 
-  makeupRoutesByLevel()
+  makeupRoutesByLevel();
   return arr;
 }
 
@@ -236,5 +237,6 @@ function generateMenus(data: NavItem[]) {
     a[v] = getRoutesDataByLang(cloneData, v)
     return a;
   }, {});
+  
   return langsRoutes
 }
