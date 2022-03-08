@@ -8,7 +8,7 @@ import {
 function genExportRoutes(items) {
   return `import React from 'react';
 export default [
-  ${items.map(({ component, path, lang, title }) => (`{ path: '${path}', lang: '${lang}', title: '${title}', component: ${component} }`)).join(',\n  ')}
+  ${items.map(({ component, path, lang, title, redirect }) => (`{ path: '${path}', lang: '${lang}', title: '${title}', component: ${component}, redirect: ${redirect ? `'${redirect}'` : false} }`)).join(',\n  ')}
 ]`;
 }
 

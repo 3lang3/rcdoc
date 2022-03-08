@@ -9,15 +9,11 @@ import {
 import context from '../common/context';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 
-type CfgMenuItem = {
-  title: string;
-  path?: string;
-  children?: string[]
-}
-
 type MenuItem = {
-  title: string;
+  redirect?: string;
+  title?: string;
   path?: string;
+  langPath?: string;
   isLink?: boolean;
   children?: Array<MenuItem>;
   group?: {
@@ -29,7 +25,6 @@ type NavItem = {
   filePath?: string;
   relative?: string;
   lang?: string;
-  level?: number;
   component?: any;
   children?: Array<NavItem>;
 } & MenuItem;
@@ -42,7 +37,6 @@ function getMenuDataByFilepath(root: string, filePath: string, defaultLang: stri
   const baseDir = path.join('/', path.relative(root, dir))
   const defaultLangFile = title === 'README';
   const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
-  const level = routePath.split(path.sep).length - 1;
   const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
   // Lazy load for reduce bundle
   const component = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`
@@ -64,9 +58,9 @@ function getMenuDataByFilepath(root: string, filePath: string, defaultLang: stri
   let menu: NavItem = {
     title,
     lang,
-    level,
     relative,
     path: routePath,
+    langPath: lang !== defaultLang ? path.join('/', lang, routePath) : routePath,
     filePath,
     isLink,
     component,
@@ -137,9 +131,11 @@ export function genSiteMenu() {
   localesCompatibleRoute(mergeMenus, defaultLang);
 
   // Filter menu property
-  const menuRoutes = mergeMenus.map(({ lang, title, path, level, isLink, filePath, group }) => ({ lang, title, path, level, isLink, filePath, group }))
+  const menuRoutes = mergeMenus.map(({ lang, title, path, langPath, isLink, filePath, group }) => ({ lang, title, path, langPath, isLink, filePath, group }))
 
-  return { routes: mergeMenus, menus: generateMenus(menuRoutes) }
+  const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes);
+
+  return { routes: [...mergeMenus, ...allRedirectRoutes], menus: langsMenus }
 }
 
 // For missing translation 
@@ -161,7 +157,7 @@ function localesCompatibleRoute(allRoutes: NavItem[], defaultLang: string) {
     defaultLangRoutes.forEach((defaultRoute) => {
       if (!routes.find(r => r.path === defaultRoute.path)) {
         const idx = allRoutes.findIndex(r => r.path === defaultRoute.path)
-        allRoutes.splice(idx, 0, { ...defaultRoute, lang })
+        allRoutes.splice(idx, 0, { ...defaultRoute, lang, langPath: lang !== defaultLang ? path.join('/', lang, defaultRoute.path) : defaultRoute.path })
       }
     })
   })
@@ -177,7 +173,7 @@ function getLangs(data: NavItem[]) {
 
 
 function getRoutesDataByLang(data) {
-
+  const redirectRoutes = []
   function searchParent(children: NavItem[], parentPath: string) {
     let parent;
     children.some(cld => {
@@ -193,7 +189,8 @@ function getRoutesDataByLang(data) {
   }
 
   const routes = data.reduce((a, v) => {
-    const target = searchParent(a, path.dirname(v.path))
+    const dirname = path.dirname(v.path)
+    const target = searchParent(a, dirname)
     if (target) {
       if (target.children) {
         target.children.push(v)
@@ -201,24 +198,29 @@ function getRoutesDataByLang(data) {
         target.children = [v]
       }
     } else {
-      a.push(v)
+      if (dirname !== '/') {
+        a.push({ path: dirname, children: [v] })
+        redirectRoutes.push({ redirect: v.langPath, path: path.dirname(v.langPath) })
+      }
     }
     return a;
   }, [])
-  
-  return routes
+
+  return [routes, redirectRoutes]
 }
 
 function generateMenus(data: NavItem[]) {
   const cloneData = JSON.parse(JSON.stringify(data)) as NavItem[];
-
+  const allRedirectRoutes = []
   const langs = getLangs(cloneData);
-  const langsRoutes = langs.reduce((a, v) => {
+  const langsMenus = langs.reduce((a, v) => {
     const flattenRoutes = data.filter(r => r.lang === v);
-    a[v] = getRoutesDataByLang(flattenRoutes)
+    const [routes, redirectRoutes] = getRoutesDataByLang(flattenRoutes)
+    a[v] = routes;
+    allRedirectRoutes.push(...redirectRoutes)
     return a;
   }, {});
 
-  return langsRoutes
+  return { allRedirectRoutes, langsMenus }
 }
 
