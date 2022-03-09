@@ -21,7 +21,7 @@ class ExportedContent {
 
 export async function transformer(code: string, id: string, reactBabelPlugin: PluginOption, remarkOpts: any) {
   const content = new ExportedContent();
-  const { demos, slugs, meta, value } = await mdoc(code, id, remarkOpts);
+  const { demos, slugs, frontmatter, value } = await mdoc(code, id, remarkOpts);
 
   const compiledReactCode = `
       function ({ previewer = () => null }) {
@@ -71,7 +71,7 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
   content.addContext(`const MdDemos = ${exportDemosStr};`);
   content.addExporting('MdDemos');
 
-  content.addContext(`const frontmatter = ${JSON.stringify(meta)};`)
+  content.addContext(`const frontmatter = ${JSON.stringify(frontmatter)};`)
   content.addExporting('frontmatter');
 
   content.addContext(`const slugs = ${JSON.stringify(slugs)};`)
