@@ -15,7 +15,7 @@ const Doc = props => {
     currentCompnentName,
   } = props;
 
-  React.useEffect(() => {}, []);
+  const hasMenu = !!menus.length
 
   return (
     <div className="vant-doc">
@@ -26,7 +26,7 @@ const Doc = props => {
         langConfigs={langConfigs}
         versions={versions}
       />
-      {!!menus.length && (
+      {hasMenu && (
         <Menu
           config={config}
           lang={lang}
@@ -35,7 +35,7 @@ const Doc = props => {
           versions={versions}
         />
       )}
-      <Container>
+      <Container hasMenu={hasMenu}>
         <Content currentCompnentName={currentCompnentName}>
           {props.children}
         </Content>

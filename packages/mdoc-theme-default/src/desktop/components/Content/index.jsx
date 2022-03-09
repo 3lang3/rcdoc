@@ -8,7 +8,7 @@ export default props => {
     <div
       className={clsx(
         'vant-doc-content',
-        `vant-doc-content--${props.currentCompnentName}`,
+        `page--${props.currentCompnentName}`,
       )}
     >
       <LinerLoader />

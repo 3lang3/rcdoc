@@ -2,7 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import './SlugNav.less';
 
-export default ({ slugs }) => {
+export default ({ slugs, show }) => {
+  if (!show) return null;
+  if (!slugs.length) return <div className="vant-doc-md--slugs" />;
   return (
     <div className="vant-doc-md--slugs">
       <div className="vant-doc-md--slug-title">#目录</div>
@@ -12,7 +14,7 @@ export default ({ slugs }) => {
             <a
               // eslint-disable-next-line react/no-array-index-key
               key={key}
-              href={`#${slug.id}`}
+              href={`${window.location.pathname}#${slug.id}`}
               className={clsx('vant-doc-md--slug', `vant-doc-md--slug-${slug.depth}`)}
             >
               {slug.text}

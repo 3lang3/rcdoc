@@ -2,6 +2,10 @@
 
 .vant-doc-md-wrapper {
   position: relative;
+  display: flex;
+  align-items: flex-start;
+  max-height: calc(100vh - @van-doc-header-top-height);
+  overflow-y: auto;
 
   &--simulator {
     padding-right: @van-doc-simulator-width;
@@ -11,20 +15,13 @@
 .vant-doc-md-page {
   width: 100%;
   margin: 0 auto;
+  height: 100%;
   padding: 24px;
   box-sizing: border-box;
   position: relative;
 
   @media (min-width: 1400px) {
-    max-width: 660px;
-    margin: 0 0 0 auto;
-  }
-  @media (min-width: 1600px) {
-    margin: 0 auto;
-    max-width: 780px;
-  }
-  @media (min-width: 1680px) {
-    max-width: 820px;
+    padding: 24px 64px;
   }
 
   &--fluid {

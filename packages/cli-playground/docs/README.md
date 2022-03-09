@@ -1,6 +1,10 @@
+---
+slugs: false
+---
+
 # HOME
 
-> wellcome to mdoc! !!hahah
+> wellcome to mdoc!
 
 ```jsx
 /**
