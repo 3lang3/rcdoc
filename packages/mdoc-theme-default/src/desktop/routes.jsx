@@ -1,16 +1,22 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
 import { getLang, setDefaultLang } from '../common/locales';
+import { LazyFallback } from './components/LazyFallback';
 import MdPage from './components/MdPage';
 
 const PreviewerComp = ({ lazyComponent, ...props }) => {
   const LazyComponent = lazyComponent;
   return (
-    <React.Suspense fallback={null}>
+    <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
         {({ MdContent, frontmatter = {}, slugs = [], filePath }) => {
           return (
-            <MdPage {...props} frontmatter={frontmatter} slugs={slugs} filePath={filePath}>
+            <MdPage
+              {...props}
+              frontmatter={frontmatter}
+              slugs={slugs}
+              filePath={filePath}
+            >
               {({ previewer }) => (
                 <>
                   <MdContent previewer={previewer} />
@@ -45,8 +51,8 @@ function initRoutes({ config, unprocessedRoutes }) {
     unprocessedRoutes.forEach(menu => {
       const { lang, path, redirect } = menu;
       if (redirect) {
-        routes.push({ path, redirect })
-        return
+        routes.push({ path, redirect });
+        return;
       }
       const isDefaultLang = lang === defaultLang;
       routes.push({
