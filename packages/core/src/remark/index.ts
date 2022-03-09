@@ -24,7 +24,12 @@ type MDocCoreOptions = {
   localPkgs?: Record<string, { version: string; css?: string; }>;
 }
 
-type RemarkReturn = { demos: any[]; value: string; meta: Record<string, string>; slugs: { depth: number; text: string; id: string; }[] };
+type RemarkReturn = { 
+  demos: any[]; 
+  value: string; 
+  frontmatter: Record<string, string>;
+  slugs: { depth: number; text: string; id: string; }[] 
+};
 
 const defaultOpts: MDocCoreOptions = {
   prefix: 'MdocDemo',
@@ -53,8 +58,8 @@ export default async function remark(source, id, options: MDocCoreOptions = {}):
   processor.use(jsxify);
 
   const { data, value } = processor.processSync(source);
-  const { demos = [], slugs, ...mdMeta } = data as (RemarkReturn & Record<string, string>)
+  const { demos = [], slugs, frontmatter } = data as (RemarkReturn & Record<string, string>)
 
   // console.log(value.toString());
-  return { demos, slugs, meta: mdMeta, value: value.toString() };
+  return { demos, slugs, frontmatter, value: value.toString() };
 }

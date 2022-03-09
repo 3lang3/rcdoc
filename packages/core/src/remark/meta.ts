@@ -10,7 +10,7 @@ export default function meta(): MDocUnifiedTransformer<YamlNode> {
   return (tree, vFile) => {
     visit<YamlNode, string>(tree, 'yaml', (node) => {
       const data = yaml(node.value)
-      vFile.data = Object.assign(vFile.data || {}, data);
+      vFile.data.frontmatter = Object.assign(vFile.data.frontmatter || {}, data);
     });
   };
 }
