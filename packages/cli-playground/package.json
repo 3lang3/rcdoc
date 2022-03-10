@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "mdoc dev",
     "build": "mdoc-build",
+    "build:vite": "mdoc build",
     "docs:build": "mdoc docs-build",
     "test": "mdoc test"
   },
