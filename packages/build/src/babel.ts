@@ -40,6 +40,7 @@ export default async function (opts: IBabelOpts) {
     watch,
     log,
     bundleOpts: {
+      outDir = './',
       target = "browser",
       runtimeHelpers,
       extraBabelPresets = [],
@@ -53,9 +54,12 @@ export default async function (opts: IBabelOpts) {
     },
   } = opts;
   const srcPath = join(cwd, "src");
-  const targetDir = type === "esm" ? "es" : "lib";
-  const targetPath = join(cwd, targetDir);
-
+  const targetModeOps = type === "esm" ? opts.bundleOpts.esm : opts.bundleOpts.cjs
+  let targetDir = type === "esm" ? "es" : "cjs";
+  if (typeof targetModeOps !== 'boolean' && targetModeOps.dist) {
+    targetDir = targetModeOps.dist 
+  }
+  const targetPath = join(cwd, outDir, targetDir);
   log?.(chalk.gray(`Clean ${targetDir} directory`));
   await remove(targetPath);
 
@@ -98,7 +102,6 @@ export default async function (opts: IBabelOpts) {
 
   function getTSConfig() {
     const tsconfigPath = join(cwd, "tsconfig.json");
-    const templateTsconfigPath = join(__dirname, "../template/tsconfig.json");
 
     if (existsSync(tsconfigPath)) {
       return getTsconfigCompilerOptions(tsconfigPath) || {};
@@ -106,7 +109,7 @@ export default async function (opts: IBabelOpts) {
     if (rootPath && existsSync(join(rootPath, "tsconfig.json"))) {
       return getTsconfigCompilerOptions(join(rootPath, "tsconfig.json")) || {};
     }
-    return getTsconfigCompilerOptions(templateTsconfigPath) || {};
+    return {};
   }
 
   function createStream(src) {

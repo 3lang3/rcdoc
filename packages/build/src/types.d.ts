@@ -1,5 +1,4 @@
 export type BundleType = 'babel';
-
 interface IBundleTypeOutput {
   type: BundleType;
   file?: string;
@@ -8,12 +7,14 @@ interface IBundleTypeOutput {
 export interface ICjs extends IBundleTypeOutput {
   minify?: boolean;
   lazy?: boolean;
+  dist?: string;
 }
 
 interface IEsm extends IBundleTypeOutput {
   mjs?: boolean;
   minify?: boolean;
   importLibToEs?: boolean;
+  dist?: string;
 }
 
 interface IStringObject {
@@ -31,9 +32,9 @@ interface IUmd {
 export interface IBundleOptions {
   entry?: string | string[];
   file?: string;
-  esm?: BundleType | IEsm | false;
-  cjs?: BundleType | ICjs | false;
-  umd?: IUmd | false;
+  outDir?: string;
+  esm?: IEsm | false;
+  cjs?: ICjs | false;
   extraBabelPlugins?: any[];
   extraBabelPresets?: any[];
   extraPostCSSPlugins?: any[];

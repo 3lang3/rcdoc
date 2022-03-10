@@ -8,9 +8,9 @@ export default {
       oneOf: [noEmptyStr, { type: 'array', items: noEmptyStr }],
     },
     file: { type: 'string' },
+    outDir: { type: 'string' },
     esm: {
       oneOf: [
-        noEmptyStr,
         { type: 'boolean' },
         {
           type: 'object',
@@ -33,7 +33,6 @@ export default {
     },
     cjs: {
       oneOf: [
-        noEmptyStr,
         { type: 'boolean' },
         {
           type: 'object',
@@ -46,27 +45,6 @@ export default {
             file: noEmptyStr,
             minify: { type: 'boolean' },
             lazy: { type: 'boolean' },
-          },
-        },
-      ],
-    },
-    umd: {
-      oneOf: [
-        { type: 'boolean' },
-        {
-          type: 'object',
-          additionalProperties: false,
-          properties: {
-            globals: { type: 'object' },
-            file: noEmptyStr,
-            name: noEmptyStr,
-            minFile: { type: 'boolean' },
-            sourcemap: {
-              oneOf: [
-                { type: 'boolean' },
-                { type: 'string', pattern: '^(inline|hidden)$', },
-              ]
-            },
           },
         },
       ],

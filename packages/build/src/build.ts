@@ -31,10 +31,10 @@ export function getBundleOpts(opts: IOpts): IBundleOptions[] {
     );
 
     // Support config esm: 'rollup' and cjs: 'rollup'
-    if (typeof bundleOpts.esm === 'string') {
+    if (typeof bundleOpts.esm) {
       bundleOpts.esm = { type: bundleOpts.esm };
     }
-    if (typeof bundleOpts.cjs === 'string') {
+    if (typeof bundleOpts.cjs) {
       bundleOpts.cjs = { type: bundleOpts.cjs };
     }
 
@@ -62,11 +62,11 @@ cjs.lazy don't support rollup.
     `.trim()
     );
   }
-  if (!bundleOpts.esm && !bundleOpts.cjs && !bundleOpts.umd) {
+  if (!bundleOpts.esm && !bundleOpts.cjs) {
     throw new Error(
       `
 None format of ${chalk.cyan(
-        'cjs | esm | umd'
+        'cjs | esm'
       )} is configured, checkout https://github.com/3lang3/mdoc/build for usage details.
 `.trim()
     );
@@ -128,11 +128,6 @@ export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
     // Clean dist
     log(chalk.gray(`Clean dist directory`));
     remove(join(cwd, 'dist'));
-
-    // Build umd
-    if (bundleOpts.umd) {
-      log(`Build umd`);
-    }
 
     // Build cjs
     if (bundleOpts.cjs) {
