@@ -1,6 +1,7 @@
 module.exports = {
-  esm: 'babel',
-  cjs: 'babel',
+  outDir: './dist',
+  esm: true,
+  cjs: true,
   loose: true,
   extractCSS: true,
   lessInBabelMode: true

@@ -37,6 +37,7 @@ export const CLI_DIR = join(__dirname, '..')
 export const CJS_DIR = join(__dirname, '..', 'cjs');
 export const JEST_CONFIG_FILE = join(CJS_DIR, 'jest.config.cjs');
 export const BABEL_CONFIG_FILE = join(CJS_DIR, 'babel.config.cjs');
+export const MDOC_BUILD_CONFIG_FILE = join(CJS_DIR, '.mdocrc.cjs');
 
 export const SCRIPT_EXTS = ['.js', '.jsx', '.ts', '.tsx'];
 export const STYLE_EXTS = ['.css', '.less'];
