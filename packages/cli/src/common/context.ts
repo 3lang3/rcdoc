@@ -8,6 +8,7 @@ type CfgMenuItem = {
 
 type ContextType = {
   opts?: {
+    title?: string;
     menus?: Record<string, CfgMenuItem[]>;
     locales?: [string, string][];
     navs?: Record<string, CfgMenuItem[]> | CfgMenuItem[];

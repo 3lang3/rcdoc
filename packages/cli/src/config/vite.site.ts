@@ -17,7 +17,7 @@ import {
 import { getConfigThemeAlias } from '../common'
 import context from '../common/context';
 
-function getTitle(config: { title: string; description?: string }) {
+function getTitle(config: { title?: string; description?: string }) {
   let { title } = config;
 
   if (config.description) {

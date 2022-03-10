@@ -1,5 +1,5 @@
 /**
- * cli dev
+ * cli build
  */
 import { remove } from 'fs-extra';
 import { build as viteBuild } from 'vite'
@@ -8,11 +8,13 @@ import { getViteConfigForPackage } from '../config/vite.package';
 
 const compileBundles = async () => {
   const configs = [
-    getViteConfigForPackage({ outputDir: PROJECT_ES_DIR, minify: true, formats: ['es'] }),
-    getViteConfigForPackage({ outputDir: PROJECT_CJS_DIR, minify: true, formats: ['cjs'] }),
+    getViteConfigForPackage({ outputDir: PROJECT_ES_DIR, format: 'es' }),
+    getViteConfigForPackage({ outputDir: PROJECT_CJS_DIR, format: 'cjs' }),
+    getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, minify: true, format: 'umd' }),
+    getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, format: 'umd' }),
   ]
 
-  await Promise.all(configs.map(async cfg => await viteBuild(cfg)))
+  Promise.all(configs.map(async cfg => await viteBuild(cfg)))
 }
 
 export async function build() {

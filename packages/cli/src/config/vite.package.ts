@@ -5,17 +5,17 @@ import { CWD, getPackageJson, PROJECT_SRC_DIR } from '../common/constant';
 export function getViteConfigForPackage({
   outputDir,
   minify,
-  formats,
+  format,
 }: {
   outputDir: string;
-  minify: boolean;
-  formats: LibraryFormats[];
+  minify?: boolean;
+  format: LibraryFormats;
 }): InlineConfig {
   setBuildTarget('package');
 
   const pkgJSON = getPackageJson();
   const { name } = pkgJSON
-  const external = Object.keys(pkgJSON.peerDependencies)
+  const external = [...Object.keys(format !== 'umd' && pkgJSON.dependencies || {}), ...Object.keys(pkgJSON.peerDependencies || {})]
   const entry = getExistFile({ cwd: PROJECT_SRC_DIR, files: ['index.ts', 'index.tsx', 'index.js', 'index.jsx'] })
   return {
     root: CWD,
@@ -25,19 +25,18 @@ export function getViteConfigForPackage({
         [pkgJSON.name]: PROJECT_SRC_DIR
       },
     },
-    css: {
-      postcss: './'
-    },
     build: {
       lib: {
         name,
         entry,
-        formats,
-        // fileName: (format: string) => {
-        //   const suffix = format === 'umd' ? '' : `.${format}`;
-        //   return minify ? `${name}${suffix}.min.js` : `${name}${suffix}.js`;
-        // },
+        formats: [format],
+        fileName: (fmt: string) => {
+          const suffix = fmt === 'umd' ? '' : `.${fmt}`;
+          return minify ? `${name}${suffix}.min.js` : `${name}${suffix}.js`;
+        },
       },
+      cssCodeSplit: format !== 'umd',
+      cssTarget: ['chrome61'],
       // terser has better compression than esbuild
       minify: minify ? 'terser' : false,
       rollupOptions: {
@@ -45,8 +44,15 @@ export function getViteConfigForPackage({
         output: {
           dir: outputDir,
           exports: 'named',
-          preserveModules: true,
-          entryFileNames: '[name].js',
+          preserveModules: format !== 'umd',
+          entryFileNames: format !== 'umd' ? '[name].js' : `${name}${minify ? '.min' : ''}.js`,
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name == 'style.css') {
+              if (minify) return `${name}.min.css`
+              return `${name}.css`
+            }
+            return assetInfo.name;
+          },
           globals: {
             react: 'React',
           },
