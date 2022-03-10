@@ -132,14 +132,14 @@ export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
     // Build cjs
     if (bundleOpts.cjs) {
       const cjs = bundleOpts.cjs as IBundleTypeOutput;
-      log(`Build cjs with ${cjs.type}`);
+      log(`Build cjs with babel`);
       await babel({ cwd, rootPath, watch, dispose, type: 'cjs', log, bundleOpts });
     }
 
     // Build esm
     if (bundleOpts.esm) {
       const esm = bundleOpts.esm as IEsm;
-      log(`Build esm with ${esm.type}`);
+      log(`Build esm with babel`);
       const importLibToEs = esm && esm.importLibToEs;
       await babel({ cwd, rootPath, watch, dispose, type: 'esm', importLibToEs, log, bundleOpts });
     }

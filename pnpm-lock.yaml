@@ -76,6 +76,7 @@ importers:
       '@babel/preset-react': ^7.16.7
       '@babel/runtime': ^7.17.2
       '@jest/types': ^27.5.1
+      '@mdoc/build': workspace:*
       '@mdoc/theme': workspace:*
       '@types/fs-extra': ^9.0.13
       '@vitejs/plugin-react': ^1.2.0
@@ -111,6 +112,7 @@ importers:
       '@babel/preset-env': 7.16.11_@babel+core@7.16.12
       '@babel/preset-react': 7.16.7_@babel+core@7.16.12
       '@babel/runtime': 7.17.2
+      '@mdoc/build': link:../build
       '@mdoc/theme': link:../theme
       '@vitejs/plugin-react': 1.2.0
       babel-jest: 27.5.1_@babel+core@7.16.12

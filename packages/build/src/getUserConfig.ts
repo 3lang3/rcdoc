@@ -12,6 +12,7 @@ function testDefault(obj) {
 
 export const CONFIG_FILES = [
   '.mdocrc.js',
+  '.mdocrc.cjs',
   '.mdocrc.jsx',
   '.mdocrc.ts',
 ];
