@@ -20,16 +20,15 @@ const compileBundlesByVite = async () => {
     getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, minify: true, format: 'umd' }),
     getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, format: 'umd' }),
   ]
-
-  Promise.all(configs.map(async cfg => await viteBuild(cfg)))
+  await Promise.all(configs.map(async cfg => await viteBuild(cfg)))
 }
 
 const compileBundlesByMdocBuild = async () => {
-  await mdocBuild['default']({ cwd: ROOT, buildArgs: { config: MDOC_BUILD_CONFIG_FILE } })
+  await mdocBuild['default']({ cwd: ROOT, clean: false, buildArgs: { config: MDOC_BUILD_CONFIG_FILE } })
 }
 
 export async function build() {
   await remove(PROJECT_DIST_DIR)
+  await compileBundlesByVite();
   await compileBundlesByMdocBuild()
-  await compileBundlesByVite()
 }

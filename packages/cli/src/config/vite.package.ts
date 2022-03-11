@@ -26,6 +26,7 @@ export function getViteConfigForPackage({
       },
     },
     build: {
+      emptyOutDir: false,
       lib: {
         name,
         entry,
