@@ -98,7 +98,7 @@ interface IExtraBuildOpts {
 }
 
 export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
-  const { cwd, rootPath, watch, buildArgs = {} } = opts;
+  const { cwd, rootPath, watch, buildArgs = {}, clean = true } = opts;
   const { pkg } = extraOpts;
 
   const dispose: Dispose[] = [];
@@ -126,8 +126,10 @@ export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
     validateBundleOpts(bundleOpts, { cwd, rootPath });
 
     // Clean dist
-    log(chalk.gray(`Clean dist directory`));
-    remove(join(cwd, 'dist'));
+    if (clean) {
+      log(chalk.gray(`Clean dist directory`));
+      remove(join(cwd, 'dist'));
+    }
 
     // Build cjs
     if (bundleOpts.cjs) {

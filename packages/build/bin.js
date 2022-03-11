@@ -52,6 +52,7 @@ function build() {
     .default({
       cwd: args.root || process.cwd(),
       watch: args.w || args.watch,
+      clean: args.clean,
       buildArgs,
     })
     .catch((e) => {
