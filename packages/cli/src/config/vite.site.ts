@@ -61,6 +61,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     plugins: [
       react() as any,
       mdoc({
+        apiParser: true,
         demos: exportDemos,
         replaceHtml: (JSX) => {
           const group = JSX.replace(/(<h3\s+id=)/g, ':::$1')
