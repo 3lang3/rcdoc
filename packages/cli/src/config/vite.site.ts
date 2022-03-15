@@ -63,23 +63,23 @@ export function getViteConfigForSiteDev(): InlineConfig {
       mdoc({
         apiParser: true,
         demos: exportDemos,
-        replaceHtml: (JSX) => {
-          const group = JSX.replace(/(<h3\s+id=)/g, ':::$1')
-            .replace(/<h2/g, ':::<h2')
-            .split(':::');
+        // replaceHtml: (JSX) => {
+        //   const group = JSX.replace(/(<h3\s+id=)/g, ':::$1')
+        //     .replace(/<h2/g, ':::<h2')
+        //     .split(':::');
 
-          const ne = group
-            .map((fragment) => {
-              if (fragment.indexOf('<h3') !== -1) {
-                return `<div className="van-doc-card">${fragment}</div>`;
-              }
+        //   const ne = group
+        //     .map((fragment) => {
+        //       if (fragment.indexOf('<h3') !== -1) {
+        //         return `<div className="van-doc-card">${fragment}</div>`;
+        //       }
 
-              return fragment;
-            })
-            .join('');
+        //       return fragment;
+        //     })
+        //     .join('');
 
-          return ne;
-        },
+        //   return ne;
+        // },
       }) as any,
       createHtmlPlugin({
         inject: {

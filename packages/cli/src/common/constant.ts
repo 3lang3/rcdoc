@@ -49,19 +49,3 @@ export function getPackageJson() {
 
 export const PROJECT_SRC_DIR = join(ROOT, 'src');
 export const PROJECT_STYLE_DIR = join(PROJECT_SRC_DIR, 'styles');
-
-export async function ComponentClassification(mdocConfig): Promise<{
-  ComponentClassificationArray: Array<string>;
-  navArray: Array<any>;
-}> {
-  let ComponentClassificationArray = [];
-  let navArray = [];
-  if (existsSync(SITE_SHARD_CONFIG_FILE)) {
-    const { nav } = mdocConfig.site.locales['zh-CN'];
-    navArray = nav;
-    ComponentClassificationArray = nav.map((item) => {
-      return item.title;
-    });
-  }
-  return { ComponentClassificationArray, navArray };
-}
