@@ -24,8 +24,9 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
   const { demos, slugs, frontmatter, value } = await mdoc(code, id, remarkOpts);
 
   const compiledReactCode = `
-      function ({ previewer = () => null }) {
+      function ({ previewer = () => null, api = () => null }) {
         const Previewer = previewer;
+        const API = api;
         return <div>
           ${value}
         </div>
