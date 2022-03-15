@@ -18,9 +18,7 @@ const PreviewerComp = ({ lazyComponent, ...props }) => {
               filePath={filePath}
             >
               {({ previewer, api }) => (
-                <>
-                  <MdContent previewer={previewer} api={api} />
-                </>
+                <MdContent previewer={previewer} api={api} />
               )}
             </MdPage>
           );
@@ -39,8 +37,7 @@ export function getLangFromRoute(pathname, locales) {
   return getLang();
 }
 
-function initRoutes({ config, unprocessedRoutes }) {
-  const { locales } = config;
+function initRoutes({ locales, unprocessedRoutes }) {
   const defaultLang = locales[0][0];
 
   setDefaultLang(defaultLang);
@@ -49,13 +46,14 @@ function initRoutes({ config, unprocessedRoutes }) {
     const routes = [];
 
     unprocessedRoutes.forEach(menu => {
-      const { lang, path, redirect } = menu;
+      const { lang, title, path, redirect } = menu;
       if (redirect) {
         routes.push({ path, redirect });
         return;
       }
       const isDefaultLang = lang === defaultLang;
       routes.push({
+        title: title,
         name: `${lang}/${path}`,
         path: isDefaultLang ? `${path}` : `/${lang}${path}`,
         component: <PreviewerComp lazyComponent={menu.component} />,

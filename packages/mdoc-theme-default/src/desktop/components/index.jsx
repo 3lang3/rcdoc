@@ -1,42 +1,20 @@
 import React from 'react';
+import { MdocSiteContext } from '@mdoc/theme';
 import Header from './Header';
 import Menu from './Menu';
 import Container from './Container';
 import Content from './Content';
 
 const Doc = props => {
-  const {
-    lang,
-    defaultLang,
-    versions,
-    langConfigs,
-    config,
-    menus,
-    currentCompnentName,
-  } = props;
-
-  const hasMenu = !!menus.length
+  const { config, menus, currentPageName } = React.useContext(MdocSiteContext);
+  const hasMenu = !!menus.length;
 
   return (
     <div className="vant-doc">
-      <Header
-        lang={lang}
-        defaultLang={defaultLang}
-        config={config}
-        langConfigs={langConfigs}
-        versions={versions}
-      />
-      {hasMenu && (
-        <Menu
-          config={config}
-          lang={lang}
-          defaultLang={defaultLang}
-          menus={menus}
-          versions={versions}
-        />
-      )}
+      <Header />
+      {hasMenu && <Menu config={config} menus={menus} />}
       <Container hasMenu={hasMenu}>
-        <Content currentCompnentName={currentCompnentName}>
+        <Content currentCompnentName={currentPageName}>
           {props.children}
         </Content>
       </Container>

@@ -1,48 +1,28 @@
 /* eslint-disable no-nested-ternary */
-import React, { useMemo } from 'react';
-import { useLocation, Link } from 'react-router-dom';
+import React from 'react';
+import { MdocSiteContext } from '@mdoc/theme';
 import clsx from 'clsx';
 import Logo from '../Logo';
 import SearchInput from '../SearchInput';
 import { GitHubIcon, HttpLinkIcon } from '../Icons';
 import Navbar from './Navbar'
-import './index.less';
 import VersionToggle from './VersionToggle';
+import LocaleSwitch from './LocaleSwitch';
 
+import './index.less';
 
-const Header = props => {
-  const { lang, config, defaultLang, langConfigs, versions } = props;
-  const { pathname } = useLocation();
-
-  const anotherLang = useMemo(() => {
-    const items = langConfigs.filter(item => item.lang !== lang);
-    if (items.length) {
-      return items[0];
-    }
-    return {};
-  }, [lang, langConfigs]);
-
-  const langLink = useMemo(() => {
-    const currentDefault = defaultLang === lang;
-    return currentDefault
-      ? `/${anotherLang.lang}${pathname}`
-      : pathname.replace(`/${lang}`, '');
-  }, [anotherLang.lang, lang, pathname]);
-
-  const langLabel = useMemo(() => {
-    return anotherLang.label;
-  }, [anotherLang.label]);
-
+const Header = () => {
+  const { navs, versions, locale, config } = React.useContext(MdocSiteContext);
   return (
     <div className="vant-doc-header">
       <div className="vant-doc-row">
         <div className="vant-doc-row--left">
           <Logo config={config} versions={versions} />
-          <Navbar navs={config.navs[lang]} />
+          <Navbar navs={navs} />
         </div>
         <div className="vant-doc-header__top">
           {config.searchConfig && (
-            <SearchInput lang={lang} searchConfig={config.searchConfig} />
+            <SearchInput lang={locale.current[0]} searchConfig={config.searchConfig} />
           )}
           <ul className="vant-doc-header__top-nav">
             {config.links &&
@@ -85,13 +65,7 @@ const Header = props => {
                   </li>
                 );
               })}
-            {langLabel && langLink && (
-              <li className="vant-doc-header__top-nav-item">
-                <Link className="vant-doc-header__cube" to={langLink}>
-                  {langLabel}
-                </Link>
-              </li>
-            )}
+            <LocaleSwitch />
           </ul>
           {!!versions.length && <VersionToggle versions={versions} />}
         </div>
