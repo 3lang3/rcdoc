@@ -1,5 +1,12 @@
 import React from "react";
 
-const MdocSiteContext = React.createContext<{ config?: any; documents?: any; }>({})
+export type ContextType = {
+  config?: any; documents?: any; locale?: string; /**
+* all parsed api data
+*/
+  apis?: Record<string, any>
+}
+
+const MdocSiteContext = React.createContext<ContextType>({})
 
 export default MdocSiteContext
