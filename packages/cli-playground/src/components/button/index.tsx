@@ -1,10 +1,17 @@
 import React from 'react';
 import { Space } from 'mdoc-demo';
+import type { ButtonProps, OtherProps } from './index.d'
 
 import './index.less'
 
-export default ({ children, ...props }) => (
+
+const Button: React.FC<ButtonProps> = ({ children, ...props }) => (
   <Space className="button" {...props}>
     {children}
   </Space>
 );
+
+export const Other: React.FC<OtherProps> = (props) => <div {...props} />
+
+
+export default Button;

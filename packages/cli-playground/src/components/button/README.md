@@ -15,5 +15,6 @@ export default () => {
   const [count, updateCount] = React.useState(0)
   return <Button onClick={() => updateCount(c => c + 1)}>count: {count}</Button>
 }
-
 ```
+
+<API exports='["default", "Other"]' />
