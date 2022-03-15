@@ -1,27 +1,50 @@
 import { toString } from 'mdast-util-to-string';
+import { hasProperty as has } from 'hast-util-has-property';
+import { isElement as is } from 'hast-util-is-element';
 import { visit } from 'unist-util-visit';
 import BananaSlug from 'github-slugger';
-import type { Plugin } from 'unified';
-import { Node, Properties, Root } from 'hast';
+import type { MDocElmNode, MDocUnifiedTransformer } from '../types';
+
+const headings = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+
+function filterValidChildren(children: MDocElmNode[]) {
+  return children.filter(item => {
+    return item.type !== 'element' || !/^[A-Z]/.test(item.tagName);
+  });
+}
 
 const slugs = new BananaSlug();
 
 /**
  * Plugin to add anchors headings using GitHub’s algorithm.
  */
-export default function remarkSlug(): Plugin<Root[], Root> {
+export default function remarkSlug(): MDocUnifiedTransformer<MDocElmNode> {
   return (tree, vFile) => {
     slugs.reset();
+    vFile.data.slugs = [];
+    visit<MDocElmNode, string>(tree, 'element', (node) => {
+      if (is(node, headings)) {
+        const title = toString({
+          children: filterValidChildren(node.children),
+          value: node.value,
+        });
+        // generate id if not exist
+        if (!has(node, 'id')) {
+          node.properties.id = slugs.slug(title.trim(), false);
+        }
 
-    visit<Node, string>(tree, 'heading', (node: any) => {
-      const data = node.data || (node.data = {});
-      const props = (data.hProperties || (data.hProperties = {})) as Properties;
-      let id = props.id;
+        // save slugs
+        vFile.data.slugs.push({
+          depth: parseInt(node.tagName[1], 10),
+          text: title,
+          id: node.properties.id,
+        });
 
-      id = id ? slugs.slug(String(id), true) : slugs.slug(toString(node));
-      data.id = id;
-      props.id = id;
-      vFile.data.slugs = (vFile.data.slugs || [] as any).concat({ depth: node?.depth, text: node?.children[0].value, id })
+        // use first title as page title if not exist
+        if (!vFile.data.title) {
+          vFile.data.title = title;
+        }
+      }
     });
   };
 }
