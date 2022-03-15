@@ -1,10 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import MdPreviewer from '../MdPreviewer';
+import MdApi from '../MdApi';
 import SlugNav from './SlugNav';
 import './index.less';
 
 const previewer = props => <MdPreviewer {...props} />;
+const api = props => <MdApi {...props} />;
 
 const MdPageComponent = ({ children, frontmatter = {}, slugs = [] }) => {
   const { fluid, slugs: showSlugs = true, style, className } = frontmatter;
@@ -34,7 +36,7 @@ const MdPageComponent = ({ children, frontmatter = {}, slugs = [] }) => {
           'vant-doc-md-page--fluid': fluid,
         })}
       >
-        {children({ previewer })}
+        {children({ previewer, api })}
       </section>
       <SlugNav show={showSlugs} slugs={formatSlugs} />
     </div>

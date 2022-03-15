@@ -7,7 +7,6 @@ export default ({ slugs, show }) => {
   if (!slugs.length) return <div className="vant-doc-md--slugs" />;
   return (
     <div className="vant-doc-md--slugs">
-      <div className="vant-doc-md--slug-title">#目录</div>
       {slugs.map((slug, key) => {
         if (+slug.depth === 2 || +slug.depth === 3) {
           return (

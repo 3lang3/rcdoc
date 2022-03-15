@@ -17,9 +17,9 @@ const PreviewerComp = ({ lazyComponent, ...props }) => {
               slugs={slugs}
               filePath={filePath}
             >
-              {({ previewer }) => (
+              {({ previewer, api }) => (
                 <>
-                  <MdContent previewer={previewer} />
+                  <MdContent previewer={previewer} api={api} />
                 </>
               )}
             </MdPage>
