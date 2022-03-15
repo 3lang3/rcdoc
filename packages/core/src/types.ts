@@ -41,8 +41,8 @@ export interface MDocVFileData {
    */
   slugs?: {
     depth: number;
-    value: string;
-    heading: string;
+    text: string;
+    id: string;
   }[];
   demos?: any[];
 }
