@@ -37,8 +37,7 @@ type RemarkReturn = {
 
 const defaultOpts: MDocCoreOptions = {
   prefix: 'MdocDemo',
-  previewLangs: ['tsx', 'jsx'],
-  apiParser: true
+  previewLangs: ['tsx', 'jsx']
 }
 
 export default async function remark(source, id, options: MDocCoreOptions = {}): Promise<RemarkReturn> {
