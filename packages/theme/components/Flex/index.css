@@ -1,0 +1,13 @@
+.doc-flex {
+  --align: initial;
+  --justify: initial;
+  --wrap: initial;
+  --direction: initial;
+
+  display: flex;
+  box-sizing: border-box;
+  align-items: var(--align);
+  justify-content: var(--justify);
+  flex-wrap: var(--wrap);
+  flex-direction: var(--direction);
+}

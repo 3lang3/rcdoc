@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "clsx": "^1.1.1",
     "copy-text-to-clipboard": "^3.0.1",
     "lz-string": "^1.4.4",
     "react": "^17.0.2",
