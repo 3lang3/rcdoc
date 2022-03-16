@@ -4,20 +4,14 @@ import SiteTheme from 'mdoc-theme-default';
 import { MdocSiteContext } from '@mdoc/theme';
 import * as shared from 'site-shared';
 import {
-  _windowHistoryWrap,
   getMenuItemByPageName,
   getLocaleFromPathname,
   getMenuByPathname,
 } from './utils';
-
-const PROXY_EVENTS = [
-  { name: 'popstate', replace: false },
-  { name: 'pushState', replace: true },
-  { name: 'replaceState', replace: true },
-];
+import usePathname from './hooks/usePathname'
 
 const App = () => {
-  const [pathname, updatePn] = React.useState(() => window.location.pathname);
+  const pathname = usePathname()
   const { config, menus: _menus, packageVersion } = shared;
   const { locales } = config;
 
@@ -43,12 +37,11 @@ const App = () => {
   const switchData = React.useMemo(() => {
     const anotherLocale = locales.find(el => el[0] !== currentLocale[0]);
     const switchLabel = anotherLocale[1];
-    const isDefault = currentLocale[0] === defaultLocale[0];
-    const switchLink = isDefault
+    const switchLink = isDefaultLocale
       ? `/${anotherLocale[0]}${pathname}`
       : pathname.replace(`/${currentLocale[0]}`, '');
     return { switchLabel, switchLink };
-  }, [pathname, currentLocale, JSON.stringify(locales)]);
+  }, [pathname, isDefaultLocale, currentLocale, JSON.stringify(locales)]);
 
   const currentLangMenus = React.useMemo(
     () => _menus[currentLocale[0]],
@@ -103,25 +96,6 @@ const App = () => {
 
   // 更新页面标题
   React.useEffect(setTitle);
-
-  React.useEffect(() => {
-    const updatePnCallback = () => {
-      updatePn(window.location.pathname);
-    };
-    // 监听url change
-    PROXY_EVENTS.filter(el => el.replace).forEach(event => {
-      history[event.name] = _windowHistoryWrap(event.name);
-    });
-    PROXY_EVENTS.forEach(event => {
-      window.addEventListener(event.name, updatePnCallback);
-    });
-
-    return () => {
-      PROXY_EVENTS.forEach(event => {
-        window.removeEventListener(event.name, updatePnCallback);
-      });
-    };
-  }, []);
 
   return (
     <MdocSiteContext.Provider

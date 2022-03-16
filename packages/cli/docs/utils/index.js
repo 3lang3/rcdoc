@@ -1,15 +1,3 @@
-
-export const _windowHistoryWrap = function (type) {
-  const orig = history[type];
-  const e = new Event(type);
-  return function () {
-    const rv = orig.apply(this, arguments);
-    e.arguments = arguments;
-    window.dispatchEvent(e);
-    return rv;
-  };
-};
-
 /**
  * Get menu item buy page name
  * @param {*} arr 
