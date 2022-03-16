@@ -11,3 +11,5 @@ export default () => {
 }
 
 ```
+
+<API exports='["default", "Other"]' />

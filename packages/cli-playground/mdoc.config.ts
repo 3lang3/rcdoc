@@ -58,14 +58,10 @@ export default defineConfig({
           },
         ],
       },
-      // {
-      //   path: 'https://github.com/youzan/vant',
-      //   title: 'vant',
-      // },
-      // {
-      //   title: 'GitHub',
-      //   path: 'https://github.com/3lang3/react-vant',
-      // },
+      {
+        title: 'Vant',
+        path: 'https://github.com/ant-design/ant-design'
+      }
     ],
     'zh-CN': [
       {
@@ -97,6 +93,10 @@ export default defineConfig({
           },
         ],
       },
+      {
+        title: 'Vant',
+        path: 'https://github.com/ant-design/ant-design'
+      }
     ],
   },
   menus: {
