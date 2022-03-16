@@ -1,31 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Flex, Icons } from '@mdoc/theme';
 import './Navbar.less';
 
-const NavbarItem = ({ item }) => {
-  if (Array.isArray(item.children) && item.children.length) {
-    return <div className="vant-doc-navbar__item">{item.title}</div>;
-  }
-  if (/^https?:\/\//.test(item.path))
+const NavbarLink = ({ item, ...props }) => {
+  if (/^https?:\/\//.test(item.path)) {
     return (
-      <a className="vant-doc-navbar__item" href={item.path}>
-        {el.title}
+      <a href={item.path} target="_blank">
+        {props.children} <Icons.HttpLinkIcon />
       </a>
     );
+  }
+  return <Link to={item.path}>{props.children}</Link>;
+};
+
+const NavbarItem = ({ nav }) => {
+  const child = nav.children && nav.children.length && (
+    <ul className="doc-navbar__child">
+      {nav.children.map(item => (
+        <li key={item.path || item.title}>
+          <NavbarLink item={item}>{item.title}</NavbarLink>
+        </li>
+      ))}
+    </ul>
+  );
   return (
-    <Link className="vant-doc-navbar__item" to={item.path}>
-      {item.title}
-    </Link>
+    <Flex tag="section" align="center" justify="center" key={nav.path || nav.title}>
+      {nav.path ? <NavbarLink item={nav}>{nav.title}</NavbarLink> : nav.title}
+      {child}
+    </Flex>
   );
 };
 
 const Navbar = ({ navs = [] }) => {
   return (
-    <div className="vant-doc-navbar">
+    <Flex tag="nav" className="doc-navbar">
       {navs.map((el, i) => (
-        <NavbarItem key={i} item={el} />
+        <NavbarItem key={i} nav={el} />
       ))}
-    </div>
+    </Flex>
   );
 };
 

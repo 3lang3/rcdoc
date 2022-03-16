@@ -3,6 +3,8 @@ import clsx from 'clsx';
 import MdPreviewer from '../MdPreviewer';
 import MdApi from '../MdApi';
 import SlugNav from './SlugNav';
+import { LinerLoader } from '../LazyFallback';
+
 import './index.less';
 
 const previewer = props => <MdPreviewer {...props} />;
@@ -30,10 +32,11 @@ const MdPageComponent = ({ children, frontmatter = {}, slugs = [] }) => {
   }, [hashPath]);
 
   return (
-    <div style={style} className={clsx('vant-doc-md-wrapper', className)}>
+    <div style={style} className={clsx('doc-md-wrapper', className)}>
+      <LinerLoader />
       <section
-        className={clsx('vant-doc-md-page', {
-          'vant-doc-md-page--fluid': fluid,
+        className={clsx('doc-md-page', {
+          'doc-md-page--fluid': fluid,
         })}
       >
         {children({ previewer, api })}

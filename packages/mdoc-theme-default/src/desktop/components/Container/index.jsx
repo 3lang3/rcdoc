@@ -5,9 +5,14 @@ import './index.less';
 export default props => {
   return (
     <div
-      className={clsx('vant-doc-container', 'vant-doc-row', {
-        'vant-doc-container--menu': props.hasMenu,
-      })}
+      className={clsx(
+        'doc-container',
+        'doc-row',
+        `page--${props.currentPageName}`,
+        {
+          'doc-container--menu': props.hasMenu,
+        },
+      )}
     >
       {props.children}
     </div>

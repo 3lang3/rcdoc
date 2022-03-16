@@ -3,8 +3,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import type { Language } from 'prism-react-renderer';
 import React, { useMemo, useState } from 'react';
 import clsx from 'clsx';
-import { useCodeSandbox, useCopy } from '@mdoc/theme';
-import { FileIcon, CodeIcon, CsbIcon, CopyIcon, DoneIcon } from '../Icons';
+import { useCodeSandbox, useCopy, Icons } from '@mdoc/theme';
 import './index.less';
 
 type DependenciesType = {
@@ -64,7 +63,7 @@ const FileTabs = ({
               'default-previewer__tabs-plane--active': info.value === code,
             })}
           >
-            <FileIcon /> {filename}
+            <Icons.FileIcon /> {filename}
           </div>
         );
       })}
@@ -100,9 +99,9 @@ const DefaultRender = ({
               onClick={() => copy(code)}
             >
               {copyStatus === 'ready' ? (
-                <CopyIcon />
+                <Icons.CopyIcon />
               ) : (
-                <DoneIcon className="default-pre__btn-svg--active" />
+                <Icons.DoneIcon className="default-pre__btn-svg--active" />
               )}
             </button>
           )}
@@ -149,7 +148,7 @@ export default ({ children, ...props }: MDocPreviewerProps) => {
               className="default-previewer__btn default-previewer__csb"
               onClick={openCsb}
             >
-              <CsbIcon />
+              <Icons.CsbIcon />
             </button>
           </>
         ) : null}
@@ -160,9 +159,9 @@ export default ({ children, ...props }: MDocPreviewerProps) => {
           onClick={() => copy(props.code)}
         >
           {copyStatus === 'ready' ? (
-            <CopyIcon />
+            <Icons.CopyIcon />
           ) : (
-            <DoneIcon className="default-pre__btn-svg--active" />
+            <Icons.DoneIcon className="default-pre__btn-svg--active" />
           )}
         </button>
         {children && (
@@ -171,7 +170,7 @@ export default ({ children, ...props }: MDocPreviewerProps) => {
             className="default-previewer__btn"
             onClick={() => setShowSource(v => !v)}
           >
-            <CodeIcon />
+            <Icons.CodeIcon />
           </button>
         )}
       </div>

@@ -10,23 +10,10 @@ export const LinerLoader = () => {
   );
 };
 
-let timer;
 export const LazyFallback = () =>  {
   React.useEffect(() => {
-    let render = false
-    const show = () => {
-      if (timer) clearTimeout(timer);
-      timer = setTimeout(() => {
-        document.body.classList.add('show-content-loader');
-        render = true
-      }, 200);
-    }
-    show();
+    document.body.classList.add('show-content-loader');
     return () => {
-      if (!render) {
-        clearTimeout(timer);
-        return
-      }
       document.body.classList.remove('show-content-loader')
     }
   }, [])

@@ -1,6 +1,5 @@
-import { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import context from '../context';
-import type { ContextType } from '../context';
 
 /**
  * get API data
@@ -9,55 +8,53 @@ import type { ContextType } from '../context';
  * @param isDefaultLocale default locale flag
  */
 function getApiData(
-  apis: ContextType['apis'],
-  identifier: string,
+  definitions: Record<string, string>[],
   locale: string,
   isDefaultLocale: boolean,
 ) {
-  return Object.entries(apis[identifier]).reduce<ContextType['apis']['0']>(
-    (expts, [expt, rows]) => {
-      expts[expt] = (rows as any[]).map(props => {
-        // copy original data
-        const result = Object.assign({}, props);
+  return definitions.map(props => {
+    // copy original data
+    const result = Object.assign({}, props);
+    Object.keys(props).forEach(prop => {
+      // discard useless locale property
+      if (/^description(\.|$)/.test(prop)) {
+        const [, propLocale] = prop.match(/^description\.?(.*)$/);
 
-        Object.keys(props).forEach(prop => {
-          // discard useless locale property
-          if (/^description(\.|$)/.test(prop)) {
-            const [, propLocale] = prop.match(/^description\.?(.*)$/);
+        if ((propLocale && propLocale !== locale) || (!propLocale && !isDefaultLocale)) {
+          delete result[prop];
+        } else {
+          result.description = result[prop]
+        }
 
-            if ((propLocale && propLocale !== locale) || (!propLocale && !isDefaultLocale)) {
-              delete result[prop];
-            } else {
-              result.description = result[prop];
-            }
-          }
-        });
+        if (!result.description) result.description = props['description']
+      }
+    });
 
-        return result;
-      });
-
-      return expts;
-    },
-    {},
-  );
+    return result;
+  });
 }
 
 /**
  * use api data by identifier
  * @note  identifier is component name or component path
  */
-export default (identifier: string) => {
+export default (definitions: Record<string, string>[]) => {
   const {
     locale,
     config: { locales },
-    apis,
-  } = useContext(context);
-  const isDefaultLocale = !locales.length || locales[0].name === locale;
-  const [data, setData] = useState(getApiData(apis, identifier, locale, isDefaultLocale));
+  } = React.useContext(context);
+  const ref = React.useRef(false)
+  const isDefaultLocale = !locales.length || locales[0][0] === locale.current[0];
+  const [data, setData] = React.useState(() => getApiData(definitions, locale.current[0], isDefaultLocale));
 
-  useEffect(() => {
-    setData(getApiData(apis, identifier, locale, isDefaultLocale));
-  }, [apis, identifier, locale, isDefaultLocale]);
+  React.useEffect(() => {
+    if (!ref.current) return
+    setData(getApiData(definitions, locale.current[0], isDefaultLocale));
+  }, [locale, isDefaultLocale]);
+
+  React.useEffect(() => {
+    if (!ref.current) ref.current = true
+  }, [])
 
   return data;
 };

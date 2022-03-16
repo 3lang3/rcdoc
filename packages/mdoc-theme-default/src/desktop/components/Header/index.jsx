@@ -1,10 +1,9 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import { MdocSiteContext } from '@mdoc/theme';
+import { MdocSiteContext, Icons } from '@mdoc/theme';
 import clsx from 'clsx';
 import Logo from '../Logo';
 import SearchInput from '../SearchInput';
-import { GitHubIcon, HttpLinkIcon } from '../Icons';
 import Navbar from './Navbar'
 import VersionToggle from './VersionToggle';
 import LocaleSwitch from './LocaleSwitch';
@@ -15,8 +14,8 @@ const Header = () => {
   const { navs, versions, locale, config } = React.useContext(MdocSiteContext);
   return (
     <div className="vant-doc-header">
-      <div className="vant-doc-row">
-        <div className="vant-doc-row--left">
+      <div className="doc-row">
+        <div className="doc-row--left">
           <Logo config={config} versions={versions} />
           <Navbar navs={navs} />
         </div>
@@ -51,14 +50,14 @@ const Header = () => {
                     >
                       {hasImg ? (
                         guessGithub ? (
-                          <GitHubIcon alt={item.alt} />
+                          <Icons.GitHubIcon alt={item.alt} />
                         ) : (
                           <img src={item.logo} alt={item.alt} />
                         )
                       ) : (
                         <>
                           {item.title}
-                          <HttpLinkIcon className="vant-doc-header__cube--httplink" />
+                          <Icons.HttpLinkIcon className="vant-doc-header__cube--httplink" />
                         </>
                       )}
                     </a>
