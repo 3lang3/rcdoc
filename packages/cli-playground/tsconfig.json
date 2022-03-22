@@ -6,10 +6,10 @@
     "importHelpers": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "declaration": true,
     "sourceMap": true,
     "pretty": true,
     "baseUrl": "./",
+    "outDir": "./",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
@@ -17,5 +17,5 @@
       "mdoc-demo": ["src/index.ts"]
     }
   },
-  "exclude": ["node_modules", "dist", "site"]
+  "exclude": ["node_modules", "dist"]
 }
