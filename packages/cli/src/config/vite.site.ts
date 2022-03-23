@@ -8,11 +8,11 @@ import mdoc from 'vite-plugin-react-mdoc';
 import { setBuildTarget, isDev } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,
-  SITE_SHARED_FILE,
   PROJECT_SRC_DIR,
   SITE_SRC_DIR,
   getPackageJson,
   ROOT,
+  PROJECT_CLI_DIST_DIR,
 } from '../common/constant';
 import { getConfigThemeAlias } from '../common'
 import context from '../common/context';
@@ -96,7 +96,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     resolve: {
       alias: {
         [projectPackageJson.name]: PROJECT_SRC_DIR,
-        'site-shared': SITE_SHARED_FILE,
+        '@@mdoc': PROJECT_CLI_DIST_DIR,
         ...projectDepsAlias,
         ...themeAlias,
       },
