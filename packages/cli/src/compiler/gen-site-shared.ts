@@ -134,17 +134,9 @@ function genExportDocuments(items: DocumentItem[]) {
 
 
 export async function genSiteDesktopShared() {
-  const userConfig = context.opts
-  const dirs = readdirSync(PROJECT_SRC_DIR);
-  const componentDocuments = await resolveComponentDocuments(userConfig, dirs);
-  const staticDocuments = await resolveStaticDocuments(userConfig);
-  const documents = [...staticDocuments, ...componentDocuments];
   const { menus, routes } = genSiteMenu()
   const code = `${genImportJSON()}
 ${genStyles()}
-${genExportAllDocuments(documents)}
-${genExportDocuments(componentDocuments)}
-${genExportRoutes()}
 ${genExportVersion()}
 `;
   genSiteMenuShared(menus);
