@@ -28,8 +28,8 @@ export function watchSiteShared() {
             needUpdate = true
           }
           // Update frontmatter data
-          if (route.group !== frontmatter?.group) {
-            route.group = frontmatter?.group
+          if (frontmatter.group && route.group !== frontmatter.group) {
+            route.group = frontmatter.group
             needUpdate = true
           }
           return
