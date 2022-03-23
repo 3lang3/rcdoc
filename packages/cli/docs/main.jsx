@@ -2,19 +2,19 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import SiteTheme from 'mdoc-theme-default';
 import { MdocSiteContext } from '@mdoc/theme';
-import * as shared from 'site-shared';
+import * as shared from '@@mdoc/site-shared';
 import {
   getMenuItemByPageName,
   getLocaleFromPathname,
   getMenuByPathname,
 } from './utils';
-import usePathname from './hooks/usePathname'
+import usePathname from './hooks/usePathname';
 
 const App = () => {
-  const pathname = usePathname()
   const { config, menus: _menus, packageVersion } = shared;
   const { locales } = config;
 
+  const pathname = usePathname();
   // 默认locale
   const defaultLocale = React.useMemo(
     () => locales[0],

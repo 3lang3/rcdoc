@@ -1,6 +1,7 @@
 export { default as useCopy } from './hooks/useCopy'
 export { default as useCodeSandbox } from './hooks/useCodeSandbox'
 export { default as useApiData } from './hooks/useApiData'
+export { default as useWhyDidYouUpdate } from './hooks/useWhyDidYouUpdate'
 export { default as MdocSiteContext } from './context'
 export { default as Flex } from './components/Flex'
 export * as Icons from './components/Icons'

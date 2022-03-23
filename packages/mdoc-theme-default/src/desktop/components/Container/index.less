@@ -3,6 +3,9 @@
 .doc-container {
   box-sizing: border-box;
   padding-top: @van-doc-header-top-height;
+  position: relative;
+  min-height: calc(@van-doc-header-top-height + @loader-bar-height);
+  
   &--menu {
     padding-left: @van-doc-nav-width;
   }

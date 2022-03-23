@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import { LinerLoader } from '../LazyFallback';
+
 import './index.less';
 
 export default props => {
@@ -14,6 +16,7 @@ export default props => {
         },
       )}
     >
+      <LinerLoader />
       {props.children}
     </div>
   );

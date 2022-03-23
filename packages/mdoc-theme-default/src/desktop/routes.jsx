@@ -4,8 +4,7 @@ import { getLang, setDefaultLang } from '../common/locales';
 import { LazyFallback } from './components/LazyFallback';
 import MdPage from './components/MdPage';
 
-const PreviewerComp = ({ lazyComponent, ...props }) => {
-  const LazyComponent = lazyComponent;
+const PreviewerComp = ({ lazyComponent: LazyComponent, ...props }) => {
   return (
     <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
@@ -27,6 +26,7 @@ const PreviewerComp = ({ lazyComponent, ...props }) => {
     </React.Suspense>
   );
 };
+
 export function getLangFromRoute(pathname, locales) {
   const currentLang = pathname.split('/')[1];
   const langs = locales.map(el => el[0]);

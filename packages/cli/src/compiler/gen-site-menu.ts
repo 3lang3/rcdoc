@@ -73,7 +73,7 @@ function getMenuDataByFilepath(root: string, filePath: string, defaultLang: stri
   return menu;
 }
 
-function resolveStaticNavs(userConfig): Record<string, NavItem[]> {
+function resolveStaticMenus(userConfig): Record<string, NavItem[]> {
   const { locales } = userConfig;
   const defaultLang = locales[0][0];
 
@@ -88,7 +88,7 @@ function resolveStaticNavs(userConfig): Record<string, NavItem[]> {
 }
 
 export function genSiteMenu() {
-  const { docsMenus, componentMenus } = resolveStaticNavs(context.opts);
+  const { docsMenus, componentMenus } = resolveStaticMenus(context.opts);
 
   const { locales, menus: configMenus } = context.opts
 

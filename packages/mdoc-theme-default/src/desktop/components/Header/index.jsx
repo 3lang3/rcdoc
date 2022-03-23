@@ -10,7 +10,7 @@ import LocaleSwitch from './LocaleSwitch';
 
 import './index.less';
 
-const Header = () => {
+const Header = React.memo(() => {
   const { navs, versions, locale, config } = React.useContext(MdocSiteContext);
   return (
     <div className="vant-doc-header">
@@ -71,6 +71,6 @@ const Header = () => {
       </div>
     </div>
   );
-};
+}, () => true);
 
 export default Header;

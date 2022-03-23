@@ -3,10 +3,11 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { MdocSiteContext } from '@mdoc/theme';
 import Doc from './components/index';
 import initRoutes from './routes';
+import _routes from '@@mdoc/site-shared-routes'
 import './index.less';
 
-const App = () => {
-  const { config, routes: _routes } = React.useContext(MdocSiteContext);
+const App = React.memo(() => {
+  const { config } = React.useContext(MdocSiteContext);
 
   const routes = useMemo(() => {
     return initRoutes({ locales: config.locales, unprocessedRoutes: _routes });
@@ -33,6 +34,6 @@ const App = () => {
       </Routes>
     </Doc>
   );
-};
+}, () => true);
 
 export default App;
