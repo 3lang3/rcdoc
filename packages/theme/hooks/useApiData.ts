@@ -5,28 +5,23 @@ import context from '../context';
  * get API data
  * @param identifier      component name
  * @param locale          current locale
- * @param isDefaultLocale default locale flag
  */
 function getApiData(
   definitions: Record<string, string>[],
   locale: string,
-  isDefaultLocale: boolean,
 ) {
   return definitions.map(props => {
-    // copy original data
-    const result = Object.assign({}, props);
+    const result = { description: props.description};
     Object.keys(props).forEach(prop => {
       // discard useless locale property
-      if (/^description(\.|$)/.test(prop)) {
-        const [, propLocale] = prop.match(/^description\.?(.*)$/);
-
-        if ((propLocale && propLocale !== locale) || (!propLocale && !isDefaultLocale)) {
-          delete result[prop];
-        } else {
-          result.description = result[prop]
+      if (prop.startsWith('description.')) {
+        const [, propLocale] = prop.match(/^description\.(.*)$/);
+        if (propLocale && propLocale === locale) {
+          result.description = props[prop]
         }
-
-        if (!result.description) result.description = props['description']
+      } else {
+        // copy original property
+        result[prop] = props[prop]
       }
     });
 
@@ -45,11 +40,11 @@ export default (definitions: Record<string, string>[]) => {
   } = React.useContext(context);
   const ref = React.useRef(false)
   const isDefaultLocale = !locales.length || locales[0][0] === locale.current[0];
-  const [data, setData] = React.useState(() => getApiData(definitions, locale.current[0], isDefaultLocale));
+  const [data, setData] = React.useState(() => getApiData(definitions, locale.current[0]));
 
   React.useEffect(() => {
     if (!ref.current) return
-    setData(getApiData(definitions, locale.current[0], isDefaultLocale));
+    setData(getApiData(definitions, locale.current[0]));
   }, [locale, isDefaultLocale]);
 
   React.useEffect(() => {
