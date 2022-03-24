@@ -4,7 +4,7 @@ import path from 'path';
 import slash from 'slash2';
 import { get } from 'lodash-es';
 import type { InlineConfig } from 'vite';
-import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE, ROOT } from './constant';
+import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE, ROOT, CWD } from './constant';
 import context from './context';
 
 const { lstatSync, existsSync, readdirSync, readFileSync, outputFileSync } = fse;
@@ -174,7 +174,7 @@ export function getConfigThemeAlias() {
   return {}
 }
 
-export function getExistFile({ cwd, files }) {
+export function getExistFile({ cwd = CWD, files }: { cwd?: string, files: string[] }): string | undefined {
   for (const file of files) {
     const absFilePath = path.join(cwd, file);
     if (existsSync(absFilePath)) {

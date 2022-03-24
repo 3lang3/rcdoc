@@ -28,6 +28,7 @@ export const PACKAGE_STYLE_FILE = join(PROJECT_CLI_DIST_DIR, 'package-style.css'
 export const SITE_SHARED_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared.js');
 export const SITE_SHARED_MENU_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-menu.json');
 export const SITE_SHARED_NAV_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-nav.json');
+export const SITE_SHARED_API_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-api.json');
 export const SITE_SHARED_ROUTES_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-routes.js');
 export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');
 export const STYLE_DEPS_JSON_FILE = join(PROJECT_CLI_DIST_DIR, 'style-deps.json');
