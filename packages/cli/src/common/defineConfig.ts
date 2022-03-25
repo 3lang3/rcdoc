@@ -18,9 +18,9 @@ export type UserConfigExport = {
   },
   /**
    * i18n
-   * @default [['en-US', 'English'], ['zh-CN', '中文']]
+   * @default [['zh-CN', '中文'], ['en-US', 'English']]
    */
-  locales: Array<[String, String]>;
+  locales: false | Array<[String, String]>;
   /** 
    * 配置文档的名称
    * @default package.name

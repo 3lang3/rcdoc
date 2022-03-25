@@ -10,7 +10,7 @@ type LocaleProps = {
 export type ContextType = {
   config?: any; 
   documents?: any; 
-  locale?: LocaleProps; 
+  locale?: false | LocaleProps; 
   currentPageName?: string;
 }
 

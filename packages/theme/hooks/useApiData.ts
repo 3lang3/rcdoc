@@ -11,7 +11,7 @@ function getApiData(
   locale: string,
 ) {
   return definitions.map(props => {
-    const result = { description: props.description};
+    const result = { description: props.description };
     Object.keys(props).forEach(prop => {
       // discard useless locale property
       if (prop.startsWith('description.')) {
@@ -36,16 +36,14 @@ function getApiData(
 export default (definitions: Record<string, string>[]) => {
   const {
     locale,
-    config: { locales },
   } = React.useContext(context);
   const ref = React.useRef(false)
-  const isDefaultLocale = !locales.length || locales[0][0] === locale.current[0];
-  const [data, setData] = React.useState(() => getApiData(definitions, locale.current[0]));
+  const [data, setData] = React.useState(() => !locale ? definitions : getApiData(definitions, locale.current[0]));
 
   React.useEffect(() => {
     if (!ref.current) return
-    setData(getApiData(definitions, locale.current[0]));
-  }, [locale, isDefaultLocale]);
+    setData(!locale ? definitions : getApiData(definitions, locale.current[0]));
+  }, [locale]);
 
   React.useEffect(() => {
     if (!ref.current) ref.current = true

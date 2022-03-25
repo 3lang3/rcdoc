@@ -20,7 +20,7 @@ const LOCALE_TEXTS = {
 
 export default ({ definitions }) => {
   const { locale } = useContext(MdocSiteContext);
-  const texts = /^zh|cn$/i.test(locale.current[0])
+  const texts = !locale || /^zh|cn$/i.test(locale.current[0])
     ? LOCALE_TEXTS['zh-CN']
     : LOCALE_TEXTS['en-US'];
 

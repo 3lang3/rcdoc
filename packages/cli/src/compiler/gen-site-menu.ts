@@ -75,15 +75,22 @@ function getMenuDataByFilepath(root: string, filePath: string, defaultLang: stri
 
 function resolveStaticMenus(userConfig): Record<string, NavItem[]> {
   const { locales } = userConfig;
-  const defaultLang = locales[0][0];
+  const defaultLang = !locales ? '' : locales[0][0];
 
   const docsMenus = glob.sync(path.normalize(path.join(PROJECT_DOCS_DIR, '**/*.md'))).map((filePath) => {
-    return getMenuDataByFilepath(PROJECT_DOCS_DIR, filePath, defaultLang);
-  });
+    const menu = getMenuDataByFilepath(PROJECT_DOCS_DIR, filePath, defaultLang);
+    if (!locales && menu.lang) return false;
+    if (locales && !locales.some(l => l[0] === menu.lang)) return false
+    return menu;
+  }).filter(Boolean) as NavItem[];
 
   const componentMenus = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/*.md'))).map((filePath) => {
-    return getMenuDataByFilepath(PROJECT_SRC_DIR, filePath, defaultLang);
-  });
+    const menu = getMenuDataByFilepath(PROJECT_SRC_DIR, filePath, defaultLang);
+
+    if (!locales && menu.lang) return false;
+    if (locales && !locales.some(l => l[0] === menu.lang)) return false
+    return menu;
+  }).filter(Boolean) as NavItem[];;
   return { docsMenus, componentMenus }
 }
 
@@ -92,14 +99,14 @@ export function genSiteMenu() {
 
   const { locales, menus: configMenus } = context.opts
 
-  const langs = locales.map(el => el[0]);
-  const defaultLang = langs[0]
+  const langs = !locales ? false : locales.map(el => el[0]);
+  const defaultLang = !locales ? '' : langs[0]
 
   // Comsumer config menu
   if (configMenus) {
     let loopIdx = 0;
     Object.entries(configMenus).forEach(([cfgMenuPath, cfgMenuCld]) => {
-      let pathLang = langs.find(lang => cfgMenuPath.startsWith('/' + lang)) || defaultLang;
+      let pathLang = Array.isArray(langs) ? langs.find(lang => cfgMenuPath.startsWith('/' + lang)) || defaultLang : defaultLang;
       cfgMenuCld.forEach((menuItem) => {
         menuItem.children?.forEach((cPath, idx) => {
           // Get target component menu item
@@ -127,8 +134,10 @@ export function genSiteMenu() {
 
   const mergeMenus = [...docsMenus, ...componentMenus];
 
-  // Compatile missing translation 
-  localesCompatibleRoute(mergeMenus, defaultLang);
+  if (Array.isArray(locales)) {
+    // Compatile missing translation 
+    localesCompatibleRoute(mergeMenus, locales, defaultLang);
+  }
 
   // Filter menu property
   const menuRoutes = mergeMenus.map(({ lang, title, path, langPath, isLink, filePath, group }) => ({ lang, title, path, langPath, isLink, filePath, group }))
@@ -140,10 +149,11 @@ export function genSiteMenu() {
 
 // For missing translation 
 // Use the documents in the default language as the untranslated language documents
-function localesCompatibleRoute(allRoutes: NavItem[], defaultLang: string) {
+function localesCompatibleRoute(allRoutes: NavItem[], locales: [string, string][], defaultLang: string) {
   const defaultLangRoutes = allRoutes.filter(r => r.lang === defaultLang);
+  const otherLang = locales[1][0]
   const othersLangRoutes = allRoutes.reduce((a, v) => {
-    if (v.lang !== defaultLang) {
+    if (v.lang === otherLang) {
       if (!a[v.lang]) {
         a[v.lang] = [v]
       } else {
@@ -153,6 +163,7 @@ function localesCompatibleRoute(allRoutes: NavItem[], defaultLang: string) {
     return a
   }, {});
 
+  // Correct compatitly route lang & langpath
   Object.entries(othersLangRoutes).forEach(([lang, routes]: [string, any[]]) => {
     defaultLangRoutes.forEach((defaultRoute) => {
       if (!routes.find(r => r.path === defaultRoute.path)) {

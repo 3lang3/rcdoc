@@ -10,7 +10,7 @@ import type { UserConfigExport } from '../common/defineConfig';
 import { init } from '../common/context'
 
 const defaultConfig: UserConfigExport = {
-  locales: [['en-US', 'English'], ['zh-CN', '中文']]
+  locales: [['zh-CN', '中文'], ['en-US', 'English']]
 } as any
 
 function jsoncParse(data: string) {

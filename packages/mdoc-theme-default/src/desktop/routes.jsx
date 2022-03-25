@@ -1,6 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
-import { getLang, setDefaultLang } from '../common/locales';
+import { setDefaultLang } from '../common/locales';
 import { LazyFallback } from './components/LazyFallback';
 import MdPage from './components/MdPage';
 
@@ -27,18 +27,8 @@ const PreviewerComp = ({ lazyComponent: LazyComponent, ...props }) => {
   );
 };
 
-export function getLangFromRoute(pathname, locales) {
-  const currentLang = pathname.split('/')[1];
-  const langs = locales.map(el => el[0]);
-
-  if (langs.indexOf(currentLang) !== -1) {
-    return currentLang;
-  }
-  return getLang();
-}
-
 function initRoutes({ locales, unprocessedRoutes }) {
-  const defaultLang = locales[0][0];
+  const defaultLang = !locales ? '' : locales[0][0];
 
   setDefaultLang(defaultLang);
 
@@ -64,15 +54,17 @@ function initRoutes({ locales, unprocessedRoutes }) {
       });
     });
 
-    locales.forEach(locale => {
-      routes.push({
-        path: '*',
-        redirect: defaultLang === locale[0] ? '/' : `/${locale[0]}`,
-        state: {
-          lang: locale[0],
-        },
+    if (Array.isArray(locales)) {
+      locales.forEach(locale => {
+        routes.push({
+          path: '*',
+          redirect: defaultLang === locale[0] ? '/' : `/${locale[0]}`,
+          state: {
+            lang: locale[0],
+          },
+        });
       });
-    });
+    }
 
     return routes;
   };

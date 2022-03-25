@@ -1,7 +1,7 @@
 import { relative, sep, join } from 'path';
 import fse from 'fs-extra';
 import { getCssLang } from '../common/css';
-import { getDeps, clearDepsCache, fillExt } from './get-deps';
+import { getDeps, clearDepsCache } from './get-deps';
 import { getComponents, smartOutputFile } from '../common';
 import { PROJECT_SRC_DIR, STYLE_DEPS_JSON_FILE } from '../common/constant';
 
