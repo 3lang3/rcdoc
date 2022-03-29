@@ -58,18 +58,26 @@ const App = () => {
 
   // 顶部导航
   const navs = React.useMemo(() => {
+    if (!config.navs) return false;
     if (locales) {
+      if (Array.isArray(config.navs)) {
+        console.error(
+          '[MDOC ERROR] locale mode config.navs should be an object;',
+        );
+        return config.navs;
+      }
+      // Expected return
       return config.navs?.[currentLocale[0]];
     }
-    if (Array.isArray(config.navs)) return config.navs;
-
     const navKeys = Object.keys(config.navs);
-    console.error(`
-    [MDOC ERROR] config.navs error value, it should be an array;
-    `);
-    return config.navs[navKeys[0]];
+    if (!Array.isArray(config.navs) && navKeys.length) {
+      console.error('[MDOC ERROR] config.navs should be an array;');
+      return config.navs[navKeys[0]];
+    }
+    return config.navs;
   }, [currentLocale, JSON.stringify(config.navs)]);
 
+  console.log(navs);
   // 菜单项
   const menus = React.useMemo(() => {
     if (!config.navs) {
