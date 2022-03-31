@@ -77,7 +77,6 @@ const App = () => {
     return config.navs;
   }, [currentLocale, JSON.stringify(config.navs)]);
 
-  console.log(navs);
   // 菜单项
   const menus = React.useMemo(() => {
     if (!config.navs) {
@@ -89,7 +88,8 @@ const App = () => {
 
   // 版本数据
   const versions = React.useMemo(() => {
-    if (config.site.versions) {
+    if (!config.site?.versions) return false;
+    if (Array.isArray(config.site?.versions)) {
       return config.site.versions;
     }
     return [{ label: packageVersion }];

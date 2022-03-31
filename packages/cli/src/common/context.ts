@@ -1,4 +1,5 @@
-import { ViteDevServer } from "vite";
+import type { ViteDevServer } from "vite";
+import type { DefineConfig } from "./defineConfig";
 
 type CfgMenuItem = {
   title: string;
@@ -7,19 +8,14 @@ type CfgMenuItem = {
 }
 
 type ContextType = {
-  opts?: {
-    title?: string;
-    menus?: Record<string, CfgMenuItem[]>;
-    locales?: [string, string][];
-    navs?: Record<string, CfgMenuItem[]> | CfgMenuItem[];
-  } & Record<string, any>;
+  opts?: DefineConfig;
   configFilePath?: string;
   server?: ViteDevServer;
   closes?: Array<any>
 }
 
 const context: ContextType = {
-  opts: {},
+  opts: {} as DefineConfig,
   server: undefined,
   closes: []
 };

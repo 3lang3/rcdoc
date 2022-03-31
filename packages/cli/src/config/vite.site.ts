@@ -1,11 +1,11 @@
-import { join } from 'path';
+import path from 'path';
 import slash from 'slash2';
 import { get } from 'lodash-es';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import type { InlineConfig } from 'vite';
 import mdoc from 'vite-plugin-react-mdoc';
-import { setBuildTarget, isDev } from '../common';
+import { isObject, setBuildTarget } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,
   PROJECT_SRC_DIR,
@@ -13,11 +13,13 @@ import {
   getPackageJson,
   ROOT,
   PROJECT_CLI_DIST_DIR,
+  CWD,
 } from '../common/constant';
 import { getConfigThemeAlias } from '../common'
 import context from '../common/context';
+import type { DefineConfig } from '../common/defineConfig';
 
-function getTitle(config: { title?: string; description?: string }) {
+function getTitle(config: DefineConfig) {
   let { title } = config;
 
   if (config.description) {
@@ -27,15 +29,28 @@ function getTitle(config: { title?: string; description?: string }) {
   return title;
 }
 
-function getHTMLMeta(vantConfig: any) {
-  const meta = get(vantConfig, 'site.htmlMeta');
-
-  if (meta) {
-    return Object.keys(meta)
-      .map((key) => `<meta name="${key}" content="${meta[key]}">`)
+function getHTMLMetas(metas: DefineConfig['site']['metas']) {
+  if (Array.isArray(metas)) {
+    return metas
+      .map((meta) => `<meta name="${meta.name}" content="${meta.content}">`)
       .join('\n');
   }
+  return '';
+}
 
+function getHTMLHeadScripts(scripts: DefineConfig['site']['headScripts']) {
+  if (Array.isArray(scripts)) {
+    return scripts
+      .map((script) => {
+        if (typeof script === 'string') {
+          if (/^(https?:)?\/\//.test(script)) return `<script src="${script}"></script>`;
+          return `<script>${script}</script>`
+        }
+        if (isObject(script)) return script.toString()
+        return ''
+      })
+      .join('\n');
+  }
   return '';
 }
 
@@ -44,51 +59,34 @@ export function getViteConfigForSiteDev(): InlineConfig {
 
   const projectPackageJson = getPackageJson();
   const title = getTitle(context.opts);
-  const baiduAnalytics = get(context.opts, 'site.baiduAnalytics');
-  const exportDemos = get(context.opts, 'exportDemos', false);
-  const enableVConsole = isDev() && get(context.opts, 'site.enableVConsole');
   const themeAlias = getConfigThemeAlias();
   // @hack
   // enforce alias redirect to not root dir
   const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
-    a[v] = slash(join(ROOT, 'node_modules', v));
+    a[v] = slash(path.join(ROOT, 'node_modules', v));
     return a;
   }, {});
 
   return {
     base: './',
     root: SITE_SRC_DIR,
+    publicDir: path.join(CWD, context.opts?.vite?.publicDir || 'public'),
     plugins: [
-      react() as any,
+      react(),
       mdoc({
-        apiParser: true,
-        demos: exportDemos,
-        // replaceHtml: (JSX) => {
-        //   const group = JSX.replace(/(<h3\s+id=)/g, ':::$1')
-        //     .replace(/<h2/g, ':::<h2')
-        //     .split(':::');
-
-        //   const ne = group
-        //     .map((fragment) => {
-        //       if (fragment.indexOf('<h3') !== -1) {
-        //         return `<div className="van-doc-card">${fragment}</div>`;
-        //       }
-
-        //       return fragment;
-        //     })
-        //     .join('');
-
-        //   return ne;
-        // },
+        passivePreview: context.opts.resolve?.passivePreview,
+        previewLangs: context.opts.resolve?.previewLangs
       }) as any,
       createHtmlPlugin({
         inject: {
           data: {
-            ...context.opts,
             title,
-            baiduAnalytics,
-            enableVConsole,
-            meta: getHTMLMeta(context.opts),
+            description: context.opts.description,
+            logo: context.opts.logo,
+            favicon: context.opts.site?.favicon,
+            vconsole: context.opts?.site?.vconsole,
+            metas: getHTMLMetas(context.opts?.site?.metas),
+            headScripts: getHTMLHeadScripts(context.opts?.site?.headScripts),
           },
         }
       }),
@@ -102,7 +100,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
       },
     },
     optimizeDeps: {
-      entries: [join(SITE_SRC_DIR, 'index.html'), join(PROJECT_SRC_DIR, 'index.ts')],
+      entries: [path.join(SITE_SRC_DIR, 'index.html'), path.join(PROJECT_SRC_DIR, 'index.ts')],
     },
     server: {
       port: 4000,
@@ -125,7 +123,7 @@ export function getViteConfigForSiteProd(): InlineConfig {
       cssTarget: ['chrome53'],
       rollupOptions: {
         input: {
-          main: join(SITE_SRC_DIR, 'index.html')
+          main: path.join(SITE_SRC_DIR, 'index.html')
         },
       },
     },

@@ -27,53 +27,84 @@ type MenuItem = {
   children?: string[];
 }
 
-export type UserConfigExport = {
-  /** 站点信息配置 */
+export type DefineConfig = {
+  /** 
+   * 配置文档的标题
+   * @default package.name
+   */
+  title?: string;
+  /** 配置文档的介绍，会显示在侧边栏菜单标题的下方 */
+  description?: string;
+  /** 
+   * 配置文档的 LOGO
+   * 如果是使用本地图片，比如：/public/images/xxx.png，那么配置 /images/xx.png 引入即可。
+   */
+  logo?: string;
+  /** 菜单配置 */
+  menus?: Record<string, MenuItem[]>;
+  /** 顶部导航配置 */
+  navs?: NavItem[] | Record<string, NavItem[]>;
+  /**
+   * 国际化配置
+   * @default [['zh-CN', '中文'], ['en-US', 'English']]
+   */
+  locales: false | Array<[string, string]>;
+  /** 站点额外信息配置 */
   site?: {
-    /** 
-     * 配置文档的名称
-     * @default package.name
-     */
-    title?: string;
-    /** 配置文档的介绍，会显示在侧边栏菜单标题的下方，仅 doc 模式下可用 */
-    description?: string;
-    /** 
-     * 配置文档的 LOGO
-     * 如果是使用本地图片，比如：/public/images/xxx.png，那么配置 /images/xx.png 引入即可。
-     */
-    logo?: string;
+    /**配置 favicon 地址（href 属性） */
+    favicon?: string;
+    /** 配置 <head> 里的额外脚本，数组项为字符串或对象 */
+    headScripts?: Array<string | any>;
+    /** 版本信息 */
+    versions?: false | { label: string; path?: string }[];
+    /**  配置额外的 meta 标签。数组中可以配置key:value形式的对象 */
+    metas?: { name: string; content: string }[];
+    /** 是否开启vconsole */
+    vconsole?: boolean;
     /** 
      * 自定义主题包
      * @default 'mdoc-theme-default'
      */
     theme?: string;
+    /** 用于配置当前使用的主题包，具体配置项取决于主题包提供哪些配置 */
+    themeConfig?: Record<string, any>;
+    /** 配置 Algolia 的 DocSearch 服务 */
     algolia?: AlgoliaProps;
+    /**  配置 <API /> 解析的行为 */
     apiParser?: ApiParserProps;
   } & Record<string, any>;
+  /** 自定义vite配置 */
+  vite?: Pick<ViteConfig, 'publicDir' | 'css' | 'plugins' | 'server' | 'define' | 'esbuild' | 'resolve' | 'optimizeDeps'>;
   /** 构建配置 */
   build?: {
-
-    /** 自定义vite配置 */
-    vite: Pick<ViteConfig, 'plugins' | 'server' | 'resolve' | 'optimizeDeps'>;
+    /** 是否启用按需加载，即是否把构建产物进行拆分，在需要的时候下载额外的 JS 再执行 */
+    dynamicImport?: boolean;
   } & Record<string, any>;
-  /**
-   * i18n
-   * @default [['zh-CN', '中文'], ['en-US', 'English']]
-   */
-  locales: false | Array<[String, String]>;
-  /** 菜单配置 */
-  menus?: Record<string, MenuItem[]>;
-  /** 顶部导航配置 */
-  navs?: NavItem[] | Record<string, NavItem[]>;
-  /** 用于配置 mdoc 的解析行为，包含如下配置 */
+  /** 配置解析行为，包含如下配置 */
   resolve?: {
+    /**
+     * 配置嗅探文档目录，会尝试在配置的目录中递归寻找 markdown 文件
+     * 默认值为 docs 目录、src 目录（普通项目）
+     * 如果环境为 lerna 项目，则 src 目录变为 packages/pkg/src 目录，通常不需要配置，除非自动嗅探出现了『误伤』。
+     */
     includes?: string[];
+    /**
+     * 需要排除的目录，会对嗅探到的目录或文件进行过滤，规则同 gitignore 配置。
+     */
     excludes?: string[];
+    /**
+     * 默认会转换为 ReactComponent 组件渲染的代码块，如果不希望做任何转换，例如类似官网的纯站点，那么将该项设置为空数组即可。
+     * @default ['jsx', 'tsx']
+     */
     previewLangs?: string[];
+    /**
+     * 代码块被动渲染模式，当为 true 时，仅将属于 resolve.previewLangs 且具有 preview 修饰符的代码块渲染为 ReactComponent 代码块。
+     * 一般用于仅希望渲染 resolve.previewLangs 中的少部分代码块，而不是全部。
+     */
     passivePreview?: boolean;
   }
 } & Record<string, any>
 
-export default function defineConfig(config: UserConfigExport) {
+export default function defineConfig(config: DefineConfig) {
   return config;
 }

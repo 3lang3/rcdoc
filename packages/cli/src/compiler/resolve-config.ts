@@ -6,12 +6,15 @@ import path from 'path'
 import { bundleRequire } from 'bundle-require'
 import strip from 'strip-json-comments'
 import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant'
-import type { UserConfigExport } from '../common/defineConfig';
+import type { DefineConfig } from '../common/defineConfig';
 import { init } from '../common/context'
 
-const defaultConfig: UserConfigExport = {
-  locales: [['zh-CN', '中文'], ['en-US', 'English']]
-} as any
+const defaultConfig: DefineConfig = {
+  locales: [['zh-CN', '中文'], ['en-US', 'English']],
+  resolve: {
+    previewLangs: ['jsx', 'tsx']
+  }
+}
 
 function jsoncParse(data: string) {
   try {

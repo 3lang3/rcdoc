@@ -23,6 +23,7 @@ type MenuItem = {
 
 type NavItem = {
   filePath?: string;
+  isComponentDir?: boolean;
   relative?: string;
   lang?: string;
   component?: any;
@@ -88,9 +89,9 @@ function resolveStaticMenus(userConfig): Record<string, NavItem[]> {
     const menu = getMenuDataByFilepath(PROJECT_SRC_DIR, filePath, defaultLang);
 
     if (!locales && menu.lang) return false;
-    if (locales && !locales.some(l => l[0] === menu.lang)) return false
-    return menu;
-  }).filter(Boolean) as NavItem[];;
+    if (locales && !locales.some(l => l[0] === menu.lang)) return false;
+    return { ...menu, isComponentDir: true };
+  }).filter(Boolean) as NavItem[];
   return { docsMenus, componentMenus }
 }
 
@@ -140,7 +141,7 @@ export function genSiteMenu() {
   }
 
   // Filter menu property
-  const menuRoutes = mergeMenus.map(({ lang, title, path, langPath, isLink, filePath, group }) => ({ lang, title, path, langPath, isLink, filePath, group }))
+  const menuRoutes = mergeMenus.map(({ isComponentDir, lang, title, path, langPath, isLink, filePath, group }) => ({ lang, isComponentDir, title, path, langPath, isLink, filePath, group }))
 
   const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes);
 

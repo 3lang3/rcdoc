@@ -1,6 +1,8 @@
+import path from 'path'
 import { execa } from 'execa';
 import { execSync } from 'child_process';
 import { consola } from './logger';
+import { readJsonSync } from 'fs-extra';
 
 let hasYarnCache: boolean;
 
@@ -17,19 +19,20 @@ export function hasYarn() {
   return hasYarnCache;
 }
 
-async function getPackageManager(userConfig) {
-  if (userConfig?.build?.packageManager) {
-    return userConfig?.build?.packageManager;
+function getPackageManager() {
+  const pkg = readJsonSync(path.join(process.cwd(), 'package.json'));
+  if (pkg?.packageManager) {
+    return pkg?.packageManager
   }
 
   return hasYarn() ? 'yarn' : 'npm';
 }
 
-export async function installDependencies(userConfig) {
+export async function installDependencies() {
   consola.info('Install Dependencies\n');
 
   try {
-    const manager = await getPackageManager(userConfig);
+    const manager = getPackageManager();
 
     await execa(manager, ['install', '--prod=false'], {
       stdio: 'inherit',
