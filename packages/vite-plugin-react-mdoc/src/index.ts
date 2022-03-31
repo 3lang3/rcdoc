@@ -53,20 +53,6 @@ export interface MDocOptions {
    */
   localPkgs?: Record<string, { version: string; css?: string; }>;
   /**
-   * 是否额外输出demo组件
-   * 
-   * 开启后会额外输出 `MdDemos`
-   * ```tsx
-   * import { MdContent, frontmatter, slugs, MdDemos } from 'test.md';
-   * type MdDemos = ReactComponent[]
-   * ```
-   */
-  demos?: boolean;
-  /**
-   * 是否支持解析<API />组件
-   */
-  apiParser?: boolean;
-  /**
    * 自定义替换html
    */
   replaceHtml?: (htmlString: string) => string;

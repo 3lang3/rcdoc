@@ -18,6 +18,7 @@ export type MDocPreviewerProps = {
   key: string;
   dependencies: Record<string, DependenciesType>;
   meta: Record<string, any>;
+  defaultShowSource?: boolean;
   children: React.ReactNode;
 };
 
@@ -120,7 +121,11 @@ const DefaultRender = ({
   );
 };
 
-export default ({ children, ...props }: MDocPreviewerProps) => {
+export default ({
+  children,
+  defaultShowSource,
+  ...props
+}: MDocPreviewerProps) => {
   const dependenciesArr = useMemo(
     () => Object.entries(props.dependencies || []),
     [props.dependencies],
@@ -134,7 +139,9 @@ export default ({ children, ...props }: MDocPreviewerProps) => {
 
   const openCsb = useCodeSandbox(props);
   const [copy, copyStatus] = useCopy();
-  const [showSource, setShowSource] = useState(hasDeps && !children);
+  const [showSource, setShowSource] = useState(
+    defaultShowSource || (hasDeps && !children),
+  );
 
   return hasDeps ? (
     <div className="default-previewer">

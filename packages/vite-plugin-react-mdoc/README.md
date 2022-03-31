@@ -38,7 +38,7 @@ export default () => {
 
 
 ```tsx
-import { MdContent, MdDemos } from './doc.md';
+import { MdContent, demos } from './doc.md';
 ````
 
 ### Type declarations
@@ -68,7 +68,7 @@ declare module '*.md' {
   const MdContent: React.VFC<{
     previewer?: (props: MDocPreviewerProps) => React.ReactNode;
   }>;
-  const MdDemos: ({ Component: React.VFC; key: string } & Record<string, any>)[];
+  const demos: ({ Component: React.VFC; key: string } & Record<string, any>)[];
 
   const frontmatter: Record<string, string>;
 
@@ -77,7 +77,7 @@ declare module '*.md' {
   const filePath: string;
 
   // Modify below per your usage
-  export { MdContent, MdDemos, frontmatter, slugs, filePath };
+  export { MdContent, demos, frontmatter, slugs, filePath };
 }
 ```
 

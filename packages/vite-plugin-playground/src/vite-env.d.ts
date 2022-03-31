@@ -24,12 +24,12 @@ declare module '*.md' {
   const MdContent: React.VFC<{
     previewer?: (props: MDocPreviewerProps) => React.ReactNode;
   }>;
-  const MdDemos: ({ Component: React.VFC; key: string } & Record<string, any>)[];
+  const demos: ({ Component: React.VFC; key: string } & Record<string, any>)[];
 
   const frontmatter: Record<string, string>;
 
   const slugs: { depth: number; text: string; id: string; }[];
 
   // Modify below per your usage
-  export { MdContent, MdDemos, frontmatter, slugs };
+  export { MdContent, demos, frontmatter, slugs };
 }

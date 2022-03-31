@@ -21,7 +21,7 @@ class ExportedContent {
 
 export async function transformer(code: string, id: string, reactBabelPlugin: PluginOption, remarkOpts: any) {
   const content = new ExportedContent();
-  const { demos, slugs, frontmatter, value, title, updateTime, } = await mdoc(code, id, remarkOpts);
+  const { demos, slugs, frontmatter, value, title, updatedTime, } = await mdoc(code, id, remarkOpts);
 
   const compiledReactCode = `
       function ({ previewer = () => null, api = () => null }) {
@@ -56,21 +56,19 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
   content.addExporting('MdContent');
 
   let exportDemosStr = '';
-  if (remarkOpts?.demos) {
-    const exportDemos = demos.filter(el => !el.inline)
-    exportDemos.forEach((el, i) => {
-      if (i === 0) exportDemosStr += '[';
-      exportDemosStr += `{ Component: ${el.name}, key: '${el.props.key}', ...${JSON.stringify(el.props.meta)},`;
-      exportDemosStr += '},';
-      if (i === exportDemos.length - 1) exportDemosStr += ']';
-    });
-  }
+  const exportDemos = demos.filter(el => !el.inline)
+  exportDemos.forEach((el, i) => {
+    if (i === 0) exportDemosStr += '[';
+    exportDemosStr += `{ Component: ${el.name}, key: '${el.props.key}', ...${JSON.stringify(el.props.meta)},`;
+    exportDemosStr += '},';
+    if (i === exportDemos.length - 1) exportDemosStr += ']';
+  });
 
   if (!exportDemosStr.length) {
     exportDemosStr = '[]'
   }
-  content.addContext(`const MdDemos = ${exportDemosStr};`);
-  content.addExporting('MdDemos');
+  content.addContext(`const demos = ${exportDemosStr};`);
+  content.addExporting('demos');
 
   content.addContext(`const frontmatter = ${JSON.stringify(frontmatter)};`)
   content.addExporting('frontmatter');
@@ -84,11 +82,11 @@ export async function transformer(code: string, id: string, reactBabelPlugin: Pl
   content.addContext(`const title = "${title}";`)
   content.addExporting('title');
 
-  content.addContext(`const updateTime = "${updateTime}";`)
-  content.addExporting('updateTime');
+  content.addContext(`const updatedTime = "${updatedTime}";`)
+  content.addExporting('updatedTime');
 
   content.addContext(`export default (props) => {
-    return props.children({ MdContent, MdDemos, frontmatter, slugs, filePath, title, updateTime })
+    return props.children({ MdContent, demos, frontmatter, slugs, filePath, title, updatedTime })
   }`)
 
   return {

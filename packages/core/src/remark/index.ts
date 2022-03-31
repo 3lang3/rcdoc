@@ -34,12 +34,13 @@ type RemarkReturn = {
   slugs: { depth: number; text: string; id: string; }[];
   definitions?: Record<string, Record<string, string>[]>;
   title?: string;
-  updateTime?: string;
+  updatedTime?: string;
 };
 
 const defaultOpts: MDocCoreOptions = {
   prefix: 'MdocDemo',
-  previewLangs: ['tsx', 'jsx']
+  previewLangs: ['tsx', 'jsx'],
+  apiParser: true,
 }
 
 export default async function remark(source, id, options: MDocCoreOptions = {}): Promise<RemarkReturn> {
@@ -64,7 +65,7 @@ export default async function remark(source, id, options: MDocCoreOptions = {}):
 
   processor.use(jsxify);
   const { data, value } = processor.processSync(source);
-  const { demos = [], slugs, frontmatter, title, updateTime } = data as (RemarkReturn & Record<string, string>)
+  const { demos = [], slugs, frontmatter, title, updatedTime } = data as (RemarkReturn & Record<string, string>)
 
-  return { demos, slugs, frontmatter, title, updateTime, value: value.toString() };
+  return { demos, slugs, frontmatter, title, updatedTime, value: value.toString() };
 }

@@ -1,4 +1,4 @@
-import { MdContent, MdDemos, frontmatter, slugs } from './demo.md';
+import { MdContent, demos, frontmatter, slugs } from './demo.md';
 // import { Previewer as MdPreviewer } from 'mdoc-default-previewer';
 import MdPreviewer from './components/MdPreviewer';
 import './App.css';
@@ -8,7 +8,7 @@ console.log(frontmatter, slugs);
 const DemoRender = () => {
   return (
     <div className="demo">
-      {MdDemos.map(({ Component, key, ...props }) => (
+      {demos.map(({ Component, key, ...props }) => (
         <div key={key}>
           {props.title && <h4>{props.title}</h4>}
           <Component />
