@@ -4,29 +4,7 @@ import { defineConfig } from '@mdoc/cli'
 export default defineConfig({
   title: 'mdoc',
   description: '轻量、可靠的移动端 React 组件库',
-  favicon: '',
-  logo: 'https://github.com/3lang3/react-vant/blob/main/public/logo.svg?raw=true',
-  /** 是否额外导出demo组件 */
-  exportDemos: true,
-  resolve: {
-    includes: ['docs', 'src'],
-    excludes: [],
-  },
-  build: {
-    packageManager: 'pnpm',
-    srcDir: 'src',
-    namedExport: true,
-    css: {
-      preprocessor: 'less',
-      // component: './style'
-    },
-    site: { publicPath: './' },
-  },
-  site: {
-    htmlMeta: {
-      'docsearch:version': 'v3',
-    },
-  },
+  logo: '/logo.svg',
   locales: false,
   navs: [
     {
@@ -78,5 +56,27 @@ export default defineConfig({
         ],
       }
     ],
-  }
-} as any)
+  },
+  resolve: {
+    includes: ['docs', 'src'],
+  },
+  build: {
+    dynamicImport: true
+  },
+  site: {
+    favicon: '/favicon.png',
+    metas: [
+      {
+        name: 'keywords',
+        content: 'dumi, base on umi',
+      },
+      {
+        name: 'description',
+        content: '📖 为组件开发场景而生的文档工具',
+      },
+      {
+        name: 'docsearch:version', content: 'v3'
+      }
+    ],
+  },
+})
