@@ -184,5 +184,5 @@ export function getExistFile({ cwd = CWD, files }: { cwd?: string, files: string
 }
 
 export function isObject(val) {
-  return val != null && typeof val === 'object' && Array.isArray(val) === false;
+  return Object.prototype.toString.call(val) === '[object Object]'
 }
