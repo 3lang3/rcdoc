@@ -5,6 +5,7 @@ import Done from './Done';
 import Code from './Code';
 import Csb from './Csb';
 import Copy from './Copy';
+import DeviceBar from './DeviceBar';
 
 export {
   GitHub as GitHubIcon,
@@ -14,4 +15,5 @@ export {
   Done as DoneIcon,
   Code as CodeIcon,
   Csb as CsbIcon,
+  DeviceBar as DeviceBarIcon,
 };

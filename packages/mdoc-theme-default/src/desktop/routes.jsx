@@ -5,7 +5,11 @@ import { LazyFallback } from './components/LazyFallback';
 import Layout from './components';
 import MdPage from './components/MdPage';
 
-const RouteComponent = ({ lazyComponent: LazyComponent, ...props }) => {
+const RouteComponent = ({
+  lazyComponent: LazyComponent,
+  isComponentDir,
+  ...props
+}) => {
   return (
     <Layout>
       <React.Suspense fallback={<LazyFallback />}>
@@ -24,6 +28,7 @@ const RouteComponent = ({ lazyComponent: LazyComponent, ...props }) => {
                 slugs={slugs}
                 filePath={filePath}
                 updatedTime={updatedTime}
+                isComponentDir={isComponentDir}
               >
                 {({ previewer, api }) => (
                   <MdContent previewer={previewer} api={api} />
@@ -45,7 +50,7 @@ function initRoutes({ locales, unprocessedRoutes }) {
   const routes = [];
 
   unprocessedRoutes.forEach(route => {
-    const { lang, title, path, redirect } = route;
+    const { lang, title, path, redirect, isComponentDir } = route;
     if (redirect) {
       routes.push({ path, redirect });
       return;
@@ -55,7 +60,12 @@ function initRoutes({ locales, unprocessedRoutes }) {
       title: title,
       name: `${lang}/${path}`,
       path: isDefaultLang ? `${path}` : `/${lang}${path}`,
-      component: <RouteComponent lazyComponent={route.component} />,
+      component: (
+        <RouteComponent
+          isComponentDir={isComponentDir}
+          lazyComponent={route.component}
+        />
+      ),
       state: {
         lang,
         name: path,

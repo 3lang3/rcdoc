@@ -1,0 +1,57 @@
+@import '../../../common/style/var.less';
+
+:root {
+  --device-padding: 1rem;
+  --device-width: 344px;
+  --device-height: 704px;
+  --device-frame-width: 12px;
+  --ion-safe-area-top: 20px;
+  --ion-safe-area-bottom: 22px;
+}
+
+.doc-simulator {
+  position: sticky;
+  top: @van-doc-header-top-height;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &__wrapper {
+    background-image: url('./android-device-skin.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 44px;
+    box-shadow: 0 2px 8px rgb(2 8 20 / 10%), 0 8px 16px rgb(2 8 20 / 8%);
+    height: var(--device-height);
+    overflow: hidden;
+    position: relative;
+    width: var(--device-width);
+    z-index: 1;
+    padding: var(--device-frame-width);
+  }
+  &__bar {
+    fill: hsla(0, 0%, 49%, 0.3);
+    display: block;
+    padding: 0.5rem 1.2rem;
+    top: 12px;
+    width: 100%;
+    z-index: 2;
+  }
+  &__iframe {
+    border: none;
+    overflow: hidden;
+    width: 100%;
+  }
+
+  &-demo {
+    padding-top: var(--ion-safe-area-top);
+    padding-bottom: var(--ion-safe-area-bottom);
+  
+    &__item {
+    }
+  
+    &__title {
+    }
+  }
+}

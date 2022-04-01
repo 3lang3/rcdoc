@@ -7,11 +7,11 @@ const DemoRouteComponent = ({ lazyComponent: LazyComponent, ...props }) => {
       <LazyComponent>
         {({ demos }) => {
           return (
-            <div className="doc-demo">
+            <div className="doc-simulator-demo">
               {demos.map(({ Component, key, ...props }) => (
-                <div className="doc-demo__item" key={key}>
+                <div className="doc-simulator-demo__item" key={key}>
                   {props.title && (
-                    <h4 className="doc-demo__title">{props.title}</h4>
+                    <h4 className="doc-simulator-demo__title">{props.title}</h4>
                   )}
                   <Component />
                 </div>

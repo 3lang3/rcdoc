@@ -3,6 +3,7 @@ import clsx from 'clsx';
 import MdPreviewer from '../MdPreviewer';
 import MdApi from '../MdApi';
 import SlugNav from './SlugNav';
+import Simulator from '../Simulator';
 
 import './index.less';
 
@@ -14,6 +15,7 @@ const MdPageComponent = ({
   updatedTime,
   frontmatter = {},
   slugs = [],
+  isComponentDir,
 }) => {
   const { fluid, slugs: showSlugs = true, style, className } = frontmatter;
   const hashPath = React.useMemo(
@@ -57,6 +59,7 @@ const MdPageComponent = ({
           </span>
         )}
       </section>
+      {isComponentDir && <Simulator />}
       <SlugNav show={showSlugs} slugs={formatSlugs} />
     </div>
   );
