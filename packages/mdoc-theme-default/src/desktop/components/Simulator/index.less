@@ -5,11 +5,12 @@
   --device-width: 344px;
   --device-height: 704px;
   --device-frame-width: 12px;
-  --ion-safe-area-top: 20px;
-  --ion-safe-area-bottom: 22px;
+  --device-safe-area-top: 20px;
+  --device-safe-area-bottom: 22px;
 }
 
 .doc-simulator {
+  padding-top: 20px;
   position: sticky;
   top: @van-doc-header-top-height;
 
@@ -29,6 +30,8 @@
     width: var(--device-width);
     z-index: 1;
     padding: var(--device-frame-width);
+    display: flex;
+    flex-direction: column;
   }
   &__bar {
     fill: hsla(0, 0%, 49%, 0.3);
@@ -42,16 +45,36 @@
     border: none;
     overflow: hidden;
     width: 100%;
+    border-radius: 32px;
+    flex: 1;
   }
 
   &-demo {
-    padding-top: var(--ion-safe-area-top);
-    padding-bottom: var(--ion-safe-area-bottom);
-  
-    &__item {
+    &__header {
+      padding: 16px 20px;
+      font-size: 1.2em;
+      font-weight: normal;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      pointer-events: auto;
+      text-transform: capitalize;
+      border-bottom: 1px solid #eee;
     }
-  
     &__title {
+      padding: 16px;
+      font-weight: normal;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      pointer-events: auto;
+    }
+    &__content {
+      padding: 10px 16px;
+
+      &--compact {
+        padding: 0;
+      }
     }
   }
 }

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-use-before-define */
 import Highlight, { defaultProps } from 'prism-react-renderer';
 import type { Language } from 'prism-react-renderer';
-import React, { useMemo, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
-import { useCodeSandbox, useCopy, Icons } from '@mdoc/theme';
+import { useCodeSandbox, useCopy, Icons, MdocSiteContext } from '@mdoc/theme';
 import './index.less';
 
 type DependenciesType = {
@@ -43,13 +43,13 @@ const FileTabs = ({
   defaultCode: string;
   defaultLang: string;
 }) => {
-  const [current, setCurrent] = useState<any>({
+  const [current, setCurrent] = React.useState<any>({
     code: defaultCode,
     lang: defaultLang,
   });
 
-  const code = useMemo(() => current.code, [current]);
-  const lang = useMemo(() => current.lang, [current]);
+  const code = React.useMemo(() => current.code, [current]);
+  const lang = React.useMemo(() => current.lang, [current]);
 
   return (
     <div className="default-previewer__tabs">
@@ -126,11 +126,15 @@ export default ({
   defaultShowSource,
   ...props
 }: MDocPreviewerProps) => {
-  const dependenciesArr = useMemo(
+  const { config } = React.useContext(MdocSiteContext);
+
+  const hasSimulator = config?.site?.themeConfig?.simulator;
+
+  const dependenciesArr = React.useMemo(
     () => Object.entries(props.dependencies || []),
     [props.dependencies],
   );
-  const files = useMemo(
+  const files = React.useMemo(
     () => dependenciesArr.filter(([, el]) => el.type === 'FILE'),
     [dependenciesArr],
   );
@@ -139,13 +143,15 @@ export default ({
 
   const openCsb = useCodeSandbox(props);
   const [copy, copyStatus] = useCopy();
-  const [showSource, setShowSource] = useState(
-    defaultShowSource || (hasDeps && !children),
-  );
+  const [showSource, setShowSource] = React.useState(() => {
+    return defaultShowSource || hasSimulator || (hasDeps && !children);
+  });
 
   return hasDeps ? (
     <div className="default-previewer">
-      {children && <div className="default-previewer__demo">{children}</div>}
+      {!hasSimulator && children && (
+        <div className="default-previewer__demo">{children}</div>
+      )}
       <div className="default-previewer__actions">
         {Object.keys(props?.dependencies || []).length ? (
           <>
@@ -171,7 +177,7 @@ export default ({
             <Icons.DoneIcon className="default-pre__btn-svg--active" />
           )}
         </button>
-        {children && (
+        { !hasSimulator &&  children && (
           <button
             type="button"
             className="default-previewer__btn"

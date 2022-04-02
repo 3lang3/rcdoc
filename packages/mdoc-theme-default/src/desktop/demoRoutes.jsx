@@ -1,19 +1,31 @@
 import React from 'react';
+import clsx from 'clsx';
 import { LazyFallback } from './components/LazyFallback';
 
-const DemoRouteComponent = ({ lazyComponent: LazyComponent, ...props }) => {
+const DemoRouteComponent = ({ lazyComponent: LazyComponent, title }) => {
   return (
     <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
-        {({ demos }) => {
+        {({ demos, frontmatter = {} }) => {
+          const { simulator = {} } = frontmatter;
           return (
-            <div className="doc-simulator-demo">
+            <div
+              className={clsx('doc-simulator-demo', simulator.className)}
+              style={simulator.style}
+            >
+              <div className="doc-simulator-demo__header">{title}</div>
               {demos.map(({ Component, key, ...props }) => (
                 <div className="doc-simulator-demo__item" key={key}>
                   {props.title && (
                     <h4 className="doc-simulator-demo__title">{props.title}</h4>
                   )}
-                  <Component />
+                  <div
+                    className={clsx('doc-simulator-demo__content', {
+                      'doc-simulator-demo__content--compact': props.compact,
+                    })}
+                  >
+                    <Component />
+                  </div>
                 </div>
               ))}
             </div>
@@ -38,11 +50,14 @@ function initDemoRoutes({ locales, unprocessedRoutes }) {
         return;
       }
       const isDefaultLang = lang === defaultLang;
+
       routes.push({
         title: title,
         name: `${lang}/${path}`,
-        path: isDefaultLang ? `/~demo${path}` : `/~demo${lang}${path}`,
-        component: <DemoRouteComponent lazyComponent={route.component} />,
+        path: isDefaultLang ? `/~demo${path}` : `/~demo/${lang}${path}`,
+        component: (
+          <DemoRouteComponent title={title} lazyComponent={route.component} />
+        ),
         state: {
           lang,
           name: path,
