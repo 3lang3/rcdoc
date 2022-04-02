@@ -5,7 +5,7 @@ hello mdoc!!!!!!!!!!!!!!!!!!!!!
 ```jsx
 /**
  * title: hello
- * export: false
+ * compact: true
  */
 
 import React from 'react';

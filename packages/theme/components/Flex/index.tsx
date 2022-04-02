@@ -20,6 +20,7 @@ const Flex: React.FC<FlexProps> = props => {
     justify,
     wrap,
     direction,
+    ...rest
   } = props;
   const Tag = tag as React.ElementType;
   const internalStyle = React.useMemo(() => {
@@ -32,7 +33,11 @@ const Flex: React.FC<FlexProps> = props => {
     };
   }, [style, align, justify, wrap, direction]);
   return (
-    <Tag className={clsx('doc-flex', className)} style={internalStyle}>
+    <Tag
+      className={clsx('doc-flex', className)}
+      style={internalStyle}
+      {...rest}
+    >
       {children}
     </Tag>
   );

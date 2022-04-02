@@ -6,6 +6,9 @@ import Code from './Code';
 import Csb from './Csb';
 import Copy from './Copy';
 import DeviceBar from './DeviceBar';
+import Language from './Language';
+import Light from './Light';
+import Moon from './Moon';
 
 export {
   GitHub as GitHubIcon,
@@ -16,4 +19,7 @@ export {
   Code as CodeIcon,
   Csb as CsbIcon,
   DeviceBar as DeviceBarIcon,
+  Language as LanguageIcon,
+  Light as LightIcon,
+  Moon as MoonIcon,
 };
