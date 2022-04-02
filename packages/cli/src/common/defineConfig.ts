@@ -48,7 +48,7 @@ export type DefineConfig = {
    * 国际化配置
    * @default [['zh-CN', '中文'], ['en-US', 'English']]
    */
-  locales: false | Array<[string, string]>;
+  locales?: false | Array<[string, string]>;
   /** 站点额外信息配置 */
   site?: {
     /**配置 favicon 地址（href 属性） */
@@ -56,18 +56,25 @@ export type DefineConfig = {
     /** 配置 <head> 里的额外脚本，数组项为字符串或对象 */
     headScripts?: Array<string | any>;
     /** 版本信息 */
-    versions?: false | { label: string; path?: string }[];
+    versions?: false | { title: string; path?: string }[];
     /**  配置额外的 meta 标签。数组中可以配置key:value形式的对象 */
     metas?: { name: string; content: string }[];
     /** 是否开启vconsole */
     vconsole?: boolean;
+    /** github地址，在顶部菜单栏右侧展示 */
+    github?: string;
     /** 
      * 自定义主题包
      * @default 'mdoc-theme-default'
      */
     theme?: string;
     /** 用于配置当前使用的主题包，具体配置项取决于主题包提供哪些配置 */
-    themeConfig?: Record<string, any>;
+    themeConfig?: {
+      /** 开启暗色主题 */
+      dark?: boolean;
+      /** 是否开启模拟器视图，需要主题支持 */
+      simulator?: boolean;
+    } & Record<string, any>;
     /** 配置 Algolia 的 DocSearch 服务 */
     algolia?: AlgoliaProps;
     /**  配置 <API /> 解析的行为 */
