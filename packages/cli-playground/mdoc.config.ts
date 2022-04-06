@@ -118,7 +118,7 @@ export default defineConfig({
     ],
     versions: [{ title: 'v2', path: 'https://v2' }, { title: 'v3', path: 'https://v3' }],
     themeConfig: {
-      simulator: true
+      // simulator: true
     }
   },
 })
