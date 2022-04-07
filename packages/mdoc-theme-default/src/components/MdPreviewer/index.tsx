@@ -141,7 +141,7 @@ export default ({
 
   const hasDeps = Object.keys(props?.dependencies || []).length > 0;
 
-  const openCsb = useCodeSandbox(props);
+  const openCsb = useCodeSandbox(props, { simulator: hasSimulator });
   const [copy, copyStatus] = useCopy();
   const [showSource, setShowSource] = React.useState(() => {
     return defaultShowSource || hasSimulator || (hasDeps && !children);
@@ -177,7 +177,7 @@ export default ({
             <Icons.DoneIcon className="default-pre__btn-svg--active" />
           )}
         </button>
-        { !hasSimulator &&  children && (
+        {!hasSimulator && children && (
           <button
             type="button"
             className="default-previewer__btn"

@@ -2,8 +2,9 @@ import React from 'react';
 import clsx from 'clsx';
 import MdPreviewer from '../MdPreviewer';
 import MdApi from '../MdApi';
-import SlugNav from './SlugNav';
+import Slugs from '../Slugs';
 import Simulator from '../Simulator';
+import useActiveSidebarLinks from '../Slugs/useActiveSidebarLinks';
 
 import './index.less';
 
@@ -22,20 +23,11 @@ const MdPageComponent = ({
     () => window.location.hash.split('#').filter(Boolean)[0],
     [],
   );
-  const formatSlugs = React.useMemo(
-    () =>
-      slugs
-        ? slugs.map(slug => ({
-            ...slug,
-            id: hashPath ? `${hashPath}#${slug.id}` : slug.id,
-          }))
-        : [],
-    [hashPath, slugs],
-  );
-
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [hashPath]);
+
+  useActiveSidebarLinks();
 
   const updatedTimeStr = React.useMemo(() => {
     if (!updatedTime) return false;
@@ -54,13 +46,11 @@ const MdPageComponent = ({
       >
         {children({ previewer, api })}
         {!!updatedTimeStr && (
-          <span style={{ display: 'none' }}>
-            Last update: {updatedTimeStr}
-          </span>
+          <span style={{ display: 'none' }}>Last update: {updatedTimeStr}</span>
         )}
       </section>
+      {showSlugs && <Slugs slugs={slugs} />}
       {isComponentDir && <Simulator />}
-      <SlugNav show={showSlugs} slugs={formatSlugs} />
     </div>
   );
 };
