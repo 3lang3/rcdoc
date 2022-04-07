@@ -1,0 +1,23 @@
+@blue: #3f45ff;
+
+.demo-flex {
+  .rv-flexbox {
+    margin-bottom: 10px;
+    color: #fff;
+    font-size: 13px;
+    line-height: 30px;
+    text-align: center;
+    background-clip: content-box;
+
+    .rv-flexitem {
+      background-clip: content-box;
+
+      &:nth-child(odd) {
+        background-color: @blue;
+      }
+      &:nth-child(even) {
+        background-color: lighten(@blue, 8%);
+      }
+    }
+  }
+}

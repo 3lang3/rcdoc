@@ -1,0 +1,157 @@
+@import './var.less';
+@import '../../styles/mixins/hairline.less';
+
+:root {
+  --rv-cell-font-size: @cell-font-size;
+  --rv-cell-line-height: @cell-line-height;
+  --rv-cell-vertical-padding: @cell-vertical-padding;
+  --rv-cell-horizontal-padding: @cell-horizontal-padding;
+  --rv-cell-text-color: @cell-text-color;
+  --rv-cell-background-color: @cell-background-color;
+  --rv-cell-border-color: @cell-border-color;
+  --rv-cell-active-color: @cell-active-color;
+  --rv-cell-required-color: @cell-required-color;
+  --rv-cell-label-color: @cell-label-color;
+  --rv-cell-label-font-size: @cell-label-font-size;
+  --rv-cell-label-line-height: @cell-label-line-height;
+  --rv-cell-label-margin-top: @cell-label-margin-top;
+  --rv-cell-value-color: @cell-value-color;
+  --rv-cell-icon-size: @cell-icon-size;
+  --rv-cell-right-icon-color: @cell-right-icon-color;
+  --rv-cell-large-vertical-padding: @cell-large-vertical-padding;
+  --rv-cell-large-title-font-size: @cell-large-title-font-size;
+  --rv-cell-large-label-font-size: @cell-large-label-font-size;
+  --rv-cell-group-background-color: @cell-group-background-color;
+  --rv-cell-group-title-color: @cell-group-title-color;
+  --rv-cell-group-title-padding: @cell-group-title-padding;
+  --rv-cell-group-title-font-size: @cell-group-title-font-size;
+  --rv-cell-group-title-line-height: @cell-group-title-line-height;
+  --rv-cell-group-inset-padding: @cell-group-inset-padding;
+  --rv-cell-group-inset-border-radius: @cell-group-inset-border-radius;
+  --rv-cell-group-inset-title-padding: @cell-group-inset-title-padding;
+}
+
+.@{rv-prefix}-cell {
+  position: relative;
+  display: flex;
+  box-sizing: border-box;
+  width: 100%;
+  padding: var(--rv-cell-vertical-padding) var(--rv-cell-horizontal-padding);
+  overflow: hidden;
+  color: var(--rv-cell-text-color);
+  font-size: var(--rv-cell-font-size);
+  line-height: var(--rv-cell-line-height);
+  background-color: var(--rv-cell-background-color);
+
+  &::after {
+    .hairline-bottom(var(--rv-cell-border-color), var(--rv-padding-md), var(--rv-padding-md));
+  }
+
+  &:last-child::after,
+  &--borderless::after {
+    display: none;
+  }
+
+  &__label {
+    margin-top: var(--rv-cell-label-margin-top);
+    color: var(--rv-cell-label-color);
+    font-size: var(--rv-cell-label-font-size);
+    line-height: var(--rv-cell-label-line-height);
+  }
+
+  &__title,
+  &__value {
+    flex: 1;
+  }
+
+  &__value {
+    position: relative;
+    overflow: hidden;
+    color: var(--rv-cell-value-color);
+    text-align: right;
+    vertical-align: middle;
+    word-wrap: break-word;
+
+    &--alone {
+      color: var(--rv-text-color);
+      text-align: left;
+    }
+  }
+
+  &__left-icon,
+  &__right-icon {
+    height: var(--rv-cell-line-height);
+    font-size: var(--rv-cell-icon-size);
+    line-height: var(--rv-cell-line-height);
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__left-icon {
+    margin-right: var(--rv-padding-xs);
+  }
+
+  &__right-icon {
+    margin-left: var(--rv-padding-xs);
+    color: var(--rv-cell-right-icon-color);
+  }
+
+  &--clickable {
+    cursor: pointer;
+
+    &:active {
+      background-color: var(--rv-cell-active-color);
+    }
+  }
+
+  &--required {
+    overflow: visible;
+
+    &::before {
+      position: absolute;
+      left: var(--rv-padding-xs);
+      color: var(--rv-cell-required-color);
+      font-size: var(--rv-cell-font-size);
+      content: '*';
+    }
+  }
+
+  &--center {
+    align-items: center;
+  }
+
+  &--large {
+    padding-top: var(--rv-cell-large-vertical-padding);
+    padding-bottom: var(--rv-cell-large-vertical-padding);
+
+    .@{rv-prefix}-cell__title {
+      font-size: var(--rv-cell-large-title-font-size);
+    }
+
+    .@{rv-prefix}-cell__label {
+      font-size: var(--rv-cell-large-label-font-size);
+    }
+  }
+}
+
+.@{rv-prefix}-cell-group {
+  background-color: var(--rv-cell-group-background-color);
+
+  &--inset {
+    margin: var(--rv-cell-group-inset-padding);
+    overflow: hidden;
+    border-radius: var(--rv-cell-group-inset-border-radius);
+  }
+
+  &__title {
+    padding: var(--rv-cell-group-title-padding);
+    color: var(--rv-cell-group-title-color);
+    font-size: var(--rv-cell-group-title-font-size);
+    line-height: var(--rv-cell-group-title-line-height);
+
+    &--inset {
+      padding: var(--rv-cell-group-inset-title-padding);
+    }
+  }
+}

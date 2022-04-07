@@ -1,16 +1,8 @@
-import React from 'react';
-import { Space } from 'mdoc-demo';
-import type { ButtonProps, OtherProps } from './index.d'
+import Button from './Button';
+import Group from './ButtonGroup';
+import './style/index.less';
 
-import './index.less'
-
-const Button: React.FC<ButtonProps> = ({ children, ...props }) => (
-  <Space className="button" {...props}>
-    {children}
-  </Space>
-);
-
-export const Other: React.FC<OtherProps> = (props) => <div {...props} />
-
-
-export default Button;
+const ButtonNameSpace = Object.assign(Button, { Group });
+export default ButtonNameSpace;
+export { ButtonNameSpace as Button };
+export type { ButtonProps, ButtonType, ButtonSize, ButtonIconPosition } from './PropsType';

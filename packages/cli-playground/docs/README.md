@@ -11,7 +11,7 @@ slugs: false
  * inline: true 
  */
 import React from 'react';
-import { Button } from 'mdoc-demo';
+import { Button } from 'react-vant';
 
 export default () => <Button style={{ margin: '20px 0' }}>button</Button>
 ```

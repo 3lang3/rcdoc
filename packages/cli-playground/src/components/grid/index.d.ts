@@ -2,7 +2,7 @@ export interface NativeProps<S extends string = never> {
   /**
    * @description Custom style
    */
-  style?: CSSProperties;
+  style?: React.CSSProperties;
   /**
    * @description tabIndex property
    * @default 1
