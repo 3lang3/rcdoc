@@ -1,5 +1,4 @@
 import { toString } from 'mdast-util-to-string';
-import { hasProperty as has } from 'hast-util-has-property';
 import { isElement as is } from 'hast-util-is-element';
 import { visit } from 'unist-util-visit';
 import BananaSlug from 'github-slugger';
@@ -29,9 +28,8 @@ export default function remarkSlug(): MDocUnifiedTransformer<MDocElmNode> {
           value: node.value,
         });
         // generate id if not exist
-        if (!has(node, 'id')) {
-          node.properties.id = slugs.slug(title.trim(), false);
-        }
+        node.properties.id = slugs.slug(node.properties.id || title.trim(), false);
+        node.properties['data-anchor'] = node.properties.id;
 
         // save slugs
         vFile.data.slugs.push({
