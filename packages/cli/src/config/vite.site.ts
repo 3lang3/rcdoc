@@ -60,12 +60,6 @@ export function getViteConfigForSiteDev(): InlineConfig {
   const projectPackageJson = getPackageJson();
   const title = getTitle(context.opts);
   const themeAlias = getConfigThemeAlias();
-  // @hack
-  // enforce alias redirect to not root dir
-  const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
-    a[v] = slash(path.join(ROOT, 'node_modules', v));
-    return a;
-  }, {});
 
   return {
     base: './',
@@ -93,14 +87,14 @@ export function getViteConfigForSiteDev(): InlineConfig {
     ],
     resolve: {
       alias: {
+        ...themeAlias,
         [projectPackageJson.name]: PROJECT_SRC_DIR,
         '@@mdoc': PROJECT_CLI_DIST_DIR,
-        ...projectDepsAlias,
-        ...themeAlias,
       },
     },
     optimizeDeps: {
-      entries: [path.join(SITE_SRC_DIR, 'index.html'), path.join(PROJECT_SRC_DIR, 'index.ts')],
+      ...context.opts?.vite?.optimizeDeps,
+      entries: [path.join(SITE_SRC_DIR, 'index.html'), path.join(PROJECT_SRC_DIR, 'index.ts'), ...(context.opts?.vite?.optimizeDeps?.entries || [])],
     },
     server: {
       port: 4000,
