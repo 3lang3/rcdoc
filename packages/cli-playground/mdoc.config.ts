@@ -4,7 +4,7 @@ import { defineConfig } from '@mdoc/cli'
 export default defineConfig({
   title: 'mdoc',
   description: '轻量、可靠的移动端 React 组件库',
-  logo: '/logo.svg',
+  // logo: '/logo.svg',
   locales: [['zh', '中文'], ['en', 'English']],
   navs: {
     'zh': [
