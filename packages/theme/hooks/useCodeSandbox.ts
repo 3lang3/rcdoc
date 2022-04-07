@@ -130,7 +130,7 @@ ReactDOM.render(
  */
 export default (
   opts: Omit<MDocPreviewerProps, 'children'> | null,
-  api: string = CSB_API_ENDPOINT,
+  userOptions: { simulator?: boolean }
 ) => {
   const [handler, setHandler] = useState<(...args: any) => void | undefined>();
 
@@ -144,7 +144,7 @@ export default (
       form.method = 'POST';
       form.target = '_blank';
       form.style.display = 'none';
-      form.action = api;
+      form.action = CSB_API_ENDPOINT;
       form.appendChild(input);
       form.appendChild(queryInput);
       form.setAttribute('data-demo', opts.meta?.title || '');
@@ -152,9 +152,11 @@ export default (
       input.name = 'parameters';
       input.value = data;
 
-      queryInput.name = 'query';
-      queryInput.value = 'resolutionWidth=320&resolutionHeight=675';
-
+      if (userOptions?.simulator) {
+        queryInput.name = 'query';
+        queryInput.value = 'resolutionWidth=320&resolutionHeight=675';
+      }
+      
       document.body.appendChild(form);
 
       setHandler(() => () => form.submit());
