@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`base render correctly 1`] = `
+<button
+  className="rv-button rv-button--default rv-button--normal"
+  onClick={[Function]}
+  style={Object {}}
+  type="button"
+>
+  <div
+    className="rv-button__content"
+  >
+    <span
+      className="rv-button__text"
+    >
+      base button
+    </span>
+  </div>
+</button>
+`;

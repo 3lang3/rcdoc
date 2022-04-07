@@ -1,7 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`Button default render 1`] = `
-<div>
-  Facebook
-</div>
-`;
