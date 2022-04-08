@@ -1,9 +1,11 @@
-import { useUpdateEffect } from '@mdoc/theme';
 import React from 'react';
+import useAnchorClick, { scrollTop } from './useAnchorClick';
 
 export default function useActiveSidebarLinks() {
   let rootActiveLink: HTMLAnchorElement | null = null;
   let activeLink: HTMLAnchorElement | null = null;
+
+  useAnchorClick()
 
   const onScroll = throttleAndDebounce(setActiveLink, 300);
 
@@ -52,16 +54,20 @@ export default function useActiveSidebarLinks() {
   }
 
   React.useEffect(() => {
+    init()
     window.addEventListener('scroll', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
+}
 
-  useUpdateEffect(() => {
-    // sidebar update means a route change
-    activateLink(decodeURIComponent(location.hash.replace('#', '')));
-  });
+function init() {
+  if (!location.hash) return;
+  const target = document.querySelector<HTMLAnchorElement>(decodeURIComponent(location.hash));
+  if (target) {
+    scrollTop(target)
+  }
 }
 
 function getSidebarLinks(): HTMLAnchorElement[] {

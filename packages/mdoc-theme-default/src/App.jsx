@@ -4,9 +4,9 @@ import { MdocSiteContext } from '@mdoc/theme';
 import initRoutes from './routes';
 import initDemoRoutes from './demoRoutes';
 import _routes from '@@mdoc/site-shared-routes';
-import './index.less';
 import MobileView from './components/Simulator/MobileView';
 import { isMobile } from './common';
+import './index.less';
 
 const App = React.memo(
   () => {

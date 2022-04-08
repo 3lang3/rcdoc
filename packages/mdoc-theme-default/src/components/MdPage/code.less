@@ -40,27 +40,6 @@
     font-weight: 600;
     font-size: 22px;
   }
-  h2,
-  h3 {
-    position: relative;
-    &:before {
-      position: absolute;
-      left: -0.9em;
-      bottom: 0;
-      content: '#';
-      opacity: 0;
-      vertical-align: baseline;
-    }
-    &:target {
-      padding-top: @van-doc-header-top-height;
-      &:before {
-        color: var(--mdoc-link-color);
-        font-size: 1em;
-        transform: scale(1.4);
-        animation: blink 1s linear forwards;
-      }
-    }
-  }
   h4 {
     margin: 24px 0 12px;
     font-weight: 600;
