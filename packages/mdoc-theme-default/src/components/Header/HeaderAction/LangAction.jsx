@@ -31,7 +31,7 @@ export default () => {
         </Link>
       );
     });
-  }, [locale.current]);
+  }, [locale.current, locale.switchLink]);
   if (!overlay || !locale) return null;
 
   return (

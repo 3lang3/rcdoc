@@ -1,8 +1,12 @@
 import React from 'react';
 import clsx from 'clsx';
 import { LazyFallback } from './components/LazyFallback';
+import { useNavigate } from 'react-router-dom';
+import { Icons } from '@mdoc/theme';
 
 const DemoRouteComponent = ({ lazyComponent: LazyComponent, title }) => {
+  const navigate = useNavigate();
+  const showBackBtn = window.self === window.top;
   return (
     <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
@@ -13,21 +17,41 @@ const DemoRouteComponent = ({ lazyComponent: LazyComponent, title }) => {
               className={clsx('doc-simulator-demo', simulator.className)}
               style={simulator.style}
             >
-              <div className="doc-simulator-demo__header">{title}</div>
-              {demos.map(({ Component, key, ...props }) => (
-                <div className="doc-simulator-demo__item" key={key}>
-                  {props.title && (
-                    <h4 className="doc-simulator-demo__title">{props.title}</h4>
-                  )}
-                  <div
-                    className={clsx('doc-simulator-demo__content', {
-                      'doc-simulator-demo__content--compact': props.compact,
-                    })}
-                  >
-                    <Component />
+              <div
+                className={clsx('doc-simulator-demo__header', {
+                  'doc-simulator-demo__header--back': showBackBtn,
+                })}
+              >
+                <span
+                  className="doc-simulator-demo__back"
+                  onClick={() => navigate(-1)}
+                >
+                  <Icons.LeftIcon />
+                </span>
+                {title}
+              </div>
+              {demos.map(({ Component, key, ...props }) => {
+                return (
+                  <div className="doc-simulator-demo__item" key={key}>
+                    {props.title && (
+                      <h4 className="doc-simulator-demo__title">
+                        {props.title}
+                      </h4>
+                    )}
+                    <div
+                      className={clsx('doc-simulator-demo__content', {
+                        'doc-simulator-demo__content--compact':
+                          (props.compact &&
+                            props.compact !== 'false' &&
+                            props.compact !== '{false}') ??
+                          simulator?.compact,
+                      })}
+                    >
+                      <Component />
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           );
         }}
@@ -53,7 +77,7 @@ function initDemoRoutes({ locales, unprocessedRoutes }) {
 
       routes.push({
         title: title,
-        name: `${lang}/${path}`,
+        name: `/~demo/${lang}${path}`,
         path: isDefaultLang ? `/~demo${path}` : `/~demo/${lang}${path}`,
         component: (
           <DemoRouteComponent title={title} lazyComponent={route.component} />

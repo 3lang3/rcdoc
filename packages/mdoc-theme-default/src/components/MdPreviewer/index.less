@@ -80,7 +80,13 @@
     background: none;
     padding: 6px;
     color: var(--mdoc-front-base-color);
+    opacity: .5;
+    transition: opacity 0.2s;
     cursor: pointer;
+
+    &:hover {
+      opacity: 1;
+    }
 
     svg {
       display: block;

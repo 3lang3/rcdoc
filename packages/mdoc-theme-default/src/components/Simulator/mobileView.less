@@ -1,0 +1,66 @@
+.doc-mobile {
+  &-header {
+    padding: 50px 24px 0;
+    font-size: 14px;
+    line-height: 1.4rem;
+
+    &__logo {
+      margin-bottom: 20px;
+    }
+
+    &__desc {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #888;
+    }
+
+    a {
+      color: var(--mdoc-link-color);
+      text-decoration: underline;
+    }
+
+    p {
+      color: #888;
+      font-size: 13px;
+      margin-bottom: 20px;
+    }
+  }
+  &-content {
+    padding: 20px 24px;
+  }
+  &-group {
+    margin-bottom: 16px;
+    &__category {
+      padding: 10px 0;
+      color: var(--mdoc-menu-category-color);
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 28px;
+    }
+    &__link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.5rem 0.5rem 0.5rem var(--mdoc-padd-md);
+      font-size: 14px;
+      line-height: 20px;
+      transition: color 0.2s;
+      font-weight: 600;
+      color: var(--mdoc-menu-category-color);
+      background-color: #f7f7f7;
+      border-radius: var(--mdoc-lg-radius);
+
+      &:focus,
+      &:active {
+        outline: 2px solid var(--mdoc-menu-color);
+        background-color: var(--mdoc-menu-color-background-active);
+      }
+
+      svg {
+        width: 16px;
+        fill: #b6c3d2;
+        flex-shrink: 0;
+      }
+    }
+  }
+}

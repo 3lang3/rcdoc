@@ -61,6 +61,27 @@
       pointer-events: auto;
       text-transform: capitalize;
       border-bottom: 1px solid #eee;
+      position: relative;
+
+      &--back {
+        padding: 10px 20px 10px 44px;
+        .doc-simulator-demo__back {
+          display: flex;
+        }
+      }
+    }
+    &__back {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 44px;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      svg {
+        width: 20px;
+      }
     }
     &__title {
       padding: 10px 16px;
@@ -72,6 +93,7 @@
       font-size: 14px;
       font-weight: bold;
     }
+
     &__content {
       padding: 0 16px 10px;
 

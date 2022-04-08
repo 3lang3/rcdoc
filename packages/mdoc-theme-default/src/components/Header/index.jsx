@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <Flex className="doc-header" align="center" justify="space-between">
       <Flex align="center">
-        <Logo config={config} />
+        <Logo />
         {Array.isArray(navs) && navs.length && <Navbar navs={navs} />}
       </Flex>
       <Flex className="doc-header-action" align="center" justify="flex-end">

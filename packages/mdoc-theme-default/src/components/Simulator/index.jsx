@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Icons, MdocSiteContext } from '@mdoc/theme'
+import { Icons, MdocSiteContext } from '@mdoc/theme';
 import './index.less';
 
 const Simulator = () => {
@@ -23,6 +23,6 @@ const Simulator = () => {
 export default () => {
   // Simulate by controlled global context
   const { config } = React.useContext(MdocSiteContext);
-  if (!config.site?.themeConfig?.simulator) return null
-  return <Simulator />
-}
+  if (!config.site?.themeConfig?.simulator) return null;
+  return <Simulator />;
+};

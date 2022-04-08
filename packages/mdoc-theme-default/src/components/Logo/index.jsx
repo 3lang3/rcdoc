@@ -1,16 +1,17 @@
 import React from 'react';
+import { MdocSiteContext, Flex } from '@mdoc/theme';
 import logo from './default_logo.svg'
 import './index.less';
 
-const Logo = (props) => {
-  const { config } = props;
+const Logo = () => {
+  const {  config } = React.useContext(MdocSiteContext);
   return (
-    <div className="vant-doc-logo">
-      <a className="vant-doc-logo--main">
+    <Flex align='center' justify='space-between' className="vant-doc-logo">
+      <Flex align='center' justify='flex-start' className="vant-doc-logo--main">
         <img alt="logo" src={config.logo || logo} />
         <span>{config.title}</span>
-      </a>
-    </div>
+      </Flex>
+    </Flex>
   );
 };
 
