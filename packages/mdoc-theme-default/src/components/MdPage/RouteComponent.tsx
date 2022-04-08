@@ -1,7 +1,6 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
 import { LazyFallback } from '../LazyFallback';
-import Layout from '..';
 import MdPage from '.';
 
 export const RouteComponent = ({
@@ -10,33 +9,31 @@ export const RouteComponent = ({
   ...props
 }) => {
   return (
-    <Layout>
-      <React.Suspense fallback={<LazyFallback />}>
-        <LazyComponent>
-          {({
-            MdContent,
-            frontmatter = {},
-            slugs = [],
-            filePath,
-            updatedTime,
-          }) => {
-            return (
-              <MdPage
-                {...props}
-                frontmatter={frontmatter}
-                slugs={slugs}
-                filePath={filePath}
-                updatedTime={updatedTime}
-                isComponentDir={isComponentDir}
-              >
-                {({ previewer, api }) => (
-                  <MdContent previewer={previewer} api={api} />
-                )}
-              </MdPage>
-            );
-          }}
-        </LazyComponent>
-      </React.Suspense>
-    </Layout>
+    <React.Suspense fallback={<LazyFallback />}>
+      <LazyComponent>
+        {({
+          MdContent,
+          frontmatter = {},
+          slugs = [],
+          filePath,
+          updatedTime,
+        }) => {
+          return (
+            <MdPage
+              {...props}
+              frontmatter={frontmatter}
+              slugs={slugs}
+              filePath={filePath}
+              updatedTime={updatedTime}
+              isComponentDir={isComponentDir}
+            >
+              {({ previewer, api }) => (
+                <MdContent previewer={previewer} api={api} />
+              )}
+            </MdPage>
+          );
+        }}
+      </LazyComponent>
+    </React.Suspense>
   );
 };

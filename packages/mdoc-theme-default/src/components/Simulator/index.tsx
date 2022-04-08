@@ -2,6 +2,7 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Icons, MdocSiteContext } from '@mdoc/theme';
 import './index.less';
+import { LinerLoader } from '../LazyFallback';
 
 const Simulator = () => {
   const location = useLocation();
@@ -13,6 +14,7 @@ const Simulator = () => {
   return (
     <div className="doc-simulator">
       <div className="doc-simulator__wrapper">
+        <LinerLoader style={{ left: 12, right: 12, top: 86 }} />
         <Icons.DeviceBarIcon className="doc-simulator__bar" />
         <iframe className="doc-simulator__iframe" src={src}></iframe>
       </div>

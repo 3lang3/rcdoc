@@ -3,13 +3,13 @@ import React from 'react';
 import { LazyFallback } from '../LazyFallback';
 import { useNavigate } from 'react-router-dom';
 import { Icons } from '@mdoc/theme';
+import { inIframe } from '../../common';
 
 export const SimulatorRouteComponent = ({
   lazyComponent: LazyComponent,
   title,
 }) => {
   const navigate = useNavigate();
-  const showBackBtn = window.self === window.top;
   return (
     <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
@@ -22,7 +22,7 @@ export const SimulatorRouteComponent = ({
             >
               <div
                 className={clsx('doc-simulator-demo__header', {
-                  'doc-simulator-demo__header--back': showBackBtn,
+                  'doc-simulator-demo__header--back': !inIframe,
                 })}
               >
                 <span

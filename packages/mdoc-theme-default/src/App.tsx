@@ -6,6 +6,7 @@ import initDemoRoutes from './demoRoutes';
 import _routes from '@@mdoc/site-shared-routes';
 import MobileView from './components/Simulator/MobileView';
 import { isMobile } from './common';
+import Layout from './components'
 import './index.less';
 
 const App = React.memo(
@@ -34,7 +35,7 @@ const App = React.memo(
     }, []);
 
     return (
-      <>
+      <Layout>
         <Routes>
           {routes.map(route =>
             route.redirect ? (
@@ -61,7 +62,7 @@ const App = React.memo(
 
           <Route path='/~demo' element={<MobileView />} />
         </Routes>
-      </>
+      </Layout>
     );
   },
   () => true,

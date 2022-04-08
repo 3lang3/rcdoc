@@ -1,9 +1,9 @@
 import React from 'react';
 import './index.less'
 
-export const LinerLoader = () => {
+export const LinerLoader = (props) => {
   return (
-    <div className="vant-doc-content__loader">
+    <div className="vant-doc-content__loader" style={props.style}>
       <span className="vant-doc-content__loader-bar1" />
       <span className="vant-doc-content__loader-bar2" />
     </div>
