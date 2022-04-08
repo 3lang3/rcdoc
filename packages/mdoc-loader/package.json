@@ -1,5 +1,5 @@
 {
-  "name": "mdoc-loader",
+  "name": "@mdoc/webpack-loader",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

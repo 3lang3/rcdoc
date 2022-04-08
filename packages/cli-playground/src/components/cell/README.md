@@ -1,3 +1,8 @@
+---
+simulator:
+  compact: true
+---
+
 # Cell 单元格
 
 ## 介绍
