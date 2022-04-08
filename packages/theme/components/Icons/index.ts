@@ -9,6 +9,8 @@ import DeviceBar from './DeviceBar';
 import Language from './Language';
 import Light from './Light';
 import Moon from './Moon';
+import Left from './Left';
+import Right from './Right';
 
 export {
   GitHub as GitHubIcon,
@@ -22,4 +24,6 @@ export {
   Language as LanguageIcon,
   Light as LightIcon,
   Moon as MoonIcon,
+  Left as LeftIcon,
+  Right as RightIcon,
 };
