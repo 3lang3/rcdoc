@@ -58,7 +58,7 @@
     "styles": "^0.2.1",
     "vite": "^2.8.6",
     "vite-plugin-html": "^3.0.6",
-    "vite-plugin-react-mdoc": "workspace:*"
+    "@mdoc/vitejs-plugin-react": "workspace:*"
   },
   "devDependencies": {
     "@jest/types": "^27.5.1",

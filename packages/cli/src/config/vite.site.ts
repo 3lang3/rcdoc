@@ -4,7 +4,7 @@ import { get } from 'lodash-es';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import type { InlineConfig } from 'vite';
-import mdoc from 'vite-plugin-react-mdoc';
+import mdoc from '@mdoc/vitejs-plugin-react';
 import { isObject, setBuildTarget } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,

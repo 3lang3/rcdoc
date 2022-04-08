@@ -211,7 +211,7 @@ function getRoutesDataByLang(data) {
       }
     } else {
       if (dirname !== '/') {
-        a.push({ path: dirname, children: [v] })
+        a.push({ path: dirname, children: [v], isComponentDir: v.isComponentDir })
         redirectRoutes.push({ redirect: v.langPath, path: path.dirname(v.langPath) })
       }
     }

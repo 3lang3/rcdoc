@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react';
-import mdoc from 'vite-plugin-react-mdoc';
+import mdoc from '@mdoc/vitejs-plugin-react';
 
 // https://vitejs.dev/config/
 export default defineConfig({

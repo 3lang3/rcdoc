@@ -20,7 +20,7 @@ export interface MDocDemoType {
 }
 
 const CWD = process.cwd();
-const PLUGIN_NAME = 'vite-plugin-react-mdoc';
+const PLUGIN_NAME = '@mdoc/vitejs-plugin-react';
 const FILE_PATH_EXPORT_NAME = '___vitePluginReactMdocCodestring___';
 
 const cache: Map<string, MDocDemoType[]> = new Map();

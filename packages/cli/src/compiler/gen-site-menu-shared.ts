@@ -7,7 +7,7 @@ import {
 
 // 导出所有文档
 function genExportMenus(items) {
-  return `${JSON.stringify(items)}`;
+  return `${JSON.stringify(items, null, 2)}`;
 }
 
 export async function genSiteMenuShared(menus) {
