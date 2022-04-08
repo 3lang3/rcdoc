@@ -12,7 +12,7 @@ export type ContextType = {
   documents?: any; 
   locale?: false | LocaleProps; 
   currentPageName?: string;
-}
+} & Record<string, any>
 
 const MdocSiteContext = React.createContext<ContextType>({})
 

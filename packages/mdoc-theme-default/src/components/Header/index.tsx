@@ -14,7 +14,7 @@ import {
 import './index.less';
 
 const Header = () => {
-  const { navs, locale, config } = React.useContext(MdocSiteContext);
+  const { navs, config } = React.useContext(MdocSiteContext);
   return (
     <Flex className="doc-header" align="center" justify="space-between">
       <Flex align="center">
@@ -25,7 +25,6 @@ const Header = () => {
         <VersionAction />
         {config.searchConfig && (
           <SearchInput
-            lang={locale.current[0]}
             searchConfig={config.searchConfig}
           />
         )}

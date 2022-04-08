@@ -1,7 +1,7 @@
 import React from 'react';
 import { Flex, Icons, useLocalStorageState } from '@mdoc/theme';
 
-const useTheme = () => {
+const useTheme = (): [string, () => void] => {
   const [theme, updateTheme] = useLocalStorageState('MDOC_SITE_THEME', {
     defaultValue: 'light',
   });
@@ -12,9 +12,9 @@ const useTheme = () => {
     updateHtmlTag(updated);
   };
 
-  const updateHtmlTag = (str) => {
+  const updateHtmlTag = str => {
     const html = document.querySelector('html');
-    html.setAttribute('data-theme', str)
+    html.setAttribute('data-theme', str);
   };
 
   React.useEffect(() => {

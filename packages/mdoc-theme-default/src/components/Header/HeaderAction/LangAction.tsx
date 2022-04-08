@@ -7,6 +7,7 @@ export default () => {
   const { locale, config } = React.useContext(MdocSiteContext);
   const overlay = React.useMemo(() => {
     if (!Array.isArray(config.locales)) return false;
+    if (!locale) return null;
     return config.locales.map(lang => {
       const active = locale.current[0] === lang[0];
       if (active)
@@ -31,9 +32,8 @@ export default () => {
         </Link>
       );
     });
-  }, [locale.current, locale.switchLink]);
+  }, [JSON.stringify(locale)]);
   if (!overlay || !locale) return null;
-
   return (
     <Dropdown
       arrow={false}

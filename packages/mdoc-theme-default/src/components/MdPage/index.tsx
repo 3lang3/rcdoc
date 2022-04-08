@@ -18,7 +18,12 @@ const MdPageComponent = ({
   slugs = [],
   isComponentDir,
 }) => {
-  const { fluid, slugs: showSlugs = true, style, className } = frontmatter;
+  const {
+    fluid,
+    slugs: showSlugs = true,
+    style,
+    className,
+  } = frontmatter as any;
   const hashPath = React.useMemo(
     () => window.location.hash.split('#').filter(Boolean)[0],
     [],

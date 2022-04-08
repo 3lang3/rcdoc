@@ -21,9 +21,7 @@ const Menu = props => {
       <div className="doc-menu__group">
         {menus.map((item, key) => (
           <React.Fragment key={key}>
-            {item.children && item.title ? (
-              <MenuTitle item={item} />
-            ) : null}
+            {item.children && item.title ? <MenuTitle item={item} /> : null}
             {item.children ? (
               item.children.map(c => (
                 <div key={c.path} className="doc-menu__item">
