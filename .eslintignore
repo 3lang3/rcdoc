@@ -1,9 +1,8 @@
 /lambda/
 /scripts
 /config
-/dist
+dist
 .history
 .umi
 .mdoc
-.*
 mock
