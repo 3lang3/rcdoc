@@ -1,4 +1,4 @@
-const fabric = require('@3lang3/fabric');
+const fabric = require('@3lang/fabric');
 
 module.exports = {
   ...fabric.prettier,

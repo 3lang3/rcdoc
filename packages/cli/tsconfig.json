@@ -5,10 +5,11 @@
     "outDir": "./lib",
     "module": "ESNext",
     "declaration": true,
+    "jsx": "preserve",
     "skipLibCheck": true,
     "esModuleInterop": true,
     "lib": ["esnext", "dom"]
   },
-  "include": ["src/**/*", "docs/src/**/*", "docs/main.jsx"],
+  "include": ["src/**/*", "docs/*"],
   "exclude": ["node_modules"]
 }

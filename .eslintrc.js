@@ -1,3 +1,9 @@
 module.exports = {
-  extends: [require.resolve('@3lang3/fabric/dist/eslint')],
+  root: true,
+  extends: [require.resolve('@3lang/fabric/dist/eslint')],
+  overrides: {
+    parserOptions: {
+      project: ['./tsconfig.eslint.json', './packages/*/tsconfig.json'],
+    },
+  },
 };
