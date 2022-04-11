@@ -15,7 +15,7 @@ import {
   PROJECT_CLI_DIST_DIR,
   CWD,
 } from '../common/constant';
-import { getConfigThemeAlias } from '../common'
+import { getConfigThemeAlias } from '../common';
 import context from '../common/context';
 import type { DefineConfig } from '../common/defineConfig';
 
@@ -31,9 +31,7 @@ function getTitle(config: DefineConfig) {
 
 function getHTMLMetas(metas: DefineConfig['site']['metas']) {
   if (Array.isArray(metas)) {
-    return metas
-      .map((meta) => `<meta name="${meta.name}" content="${meta.content}">`)
-      .join('\n');
+    return metas.map((meta) => `<meta name="${meta.name}" content="${meta.content}">`).join('\n');
   }
   return '';
 }
@@ -44,10 +42,10 @@ function getHTMLHeadScripts(scripts: DefineConfig['site']['headScripts']) {
       .map((script) => {
         if (typeof script === 'string') {
           if (/^(https?:)?\/\//.test(script)) return `<script src="${script}"></script>`;
-          return `<script>${script}</script>`
+          return `<script>${script}</script>`;
         }
-        if (isObject(script)) return script.toString()
-        return ''
+        if (isObject(script)) return script.toString();
+        return '';
       })
       .join('\n');
   }
@@ -69,7 +67,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
       react(),
       mdoc({
         passivePreview: context.opts.resolve?.passivePreview,
-        previewLangs: context.opts.resolve?.previewLangs
+        previewLangs: context.opts.resolve?.previewLangs,
       }) as any,
       createHtmlPlugin({
         inject: {
@@ -82,7 +80,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
             metas: getHTMLMetas(context.opts?.site?.metas),
             headScripts: getHTMLHeadScripts(context.opts?.site?.headScripts),
           },
-        }
+        },
       }),
     ],
     resolve: {
@@ -94,7 +92,11 @@ export function getViteConfigForSiteDev(): InlineConfig {
     },
     optimizeDeps: {
       ...context.opts?.vite?.optimizeDeps,
-      entries: [path.join(SITE_SRC_DIR, 'index.html'), path.join(PROJECT_SRC_DIR, 'index.ts'), ...(context.opts?.vite?.optimizeDeps?.entries || [])],
+      entries: [
+        path.join(SITE_SRC_DIR, 'index.html'),
+        path.join(PROJECT_SRC_DIR, 'index.ts'),
+        ...(context.opts?.vite?.optimizeDeps?.entries || []),
+      ],
     },
     server: {
       port: 4000,
@@ -107,9 +109,27 @@ export function getViteConfigForSiteProd(): InlineConfig {
   const outDir = get(context.opts, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
   const publicPath = get(context.opts, 'build.site.publicPath', '/');
 
+  const projectPackageJson = getPackageJson();
+  // @hack
+  // enforce alias redirect to not root dir in docs:build
+  const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
+    a[v] = slash(path.join(ROOT, 'node_modules', v));
+    return a;
+  }, {});
+
+  const themeAlias = getConfigThemeAlias();
+
   return {
     ...devConfig,
     base: publicPath,
+    resolve: {
+      alias: {
+        ...projectDepsAlias,
+        ...themeAlias,
+        [projectPackageJson.name]: PROJECT_SRC_DIR,
+        '@@mdoc': PROJECT_CLI_DIST_DIR,
+      },
+    },
     build: {
       outDir,
       brotliSize: false,
@@ -117,7 +137,7 @@ export function getViteConfigForSiteProd(): InlineConfig {
       cssTarget: ['chrome53'],
       rollupOptions: {
         input: {
-          main: path.join(SITE_SRC_DIR, 'index.html')
+          main: path.join(SITE_SRC_DIR, 'index.html'),
         },
       },
     },
