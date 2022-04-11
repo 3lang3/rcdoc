@@ -1,10 +1,10 @@
-import { defineConfig } from 'tsup'
+import { defineConfig } from 'tsup';
 
 export default defineConfig({
   entry: ['src/index.ts'],
   sourcemap: false,
   clean: true,
-  outDir: 'lib',
+  outDir: 'dist',
   format: ['cjs'],
-  watch: process.env.NODE_ENV === 'development'
-})
+  watch: process.env.NODE_ENV === 'development',
+});

@@ -2,11 +2,11 @@
   "name": "@mdoc/build",
   "version": "1.0.0",
   "description": "",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "bin": {
     "mdoc-build": "./bin.js"
   },
-  "typings": "./lib/index.d.ts",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "build": "tsup --dts",
     "dev": "tsup --watch",

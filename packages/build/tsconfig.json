@@ -2,7 +2,7 @@
   "compilerOptions": {
     "moduleResolution": "Node",
     "target": "ES2019",
-    "outDir": "./lib",
+    "outDir": "./dist",
     "module": "ESNext",
     "declaration": true,
     "skipLibCheck": true,
