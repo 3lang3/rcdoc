@@ -3,11 +3,7 @@ import ReactDOM from 'react-dom';
 import SiteTheme from 'mdoc-theme-default';
 import { MdocSiteContext } from '@mdoc/theme';
 import * as shared from '@@mdoc/site-shared';
-import {
-  getMenuItemByPageName,
-  getLocaleFromPathname,
-  getMenuByPathname,
-} from './utils';
+import { getMenuItemByPageName, getLocaleFromPathname, getMenuByPathname } from './utils';
 import usePathname from './hooks/usePathname';
 
 const App = () => {
@@ -36,7 +32,7 @@ const App = () => {
   // 切换locale的展示数据
   const switchData = React.useMemo(() => {
     if (!locales) return false;
-    const anotherLocale = locales.find(el => el[0] !== currentLocale[0]);
+    const anotherLocale = locales.find((el) => el[0] !== currentLocale[0]);
     const switchLabel = anotherLocale[1];
     const switchLink = isDefaultLocale
       ? `/${anotherLocale[0]}${pathname}`
@@ -45,25 +41,17 @@ const App = () => {
   }, [pathname, isDefaultLocale, currentLocale, JSON.stringify(locales)]);
 
   // 是否有多语言menu数据
-  const hasLocaleMenu = React.useMemo(
-    () => Object.keys(_menus).length > 1,
-    [_menus],
-  );
+  const hasLocaleMenu = React.useMemo(() => Object.keys(_menus).length > 1, [_menus]);
 
   // 当前语言目录数据
-  const currentLangMenus = React.useMemo(
-    () => _menus[currentLocale[0]],
-    [currentLocale, _menus],
-  );
+  const currentLangMenus = React.useMemo(() => _menus[currentLocale[0]], [currentLocale, _menus]);
 
   // 顶部导航
   const navs = React.useMemo(() => {
     if (!config.navs) return false;
     if (locales) {
       if (Array.isArray(config.navs)) {
-        console.error(
-          '[MDOC ERROR] locale mode config.navs should be an object;',
-        );
+        console.error('[MDOC ERROR] locale mode config.navs should be an object;');
         return config.navs;
       }
       // Expected return
@@ -96,10 +84,7 @@ const App = () => {
   }, []);
 
   // 当前页面name
-  const currentPageName = React.useMemo(
-    () => pathname.replace(/\/.*\//, ''),
-    [pathname],
-  );
+  const currentPageName = React.useMemo(() => pathname.replace(/\/.*\//, ''), [pathname]);
 
   // 当前页面menu数据
   const currentMenu = React.useMemo(

@@ -13,16 +13,15 @@
     <meta http-equiv="Cache-Control" content="no-cache" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
-    <%- headScripts %>
-    <% if (vconsole) { %>
-      <script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
-      <script>
-        var vConsole = new window.VConsole();
-      </script>
+    <%- headScripts %> <% if (vconsole) { %>
+    <script src="https://unpkg.com/vconsole/dist/vconsole.min.js"></script>
+    <script>
+      var vConsole = new window.VConsole();
+    </script>
     <% } %>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/main.jsx"></script>
+    <script type="module" src="/main.tsx"></script>
   </body>
 </html>

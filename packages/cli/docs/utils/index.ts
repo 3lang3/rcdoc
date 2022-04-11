@@ -1,8 +1,8 @@
 /**
  * Get menu item buy page name
- * @param {*} arr 
- * @param {*} str 
- * @returns 
+ * @param {*} arr
+ * @param {*} str
+ * @returns
  */
 export function getMenuItemByPageName(arr, str) {
   let target;
@@ -21,13 +21,13 @@ export function getMenuItemByPageName(arr, str) {
 
 /**
  * Get locale from pathname
- * @param {*} pathname 
- * @param {*} locales 
- * @returns 
+ * @param {*} pathname
+ * @param {*} locales
+ * @returns
  */
 export function getLocaleFromPathname(pathname, locales) {
   const currentLang = pathname.split('/')[1];
-  const idx = locales.findIndex(el => el[0] === currentLang);
+  const idx = locales.findIndex((el) => el[0] === currentLang);
   if (idx !== -1) {
     return locales[idx];
   }
@@ -36,13 +36,13 @@ export function getLocaleFromPathname(pathname, locales) {
 
 /**
  * Get menu item by pathname
- * @param {*} menu 
- * @param {*} pathname 
- * @param {*} isDefaultLang 
- * @returns 
+ * @param {*} menu
+ * @param {*} pathname
+ * @param {*} isDefaultLang
+ * @returns
  */
 export function getMenuByPathname(menu, pathname, isDefaultLang) {
   const paths = pathname.substr(1).split('/');
   const parentPath = '/' + paths[isDefaultLang ? 0 : 1];
-  return menu.filter(el => el.path.startsWith(parentPath));
+  return menu.filter((el) => el.path.startsWith(parentPath));
 }
