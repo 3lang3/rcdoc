@@ -3,8 +3,8 @@
  */
 import { remove } from 'fs-extra';
 import mdocBuild from '@mdoc/build';
-import { build as viteBuild } from 'vite'
-import { PROJECT_DIST_DIR, PROJECT_ES_DIR, PROJECT_CJS_DIR, MDOC_BUILD_CONFIG_FILE, ROOT } from '../common/constant';
+import { build as viteBuild } from 'vite';
+import { PROJECT_DIST_DIR, MDOC_BUILD_CONFIG_FILE, ROOT } from '../common/constant';
 import { getViteConfigForPackage } from '../config/vite.package';
 
 // Vitejs build bundles
@@ -15,20 +15,23 @@ import { getViteConfigForPackage } from '../config/vite.package';
 
 const compileBundlesByVite = async () => {
   const configs = [
-    // getViteConfigForPackage({ outputDir: PROJECT_ES_DIR, format: 'es' }),
-    // getViteConfigForPackage({ outputDir: PROJECT_CJS_DIR, format: 'cjs' }),
+    getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, format: 'es' }),
     getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, minify: true, format: 'umd' }),
     getViteConfigForPackage({ outputDir: PROJECT_DIST_DIR, format: 'umd' }),
-  ]
-  await Promise.all(configs.map(async cfg => await viteBuild(cfg)))
-}
+  ];
+  await Promise.all(configs.map(async (cfg) => await viteBuild(cfg)));
+};
 
 const compileBundlesByMdocBuild = async () => {
-  await mdocBuild['default']({ cwd: ROOT, clean: false, buildArgs: { config: MDOC_BUILD_CONFIG_FILE } })
-}
+  await mdocBuild['default']({
+    cwd: ROOT,
+    clean: false,
+    buildArgs: { config: MDOC_BUILD_CONFIG_FILE },
+  });
+};
 
 export async function build() {
-  await remove(PROJECT_DIST_DIR)
+  await remove(PROJECT_DIST_DIR);
   await compileBundlesByVite();
-  await compileBundlesByMdocBuild()
+  // await compileBundlesByMdocBuild()
 }
