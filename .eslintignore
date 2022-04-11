@@ -1,0 +1,9 @@
+/lambda/
+/scripts
+/config
+/dist
+.history
+.umi
+.mdoc
+.*
+mock

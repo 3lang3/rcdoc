@@ -8,8 +8,8 @@ import useActiveSidebarLinks from '../Slugs/useActiveSidebarLinks';
 
 import './index.less';
 
-const previewer = props => <MdPreviewer defaultShowSource {...props} />;
-const api = props => <MdApi {...props} />;
+const previewer = (props) => <MdPreviewer defaultShowSource {...props} />;
+const api = (props) => <MdApi {...props} />;
 
 const MdPageComponent = ({
   children,
@@ -18,16 +18,8 @@ const MdPageComponent = ({
   slugs = [],
   isComponentDir,
 }) => {
-  const {
-    fluid,
-    slugs: showSlugs = true,
-    style,
-    className,
-  } = frontmatter as any;
-  const hashPath = React.useMemo(
-    () => window.location.hash.split('#').filter(Boolean)[0],
-    [],
-  );
+  const { fluid, slugs: showSlugs = true, style, className, simulator } = frontmatter as any;
+  const hashPath = React.useMemo(() => window.location.hash.split('#').filter(Boolean)[0], []);
   React.useEffect(() => {
     window.scrollTo(0, 0);
   }, [hashPath]);
@@ -50,16 +42,14 @@ const MdPageComponent = ({
         })}
       >
         {children({ previewer, api })}
-        {!!updatedTimeStr && (
-          <span style={{ display: 'none' }}>Last update: {updatedTimeStr}</span>
-        )}
+        {!!updatedTimeStr && <span style={{ display: 'none' }}>Last update: {updatedTimeStr}</span>}
       </section>
       {showSlugs && <Slugs slugs={slugs} />}
-      {isComponentDir && <Simulator />}
+      {simulator !== false && isComponentDir && <Simulator />}
     </div>
   );
 };
 
-export default props => {
+export default (props) => {
   return <MdPageComponent {...props} />;
 };

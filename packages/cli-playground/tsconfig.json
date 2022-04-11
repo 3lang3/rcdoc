@@ -2,6 +2,7 @@
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
+    "outDir": "./",
     "moduleResolution": "node",
     "importHelpers": true,
     "jsx": "react",
@@ -9,7 +10,6 @@
     "sourceMap": true,
     "pretty": true,
     "baseUrl": "./",
-    "outDir": "./",
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
