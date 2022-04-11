@@ -7,13 +7,8 @@
     "jsx": "react",
     "allowSyntheticDefaultImports": true,
     "forceConsistentCasingInFileNames": true,
-    "sourceMap": true,
+    "sourceMap": true
   },
-  "exclude": [
-    "dist",
-    "node_modules",
-    "src/**/*.test.tsx",
-    "src/**/*.stories.tsx",
-    "src/**/*.js"
-  ]
+  "exclude": ["dist", "node_modules", "src/**/*.test.tsx", "src/**/*.stories.tsx", "src/**/*.js"],
+  "include": ["src/**/*.tsx", "src/**/*.ts"]
 }

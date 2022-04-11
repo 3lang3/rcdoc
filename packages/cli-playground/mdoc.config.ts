@@ -1,10 +1,9 @@
-
-import { defineConfig } from '@mdoc/cli'
+import { defineConfig } from '@mdoc/cli';
 
 export default defineConfig({
   title: 'mdoc',
   description: '轻量、可靠的移动端 React 组件库',
-  // logo: '/logo.svg',
+  // logo: '/logo-1.png',
   locales: false,
   // locales: [['zh', '中文'], ['en', 'English']],
   navs: [
@@ -39,22 +38,18 @@ export default defineConfig({
     },
     {
       title: 'Vant',
-      path: 'https://github.com/ant-design/ant-design'
-    }
+      path: 'https://github.com/ant-design/ant-design',
+    },
   ],
   menus: {
     '/components': [
       {
         title: 'Basic Components',
-        children: [
-          '/components/button',
-        ],
+        children: ['/components/button'],
       },
       {
         title: 'Layout Components',
-        children: [
-          '/components/space',
-        ],
+        children: ['/components/space'],
       },
     ],
   },
@@ -62,7 +57,7 @@ export default defineConfig({
     includes: ['docs', 'src'],
   },
   build: {
-    dynamicImport: true
+    dynamicImport: true,
   },
   site: {
     favicon: '/favicon.png',
@@ -77,17 +72,26 @@ export default defineConfig({
         content: '📖 为组件开发场景而生的文档工具',
       },
       {
-        name: 'docsearch:version', content: 'v3'
-      }
+        name: 'docsearch:version',
+        content: 'v3',
+      },
     ],
-    versions: [{ title: 'v2', path: 'https://v2' }, { title: 'v3', path: 'https://v3' }],
+    versions: [
+      { title: 'v2', path: 'https://v2' },
+      { title: 'v3', path: 'https://v3' },
+    ],
     themeConfig: {
-      simulator: true
-    }
+      simulator: true,
+    },
+    algolia: {
+      appId: 'R2IYF7ETH7',
+      apiKey: '599cec31baffa4868cae4e79f180729b',
+      indexName: 'docsearch',
+    },
   },
   vite: {
     optimizeDeps: {
-      include: ['@react-vant/icons']
-    }
-  }
-})
+      include: ['@react-vant/icons'],
+    },
+  },
+});

@@ -10,6 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@docsearch/css": "^3.0.0",
+    "@docsearch/react": "3",
     "@mdoc/theme": "workspace:*",
     "clsx": "^1.1.1",
     "prism-react-renderer": "^1.2.1",

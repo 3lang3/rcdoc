@@ -1,5 +1,7 @@
 html[data-theme='dark'] {
   --mdoc-dropdown-background: #13171c;
+  --mdoc-icon-filter: invert(100%) sepia(94%) saturate(17%) hue-rotate(223deg) brightness(104%)
+    contrast(98%);
 }
 
 html {
@@ -13,9 +15,9 @@ html {
   --mdoc-transition-timing-default: cubic-bezier(0.08, 0.52, 0.52, 1);
   --mdoc-shadow-lw: 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   --mdoc-shadow-md: 0 5px 40px rgba(0, 0, 0, 0.2);
-  --mdoc-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2),
-    0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  --mdoc-shadow-tl: 0 12px 28px 0 rgba(0, 0, 0, 0.2), 0 2px 4px 0 rgba(0, 0, 0, 0.1);
   --mdoc-icon-arrow: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTAiIGhlaWdodD0iNiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNOSA1IDUgMSAxIDUiIHN0cm9rZT0iIzAzMDYwQiIgc3Ryb2tlLXdpZHRoPSIxLjUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPjwvc3ZnPg==');
+  --mdoc-icon-filter: none;
 }
 
 .doc-dropdown {
@@ -32,7 +34,8 @@ html {
     &::after {
       content: '';
       font-weight: normal;
-      background: var(--mdoc-icon-arrow) 50%/.5rem .25rem;
+      background: var(--mdoc-icon-arrow) 50%/0.5rem 0.25rem;
+      filter: var(--mdoc-icon-filter);
       background-repeat: no-repeat;
       border: none;
       min-height: 0.25rem;
