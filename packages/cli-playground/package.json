@@ -8,6 +8,7 @@
     "dev": "mdoc dev",
     "build": "mdoc build",
     "docs:build": "mdoc docs-build",
+    "preview": "mdoc preview",
     "test": "mdoc test"
   },
   "keywords": [],
