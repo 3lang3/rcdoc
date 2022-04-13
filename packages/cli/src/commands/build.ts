@@ -33,5 +33,5 @@ const compileBundlesByMdocBuild = async () => {
 export async function build() {
   await remove(PROJECT_DIST_DIR);
   await compileBundlesByVite();
-  // await compileBundlesByMdocBuild()
+  await compileBundlesByMdocBuild();
 }
