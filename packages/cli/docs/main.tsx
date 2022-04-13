@@ -87,10 +87,7 @@ const App = () => {
   const currentPageName = React.useMemo(() => pathname.replace(/\/.*\//, ''), [pathname]);
 
   // 当前页面menu数据
-  const currentMenu = React.useMemo(
-    () => getMenuItemByPageName(menus, currentPageName),
-    [menus, currentPageName],
-  );
+  const currentMenu = React.useMemo(() => getMenuItemByPageName(menus, currentPageName), [menus]);
 
   // 更新标题
   const setTitle = React.useCallback(() => {
