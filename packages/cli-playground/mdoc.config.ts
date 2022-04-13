@@ -1,4 +1,4 @@
-import { defineConfig } from '@mdoc/cli';
+import { defineConfig } from '@rcdoc/cli';
 
 export default defineConfig({
   title: 'mdoc',

@@ -18,7 +18,7 @@ const DEFAULT_CONFIG = {
   },
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx'],
   testPathIgnorePatterns: ['/node_modules/', '_site', 'site'],
-  transformIgnorePatterns: ['/node_modules/(?!(@mdoc/cli))/'],
+  transformIgnorePatterns: ['/node_modules/(?!(@rcdoc/cli))/'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!src/demo/**'],
   coverageDirectory: './tests/coverage',
 };

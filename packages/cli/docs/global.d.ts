@@ -1,4 +1,4 @@
 /// <reference types="vite/client" />
 
-declare module '@@mdoc/site-shared';
-declare module 'mdoc-theme-default';
+declare module '@@rcdoc/site-shared';
+declare module 'rcdoc-theme-default';

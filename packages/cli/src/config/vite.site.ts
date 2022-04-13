@@ -4,7 +4,7 @@ import { get } from 'lodash-es';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import type { InlineConfig } from 'vite';
-import mdoc from '@mdoc/vitejs-plugin-react';
+import mdoc from '@rcdoc/vitejs-plugin';
 import { isObject, setBuildTarget } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,
@@ -87,7 +87,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
       alias: {
         ...themeAlias,
         [projectPackageJson.name]: PROJECT_SRC_DIR,
-        '@@mdoc': PROJECT_CLI_DIST_DIR,
+        '@@rcdoc': PROJECT_CLI_DIST_DIR,
       },
     },
     optimizeDeps: {
@@ -127,7 +127,7 @@ export function getViteConfigForSiteProd(): InlineConfig {
         ...projectDepsAlias,
         ...themeAlias,
         [projectPackageJson.name]: PROJECT_SRC_DIR,
-        '@@mdoc': PROJECT_CLI_DIST_DIR,
+        '@@rcdoc': PROJECT_CLI_DIST_DIR,
       },
     },
     build: {

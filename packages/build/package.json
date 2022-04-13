@@ -1,10 +1,10 @@
 {
-  "name": "@mdoc/build",
-  "version": "0.0.0",
+  "name": "@rcdoc/build",
+  "version": "0.0.0-dev.1",
   "description": "",
   "main": "dist/index.js",
   "bin": {
-    "mdoc-build": "./bin.js"
+    "rcdoc-build": "./bin.js"
   },
   "typings": "./dist/index.d.ts",
   "scripts": {

@@ -93,9 +93,9 @@ importers:
       '@babel/preset-react': ^7.16.7
       '@babel/runtime': ^7.17.2
       '@jest/types': ^27.5.1
-      '@mdoc/build': workspace:*
-      '@mdoc/theme': workspace:*
-      '@mdoc/vitejs-plugin-react': workspace:*
+      '@rcdoc/build': workspace:*
+      '@rcdoc/theme': workspace:*
+      '@rcdoc/vitejs-plugin': workspace:*
       '@types/fs-extra': ^9.0.13
       '@vitejs/plugin-react': ^1.3.0
       babel-jest: ^27.5.1
@@ -113,8 +113,8 @@ importers:
       joycon: ^3.1.1
       less: ^4.1.2
       lodash-es: ^4.17.21
-      mdoc-theme-default: workspace:*
       ora: ^6.0.1
+      rcdoc-theme-default: workspace:*
       react: ^17.0.2
       react-docgen-typescript: ^2.2.2
       react-dom: ^17.0.2
@@ -132,9 +132,9 @@ importers:
       '@babel/preset-env': 7.16.11_@babel+core@7.16.12
       '@babel/preset-react': 7.16.7_@babel+core@7.16.12
       '@babel/runtime': 7.17.2
-      '@mdoc/build': link:../build
-      '@mdoc/theme': link:../theme
-      '@mdoc/vitejs-plugin-react': link:../vite-plugin-react-mdoc
+      '@rcdoc/build': link:../build
+      '@rcdoc/theme': link:../theme
+      '@rcdoc/vitejs-plugin': link:../vitejs-plugin
       '@vitejs/plugin-react': 1.3.0
       babel-jest: 27.5.1_@babel+core@7.16.12
       bundle-require: 3.0.4_esbuild@0.14.21
@@ -151,8 +151,8 @@ importers:
       joycon: 3.1.1
       less: 4.1.2
       lodash-es: 4.17.21
-      mdoc-theme-default: link:../mdoc-theme-default
       ora: 6.0.1
+      rcdoc-theme-default: link:../theme-default
       react: 17.0.2
       react-docgen-typescript: 2.2.2_typescript@4.5.5
       react-dom: 17.0.2_react@17.0.2
@@ -171,8 +171,8 @@ importers:
 
   packages/cli-playground:
     specifiers:
-      '@mdoc/build': workspace:*
-      '@mdoc/cli': workspace:*
+      '@rcdoc/build': workspace:*
+      '@rcdoc/cli': workspace:*
       '@react-vant/icons': ^0.0.6
       '@types/jest': ^27.4.0
       '@types/react-test-renderer': ^17.0.1
@@ -190,13 +190,13 @@ importers:
       react-test-renderer: 17.0.2_react@17.0.2
       react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@mdoc/build': link:../build
-      '@mdoc/cli': link:../cli
+      '@rcdoc/build': link:../build
+      '@rcdoc/cli': link:../cli
       '@types/jest': 27.4.0
       '@types/react-test-renderer': 17.0.1
       typescript: 4.5.5
 
-  packages/core:
+  packages/parser:
     specifiers:
       '@babel/core': ^7.16.10
       '@babel/plugin-syntax-jsx': ^7.16.7
@@ -230,14 +230,14 @@ importers:
       unified: ^10.1.1
       unist-util-visit: 4.0.0
     dependencies:
-      '@babel/core': 7.16.12
-      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.16.12
-      '@babel/preset-react': 7.16.7_@babel+core@7.16.12
-      '@babel/preset-typescript': 7.16.7_@babel+core@7.16.12
-      '@babel/traverse': 7.16.10
-      '@babel/types': 7.16.8
+      '@babel/core': 7.17.9
+      '@babel/plugin-syntax-jsx': 7.16.7_@babel+core@7.17.9
+      '@babel/preset-react': 7.16.7_@babel+core@7.17.9
+      '@babel/preset-typescript': 7.16.7_@babel+core@7.17.9
+      '@babel/traverse': 7.17.9
+      '@babel/types': 7.17.0
       '@mapbox/hast-util-to-jsx': 2.0.0
-      debug: 4.3.3
+      debug: 4.3.4
       deepmerge: 4.2.2
       enhanced-resolve: 5.8.3
       github-slugger: 1.4.0
@@ -263,37 +263,6 @@ importers:
       mdast: 3.0.0
       tsup: 5.11.11_typescript@4.5.5
 
-  packages/mdoc-loader:
-    specifiers:
-      '@mdoc/core': workspace:*
-    dependencies:
-      '@mdoc/core': link:../core
-
-  packages/mdoc-theme-default:
-    specifiers:
-      '@docsearch/css': ^3.0.0
-      '@docsearch/react': '3'
-      '@mdoc/theme': workspace:*
-      clsx: ^1.1.1
-      prism-react-renderer: ^1.2.1
-      react: ^17.0.2
-      react-dom: ^17.0.2
-      react-router-dom: 6.2.1
-      typescript: ^4.4.4
-      vite: ^2.9.1
-    dependencies:
-      '@docsearch/css': 3.0.0
-      '@docsearch/react': 3.0.0_react-dom@17.0.2+react@17.0.2
-      '@mdoc/theme': link:../theme
-      clsx: 1.1.1
-      prism-react-renderer: 1.2.1_react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
-    devDependencies:
-      typescript: 4.5.5
-      vite: 2.9.1
-
   packages/theme:
     specifiers:
       clsx: ^1.1.1
@@ -311,9 +280,34 @@ importers:
     devDependencies:
       typescript: 4.5.5
 
+  packages/theme-default:
+    specifiers:
+      '@docsearch/css': ^3.0.0
+      '@docsearch/react': '3'
+      '@rcdoc/theme': workspace:*
+      clsx: ^1.1.1
+      prism-react-renderer: ^1.2.1
+      react: ^17.0.2
+      react-dom: ^17.0.2
+      react-router-dom: 6.2.1
+      typescript: ^4.4.4
+      vite: ^2.9.1
+    dependencies:
+      '@docsearch/css': 3.0.0
+      '@docsearch/react': 3.0.0_react-dom@17.0.2+react@17.0.2
+      '@rcdoc/theme': link:../theme
+      clsx: 1.1.1
+      prism-react-renderer: 1.2.1_react@17.0.2
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
+      react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
+    devDependencies:
+      typescript: 4.6.3
+      vite: 2.9.1
+
   packages/vite-plugin-playground:
     specifiers:
-      '@mdoc/vitejs-plugin-react': workspace:*
+      '@rcdoc/vitejs-plugin': workspace:*
       '@react-vant/icons': ^0.0.6
       '@types/react': ^17.0.33
       '@types/react-dom': ^17.0.10
@@ -325,7 +319,6 @@ importers:
       prismjs: ^1.26.0
       react: ^17.0.2
       react-dom: ^17.0.2
-      react-vant: ^2.0.0-alpha.19
       typescript: ^4.4.4
       vite: ^2.7.2
     dependencies:
@@ -336,9 +329,8 @@ importers:
       prismjs: 1.26.0
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-      react-vant: 2.0.0-alpha.19_react-dom@17.0.2+react@17.0.2
     devDependencies:
-      '@mdoc/vitejs-plugin-react': link:../vite-plugin-react-mdoc
+      '@rcdoc/vitejs-plugin': link:../vitejs-plugin
       '@types/react': 17.0.38
       '@types/react-dom': 17.0.11
       '@vitejs/plugin-react': 1.1.4
@@ -346,22 +338,28 @@ importers:
       typescript: 4.5.5
       vite: 2.8.0_less@4.1.2
 
-  packages/vite-plugin-react-mdoc:
+  packages/vitejs-plugin:
     specifiers:
-      '@mdoc/core': workspace:*
+      '@rcdoc/parser': workspace:*
       '@rollup/pluginutils': ^4.1.2
       debug: ^4.3.3
       slash2: ^2.0.0
       tsup: ^5.11.11
       vite: ^2.7.13
     dependencies:
-      '@mdoc/core': link:../core
-      '@rollup/pluginutils': 4.1.2
-      debug: 4.3.3
+      '@rcdoc/parser': link:../parser
+      '@rollup/pluginutils': 4.2.0
+      debug: 4.3.4
       slash2: 2.0.0
-      vite: 2.7.13
+      vite: 2.9.1
     devDependencies:
       tsup: 5.11.11_typescript@4.5.5
+
+  packages/webpack-loader:
+    specifiers:
+      '@rcdoc/parser': workspace:*
+    dependencies:
+      '@rcdoc/parser': link:../parser
 
 packages:
   /@3lang/fabric/0.0.0-dev1:
@@ -799,7 +797,6 @@ packages:
       '@babel/helper-split-export-declaration': 7.16.7
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /@babel/helper-create-class-features-plugin/7.17.9_@babel+core@7.17.9:
     resolution:
@@ -2134,7 +2131,6 @@ packages:
     dependencies:
       '@babel/core': 7.17.9
       '@babel/helper-plugin-utils': 7.16.7
-    dev: true
 
   /@babel/plugin-transform-arrow-functions/7.16.7_@babel+core@7.16.12:
     resolution:
@@ -2823,6 +2819,19 @@ packages:
       '@babel/helper-plugin-utils': 7.16.7
     dev: false
 
+  /@babel/plugin-transform-react-display-name/7.16.7_@babel+core@7.17.9:
+    resolution:
+      {
+        integrity: sha512-qgIg8BcZgd0G/Cz916D5+9kqX0c7nPZyXaP8R2tLNN5tkyIZdG5fEwBrxwplzSnjC1jvQmyMNVwUCZPcbGY7Pg==,
+      }
+    engines: { node: '>=6.9.0' }
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.17.9
+      '@babel/helper-plugin-utils': 7.16.7
+    dev: false
+
   /@babel/plugin-transform-react-jsx-development/7.16.7_@babel+core@7.16.12:
     resolution:
       {
@@ -2960,6 +2969,20 @@ packages:
       '@babel/core': ^7.0.0-0
     dependencies:
       '@babel/core': 7.16.12
+      '@babel/helper-annotate-as-pure': 7.16.7
+      '@babel/helper-plugin-utils': 7.16.7
+    dev: false
+
+  /@babel/plugin-transform-react-pure-annotations/7.16.7_@babel+core@7.17.9:
+    resolution:
+      {
+        integrity: sha512-hs71ToC97k3QWxswh2ElzMFABXHvGiJ01IB1TbYQDGeWRKWz/MPUTh5jGExdHvosYKpnJW5Pm3S4+TA3FyX+GA==,
+      }
+    engines: { node: '>=6.9.0' }
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.17.9
       '@babel/helper-annotate-as-pure': 7.16.7
       '@babel/helper-plugin-utils': 7.16.7
     dev: false
@@ -3200,7 +3223,6 @@ packages:
       '@babel/plugin-syntax-typescript': 7.16.7_@babel+core@7.17.9
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /@babel/plugin-transform-unicode-escapes/7.16.7_@babel+core@7.16.12:
     resolution:
@@ -3482,6 +3504,24 @@ packages:
       '@babel/plugin-transform-react-pure-annotations': 7.16.7_@babel+core@7.16.12
     dev: false
 
+  /@babel/preset-react/7.16.7_@babel+core@7.17.9:
+    resolution:
+      {
+        integrity: sha512-fWpyI8UM/HE6DfPBzD8LnhQ/OcH8AgTaqcqP2nGOXEUV+VKBR5JRN9hCk9ai+zQQ57vtm9oWeXguBCPNUjytgA==,
+      }
+    engines: { node: '>=6.9.0' }
+    peerDependencies:
+      '@babel/core': ^7.0.0-0
+    dependencies:
+      '@babel/core': 7.17.9
+      '@babel/helper-plugin-utils': 7.16.7
+      '@babel/helper-validator-option': 7.16.7
+      '@babel/plugin-transform-react-display-name': 7.16.7_@babel+core@7.17.9
+      '@babel/plugin-transform-react-jsx': 7.16.7_@babel+core@7.17.9
+      '@babel/plugin-transform-react-jsx-development': 7.16.7_@babel+core@7.17.9
+      '@babel/plugin-transform-react-pure-annotations': 7.16.7_@babel+core@7.17.9
+    dev: false
+
   /@babel/preset-typescript/7.16.7_@babel+core@7.16.12:
     resolution:
       {
@@ -3514,7 +3554,6 @@ packages:
       '@babel/plugin-transform-typescript': 7.16.8_@babel+core@7.17.9
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /@babel/register/7.17.0_@babel+core@7.16.12:
     resolution:
@@ -4549,85 +4588,6 @@ packages:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.13.0
 
-  /@popperjs/core/2.11.2:
-    resolution:
-      {
-        integrity: sha512-92FRmppjjqz29VMJ2dn+xdyXZBrMlE42AV6Kq6BwjWV7CNUW1hs2FtxSNLQE+gJhaZ6AAmYuO9y8dshhcBl7vA==,
-      }
-    dev: false
-
-  /@react-spring/animated/9.4.2_react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-Dzum5Ho8e+LIAegAqRyoQFakD2IVH3ZQ2nsFXJorAFq3Xjv6IVPz/+TNxb/wSvnsMludfoF+ZIf319FSFmgD5w==,
-      }
-    peerDependencies:
-      react: ^16.8.0  || ^17.0.0
-    dependencies:
-      '@react-spring/shared': 9.4.2_react@17.0.2
-      '@react-spring/types': 9.4.2
-      react: 17.0.2
-    dev: false
-
-  /@react-spring/core/9.4.2_react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-Ej/ULwdx8rQtMAWEpLgwbKcQEx6vPfjyG3cxLP05zAInpCoWkYpl+sXOp9tn3r99mTNQPTTt7BgQsSnmQA8+rQ==,
-      }
-    peerDependencies:
-      react: ^16.8.0  || ^17.0.0
-    dependencies:
-      '@react-spring/animated': 9.4.2_react@17.0.2
-      '@react-spring/rafz': 9.4.2
-      '@react-spring/shared': 9.4.2_react@17.0.2
-      '@react-spring/types': 9.4.2
-      react: 17.0.2
-    dev: false
-
-  /@react-spring/rafz/9.4.2:
-    resolution:
-      {
-        integrity: sha512-rSm+G8E/XEEpnCGtT/xYN6o8VvEXlU8wN/hyKp4Q44XAZzGSMHLIFP7pY94/MmWsxCxjkw1AxUWhiFYxWrnI5Q==,
-      }
-    dev: false
-
-  /@react-spring/shared/9.4.2_react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-mZtbQLpMm6Vy5+O1MSlY9KuAcMO8rdUQvtdnC7Or7y7xiZlnzj8oAILyO6Y2rD2ZC1PmgVS0gMev/8T+MykW+Q==,
-      }
-    peerDependencies:
-      react: ^16.8.0  || ^17.0.0
-    dependencies:
-      '@react-spring/rafz': 9.4.2
-      '@react-spring/types': 9.4.2
-      react: 17.0.2
-    dev: false
-
-  /@react-spring/types/9.4.2:
-    resolution:
-      {
-        integrity: sha512-GGiIscTM+CEUNV52anj3g5FqAZKL2+eRKtvBOAlC99qGBbvJ3qTLImrUR/I3lXY7PRuLgzI6kh34quA1oUxWYQ==,
-      }
-    dev: false
-
-  /@react-spring/web/9.4.2_react-dom@17.0.2+react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-sWfA9NkVuvVOpjSlMkD2zcF6X3i8NSHTeH/uHCGKsN3mYqgkhvAF+E8GASO/H4KKGNhbRvgCZiwJXOtOGyUg6A==,
-      }
-    peerDependencies:
-      react: ^16.8.0  || ^17.0.0
-      react-dom: ^16.8.0  || ^17.0.0
-    dependencies:
-      '@react-spring/animated': 9.4.2_react@17.0.2
-      '@react-spring/core': 9.4.2_react@17.0.2
-      '@react-spring/shared': 9.4.2_react@17.0.2
-      '@react-spring/types': 9.4.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
-
   /@react-vant/icons/0.0.6:
     resolution:
       {
@@ -5300,34 +5260,6 @@ packages:
       eslint-visitor-keys: 3.3.0
     dev: true
 
-  /@use-gesture/core/10.2.5:
-    resolution:
-      {
-        integrity: sha512-Pggq5qLipJNYjMq6R7p7Y5h1juUlTkrhi9KqFJH6PcRFCNn+evjbOvpX7JEFehrx4Ik9UZcQpkmR+E0s7a5Lbg==,
-      }
-    dev: false
-
-  /@use-gesture/react/10.2.5_react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-AEVi2BBKOms7UNoRzthxwe4t3UVe/S1Vm4K2Vitbup3TkbhF3x70/ZbgE/TxhucYFcOPUcrQ89squEs/liQezg==,
-      }
-    peerDependencies:
-      react: '>= 16.8.0'
-    dependencies:
-      '@use-gesture/core': 10.2.5
-      react: 17.0.2
-    dev: false
-
-  /@vant/popperjs/1.1.0:
-    resolution:
-      {
-        integrity: sha512-8MD1gz146awV/uPxYjz4pet22f7a9YVKqk7T+gFkWFwT9mEcrIUEg/xPrdOnWKLP9puXyYtm7oVfSDSefZ/p/w==,
-      }
-    dependencies:
-      '@popperjs/core': 2.11.2
-    dev: false
-
   /@vitejs/plugin-react/1.1.4:
     resolution:
       {
@@ -5918,13 +5850,6 @@ packages:
     engines: { node: '>= 0.10' }
     dependencies:
       async-done: 1.3.2
-    dev: false
-
-  /async-validator/4.0.7:
-    resolution:
-      {
-        integrity: sha512-Pj2IR7u8hmUEDOwB++su6baaRi+QvsgajuFB9j95foM1N2gy5HM4z60hfusIO0fBPG5uLAEl6yCJr1jNSVugEQ==,
-      }
     dev: false
 
   /async/0.9.2:
@@ -8332,17 +8257,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-android-arm64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-m602nft/XXeO8YQPUDVoHfjyRVPdPgjyyXOxZ44MK/agewFFkPa8tUo6lAzSWh5Ui5PB4KR9UIFTSBKh/RrCmg==,
-      }
-    cpu: [arm64]
-    os: [android]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-android-arm64/0.14.21:
     resolution:
       {
@@ -8363,17 +8277,6 @@ packages:
     cpu: [arm64]
     os: [android]
     requiresBuild: true
-    optional: true
-
-  /esbuild-darwin-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-ihOQRGs2yyp7t5bArCwnvn2Atr6X4axqPpEdCFPVp7iUj4cVSdisgvEKdNR7yH3JDjW6aQDw40iQFoTqejqxvQ==,
-      }
-    cpu: [x64]
-    os: [darwin]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-darwin-64/0.14.21:
@@ -8398,17 +8301,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-darwin-arm64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-i1FZssTVxUqNlJ6cBTj5YQj4imWy3m49RZRnHhLpefFIh0To05ow9DTrXROTE1urGTQCloFUXTX8QfGJy1P8dQ==,
-      }
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-darwin-arm64/0.14.21:
     resolution:
       {
@@ -8429,17 +8321,6 @@ packages:
     cpu: [arm64]
     os: [darwin]
     requiresBuild: true
-    optional: true
-
-  /esbuild-freebsd-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-G3dLBXUI6lC6Z09/x+WtXBXbOYQZ0E8TDBqvn7aMaOCzryJs8LyVXKY4CPnHFXZAbSwkCbqiPuSQ1+HhrNk7EA==,
-      }
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-freebsd-64/0.14.21:
@@ -8464,17 +8345,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-freebsd-arm64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-KJx0fzEDf1uhNOZQStV4ujg30WlnwqUASaGSFPhznLM/bbheu9HhqZ6mJJZM32lkyfGJikw0jg7v3S0oAvtvQQ==,
-      }
-    cpu: [arm64]
-    os: [freebsd]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-freebsd-arm64/0.14.21:
     resolution:
       {
@@ -8495,17 +8365,6 @@ packages:
     cpu: [arm64]
     os: [freebsd]
     requiresBuild: true
-    optional: true
-
-  /esbuild-linux-32/0.13.15:
-    resolution:
-      {
-        integrity: sha512-ZvTBPk0YWCLMCXiFmD5EUtB30zIPvC5Itxz0mdTu/xZBbbHJftQgLWY49wEPSn2T/TxahYCRDWun5smRa0Tu+g==,
-      }
-    cpu: [ia32]
-    os: [linux]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-linux-32/0.14.21:
@@ -8530,17 +8389,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-linux-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-eCKzkNSLywNeQTRBxJRQ0jxRCl2YWdMB3+PkWFo2BBQYC5mISLIVIjThNtn6HUNqua1pnvgP5xX0nHbZbPj5oA==,
-      }
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-linux-64/0.14.21:
     resolution:
       {
@@ -8561,17 +8409,6 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /esbuild-linux-arm/0.13.15:
-    resolution:
-      {
-        integrity: sha512-wUHttDi/ol0tD8ZgUMDH8Ef7IbDX+/UsWJOXaAyTdkT7Yy9ZBqPg8bgB/Dn3CZ9SBpNieozrPRHm0BGww7W/jA==,
-      }
-    cpu: [arm]
-    os: [linux]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-linux-arm/0.14.21:
@@ -8596,17 +8433,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-linux-arm64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-bYpuUlN6qYU9slzr/ltyLTR9YTBS7qUDymO8SV7kjeNext61OdmqFAzuVZom+OLW1HPHseBfJ/JfdSlx8oTUoA==,
-      }
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-linux-arm64/0.14.21:
     resolution:
       {
@@ -8629,17 +8455,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-linux-mips64le/0.13.15:
-    resolution:
-      {
-        integrity: sha512-KlVjIG828uFPyJkO/8gKwy9RbXhCEUeFsCGOJBepUlpa7G8/SeZgncUEz/tOOUJTcWMTmFMtdd3GElGyAtbSWg==,
-      }
-    cpu: [mips64el]
-    os: [linux]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-linux-mips64le/0.14.21:
     resolution:
       {
@@ -8660,17 +8475,6 @@ packages:
     cpu: [mips64el]
     os: [linux]
     requiresBuild: true
-    optional: true
-
-  /esbuild-linux-ppc64le/0.13.15:
-    resolution:
-      {
-        integrity: sha512-h6gYF+OsaqEuBjeesTBtUPw0bmiDu7eAeuc2OEH9S6mV9/jPhPdhOWzdeshb0BskRZxPhxPOjqZ+/OqLcxQwEQ==,
-      }
-    cpu: [ppc64]
-    os: [linux]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-linux-ppc64le/0.14.21:
@@ -8739,17 +8543,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-netbsd-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-3+yE9emwoevLMyvu+iR3rsa+Xwhie7ZEHMGDQ6dkqP/ndFzRHkobHUKTe+NCApSqG5ce2z4rFu+NX/UHnxlh3w==,
-      }
-    cpu: [x64]
-    os: [netbsd]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-netbsd-64/0.14.21:
     resolution:
       {
@@ -8770,17 +8563,6 @@ packages:
     cpu: [x64]
     os: [netbsd]
     requiresBuild: true
-    optional: true
-
-  /esbuild-openbsd-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-wTfvtwYJYAFL1fSs8yHIdf5GEE4NkbtbXtjLWjM3Cw8mmQKqsg8kTiqJ9NJQe5NX/5Qlo7Xd9r1yKMMkHllp5g==,
-      }
-    cpu: [x64]
-    os: [openbsd]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-openbsd-64/0.14.21:
@@ -8805,17 +8587,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-sunos-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-lbivT9Bx3t1iWWrSnGyBP9ODriEvWDRiweAs69vI+miJoeKwHWOComSRukttbuzjZ8r1q0mQJ8Z7yUsDJ3hKdw==,
-      }
-    cpu: [x64]
-    os: [sunos]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-sunos-64/0.14.21:
     resolution:
       {
@@ -8836,17 +8607,6 @@ packages:
     cpu: [x64]
     os: [sunos]
     requiresBuild: true
-    optional: true
-
-  /esbuild-windows-32/0.13.15:
-    resolution:
-      {
-        integrity: sha512-fDMEf2g3SsJ599MBr50cY5ve5lP1wyVwTe6aLJsM01KtxyKkB4UT+fc5MXQFn3RLrAIAZOG+tHC+yXObpSn7Nw==,
-      }
-    cpu: [ia32]
-    os: [win32]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-windows-32/0.14.21:
@@ -8871,17 +8631,6 @@ packages:
     requiresBuild: true
     optional: true
 
-  /esbuild-windows-64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-9aMsPRGDWCd3bGjUIKG/ZOJPKsiztlxl/Q3C1XDswO6eNX/Jtwu4M+jb6YDH9hRSUflQWX0XKAfWzgy5Wk54JQ==,
-      }
-    cpu: [x64]
-    os: [win32]
-    requiresBuild: true
-    dev: false
-    optional: true
-
   /esbuild-windows-64/0.14.21:
     resolution:
       {
@@ -8902,17 +8651,6 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    optional: true
-
-  /esbuild-windows-arm64/0.13.15:
-    resolution:
-      {
-        integrity: sha512-zzvyCVVpbwQQATaf3IG8mu1IwGEiDxKkYUdA4FpoCHi1KtPa13jeScYDjlW0Qh+ebWzpKfR2ZwvqAQkSWNcKjA==,
-      }
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: false
     optional: true
 
   /esbuild-windows-arm64/0.14.21:
@@ -8936,33 +8674,6 @@ packages:
     os: [win32]
     requiresBuild: true
     optional: true
-
-  /esbuild/0.13.15:
-    resolution:
-      {
-        integrity: sha512-raCxt02HBKv8RJxE8vkTSCXGIyKHdEdGfUmiYb8wnabnaEmHzyW7DCHb5tEN0xU8ryqg5xw54mcwnYkC4x3AIw==,
-      }
-    hasBin: true
-    requiresBuild: true
-    optionalDependencies:
-      esbuild-android-arm64: 0.13.15
-      esbuild-darwin-64: 0.13.15
-      esbuild-darwin-arm64: 0.13.15
-      esbuild-freebsd-64: 0.13.15
-      esbuild-freebsd-arm64: 0.13.15
-      esbuild-linux-32: 0.13.15
-      esbuild-linux-64: 0.13.15
-      esbuild-linux-arm: 0.13.15
-      esbuild-linux-arm64: 0.13.15
-      esbuild-linux-mips64le: 0.13.15
-      esbuild-linux-ppc64le: 0.13.15
-      esbuild-netbsd-64: 0.13.15
-      esbuild-openbsd-64: 0.13.15
-      esbuild-sunos-64: 0.13.15
-      esbuild-windows-32: 0.13.15
-      esbuild-windows-64: 0.13.15
-      esbuild-windows-arm64: 0.13.15
-    dev: false
 
   /esbuild/0.14.21:
     resolution:
@@ -14171,7 +13882,7 @@ packages:
       }
     dependencies:
       '@types/debug': 4.1.7
-      debug: 4.3.3
+      debug: 4.3.4
       decode-named-character-reference: 1.0.1
       micromark-core-commonmark: 1.0.6
       micromark-factory-space: 1.0.0
@@ -14445,6 +14156,7 @@ packages:
       }
     engines: { node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1 }
     hasBin: true
+    dev: true
 
   /nanoid/3.3.1:
     resolution:
@@ -16011,6 +15723,7 @@ packages:
       nanoid: 3.2.0
       picocolors: 1.0.0
       source-map-js: 1.0.2
+    dev: true
 
   /preferred-pm/3.0.3:
     resolution:
@@ -16267,39 +15980,6 @@ packages:
     engines: { node: '>=8' }
     dev: true
 
-  /rc-field-form/1.22.1_react-dom@17.0.2+react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-LweU7nBeqmC5r3HDUjRprcOXXobHXp/TGIxD7ppBq5FX6Iptt3ibdpRVg4RSyNulBNGHOuknHlRcguuIpvVMVg==,
-      }
-    engines: { node: '>=8.x' }
-    peerDependencies:
-      react: '>= 16.9.0'
-      react-dom: '>= 16.9.0'
-    dependencies:
-      '@babel/runtime': 7.17.2
-      async-validator: 4.0.7
-      rc-util: 5.17.0_react-dom@17.0.2+react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-    dev: false
-
-  /rc-util/5.17.0_react-dom@17.0.2+react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-HWuTIKzBeZQQ7IBqdokE0wMp/xx39/KfUJ0gcquBigoldDCrf3YBcWFHrrQlJG7sI82Wg8mwp1uAKV3zMGfAgg==,
-      }
-    peerDependencies:
-      react: '>=16.9.0'
-      react-dom: '>=16.9.0'
-    dependencies:
-      '@babel/runtime': 7.17.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-is: 16.13.1
-      shallowequal: 1.1.0
-    dev: false
-
   /rc/1.2.8:
     resolution:
       {
@@ -16434,26 +16114,6 @@ packages:
       prop-types: 15.8.1
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
-    dev: false
-
-  /react-vant/2.0.0-alpha.19_react-dom@17.0.2+react@17.0.2:
-    resolution:
-      {
-        integrity: sha512-frMXKIGEkYoZ2wTYNHVostk9r4OLfxiFiefVWTTtNG9FJijkXnWJ7WED2itb6ViJzeoRefTmvgYuAX37M36pBw==,
-      }
-    peerDependencies:
-      react: '>=16.14.0'
-      react-dom: '>=16.14.0'
-    dependencies:
-      '@react-spring/web': 9.4.2_react-dom@17.0.2+react@17.0.2
-      '@react-vant/icons': 0.0.6
-      '@use-gesture/react': 10.2.5_react@17.0.2
-      '@vant/popperjs': 1.1.0
-      clsx: 1.1.1
-      rc-field-form: 1.22.1_react-dom@17.0.2+react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
     dev: false
 
   /react/17.0.2:
@@ -17211,6 +16871,7 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+    dev: true
 
   /rollup/2.69.0:
     resolution:
@@ -17399,13 +17060,6 @@ packages:
     engines: { node: '>=8' }
     dependencies:
       kind-of: 6.0.3
-    dev: false
-
-  /shallowequal/1.1.0:
-    resolution:
-      {
-        integrity: sha512-y0m1JoUZSlPAjXVtPPW70aZWfIL/dSP7AFkRnniLCrK/8MDKog3TySTBmckD+RObVxH0v4Tox67+F14PdED2oQ==,
-      }
     dev: false
 
   /shebang-command/1.2.0:
@@ -19758,33 +19412,6 @@ packages:
       - acorn
     dev: false
 
-  /vite/2.7.13:
-    resolution:
-      {
-        integrity: sha512-Mq8et7f3aK0SgSxjDNfOAimZGW9XryfHRa/uV0jseQSilg+KhYDSoNb9h1rknOy6SuMkvNDLKCYAYYUMCE+IgQ==,
-      }
-    engines: { node: '>=12.2.0' }
-    hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-    dependencies:
-      esbuild: 0.13.15
-      postcss: 8.4.5
-      resolve: 1.22.0
-      rollup: 2.66.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: false
-
   /vite/2.8.0_less@4.1.2:
     resolution:
       {
@@ -19838,7 +19465,6 @@ packages:
       rollup: 2.69.0
     optionalDependencies:
       fsevents: 2.3.2
-    dev: true
 
   /vite/2.9.1_less@4.1.2+sass@1.49.10:
     resolution:

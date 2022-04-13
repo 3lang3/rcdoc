@@ -1,6 +1,6 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import mdoc from '@mdoc/vitejs-plugin-react';
+import mdoc from '@rcdoc/vitejs-plugin';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -8,7 +8,10 @@ export default defineConfig({
     react(),
     mdoc({
       replaceHtml: (htmlString) => {
-        const group = htmlString.replace(/(<h3\s+id=)/g, ':::$1').replace(/<h2/g, ':::<h2').split(':::');
+        const group = htmlString
+          .replace(/(<h3\s+id=)/g, ':::$1')
+          .replace(/<h2/g, ':::<h2')
+          .split(':::');
         const replaceHtml = group
           .map((fragment) => {
             if (fragment.indexOf('<h3') !== -1) {
@@ -18,7 +21,7 @@ export default defineConfig({
           })
           .join('');
         return replaceHtml;
-      }
-    }) as any
-  ]
-})
+      },
+    }) as any,
+  ],
+});

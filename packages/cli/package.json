@@ -1,12 +1,12 @@
 {
-  "name": "@mdoc/cli",
-  "version": "0.0.0",
+  "name": "@rcdoc/cli",
+  "version": "0.0.0-dev.1",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "bin": {
-    "mdoc": "./bin.js"
+    "rcdoc": "./bin.js"
   },
   "files": [
     "dist",
@@ -27,9 +27,9 @@
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-react": "^7.16.7",
     "@babel/runtime": "^7.17.2",
-    "@mdoc/build": "workspace:*",
-    "@mdoc/theme": "workspace:*",
-    "@mdoc/vitejs-plugin-react": "workspace:*",
+    "@rcdoc/build": "workspace:*",
+    "@rcdoc/theme": "workspace:*",
+    "@rcdoc/vitejs-plugin": "workspace:*",
     "@vitejs/plugin-react": "^1.3.0",
     "babel-jest": "^27.5.1",
     "bundle-require": "^3.0.4",
@@ -46,7 +46,7 @@
     "joycon": "^3.1.1",
     "less": "^4.1.2",
     "lodash-es": "^4.17.21",
-    "mdoc-theme-default": "workspace:*",
+    "rcdoc-theme-default": "workspace:*",
     "ora": "^6.0.1",
     "react": "^17.0.2",
     "react-docgen-typescript": "^2.2.2",

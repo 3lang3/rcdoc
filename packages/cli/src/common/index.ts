@@ -38,18 +38,18 @@ export function hasDefaultExport(code: string) {
  */
 export function getComponents(): Array<string> {
   const EXCLUDES = ['.DS_Store'];
-  const dirs = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/index.*')))
+  const dirs = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/index.*')));
   return dirs
     .filter((dir) => !EXCLUDES.includes(dir))
     .filter((dir) =>
-      ENTRY_EXTS.some(ext => {
+      ENTRY_EXTS.some((ext) => {
         const guessPath = path.extname(dir) === `.${ext}`;
         const guessMdPath = path.join(path.dirname(dir), 'README.md');
         if (guessPath && existsSync(guessMdPath)) {
           return hasDefaultExport(readFileSync(dir, 'utf-8'));
         }
         return false;
-      })
+      }),
     );
 }
 
@@ -168,21 +168,27 @@ export function mergeCustomViteConfig(config: InlineConfig) {
 export function getConfigThemeAlias() {
   let siteTheme = get(context.opts, 'site.theme');
   if (siteTheme) {
-    siteTheme = slash(path.join(ROOT, 'node_modules', siteTheme))
-    return { 'mdoc-theme-default': siteTheme }
+    siteTheme = slash(path.join(ROOT, 'node_modules', siteTheme));
+    return { 'rcdoc-theme-default': siteTheme };
   }
-  return {}
+  return {};
 }
 
-export function getExistFile({ cwd = CWD, files }: { cwd?: string, files: string[] }): string | undefined {
+export function getExistFile({
+  cwd = CWD,
+  files,
+}: {
+  cwd?: string;
+  files: string[];
+}): string | undefined {
   for (const file of files) {
     const absFilePath = path.join(cwd, file);
     if (existsSync(absFilePath)) {
-      return absFilePath
+      return absFilePath;
     }
   }
 }
 
 export function isObject(val) {
-  return Object.prototype.toString.call(val) === '[object Object]'
+  return Object.prototype.toString.call(val) === '[object Object]';
 }

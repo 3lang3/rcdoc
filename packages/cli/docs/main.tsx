@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import SiteTheme from 'mdoc-theme-default';
-import { MdocSiteContext } from '@mdoc/theme';
-import * as shared from '@@mdoc/site-shared';
+import SiteTheme from 'rcdoc-theme-default';
+import { MdocSiteContext } from '@rcdoc/theme';
+import * as shared from '@@rcdoc/site-shared';
 import { getMenuItemByPageName, getLocaleFromPathname, getMenuByPathname } from './utils';
 import usePathname from './hooks/usePathname';
 

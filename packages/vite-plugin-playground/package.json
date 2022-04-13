@@ -24,6 +24,6 @@
     "less": "^4.1.2",
     "typescript": "^4.4.4",
     "vite": "^2.7.2",
-    "@mdoc/vitejs-plugin-react": "workspace:*"
+    "@rcdoc/vitejs-plugin": "workspace:*"
   }
 }

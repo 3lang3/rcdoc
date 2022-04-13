@@ -1,0 +1,75 @@
+@import '../../common/style/var.less';
+
+.show-content-loader {
+  .vant-doc-content__loader {
+    opacity: 1;
+  }
+}
+
+.vant-doc-content__loader {
+  --bar-active-color: var(--c-blue-20);
+
+  opacity: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  overflow: hidden;
+  display: block;
+  height: @loader-bar-height;
+  z-index: 2;
+  background-color: var(--mdoc-menu-color-background-active);
+
+  &-bar1 {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
+    transition: transform 0.2s linear 0s;
+    transform-origin: left center;
+    background-color: var(--bar-active-color);
+    width: auto;
+    animation: 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) 0s infinite normal none running
+      animation-bar1;
+  }
+  &-bar2 {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    top: 0px;
+    transition: transform 0.2s linear 0s;
+    transform-origin: left center;
+    background-color: var(--bar-active-color);
+    width: auto;
+    animation: 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) 1.15s infinite normal none running
+      animation-bar2;
+  }
+}
+
+@keyframes animation-bar1 {
+  0% {
+    left: -35%;
+    right: 100%;
+  }
+  60% {
+    left: 100%;
+    right: -90%;
+  }
+  100% {
+    left: 100%;
+    right: -90%;
+  }
+}
+@keyframes animation-bar2 {
+  0% {
+    left: -200%;
+    right: 100%;
+  }
+  60% {
+    left: 107%;
+    right: -8%;
+  }
+  100% {
+    left: 107%;
+    right: -8%;
+  }
+}

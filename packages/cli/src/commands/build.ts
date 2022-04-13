@@ -2,7 +2,7 @@
  * cli build
  */
 import { remove } from 'fs-extra';
-import mdocBuild from '@mdoc/build';
+import mdocBuild from '@rcdoc/build';
 import { build as viteBuild } from 'vite';
 import { PROJECT_DIST_DIR, MDOC_BUILD_CONFIG_FILE, ROOT } from '../common/constant';
 import { getViteConfigForPackage } from '../config/vite.package';

@@ -1,4 +1,4 @@
-import type { UserConfig as ViteConfig } from 'vite'
+import type { UserConfig as ViteConfig } from 'vite';
 
 /** 配置 Algolia 的 DocSearch 服务 */
 type AlgoliaProps = Record<string, any>;
@@ -8,34 +8,34 @@ type ApiParserProps = {
   // 自定义属性过滤配置，也可以是一个函数，用法参考：https://github.com/styleguidist/react-docgen-typescript/#propfilter
   propFilter?: {
     // 是否忽略从 node_modules 继承的属性，默认值为 false
-    skipNodeModules?: false,
+    skipNodeModules?: false;
     // 需要忽略的属性名列表，默认为空数组
-    skipPropsWithName?: string[],
+    skipPropsWithName?: string[];
     // 是否忽略没有文档说明的属性，默认值为 false
-    skipPropsWithoutDoc?: false,
-  },
-}
+    skipPropsWithoutDoc?: false;
+  };
+};
 
 type NavItem = {
   title?: string;
   path?: string;
   children?: NavItem[];
-}
+};
 
 type MenuItem = {
   title?: string;
   children?: string[];
-}
+};
 
 export type DefineConfig = {
-  /** 
+  /**
    * 配置文档的标题
    * @default package.name
    */
   title?: string;
   /** 配置文档的介绍，会显示在侧边栏菜单标题的下方 */
   description?: string;
-  /** 
+  /**
    * 配置文档的 LOGO
    * 如果是使用本地图片，比如：/public/images/xxx.png，那么配置 /images/xx.png 引入即可。
    */
@@ -63,9 +63,9 @@ export type DefineConfig = {
     vconsole?: boolean;
     /** github地址，在顶部菜单栏右侧展示 */
     github?: string;
-    /** 
+    /**
      * 自定义主题包
-     * @default 'mdoc-theme-default'
+     * @default 'rcdoc-theme-default'
      */
     theme?: string;
     /** 用于配置当前使用的主题包，具体配置项取决于主题包提供哪些配置 */
@@ -81,7 +81,10 @@ export type DefineConfig = {
     apiParser?: ApiParserProps;
   } & Record<string, any>;
   /** 自定义vite配置 */
-  vite?: Pick<ViteConfig, 'publicDir' | 'css' | 'plugins' | 'server' | 'define' | 'esbuild' | 'resolve' | 'optimizeDeps'>;
+  vite?: Pick<
+    ViteConfig,
+    'publicDir' | 'css' | 'plugins' | 'server' | 'define' | 'esbuild' | 'resolve' | 'optimizeDeps'
+  >;
   /** 构建配置 */
   build?: {
     /** 是否启用按需加载，即是否把构建产物进行拆分，在需要的时候下载额外的 JS 再执行 */
@@ -109,8 +112,8 @@ export type DefineConfig = {
      * 一般用于仅希望渲染 resolve.previewLangs 中的少部分代码块，而不是全部。
      */
     passivePreview?: boolean;
-  }
-} & Record<string, any>
+  };
+} & Record<string, any>;
 
 export default function defineConfig(config: DefineConfig) {
   return config;
