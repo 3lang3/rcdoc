@@ -1,6 +1,6 @@
 {
   "name": "rcdoc-theme-default",
-  "version": "0.0.0",
+  "version": "0.0.0-dev.1",
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
@@ -26,5 +26,9 @@
   "devDependencies": {
     "typescript": "^4.4.4",
     "vite": "^2.9.1"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
