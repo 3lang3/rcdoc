@@ -4,7 +4,7 @@ import { get } from 'lodash-es';
 import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import type { InlineConfig } from 'vite';
-import mdoc from '@rcdoc/vitejs-plugin';
+import mdParser from '@rcdoc/vitejs-plugin';
 import { isObject, setBuildTarget } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,
@@ -65,7 +65,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     publicDir: path.join(CWD, context.opts?.vite?.publicDir || 'public'),
     plugins: [
       react(),
-      mdoc({
+      mdParser({
         passivePreview: context.opts.resolve?.passivePreview,
         previewLangs: context.opts.resolve?.previewLangs,
       }) as any,

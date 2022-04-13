@@ -104,7 +104,7 @@ export const getModuleResolvePath = ({
     return slash(resolvePath);
   } catch (err) {
     if (!silent) {
-      console.error(`[mdoc]: cannot resolve module ${sourcePath} from ${basePath}`);
+      console.error(`[rcdoc]: cannot resolve module ${sourcePath} from ${basePath}`);
     }
 
     throw err;
@@ -136,7 +136,7 @@ export const getModuleResolvePkg = ({
     name = pkg.name;
     peerDependencies = pkg.peerDependencies;
   } else {
-    console.error(`[mdoc]: cannot find valid package.json for module ${modulePath}`);
+    console.error(`[rcdoc]: cannot find valid package.json for module ${modulePath}`);
   }
 
   return { name, version, peerDependencies };

@@ -16,7 +16,7 @@ export const PROJECT_DOCS_DIR = join(ROOT, 'docs');
 export const PACKAGE_JSON_FILE = join(ROOT, 'package.json');
 export const PROJECT_POSTCSS_CONFIG_FILE = join(ROOT, 'postcss.config.js');
 export const PROJECT_CACHE_DIR = join(ROOT, 'node_modules/.cache');
-export const PROJECT_CLI_DIST_DIR = join(ROOT, '.mdoc');
+export const PROJECT_CLI_DIST_DIR = join(ROOT, '.rcdoc');
 export const PROJECT_SITE_DIST_DIR = join(ROOT, 'docs-dist');
 
 // Relative paths
@@ -33,12 +33,12 @@ export const SITE_SHARED_ROUTES_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-r
 export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');
 export const STYLE_DEPS_JSON_FILE = join(PROJECT_CLI_DIST_DIR, 'style-deps.json');
 
-export const CLI_DIR = join(__dirname, '..')
+export const CLI_DIR = join(__dirname, '..');
 // Config files
 export const CJS_DIR = join(__dirname, '..', 'cjs');
 export const JEST_CONFIG_FILE = join(CJS_DIR, 'jest.config.cjs');
 export const BABEL_CONFIG_FILE = join(CJS_DIR, 'babel.config.cjs');
-export const MDOC_BUILD_CONFIG_FILE = join(CJS_DIR, '.mdocrc.cjs');
+export const MDOC_BUILD_CONFIG_FILE = join(CJS_DIR, '.rcdoc.build.cjs');
 
 export const SCRIPT_EXTS = ['.js', '.jsx', '.ts', '.tsx'];
 export const STYLE_EXTS = ['.css', '.less'];

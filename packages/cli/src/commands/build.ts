@@ -2,7 +2,7 @@
  * cli build
  */
 import { remove } from 'fs-extra';
-import mdocBuild from '@rcdoc/build';
+import rcdocBuild from '@rcdoc/build';
 import { build as viteBuild } from 'vite';
 import { PROJECT_DIST_DIR, MDOC_BUILD_CONFIG_FILE, ROOT } from '../common/constant';
 import { getViteConfigForPackage } from '../config/vite.package';
@@ -23,7 +23,7 @@ const compileBundlesByVite = async () => {
 };
 
 const compileBundlesByMdocBuild = async () => {
-  await mdocBuild['default']({
+  await rcdocBuild['default']({
     cwd: ROOT,
     clean: false,
     buildArgs: { config: MDOC_BUILD_CONFIG_FILE },

@@ -27,7 +27,7 @@ export function getBundleOpts(opts: IOpts): IBundleOptions[] {
       },
       rootConfig,
       userConfig,
-      buildArgs
+      buildArgs,
     );
 
     // Support config esm: 'rollup' and cjs: 'rollup'
@@ -49,26 +49,23 @@ function validateBundleOpts(bundleOpts: IBundleOptions, { cwd, rootPath }) {
     const pkg = JSON.parse(readFileSync(pkgPath, 'utf-8'));
     assert.ok(
       (pkg.dependencies || {})['@babel/runtime'],
-      `@babel/runtime dependency is required to use runtimeHelpers`
+      `@babel/runtime dependency is required to use runtimeHelpers`,
     );
   }
-  if (
-    bundleOpts.cjs &&
-    (bundleOpts.cjs as ICjs).lazy
-  ) {
+  if (bundleOpts.cjs && (bundleOpts.cjs as ICjs).lazy) {
     throw new Error(
       `
 cjs.lazy don't support rollup.
-    `.trim()
+    `.trim(),
     );
   }
   if (!bundleOpts.esm && !bundleOpts.cjs) {
     throw new Error(
       `
 None format of ${chalk.cyan(
-        'cjs | esm'
-      )} is configured, checkout https://github.com/3lang3/mdoc/build for usage details.
-`.trim()
+        'cjs | esm',
+      )} is configured, checkout https://github.com/3lang3/rcdoc/build for usage details.
+`.trim(),
     );
   }
   if (bundleOpts.entry) {
@@ -82,8 +79,8 @@ None format of ${chalk.cyan(
     ) {
       signale.info(
         `Project using ${chalk.cyan(
-          'typescript'
-        )} but tsconfig.json not exists. Use default config.`
+          'typescript',
+        )} but tsconfig.json not exists. Use default config.`,
       );
     }
   }

@@ -4,5 +4,5 @@ module.exports = {
   cjs: true,
   loose: true,
   extractCSS: true,
-  lessInBabelMode: true
+  lessInBabelMode: true,
 };

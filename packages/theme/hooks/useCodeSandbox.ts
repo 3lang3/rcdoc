@@ -7,7 +7,6 @@ type DependenciesType = {
   css: boolean;
 };
 
-
 export type MDocPreviewerProps = {
   code: string;
   lang: string;
@@ -77,7 +76,7 @@ function getCSBData(opts: Omit<MDocPreviewerProps, 'children'>) {
     content: JSON.stringify(
       {
         name: opts.meta?.title,
-        description: getTextContent(opts.meta?.description || 'An auto-generated demo by mdoc'),
+        description: getTextContent(opts.meta?.description || 'An auto-generated demo by rcdoc'),
         main: entryFileName,
         dependencies: deps,
         // add TypeScript dependency if required, must in devDeps to avoid csb compile error
@@ -94,10 +93,10 @@ function getCSBData(opts: Omit<MDocPreviewerProps, 'children'>) {
   // append entry file
   files[entryFileName] = {
     content: `/**
-* This is an auto-generated demo by mdoc
+* This is an auto-generated demo by rcdoc
 * if you think it is not working as expected,
 * please report the issue at
-* https://github.com/3lang3/vite-plugin-react-mdoc/issues
+* https://github.com/3lang3/rcdoc/issues
 **/
 
 import React from 'react';
@@ -130,7 +129,7 @@ ReactDOM.render(
  */
 export default (
   opts: Omit<MDocPreviewerProps, 'children'> | null,
-  userOptions: { simulator?: boolean }
+  userOptions: { simulator?: boolean },
 ) => {
   const [handler, setHandler] = useState<(...args: any) => void | undefined>();
 
@@ -156,7 +155,7 @@ export default (
         queryInput.name = 'query';
         queryInput.value = 'resolutionWidth=320&resolutionHeight=675';
       }
-      
+
       document.body.appendChild(form);
 
       setHandler(() => () => form.submit());

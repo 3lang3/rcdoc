@@ -1,95 +1,87 @@
-import fs from 'fs'
+import fs from 'fs';
 import fse from 'fs-extra';
-import { merge } from 'lodash-es'
-import JoyCon from 'joycon'
-import path from 'path'
-import { bundleRequire } from 'bundle-require'
-import strip from 'strip-json-comments'
-import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant'
+import { merge } from 'lodash-es';
+import JoyCon from 'joycon';
+import path from 'path';
+import { bundleRequire } from 'bundle-require';
+import strip from 'strip-json-comments';
+import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant';
 import type { DefineConfig } from '../common/defineConfig';
-import { init } from '../common/context'
+import { init } from '../common/context';
 
 const defaultConfig: DefineConfig = {
-  locales: [['zh-CN', '中文'], ['en-US', 'English']],
+  locales: [
+    ['zh-CN', '中文'],
+    ['en-US', 'English'],
+  ],
   resolve: {
-    previewLangs: ['jsx', 'tsx']
-  }
-}
+    previewLangs: ['jsx', 'tsx'],
+  },
+};
 
 function jsoncParse(data: string) {
   try {
-    return new Function('return ' + strip(data).trim())()
+    return new Function('return ' + strip(data).trim())();
   } catch {
     // Silently ignore any error
     // That's what tsc/jsonc-parser did after all
-    return {}
+    return {};
   }
 }
 
-
-const joycon = new JoyCon()
+const joycon = new JoyCon();
 
 const loadJson = async (filepath: string) => {
   try {
-    return jsoncParse(await fs.promises.readFile(filepath, 'utf8'))
+    return jsoncParse(await fs.promises.readFile(filepath, 'utf8'));
   } catch (error) {
     if (error instanceof Error) {
-      throw new Error(
-        `Failed to parse ${path.relative(ROOT, filepath)}: ${error.message
-        }`
-      )
+      throw new Error(`Failed to parse ${path.relative(ROOT, filepath)}: ${error.message}`);
     } else {
-      throw error
+      throw error;
     }
   }
-}
+};
 
 const jsonLoader = {
   test: /\.json$/,
   load(filepath: string) {
-    return loadJson(filepath)
+    return loadJson(filepath);
   },
-}
+};
 
-joycon.addLoader(jsonLoader)
+joycon.addLoader(jsonLoader);
 
-export async function resolveConfig(
-  cwd: string = ROOT
-): Promise<void> {
-  const configJoycon = new JoyCon()
+export async function resolveConfig(cwd: string = ROOT): Promise<void> {
+  const configJoycon = new JoyCon();
   const configPath = await configJoycon.resolve(
-    [
-      'mdoc.config.ts',
-      'mdoc.config.js',
-      'mdoc.config.mjs',
-      'mdoc.config.json',
-    ],
+    ['rcdoc.config.ts', 'rcdoc.config.js', 'rcdoc.config.mjs', 'rcdoc.config.json'],
     cwd,
-    path.parse(cwd).root
-  )
+    path.parse(cwd).root,
+  );
 
   if (configPath) {
-    await parseConfig(configPath)
+    await parseConfig(configPath);
   }
 }
 
 export async function parseConfig(configPath) {
   if (configPath.endsWith('.json')) {
-    let data = await loadJson(configPath)
+    let data = await loadJson(configPath);
     if (data) {
-      init(data, configPath)
-      return
+      init(data, configPath);
+      return;
     }
   }
 
   const config = await bundleRequire({
     filepath: configPath,
-  })
+  });
 
   const data = config.mod.default || config.mod;
 
-  const mergedData = merge(defaultConfig, data)
-  fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2))
+  const mergedData = merge(defaultConfig, data);
+  fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2));
 
-  init(mergedData, configPath)
+  init(mergedData, configPath);
 }

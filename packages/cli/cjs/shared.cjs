@@ -2,14 +2,14 @@ const { join, dirname } = require('path');
 const { existsSync } = require('fs');
 
 const ACCEPT_FILES = [
-  'mdoc.config.ts',
-  'mdoc.config.js',
-  'mdoc.config.mjs',
-  'mdoc.config.json',
-]
+  'rcdoc.config.ts',
+  'rcdoc.config.js',
+  'rcdoc.config.mjs',
+  'rcdoc.config.json',
+];
 
 function findRootDir(dir) {
-  if (ACCEPT_FILES.some(cfg => existsSync(join(dir, cfg)))) {
+  if (ACCEPT_FILES.some((cfg) => existsSync(join(dir, cfg)))) {
     return dir;
   }
 

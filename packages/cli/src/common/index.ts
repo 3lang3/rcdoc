@@ -34,7 +34,7 @@ export function hasDefaultExport(code: string) {
 
 /**
  * Get components path Array
- * return ['/Users/3lang/Workspace/github/mdoc/packages/cli-playground/src/components/button/index.tsx']
+ * return ['/Users/3lang/Workspace/github/rcdoc/packages/cli-playground/src/components/button/index.tsx']
  */
 export function getComponents(): Array<string> {
   const EXCLUDES = ['.DS_Store'];

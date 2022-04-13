@@ -11,10 +11,10 @@ function testDefault(obj) {
 }
 
 export const CONFIG_FILES = [
-  '.mdocrc.js',
-  '.mdocrc.cjs',
-  '.mdocrc.jsx',
-  '.mdocrc.ts',
+  '.rcdoc.build.js',
+  '.rcdoc.build.cjs',
+  '.rcdoc.build.jsx',
+  '.rcdoc.build.ts',
 ];
 const CLASSES = {
   Function: Function,
@@ -30,7 +30,13 @@ const extendAjv = (ajv) => {
   });
   return ajv;
 };
-export default function ({ cwd, customPath }: { cwd: string; customPath?: string }): IBundleOptions {
+export default function ({
+  cwd,
+  customPath,
+}: {
+  cwd: string;
+  customPath?: string;
+}): IBundleOptions {
   let finalPath = '';
 
   if (customPath) {
@@ -63,7 +69,7 @@ export default function ({ cwd, customPath }: { cwd: string; customPath?: string
 Invalid options in ${slash(relative(cwd, configFile))}
 
 ${errors.join('\n')}
-`.trim()
+`.trim(),
         );
       }
     });

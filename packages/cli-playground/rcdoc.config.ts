@@ -1,7 +1,7 @@
 import { defineConfig } from '@rcdoc/cli';
 
 export default defineConfig({
-  title: 'mdoc',
+  title: 'rcdoc',
   description: '轻量、可靠的移动端 React 组件库',
   // logo: '/logo-1.png',
   locales: false,
@@ -61,7 +61,7 @@ export default defineConfig({
   },
   site: {
     favicon: '/favicon.png',
-    github: 'https://github.com/3lang3/mdoc',
+    github: 'https://github.com/3lang3/rcdoc',
     metas: [
       {
         name: 'keywords',

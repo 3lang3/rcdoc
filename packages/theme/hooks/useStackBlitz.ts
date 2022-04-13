@@ -27,7 +27,7 @@ function getStackblitzData(opts: Omit<MDocPreviewerProps, 'children'>) {
   const entryFileName = `src/index.js`;
 
   const title = opts.meta?.title;
-  const description = getTextContent(opts.meta?.description || 'An auto-generated demo by mdoc');
+  const description = getTextContent(opts.meta?.description || 'An auto-generated demo by rcdoc');
 
   const devDependencies = isTSX ? { typescript: '^3' } : {};
 
