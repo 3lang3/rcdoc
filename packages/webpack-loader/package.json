@@ -11,5 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "@rcdoc/parser": "workspace:*"
+  },
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   }
 }
