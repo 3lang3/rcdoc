@@ -9,6 +9,7 @@
     "build": "tsup src/index.ts --format esm,cjs --dts",
     "dev": "tsup src/index.ts --format esm,cjs --watch",
     "prepare": "pnpm build",
+    "prepack": "pnpm build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "files": [
