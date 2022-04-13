@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/cli",
-  "version": "0.0.0-dev.3",
+  "version": "0.0.0-dev.4",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -9,6 +9,8 @@
     "rcdoc": "./bin.js"
   },
   "files": [
+    "cjs",
+    "docs",
     "dist",
     "site",
     "bin.js"
