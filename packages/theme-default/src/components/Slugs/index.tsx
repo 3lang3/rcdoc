@@ -26,9 +26,12 @@ const SlugNav = ({ slugs }) => {
 export default React.memo(
   () => {
     const {
-      value: { slugs = [] },
+      value: { slugs = [], frontmatter = {} },
     } = React.useContext(MarkdownPageContext);
+    const frontmatterSlugs = frontmatter.slugs ?? true;
+
     const filtedSlugs = slugs.filter((slug) => +slug.depth === 2 || +slug.depth === 3);
+    if (!frontmatterSlugs) return null;
     if (!filtedSlugs.length) return <div className="doc-md--slugs" />;
     return <SlugNav slugs={filtedSlugs} />;
   },

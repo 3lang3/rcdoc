@@ -7,6 +7,7 @@ export default function useAnchorClick() {
         event.target instanceof HTMLAnchorElement &&
         event.target.classList.contains('doc-md--slug')
       ) {
+        event.preventDefault();
         const hash = event.target.hash;
         if (hash) {
           const anchor = document.querySelector<HTMLAnchorElement>(decodeURIComponent(hash));
