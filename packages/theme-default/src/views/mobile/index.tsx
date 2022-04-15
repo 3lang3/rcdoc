@@ -2,9 +2,9 @@ import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import initDemoRoutes from './demoRoutes';
 import _routes from '@@rcdoc/site-shared-routes';
-import MobileView from './components/Simulator/MobileView';
-import { isMobile } from './common';
-import DemoWrapper from './components/Simulator/DemoWrapper';
+import MobileView from '../../components/Simulator/MobileView';
+import DemoWrapper from '../../components/Simulator/DemoWrapper';
+import { isMobile } from '../../common';
 
 const MobileApp = ({ config }) => {
   const navigate = useNavigate();

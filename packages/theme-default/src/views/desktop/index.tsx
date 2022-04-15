@@ -1,7 +1,7 @@
 import React from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
-import initRoutes from './routes';
 import _routes from '@@rcdoc/site-shared-routes';
+import initRoutes from './routes';
 
 const DesktopApp = ({ config }) => {
   const routes = React.useMemo(() => {

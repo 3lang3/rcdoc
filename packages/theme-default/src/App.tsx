@@ -1,8 +1,8 @@
 import React from 'react';
 import { MdocSiteContext } from '@rcdoc/theme';
 import Layout from './components';
-import DesktopApp from './Desktop';
-import MobileApp from './Mobile';
+import DesktopApp from './views/desktop';
+import MobileApp from './views/mobile';
 import './index.less';
 
 const App = React.memo(

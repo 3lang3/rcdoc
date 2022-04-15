@@ -1,5 +1,5 @@
 import React from 'react';
-import { SimulatorRouteComponent } from './components/Simulator/RouteComponent';
+import { SimulatorRouteComponent } from '../../components/Simulator/RouteComponent';
 
 function initDemoRoutes({ locales, unprocessedRoutes }) {
   const defaultLang = !locales ? '' : locales[0][0];

@@ -64,9 +64,14 @@ export default function useActiveSidebarLinks() {
 
 function init() {
   if (!location.hash) return;
-  const target = document.querySelector<HTMLAnchorElement>(decodeURIComponent(location.hash));
-  if (target) {
-    scrollTop(target);
+  console.log(location.hash, decodeURIComponent(location.hash));
+  try {
+    const target = document.querySelector<HTMLAnchorElement>(decodeURIComponent(location.hash));
+    if (target) {
+      scrollTop(target);
+    }
+  } catch (error) {
+    // console.log(error)
   }
 }
 
