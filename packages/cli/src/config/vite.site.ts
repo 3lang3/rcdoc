@@ -104,16 +104,20 @@ export function getViteConfigForSiteDev(): InlineConfig {
   };
 }
 
+const IGNORE_BUILD_ALIAS_DEPS = ['react', 'react-dom'];
+
 export function getViteConfigForSiteProd(): InlineConfig {
   const devConfig = getViteConfigForSiteDev();
   const outDir = get(context.opts, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
   const publicPath = get(context.opts, 'build.site.publicPath', '/');
 
   const projectPackageJson = getPackageJson();
-  // @hack
+  // @FIXME
   // enforce alias redirect to not root dir in docs:build
   const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
-    a[v] = slash(path.join(ROOT, 'node_modules', v));
+    if (!IGNORE_BUILD_ALIAS_DEPS.includes(v)) {
+      a[v] = slash(path.join(ROOT, 'node_modules', v));
+    }
     return a;
   }, {});
 
