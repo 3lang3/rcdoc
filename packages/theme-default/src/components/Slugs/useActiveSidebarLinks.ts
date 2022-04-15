@@ -76,7 +76,7 @@ function getSidebarLinks(): HTMLAnchorElement[] {
 
 function getAnchors(sidebarLinks: HTMLAnchorElement[]): HTMLAnchorElement[] {
   return [].slice
-    .call(document.querySelectorAll('.doc-md-page [data-anchor]'))
+    .call(document.querySelectorAll('.doc-md-content [data-anchor]'))
     .filter((anchor: HTMLAnchorElement) =>
       sidebarLinks.some((sidebarLink) => decodeURIComponent(sidebarLink.hash) === `#${anchor.id}`),
     ) as HTMLAnchorElement[];

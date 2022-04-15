@@ -1,24 +1,32 @@
 /* eslint-disable react/react-in-jsx-scope */
 import React from 'react';
 import { LazyFallback } from '../LazyFallback';
-import MdPage from '.';
+import MdContent from '.';
 
 export const RouteComponent = ({ lazyComponent: LazyComponent, isComponentDir, ...props }) => {
   return (
     <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
-        {({ MdContent, frontmatter = {}, slugs = [], filePath, updatedTime }) => {
+        {({
+          MdContent: MdLoader,
+          demos = [],
+          frontmatter = {},
+          slugs = [],
+          filePath,
+          updatedTime,
+        }) => {
           return (
-            <MdPage
+            <MdContent
               {...props}
               frontmatter={frontmatter}
               slugs={slugs}
               filePath={filePath}
               updatedTime={updatedTime}
+              demos={demos}
               isComponentDir={isComponentDir}
             >
-              {({ previewer, api }) => <MdContent previewer={previewer} api={api} />}
-            </MdPage>
+              {({ previewer, api }) => <MdLoader previewer={previewer} api={api} />}
+            </MdContent>
           );
         }}
       </LazyComponent>

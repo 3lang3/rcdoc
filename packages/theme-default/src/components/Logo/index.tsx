@@ -6,8 +6,8 @@ import './index.less';
 const Logo = () => {
   const { config } = React.useContext(MdocSiteContext);
   return (
-    <Flex align="center" justify="space-between" className="vant-doc-logo">
-      <Flex align="center" justify="flex-start" className="vant-doc-logo--main">
+    <Flex align="center" justify="space-between" className="doc-logo">
+      <Flex align="center" justify="flex-start" className="doc-logo--main">
         <img alt="logo" src={config.logo || defaultLogo} />
         <span>{config.title}</span>
       </Flex>

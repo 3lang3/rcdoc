@@ -2,25 +2,25 @@ import React from 'react';
 
 export default function useAnchorClick() {
   React.useEffect(() => {
-    const anchors = document.querySelectorAll('a.doc-md--slug');
-    const onClick = (e: MouseEvent) => {
-      e.preventDefault();
-      const target = e.target as HTMLAnchorElement;
-      const hash = target.hash;
-      if (hash) {
-        const anchor = document.querySelector<HTMLAnchorElement>(decodeURIComponent(hash));
-        if (anchor) {
-          scrollTop(anchor);
+    const onClick = (event: MouseEvent) => {
+      if (
+        event.target instanceof HTMLAnchorElement &&
+        event.target.classList.contains('doc-md--slug')
+      ) {
+        const hash = event.target.hash;
+        if (hash) {
+          const anchor = document.querySelector<HTMLAnchorElement>(decodeURIComponent(hash));
+          if (anchor) {
+            scrollTop(anchor);
+          }
         }
       }
     };
-    anchors.forEach((anchor) => {
-      anchor.addEventListener('click', onClick);
-    });
+
+    document.addEventListener('click', onClick);
+
     return () => {
-      anchors.forEach((anchor) => {
-        anchor.removeEventListener('click', onClick);
-      });
+      document.removeEventListener('click', onClick);
     };
   }, []);
 

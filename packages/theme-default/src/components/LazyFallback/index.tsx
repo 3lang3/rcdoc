@@ -1,11 +1,21 @@
 import React from 'react';
+import clsx from 'clsx';
 import './index.less';
 
-export const LinerLoader = (props) => {
+type LinerLoaderProps = {
+  type?: 'mobile' | 'site';
+} & React.HTMLAttributes<HTMLDivElement>;
+
+export const LinerLoader = ({ type = 'site', className, ...props }: LinerLoaderProps) => {
   return (
-    <div className="vant-doc-content__loader" style={props.style}>
-      <span className="vant-doc-content__loader-bar1" />
-      <span className="vant-doc-content__loader-bar2" />
+    <div
+      className={clsx('doc-content__loader', {
+        'doc-content__loader--mobile': type === 'mobile',
+      })}
+      {...props}
+    >
+      <span className="doc-content__loader-bar1" />
+      <span className="doc-content__loader-bar2" />
     </div>
   );
 };

@@ -5,19 +5,35 @@ import Menu from './Menu';
 import Container from './Container';
 import { inIframe } from '../common';
 import { useLocation } from 'react-router-dom';
+import MarkdownPageContext from '../context';
 
-const Doc = (props) => {
+const Layout = (props) => {
   const { pathname } = useLocation();
   const { config, menus } = React.useContext(MdocSiteContext);
   const hasMenu = !!menus.length;
+
   if (inIframe || pathname.startsWith('/~demo')) return props.children;
+
   return (
     <>
       <Header />
       {hasMenu && <Menu config={config} menus={menus} />}
-      <Container hasMenu={hasMenu}>{props.children}</Container>
+      <Container config={config} hasMenu={hasMenu}>
+        {props.children}
+      </Container>
     </>
   );
 };
 
-export default Doc;
+export default (props) => {
+  const [value, updateValue] = React.useState({});
+
+  const dispatch = (val) => {
+    updateValue(val);
+  };
+  return (
+    <MarkdownPageContext.Provider value={{ value, dispatch }}>
+      <Layout {...props} />
+    </MarkdownPageContext.Provider>
+  );
+};

@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
-
 import './index.less';
 
 const MenuLink = (props) => {

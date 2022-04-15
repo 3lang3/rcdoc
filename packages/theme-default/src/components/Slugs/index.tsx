@@ -1,5 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
+import MarkdownPageContext from '../../context';
+
 import './index.less';
 
 const SlugNav = ({ slugs }) => {
@@ -21,9 +23,14 @@ const SlugNav = ({ slugs }) => {
   );
 };
 
-export default ({ slugs }) => {
-  const filtedSlugs = slugs.filter((slug) => +slug.depth === 2 || +slug.depth === 3);
-
-  if (!filtedSlugs.length) return <div className="doc-md--slugs" />;
-  return <SlugNav slugs={filtedSlugs} />;
-};
+export default React.memo(
+  () => {
+    const {
+      value: { slugs = [] },
+    } = React.useContext(MarkdownPageContext);
+    const filtedSlugs = slugs.filter((slug) => +slug.depth === 2 || +slug.depth === 3);
+    if (!filtedSlugs.length) return <div className="doc-md--slugs" />;
+    return <SlugNav slugs={filtedSlugs} />;
+  },
+  () => true,
+);

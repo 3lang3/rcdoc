@@ -1,5 +1,5 @@
 import React from 'react';
-import { RouteComponent } from './components/MdPage/RouteComponent';
+import { RouteComponent } from './components/MdContent/RouteComponent';
 
 function initRoutes({ locales, unprocessedRoutes }) {
   const defaultLang = !locales ? '' : locales[0][0];
