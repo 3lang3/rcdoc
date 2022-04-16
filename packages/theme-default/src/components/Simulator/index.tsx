@@ -1,6 +1,6 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
-import { Icons } from '@rcdoc/theme';
+import { Icons, MdocSiteContext } from '@rcdoc/theme';
 import { LinerLoader } from '../LazyFallback';
 import simulatorModel from './android-device-skin.png';
 import MarkdownPageContext from '../../context';
@@ -8,7 +8,6 @@ import './index.less';
 
 const Simulator = () => {
   const location = useLocation();
-
   // Parser simulator src
   const src = React.useMemo(() => {
     return `/~demo${location.pathname}`;
@@ -52,11 +51,17 @@ const Simulator = () => {
 export default React.memo(
   () => {
     const {
-      value: { isComponentDir, frontmatter = {} },
+      value: { frontmatter = {} },
     } = React.useContext(MarkdownPageContext);
-    const { simulator } = frontmatter;
+    const location = useLocation();
+    const { config } = React.useContext(MdocSiteContext);
+    const { simulator = true, blank } = frontmatter;
 
-    const renderSimulator = isComponentDir && simulator !== false;
+    const include = config?.site?.themeConfig?.simulator?.include || [];
+    const renderSimulator =
+      include.some((el) => location.pathname.includes(el) && el !== location.pathname) &&
+      simulator &&
+      !blank;
     if (!renderSimulator) return null;
     return <Simulator />;
   },

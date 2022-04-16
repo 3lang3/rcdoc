@@ -1,13 +1,14 @@
 import React from 'react';
 import { SimulatorRouteComponent } from '../../components/Simulator/RouteComponent';
 
-function initDemoRoutes({ locales, unprocessedRoutes }) {
+function initDemoRoutes({ config, unprocessedRoutes }) {
+  const { locales, site = {} } = config;
   const defaultLang = !locales ? '' : locales[0][0];
-
+  const include = site?.themeConfig?.simulator?.include || [];
   const routes = [];
 
   unprocessedRoutes
-    .filter((route) => route.isComponentDir)
+    .filter((route) => route.path && include.some((i) => route.path.includes(i)))
     .forEach((route) => {
       const { lang, title, path, redirect } = route;
       if (redirect) {

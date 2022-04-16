@@ -24,7 +24,6 @@ type MarkdownPageContextProps = {
     demos?: ({ Component: React.VFC; key: string } & Record<string, any>)[];
     frontmatter?: Record<string, any>;
     slugs?: { depth: number; text: string; id: string }[];
-    isComponentDir?: boolean;
   };
   dispatch: (action: any) => void;
 };

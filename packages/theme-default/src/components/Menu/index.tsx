@@ -13,7 +13,9 @@ const MenuTitle = ({ item }) => {
 };
 
 const Menu = (props) => {
-  const { menus } = props;
+  const { menus, config } = props;
+
+  const renderMenuSlug = config?.site?.slug === 'menu';
 
   return (
     <div className="doc-menu">
@@ -24,12 +26,12 @@ const Menu = (props) => {
             {item.children ? (
               item.children.map((c) => (
                 <div key={c.path} className="doc-menu__item">
-                  <MenuLink item={c} />
+                  <MenuLink renderMenuSlug={renderMenuSlug} item={c} />
                 </div>
               ))
             ) : (
               <div key={item.path} className="doc-menu__item">
-                <MenuLink item={item} />
+                <MenuLink renderMenuSlug={renderMenuSlug} item={item} />
               </div>
             )}
           </React.Fragment>

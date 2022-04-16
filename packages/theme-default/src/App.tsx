@@ -11,7 +11,7 @@ const App = React.memo(
     return (
       <Layout>
         <DesktopApp config={config} />
-        {config?.site?.themeConfig?.simulator && <MobileApp config={config} />}
+        {!!config?.site?.themeConfig?.simulator && <MobileApp config={config} />}
       </Layout>
     );
   },

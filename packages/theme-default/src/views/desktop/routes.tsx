@@ -6,7 +6,7 @@ function initRoutes({ locales, unprocessedRoutes }) {
   const routes = [];
 
   unprocessedRoutes.forEach((route) => {
-    const { lang, title, path, redirect, isComponentDir } = route;
+    const { lang, title, path, redirect } = route;
     if (redirect) {
       routes.push({ path, redirect });
       return;
@@ -16,7 +16,7 @@ function initRoutes({ locales, unprocessedRoutes }) {
       title: title,
       name: `${lang}/${path}`,
       path: isDefaultLang ? `${path}` : `/${lang}${path}`,
-      component: <RouteComponent isComponentDir={isComponentDir} lazyComponent={route.component} />,
+      component: <RouteComponent lazyComponent={route.component} />,
       state: {
         lang,
         name: path,

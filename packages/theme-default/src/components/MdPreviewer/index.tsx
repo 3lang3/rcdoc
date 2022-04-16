@@ -117,7 +117,7 @@ const DefaultRender = ({
 export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) => {
   const { config } = React.useContext(MdocSiteContext);
 
-  const hasSimulator = config?.site?.themeConfig?.simulator;
+  const hasSimulator = !!config?.site?.themeConfig?.simulator;
 
   const dependenciesArr = React.useMemo(
     () => Object.entries(props.dependencies || []),

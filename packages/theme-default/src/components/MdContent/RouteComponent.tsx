@@ -3,7 +3,7 @@ import React from 'react';
 import { LazyFallback } from '../LazyFallback';
 import MdContent from '.';
 
-export const RouteComponent = ({ lazyComponent: LazyComponent, isComponentDir, ...props }) => {
+export const RouteComponent = ({ lazyComponent: LazyComponent, ...props }) => {
   return (
     <React.Suspense fallback={<LazyFallback />}>
       <LazyComponent>
@@ -23,7 +23,6 @@ export const RouteComponent = ({ lazyComponent: LazyComponent, isComponentDir, .
               filePath={filePath}
               updatedTime={updatedTime}
               demos={demos}
-              isComponentDir={isComponentDir}
             >
               {({ previewer, api }) => <MdLoader previewer={previewer} api={api} />}
             </MdContent>

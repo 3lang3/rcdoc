@@ -2,9 +2,10 @@ import React, { useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import './index.less';
+import Slugs from '../../Slugs';
 
 const MenuLink = (props) => {
-  const { item } = props;
+  const { item, renderMenuSlug } = props;
   const { pathname } = useLocation();
 
   const itemName = useMemo(() => {
@@ -31,6 +32,11 @@ const MenuLink = (props) => {
             to={item.langPath}
             dangerouslySetInnerHTML={{ __html: itemName }}
           />
+          {renderMenuSlug && active && (
+            <div className="doc-menulink--slug">
+              <Slugs />
+            </div>
+          )}
         </>
       ) : item.link ? (
         // eslint-disable-next-line jsx-a11y/control-has-associated-label

@@ -6,10 +6,10 @@ import Logo from '../Logo';
 import './mobileView.less';
 
 const currentRoutes = Object.values(menus)[0] as [];
-const routes = flattenRoutes(currentRoutes);
 
 export default () => {
   const { config } = React.useContext(MdocSiteContext);
+  const routes = flattenRoutes(currentRoutes, config?.site?.themeConfig?.simulator?.include || []);
   const renderMenu = React.useCallback((route) => {
     return (
       <div className="doc-mobile-group" key={route.path}>
@@ -45,7 +45,7 @@ export default () => {
   );
 };
 
-function flattenRoutes(routes: any[]) {
+function flattenRoutes(routes: any[], include = []) {
   function search(el) {
     if (Array.isArray(el.children)) return search(el.children);
     return el;
@@ -56,5 +56,5 @@ function flattenRoutes(routes: any[]) {
       a = a.concat(search(v));
       return a;
     }, [])
-    .filter((el) => el.isComponentDir);
+    .filter((el) => el.path && !el.redirect && include.some((i) => el.path.includes(i)));
 }

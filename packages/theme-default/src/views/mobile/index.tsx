@@ -11,7 +11,7 @@ const MobileApp = ({ config }) => {
 
   const demoRoutes = React.useMemo(() => {
     return initDemoRoutes({
-      locales: config.locales,
+      config,
       unprocessedRoutes: _routes,
     });
   }, [config.locales, _routes]);

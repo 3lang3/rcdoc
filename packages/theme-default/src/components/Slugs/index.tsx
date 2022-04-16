@@ -28,10 +28,10 @@ export default React.memo(
     const {
       value: { slugs = [], frontmatter = {} },
     } = React.useContext(MarkdownPageContext);
-    const frontmatterSlugs = frontmatter.slug ?? true;
-
+    const { slug: pageSlug = true, blank } = frontmatter;
     const filtedSlugs = slugs.filter((slug) => +slug.depth === 2 || +slug.depth === 3);
-    if (!frontmatterSlugs) return null;
+
+    if (!pageSlug || blank) return null;
     if (!filtedSlugs.length) return <div className="doc-md--slugs" />;
     return <SlugNav slugs={filtedSlugs} />;
   },
