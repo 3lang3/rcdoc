@@ -3,7 +3,7 @@ import type { UserConfig as ViteConfig } from 'vite';
 /** 配置 Algolia 的 DocSearch 服务 */
 type AlgoliaProps = {
   appId: string;
-  appKey: string;
+  apiKey: string;
   indexName: string;
   /** 自动生成sitemap.xml, hostname 配置项用来指定 URL 的域名前缀，excludes 配置项用来忽略某些不需要包含在 sitemap 中的路由。 */
   sitemap?: {

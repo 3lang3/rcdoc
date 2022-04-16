@@ -32,5 +32,12 @@
     "@types/jest": "^27.4.0",
     "@types/react-test-renderer": "^17.0.1",
     "typescript": "^4.4.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/3lang3/rcdoc.git",
+    "branch": "main",
+    "package": "packages/cli-playground",
+    "platform": "github"
   }
 }
