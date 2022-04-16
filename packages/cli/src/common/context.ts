@@ -1,28 +1,22 @@
-import type { ViteDevServer } from "vite";
-import type { DefineConfig } from "./defineConfig";
-
-type CfgMenuItem = {
-  title: string;
-  path?: string;
-  children?: string[]
-}
+import type { ViteDevServer } from 'vite';
+import type { DefineConfig } from './defineConfig';
 
 type ContextType = {
   opts?: DefineConfig;
   configFilePath?: string;
   server?: ViteDevServer;
-  closes?: Array<any>
-}
+  closes?: Array<any>;
+};
 
 const context: ContextType = {
   opts: {} as DefineConfig,
   server: undefined,
-  closes: []
+  closes: [],
 };
 
 export function init(opts: any, configFilePath: string) {
   context.opts = opts;
-  context.configFilePath = configFilePath
+  context.configFilePath = configFilePath;
 }
 
 export function updateServer(server: ViteDevServer) {

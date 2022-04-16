@@ -45,6 +45,7 @@
     "fast-glob": "^3.2.11",
     "front-matter": "^4.0.2",
     "fs-extra": "^10.0.0",
+    "hosted-git-info": "^5.0.0",
     "jest": "^27.5.1",
     "joycon": "^3.1.1",
     "less": "^4.1.2",

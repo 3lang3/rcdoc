@@ -5,9 +5,15 @@ import JoyCon from 'joycon';
 import path from 'path';
 import { bundleRequire } from 'bundle-require';
 import strip from 'strip-json-comments';
-import { ROOT, SITE_SHARD_CONFIG_FILE } from '../common/constant';
+import { ROOT, SITE_SHARD_CONFIG_FILE, getPackageJson } from '../common/constant';
 import type { DefineConfig } from '../common/defineConfig';
 import { init } from '../common/context';
+import { getRepoUrl } from '../common';
+
+const getPackageJsonRepository = () => {
+  const { repository } = getPackageJson();
+  return repository;
+};
 
 const defaultConfig: DefineConfig = {
   locales: [
@@ -17,6 +23,7 @@ const defaultConfig: DefineConfig = {
   resolve: {
     previewLangs: ['jsx', 'tsx'],
   },
+  repository: getPackageJsonRepository(),
 };
 
 function jsoncParse(data: string) {
@@ -69,6 +76,9 @@ export async function parseConfig(configPath) {
   if (configPath.endsWith('.json')) {
     let data = await loadJson(configPath);
     if (data) {
+      if (data.repository?.url) {
+        data.repository.url = getRepoUrl(data.repository.url, data.repository?.platform);
+      }
       init(data, configPath);
       return;
     }
@@ -81,6 +91,14 @@ export async function parseConfig(configPath) {
   const data = config.mod.default || config.mod;
 
   const mergedData = merge(defaultConfig, data);
+
+  if (mergedData.repository?.url) {
+    mergedData.repository.url = getRepoUrl(
+      mergedData.repository.url,
+      mergedData.repository?.platform,
+    );
+  }
+
   fse.outputFileSync(SITE_SHARD_CONFIG_FILE, JSON.stringify(mergedData, null, 2));
 
   init(mergedData, configPath);

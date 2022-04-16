@@ -122,6 +122,17 @@ export type DefineConfig = {
      */
     passivePreview?: boolean;
   };
+  /**
+   * 设置 `repository` 后，会在页面底部生成相应的**编辑功能**按钮
+   * 默认采用 package.json 中的 `repository` 字段
+   * */
+  repository?: {
+    url?: string;
+    branch: string;
+    platform?: string;
+    /** monorepo下的子包路径 */
+    package?: string;
+  };
 } & Record<string, any>;
 
 export default function defineConfig(config: DefineConfig) {
