@@ -5,7 +5,7 @@ import { PROJECT_SRC_DIR, PROJECT_DOCS_DIR, PROJECT_CLI_DIST_DIR } from '../comm
 import context from '../common/context';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 
-type MenuItem = {
+export type MenuItem = {
   redirect?: string;
   title?: string;
   path?: string;
