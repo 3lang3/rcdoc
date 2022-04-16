@@ -28,7 +28,7 @@ export default React.memo(
     const {
       value: { slugs = [], frontmatter = {} },
     } = React.useContext(MarkdownPageContext);
-    const frontmatterSlugs = frontmatter.slugs ?? true;
+    const frontmatterSlugs = frontmatter.slug ?? true;
 
     const filtedSlugs = slugs.filter((slug) => +slug.depth === 2 || +slug.depth === 3);
     if (!frontmatterSlugs) return null;

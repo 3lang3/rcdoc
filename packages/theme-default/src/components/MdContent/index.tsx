@@ -5,12 +5,22 @@ import MdApi from '../MdApi';
 import useActiveSidebarLinks from '../Slugs/useActiveSidebarLinks';
 import MarkdownPageContext from '../../context';
 import './index.less';
+import { Flex, Icons, MdocSiteContext } from '@rcdoc/theme';
 
 const previewer = (props) => <MdPreviewer defaultShowSource {...props} />;
 const api = (props) => <MdApi {...props} />;
 
-const MdContentComponent = ({ children, updatedTime, frontmatter = {} }) => {
-  const { fluid, style, className } = frontmatter as any;
+const MdContentComponent = ({ children, updatedTime, filePath, frontmatter = {} }) => {
+  const { config, locale } = React.useContext(MdocSiteContext);
+  const isCN = !locale || /^zh|cn$/i.test(locale.current[0]);
+
+  const { url: repoUrl, branch, platform, package: packagePath } = config.repository;
+  const { fluid, meta = true, style, className } = frontmatter as any;
+
+  const repoPlatform =
+    { github: 'GitHub', gitlab: 'GitLab' }[
+      (repoUrl || '').match(/(github|gitlab)/)?.[1] || 'nothing'
+    ] || platform;
 
   // Reset scrollbar position
   React.useEffect(() => {
@@ -29,6 +39,8 @@ const MdContentComponent = ({ children, updatedTime, frontmatter = {} }) => {
     })} ${updatedTimeIns.toLocaleTimeString([], { hour12: false })}`;
   }, [updatedTime]);
 
+  const showBottomMeta = meta && (!!updatedTimeStr || repoPlatform);
+
   return (
     <section
       style={style}
@@ -37,7 +49,20 @@ const MdContentComponent = ({ children, updatedTime, frontmatter = {} }) => {
       })}
     >
       {children({ previewer, api })}
-      {!!updatedTimeStr && <span style={{ display: 'none' }}>Last update: {updatedTimeStr}</span>}
+      {showBottomMeta && (
+        <Flex align="center" justify="space-between" className="doc-md-content__meta">
+          {repoPlatform && (
+            <a href={`${repoUrl}/edit/${branch}${packagePath ? `/${packagePath}` : ''}${filePath}`}>
+              <Icons.GitHubIcon /> {isCN ? `在 ${repoPlatform} 上编辑此页` : `Edit this page`}
+            </a>
+          )}
+          {!!updatedTimeStr && (
+            <span>
+              {isCN ? '最后更新时间：' : 'Last update: '} {updatedTimeStr}
+            </span>
+          )}
+        </Flex>
+      )}
     </section>
   );
 };
