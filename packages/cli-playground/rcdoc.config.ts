@@ -81,7 +81,9 @@ export default defineConfig({
       { title: 'v3', path: 'https://v3' },
     ],
     themeConfig: {
-      simulator: true,
+      simulator: {
+        include: ['/components'],
+      },
     },
     algolia: {
       appId: 'R2IYF7ETH7',
