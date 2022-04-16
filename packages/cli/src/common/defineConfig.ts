@@ -28,6 +28,7 @@ type ApiParserProps = {
 type NavItem = {
   title?: string;
   path?: string;
+  simulator?: boolean;
   children?: NavItem[];
 };
 
@@ -82,8 +83,13 @@ export type DefineConfig = {
       /** 开启暗色主题 */
       dark?: boolean;
       /** 是否开启模拟器视图，需要主题支持 */
-      simulator?: boolean;
+      simulator?: {
+        /** 显示模拟器的路由前缀 */
+        include: string[];
+      };
     } & Record<string, any>;
+    /** 控制锚点目录的显示或位置，值为 false 时不展示，值为 content 时展示在内容区域的右侧，值为 menu 时会将当前路由的锚点目录展示在左侧菜单中 */
+    slug?: false | 'content' | 'menu';
     /** 配置 Algolia 的 DocSearch 服务 */
     algolia?: AlgoliaProps;
     /**  配置 <API /> 解析的行为 */

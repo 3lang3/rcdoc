@@ -23,6 +23,9 @@ const defaultConfig: DefineConfig = {
   resolve: {
     previewLangs: ['jsx', 'tsx'],
   },
+  site: {
+    slug: 'content',
+  },
   repository: getPackageJsonRepository(),
 };
 
