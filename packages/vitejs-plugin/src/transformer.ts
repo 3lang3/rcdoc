@@ -89,7 +89,7 @@ export async function transformer(
   content.addContext(`const slugs = ${JSON.stringify(slugs)};`);
   content.addExporting('slugs');
 
-  content.addContext(`const filePath = "${id}";`);
+  content.addContext(`const filePath = "${id.replace(process.cwd(), '')}";`);
   content.addExporting('filePath');
 
   content.addContext(`const title = "${title}";`);
