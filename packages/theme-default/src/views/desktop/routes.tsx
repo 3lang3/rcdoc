@@ -16,6 +16,7 @@ function initRoutes({ locales, unprocessedRoutes }) {
       title: title,
       name: `${lang}/${path}`,
       path: isDefaultLang ? `${path}` : `/${lang}${path}`,
+      index: path === '/',
       component: <RouteComponent lazyComponent={route.component} />,
       state: {
         lang,

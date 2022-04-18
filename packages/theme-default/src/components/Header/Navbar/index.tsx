@@ -1,9 +1,10 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { Flex, Dropdown, Icons } from '@rcdoc/theme';
 import './index.less';
+import clsx from 'clsx';
 
-export const NavbarLink = ({ path, ...props }) => {
+export const NavbarLink = ({ path, type = 'navlink', ...props }) => {
   if (/^https?:\/\//.test(path)) {
     return (
       <a href={path} className={props.className} target="_blank">
@@ -11,7 +12,18 @@ export const NavbarLink = ({ path, ...props }) => {
       </a>
     );
   }
-  return (
+  return type === 'navlink' ? (
+    <NavLink
+      className={({ isActive }) =>
+        clsx(props.className, {
+          'doc-navbar__link--active': isActive,
+        })
+      }
+      to={path}
+    >
+      {props.children}
+    </NavLink>
+  ) : (
     <Link className={props.className} to={path}>
       {props.children}
     </Link>
@@ -22,7 +34,12 @@ const NavbarItem = ({ nav }) => {
   const overlay =
     Array.isArray(nav.children) &&
     nav.children.map((item) => (
-      <NavbarLink className="doc-navbar__sublink" key={item.path || item.title} path={item.path}>
+      <NavbarLink
+        type="link"
+        className="doc-navbar__sublink"
+        key={item.path || item.title}
+        path={item.path}
+      >
         {item.title}
       </NavbarLink>
     ));

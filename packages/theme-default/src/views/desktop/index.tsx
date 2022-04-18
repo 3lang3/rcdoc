@@ -17,7 +17,7 @@ const DesktopApp = ({ config }) => {
         route.redirect ? (
           <Route key={route.path} path={route.path} element={<Navigate to={route.redirect} />} />
         ) : (
-          <Route key={route.path} path={route.path} element={route.component} />
+          <Route key={route.path} path={route.path} index={route.index} element={route.component} />
         ),
       )}
     </Routes>
