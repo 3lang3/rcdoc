@@ -12,14 +12,16 @@ import { watchSiteShared } from './watch-site-shared';
 import { updateServer } from '../common/context';
 import { signit } from '../common/sigint';
 import { watchConfig } from './watch-config';
+import genSiteCustomComponent from './gen-custom-component';
 
 export async function genSiteEntry(): Promise<void> {
   const CSS_LANG = getCssLang();
   return new Promise((resolve, reject) => {
     genStyleDepsMap()
       .then(() => {
-        genPackageStyle({ outputPath: replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`) })
+        genPackageStyle({ outputPath: replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`) });
         genSiteDesktopShared();
+        genSiteCustomComponent();
         resolve();
       })
       .catch((err) => {

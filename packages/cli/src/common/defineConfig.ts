@@ -127,6 +127,11 @@ export type DefineConfig = {
      * 一般用于仅希望渲染 resolve.previewLangs 中的少部分代码块，而不是全部。
      */
     passivePreview?: boolean;
+    /**
+     * 组建样式
+     * @default index.less
+     */
+    style?: string;
   };
   /**
    * 设置 `repository` 后，会在页面底部生成相应的**编辑功能**按钮

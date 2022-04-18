@@ -32,12 +32,10 @@ export function genPackageStyle(options: Options) {
     content += `@import "${normalizePath(baseFile)}";\n`;
   }
 
-  const componentRltDir = get(context.opts, 'build.css.component', './');
-
   content += styleDepsJson.sequence
     .map((componentFilePath: string) => {
-      let stylePath = path.join(path.dirname(componentFilePath), componentRltDir, `index${ext}`);
-      
+      let stylePath = path.join(componentFilePath, '..', context.opts?.resolve?.style);
+
       if (!existsSync(stylePath)) {
         return '';
       }
@@ -45,7 +43,7 @@ export function genPackageStyle(options: Options) {
       if (options.pathResolver) {
         stylePath = options.pathResolver(stylePath);
       }
-      
+
       return `@import "${normalizePath(stylePath)}";`;
     })
     .filter((item: string) => !!item)

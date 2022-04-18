@@ -3,20 +3,23 @@ import clsx from 'clsx';
 import { LinerLoader } from '../LazyFallback';
 import Simulator from '../Simulator';
 import { Flex } from '@rcdoc/theme';
+import { Footer } from '@@rcdoc/site-custom-component';
 import './index.less';
 
 export default (props) => {
   const { config } = props;
   return (
-    <Flex
-      align="flex-start"
-      className={clsx('doc-container', `page--${props.currentPageName}`, {
+    <div
+      className={clsx('doc-container__wrarpper', {
         'doc-container--menu': props.hasMenu,
       })}
     >
-      <LinerLoader />
-      <div className="doc-container-markdown">{props.children}</div>
-      {!!config?.site?.themeConfig?.simulator && <Simulator />}
-    </Flex>
+      <Flex align="flex-start" className={clsx('doc-container', `page--${props.currentPageName}`)}>
+        <LinerLoader />
+        <div className="doc-container-markdown">{props.children}</div>
+        {!!config?.site?.themeConfig?.simulator && <Simulator />}
+      </Flex>
+      <Footer />
+    </div>
   );
 };

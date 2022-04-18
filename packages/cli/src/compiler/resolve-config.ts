@@ -22,6 +22,7 @@ const defaultConfig: DefineConfig = {
   ],
   resolve: {
     previewLangs: ['jsx', 'tsx'],
+    style: 'index.less',
   },
   site: {
     slug: 'content',

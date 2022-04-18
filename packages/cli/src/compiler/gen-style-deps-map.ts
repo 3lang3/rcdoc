@@ -1,25 +1,17 @@
-import { relative, sep, join } from 'path';
+import { join } from 'path';
 import fse from 'fs-extra';
 import { getCssLang } from '../common/css';
 import { getDeps, clearDepsCache } from './get-deps';
 import { getComponents, smartOutputFile } from '../common';
-import { PROJECT_SRC_DIR, STYLE_DEPS_JSON_FILE } from '../common/constant';
+import { STYLE_DEPS_JSON_FILE } from '../common/constant';
+import context from '../common/context';
 
 const { existsSync } = fse;
 
-function matchPath(path: string, component: string): boolean {
-  const p = relative(PROJECT_SRC_DIR, path);
-  const arr = p.split(sep);
-  return arr.includes(component);
-}
-
-function getStylePath(component: string) {
-  const CSS_LANG = getCssLang();
-  return join(PROJECT_SRC_DIR, `${component}/style/index.${CSS_LANG}`);
-}
-
 export function checkStyleExists(component: string) {
-  return existsSync(getStylePath(component));
+  const CSS_LANG = getCssLang();
+  const stylePath = join(component, '..', context.opts?.resolve?.style);
+  return existsSync(stylePath);
 }
 
 // analyze component dependencies
@@ -35,7 +27,7 @@ function analyzeComponentDeps(components: string[], componentEntry: string) {
       }
       search(key);
       components
-        .filter((item) => matchPath(key, item))
+        // .filter((item) => matchPath(key, item))
         .forEach((item) => {
           if (!checkList.includes(item)) {
             checkList.push(item);

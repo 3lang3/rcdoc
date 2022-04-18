@@ -30,6 +30,7 @@ export const SITE_SHARED_MENU_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-men
 export const SITE_SHARED_NAV_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-nav.json');
 export const SITE_SHARED_API_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-api.json');
 export const SITE_SHARED_ROUTES_FILE = join(PROJECT_CLI_DIST_DIR, 'site-shared-routes.js');
+export const SITE_CUSTOM_COMPONENT_FILE = join(PROJECT_CLI_DIST_DIR, 'site-custom-component.js');
 export const SITE_SHARD_CONFIG_FILE = join(PROJECT_CLI_DIST_DIR, 'config.json');
 export const STYLE_DEPS_JSON_FILE = join(PROJECT_CLI_DIST_DIR, 'style-deps.json');
 
@@ -48,5 +49,6 @@ export function getPackageJson() {
   return JSON.parse(rawJson);
 }
 
+// Project paths
 export const PROJECT_SRC_DIR = join(ROOT, 'src');
 export const PROJECT_STYLE_DIR = join(PROJECT_SRC_DIR, 'styles');

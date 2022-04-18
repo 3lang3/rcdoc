@@ -9,7 +9,7 @@ import MarkdownPageContext from '../context';
 
 const Layout = (props) => {
   const { pathname } = useLocation();
-  const { config, menus } = React.useContext(MdocSiteContext);
+  const { config, menus, currentPageName } = React.useContext(MdocSiteContext);
   const hasMenu = !!menus.length;
 
   if (inIframe || pathname.startsWith('/~demo')) return props.children;
@@ -18,7 +18,7 @@ const Layout = (props) => {
     <>
       <Header />
       {hasMenu && <Menu config={config} menus={menus} />}
-      <Container config={config} hasMenu={hasMenu}>
+      <Container config={config} hasMenu={hasMenu} currentPageName={currentPageName}>
         {props.children}
       </Container>
     </>

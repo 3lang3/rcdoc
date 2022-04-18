@@ -39,19 +39,28 @@ export function hasDefaultExport(code: string) {
  */
 export function getComponents(): Array<string> {
   const EXCLUDES = ['.DS_Store'];
-  const dirs = glob.sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/index.*')));
+  const dirs = glob
+    .sync(path.normalize(path.join(PROJECT_SRC_DIR, '**', context.opts?.resolve.style)))
+    .map((dir) => dir.replace(path.join('/', context.opts?.resolve.style), ''));
+
   return dirs
     .filter((dir) => !EXCLUDES.includes(dir))
-    .filter((dir) =>
-      ENTRY_EXTS.some((ext) => {
-        const guessPath = path.extname(dir) === `.${ext}`;
-        const guessMdPath = path.join(path.dirname(dir), 'README.md');
-        if (guessPath && existsSync(guessMdPath)) {
-          return hasDefaultExport(readFileSync(dir, 'utf-8'));
-        }
-        return false;
-      }),
-    );
+    .map((dir) => {
+      const guessPath = getExistFile({
+        cwd: false,
+        files: ENTRY_EXTS.map((ext) => path.join(dir, `index.${ext}`)),
+      });
+      const guessMdPath = path.join(dir, 'README.md');
+      if (
+        guessPath &&
+        existsSync(guessMdPath) &&
+        hasDefaultExport(readFileSync(guessPath, 'utf-8'))
+      ) {
+        return guessPath;
+      }
+      return '';
+    })
+    .filter(Boolean);
 }
 
 export function isDir(dir: string) {
@@ -179,11 +188,11 @@ export function getExistFile({
   cwd = CWD,
   files,
 }: {
-  cwd?: string;
+  cwd?: string | false;
   files: string[];
 }): string | undefined {
   for (const file of files) {
-    const absFilePath = path.join(cwd, file);
+    const absFilePath = typeof cwd === 'boolean' ? file : path.join(cwd, file);
     if (existsSync(absFilePath)) {
       return absFilePath;
     }

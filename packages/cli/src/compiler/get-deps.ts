@@ -73,5 +73,6 @@ export function getDeps(filePath: string) {
   depsMap[filePath] = paths;
 
   paths.forEach(getDeps);
+
   return paths;
 }
