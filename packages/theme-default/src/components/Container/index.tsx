@@ -3,7 +3,7 @@ import clsx from 'clsx';
 import { LinerLoader } from '../LazyFallback';
 import Simulator from '../Simulator';
 import { Flex } from '@rcdoc/theme';
-import { Footer } from '@@rcdoc/site-custom-component';
+import Footer from '../UserDefineComponent/Footer';
 import './index.less';
 
 export default (props) => {
