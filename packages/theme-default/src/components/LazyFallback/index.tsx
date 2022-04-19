@@ -1,6 +1,7 @@
 import React from 'react';
 import clsx from 'clsx';
 import './index.less';
+import MarkdownPageContext from '../../context';
 
 type LinerLoaderProps = {
   type?: 'mobile' | 'site';
@@ -20,8 +21,17 @@ export const LinerLoader = ({ type = 'site', className, ...props }: LinerLoaderP
   );
 };
 
-export const LazyFallback = () => {
+type LazyFallbackProps = {
+  mode?: 'site' | 'mobile';
+};
+
+export const LazyFallback: React.FC<LazyFallbackProps> = ({ mode = 'site' }) => {
+  const { dispatch } = React.useContext(MarkdownPageContext);
   React.useEffect(() => {
+    if (mode === 'site') {
+      console.log('loading page');
+      dispatch({ loading: true });
+    }
     document.body.classList.add('show-content-loader');
     return () => {
       document.body.classList.remove('show-content-loader');

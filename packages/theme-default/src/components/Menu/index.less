@@ -32,6 +32,15 @@
   &__item {
     margin: 12px 0;
     overflow: hidden;
+
+    &:hover,
+    &--active {
+      background-color: var(--mdoc-menu-color-background-active);
+      border-radius: var(--mdoc-base-radius);
+      .doc-menulink {
+        color: var(--mdoc-menu-category-color);
+      }
+    }
   }
   &__title {
     padding: 8px 0 8px @van-doc-padding;

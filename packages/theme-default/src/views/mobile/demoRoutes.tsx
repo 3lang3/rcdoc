@@ -4,7 +4,7 @@ import { SimulatorRouteComponent } from '../../components/Simulator/RouteCompone
 function initDemoRoutes({ config, unprocessedRoutes }) {
   const { locales, site = {} } = config;
   const defaultLang = !locales ? '' : locales[0][0];
-  const include = site?.themeConfig?.simulator?.include || [];
+  const { include = [], compact } = site?.themeConfig?.simulator || {};
   const routes = [];
 
   unprocessedRoutes
@@ -21,7 +21,13 @@ function initDemoRoutes({ config, unprocessedRoutes }) {
         title: title,
         name: `/~demo/${lang}${path}`,
         path: isDefaultLang ? `/~demo${path}` : `/~demo/${lang}${path}`,
-        component: <SimulatorRouteComponent title={title} lazyComponent={route.component} />,
+        component: (
+          <SimulatorRouteComponent
+            title={title}
+            simulatorCompact={compact}
+            lazyComponent={route.component}
+          />
+        ),
         state: {
           lang,
           name: path,

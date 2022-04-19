@@ -1,7 +1,8 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import MenuLink from './MenuLink';
 import './index.less';
+import clsx from 'clsx';
 
 const MenuTitle = ({ item }) => {
   if (!item.isLink || !item.path) return <div className="doc-menu__title">{item.title}</div>;
@@ -15,6 +16,8 @@ const MenuTitle = ({ item }) => {
 const Menu = (props) => {
   const { menus, config } = props;
 
+  const { pathname } = useLocation();
+
   const renderMenuSlug = config?.site?.slug === 'menu';
 
   return (
@@ -25,13 +28,31 @@ const Menu = (props) => {
             {item.children && item.title ? <MenuTitle item={item} /> : null}
             {item.children ? (
               item.children.map((c) => (
-                <div key={c.path} className="doc-menu__item">
-                  <MenuLink renderMenuSlug={renderMenuSlug} item={c} />
+                <div
+                  key={c.path}
+                  className={clsx('doc-menu__item', {
+                    'doc-menu__item--active': pathname === c.langPath,
+                  })}
+                >
+                  <MenuLink
+                    active={pathname === c.langPath}
+                    renderMenuSlug={renderMenuSlug}
+                    item={c}
+                  />
                 </div>
               ))
             ) : (
-              <div key={item.path} className="doc-menu__item">
-                <MenuLink renderMenuSlug={renderMenuSlug} item={item} />
+              <div
+                key={item.path}
+                className={clsx('doc-menu__item', {
+                  'doc-menu__item--active': pathname === item.langPath,
+                })}
+              >
+                <MenuLink
+                  active={pathname === item.langPath}
+                  renderMenuSlug={renderMenuSlug}
+                  item={item}
+                />
               </div>
             )}
           </React.Fragment>

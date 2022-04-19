@@ -1,24 +1,16 @@
 import React, { useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import clsx from 'clsx';
 import './index.less';
 import Slugs from '../../Slugs';
 
 const MenuLink = (props) => {
-  const { item, renderMenuSlug } = props;
-  const { pathname } = useLocation();
+  const { item, active, renderMenuSlug } = props;
 
   const itemName = useMemo(() => {
     const name = (item.title || item.name).split(' ');
     return `${name[0]} <span>${name.slice(1).join(' ')}</span>`;
   }, [item.name, item.title]);
-
-  const active = useMemo(() => {
-    if (pathname === item.langPath) {
-      return true;
-    }
-    return false;
-  }, [pathname]);
 
   return (
     <>
@@ -26,9 +18,7 @@ const MenuLink = (props) => {
         <>
           {item.group?.title ? <div className="doc-menu__title">{item.group.title}</div> : null}
           <Link
-            className={clsx('doc-menulink', {
-              'doc-menulink--active': active,
-            })}
+            className={clsx('doc-menulink')}
             to={item.langPath}
             dangerouslySetInnerHTML={{ __html: itemName }}
           />

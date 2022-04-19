@@ -1,36 +1,20 @@
 import React from 'react';
 
-type MDocPreviewerProps = {
-  code: string;
-  lang: string;
-  key: string;
-  dependencies: Record<
-    string,
-    {
-      type: string;
-      value: string;
-      css: boolean;
-    }
-  >;
-  meta: Record<string, any>;
-  children: React.ReactNode;
-};
-
 type MarkdownPageContextProps = {
   value: {
-    MdContent?: React.VFC<{
-      previewer?: (props: MDocPreviewerProps) => React.ReactNode;
-    }>;
-    demos?: ({ Component: React.VFC; key: string } & Record<string, any>)[];
+    /** markdown页面frontmatter数据 */
     frontmatter?: Record<string, any>;
+    /** markdown页面slugs数据 */
     slugs?: { depth: number; text: string; id: string }[];
+    /** markdown页面加载 */
+    loading?: boolean;
   };
-  dispatch: (action: any) => void;
+  dispatch: (action: MarkdownPageContextProps['value']) => void;
 };
 
 const MarkdownPageContext = React.createContext<MarkdownPageContextProps>({
   value: {},
-  dispatch: () => {},
+  dispatch: () => null,
 });
 
 export default MarkdownPageContext;

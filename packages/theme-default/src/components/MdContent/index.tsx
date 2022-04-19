@@ -6,7 +6,6 @@ import useActiveSidebarLinks from '../Slugs/useActiveSidebarLinks';
 import MarkdownPageContext from '../../context';
 import './index.less';
 import { Flex, Icons, MdocSiteContext } from '@rcdoc/theme';
-import Slugs from '../Slugs';
 
 const previewer = (props) => <MdPreviewer defaultShowSource {...props} />;
 const api = (props) => <MdApi {...props} />;
@@ -69,16 +68,15 @@ const MdContentComponent = ({ children, updatedTime, filePath, frontmatter = {} 
           </Flex>
         )}
       </section>
-      {config?.site?.slug === 'content' && <Slugs />}
     </Flex>
   );
 };
 
-export default (props) => {
+export default ({ children, ...props }) => {
   const { dispatch } = React.useContext(MarkdownPageContext);
   React.useEffect(() => {
     // Sync markdown data to context value
-    dispatch(props);
+    dispatch({ ...props, loading: false });
   }, []);
-  return <MdContentComponent {...props} />;
+  return <MdContentComponent {...(props as any)}>{children}</MdContentComponent>;
 };

@@ -5,10 +5,14 @@ import { useNavigate } from 'react-router-dom';
 import { Icons } from '@rcdoc/theme';
 import { inIframe } from '../../common';
 
-export const SimulatorRouteComponent = ({ lazyComponent: LazyComponent, title }) => {
+export const SimulatorRouteComponent = ({
+  lazyComponent: LazyComponent,
+  simulatorCompact,
+  title,
+}) => {
   const navigate = useNavigate();
   return (
-    <React.Suspense fallback={<LazyFallback />}>
+    <React.Suspense fallback={<LazyFallback mode="mobile" />}>
       <LazyComponent>
         {({ demos, frontmatter = {} }) => {
           const { simulator = {} } = frontmatter as any;
@@ -37,7 +41,8 @@ export const SimulatorRouteComponent = ({ lazyComponent: LazyComponent, title })
                           (props.compact &&
                             props.compact !== 'false' &&
                             props.compact !== '{false}') ??
-                          simulator?.compact,
+                          simulator?.compact ??
+                          simulatorCompact,
                       })}
                     >
                       <Component />

@@ -29,8 +29,9 @@ export default (props) => {
   const [value, updateValue] = React.useState({});
 
   const dispatch = (val) => {
-    updateValue(val);
+    updateValue((v) => ({ ...v, ...val }));
   };
+
   return (
     <MarkdownPageContext.Provider value={{ value, dispatch }}>
       <Layout {...props} />

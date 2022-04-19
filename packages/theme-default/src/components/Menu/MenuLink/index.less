@@ -11,9 +11,6 @@
   &:hover,
   &.doc-menulink--active {
     color: var(--mdoc-menu-category-color);
-    background-color: var(--mdoc-menu-color-background-active);
-    border-radius: var(--mdoc-base-radius);
-
     &::after {
       display: inline-block;
     }
@@ -22,7 +19,8 @@
   &--slug {
     padding-left: 20px;
     .doc-md--slugs {
-      padding: 10px 0 0;
+      padding: 0;
+      margin: 0;
       width: auto;
     }
   }
