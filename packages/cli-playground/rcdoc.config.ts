@@ -55,6 +55,7 @@ export default defineConfig({
   },
   resolve: {
     includes: ['docs', 'src'],
+    style: './style/index.less',
   },
   build: {
     dynamicImport: true,

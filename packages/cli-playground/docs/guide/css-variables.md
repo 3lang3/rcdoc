@@ -1,3 +1,7 @@
+---
+footer: false
+---
+
 # CSS 变量
 
 相比于粗暴的 CSS 样式覆盖（也被叫做魔改样式），CSS 变量让我们可以更加优雅地自定义组件的样式。
@@ -24,7 +28,7 @@
 给 Input 组件加一个自定义的 `className`：
 
 ```html
-<Button className='my-button'/>
+<button className="my-button" />
 ```
 
 然后在 CSS 文件中设置 CSS 变量
@@ -40,9 +44,7 @@
 直接通过组件的 `style` 属性，简单粗暴，适合小范围的调整：
 
 ```html
-<Button style={{
-  '--border-radius': '2px'
-}}/>
+<Button style={{ '--border-radius': '2px' }}/>
 ```
 
 ### 方法三：通过全局变量进行设置
