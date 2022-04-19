@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route, useNavigate } from 'react-router-dom';
-import initDemoRoutes from './demoRoutes';
+import initDemoRoutes from './routes';
 import _routes from '@@rcdoc/site-shared-routes';
 import MobileView from '../../components/Simulator/MobileView';
 import DemoWrapper from '../../components/Simulator/DemoWrapper';

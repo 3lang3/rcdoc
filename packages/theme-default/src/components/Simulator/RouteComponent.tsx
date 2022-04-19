@@ -11,6 +11,7 @@ export const SimulatorRouteComponent = ({
   title,
 }) => {
   const navigate = useNavigate();
+
   return (
     <React.Suspense fallback={<LazyFallback mode="mobile" />}>
       <LazyComponent>

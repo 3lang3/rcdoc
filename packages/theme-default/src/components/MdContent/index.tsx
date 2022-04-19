@@ -22,11 +22,6 @@ const MdContentComponent = ({ children, updatedTime, filePath, frontmatter = {} 
       (repoUrl || '').match(/(github|gitlab)/)?.[1] || 'nothing'
     ] || platform;
 
-  // Reset scrollbar position
-  React.useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   // Current page slugs action
   useActiveSidebarLinks();
 
@@ -42,33 +37,29 @@ const MdContentComponent = ({ children, updatedTime, filePath, frontmatter = {} 
   const showBottomMeta = !blank && meta && (!!updatedTimeStr || repoPlatform);
 
   return (
-    <Flex align="flex-start">
-      <section
-        style={style}
-        className={clsx('doc-md-content', className, {
-          'doc-md-content--fluid': fluid,
-          'doc-md-content--blank': blank,
-        })}
-      >
-        {children({ previewer, api })}
-        {showBottomMeta && (
-          <Flex align="center" justify="space-between" className="doc-md-content__meta">
-            {repoPlatform && (
-              <a
-                href={`${repoUrl}/edit/${branch}${packagePath ? `/${packagePath}` : ''}${filePath}`}
-              >
-                <Icons.GitHubIcon /> {isCN ? `在 ${repoPlatform} 上编辑此页` : `Edit this page`}
-              </a>
-            )}
-            {!!updatedTimeStr && (
-              <span>
-                {isCN ? '最后更新时间：' : 'Last update: '} {updatedTimeStr}
-              </span>
-            )}
-          </Flex>
-        )}
-      </section>
-    </Flex>
+    <section
+      style={style}
+      className={clsx('doc-md-content', className, {
+        'doc-md-content--fluid': fluid,
+        'doc-md-content--blank': blank,
+      })}
+    >
+      {children({ previewer, api })}
+      {showBottomMeta && (
+        <Flex align="center" justify="space-between" className="doc-md-content__meta">
+          {repoPlatform && (
+            <a href={`${repoUrl}/edit/${branch}${packagePath ? `/${packagePath}` : ''}${filePath}`}>
+              <Icons.GitHubIcon /> {isCN ? `在 ${repoPlatform} 上编辑此页` : `Edit this page`}
+            </a>
+          )}
+          {!!updatedTimeStr && (
+            <span>
+              {isCN ? '最后更新时间：' : 'Last update: '} {updatedTimeStr}
+            </span>
+          )}
+        </Flex>
+      )}
+    </section>
   );
 };
 

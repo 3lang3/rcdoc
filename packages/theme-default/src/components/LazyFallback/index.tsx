@@ -29,7 +29,6 @@ export const LazyFallback: React.FC<LazyFallbackProps> = ({ mode = 'site' }) => 
   const { dispatch } = React.useContext(MarkdownPageContext);
   React.useEffect(() => {
     if (mode === 'site') {
-      console.log('loading page');
       dispatch({ loading: true });
     }
     document.body.classList.add('show-content-loader');

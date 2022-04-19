@@ -12,6 +12,11 @@ const Layout = (props) => {
   const { config, menus, currentPageName } = React.useContext(MdocSiteContext);
   const hasMenu = !!menus.length;
 
+  React.useEffect(() => {
+    // Reset scrollbar position
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   if (inIframe || pathname.startsWith('/~demo')) return props.children;
 
   return (
