@@ -86,6 +86,10 @@ export type DefineConfig = {
       simulator?: {
         /** 显示模拟器的路由前缀 */
         include: string[];
+        /** 是否开启紧凑模式
+         * @default false
+         */
+        compact?: boolean;
       };
     } & Record<string, any>;
     /** 控制锚点目录的显示或位置，值为 false 时不展示，值为 content 时展示在内容区域的右侧，值为 menu 时会将当前路由的锚点目录展示在左侧菜单中 */
