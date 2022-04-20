@@ -25,6 +25,7 @@ const defaultConfig: DefineConfig = {
     style: 'index.less',
   },
   site: {
+    history: 'broswer',
     slug: 'content',
   },
   repository: getPackageJsonRepository(),

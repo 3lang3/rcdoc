@@ -61,6 +61,11 @@ export type DefineConfig = {
   locales?: false | Array<[string, string]>;
   /** 站点额外信息配置 */
   site?: {
+    /**
+     * 设置history类型
+     * @default 'broswer'
+     */
+    history?: 'hash' | 'broswer';
     /**配置 favicon 地址（href 属性） */
     favicon?: string;
     /** 配置 <head> 里的额外脚本，数组项为字符串或对象 */
@@ -102,7 +107,15 @@ export type DefineConfig = {
   /** 自定义vite配置 */
   vite?: Pick<
     ViteConfig,
-    'publicDir' | 'css' | 'plugins' | 'server' | 'define' | 'esbuild' | 'resolve' | 'optimizeDeps'
+    | 'base'
+    | 'publicDir'
+    | 'css'
+    | 'plugins'
+    | 'server'
+    | 'define'
+    | 'esbuild'
+    | 'resolve'
+    | 'optimizeDeps'
   >;
   /** 构建配置 */
   build?: {

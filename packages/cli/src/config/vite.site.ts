@@ -60,7 +60,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
   const themeAlias = getConfigThemeAlias();
 
   return {
-    base: './',
+    base: context.opts?.vite?.base || './',
     root: SITE_SRC_DIR,
     publicDir: path.join(CWD, context.opts?.vite?.publicDir || 'public'),
     plugins: [
@@ -77,6 +77,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
             logo: context.opts.logo,
             favicon: context.opts.site?.favicon,
             vconsole: context.opts?.site?.vconsole,
+            routerBase: context.opts?.vite?.base || '/',
             metas: getHTMLMetas(context.opts?.site?.metas),
             headScripts: getHTMLHeadScripts(context.opts?.site?.headScripts),
           },
@@ -109,7 +110,6 @@ const IGNORE_BUILD_ALIAS_DEPS = ['react', 'react-dom'];
 export function getViteConfigForSiteProd(): InlineConfig {
   const devConfig = getViteConfigForSiteDev();
   const outDir = get(context.opts, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
-  const publicPath = get(context.opts, 'build.site.publicPath', '/');
 
   const projectPackageJson = getPackageJson();
   // @FIXME
@@ -125,7 +125,7 @@ export function getViteConfigForSiteProd(): InlineConfig {
 
   return {
     ...devConfig,
-    base: publicPath,
+    base: context.opts?.vite?.base || '/',
     resolve: {
       alias: {
         ...projectDepsAlias,
