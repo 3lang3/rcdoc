@@ -1,0 +1,42 @@
+{
+  "name": "@rcdoc/create",
+  "version": "0.0.0-dev.1",
+  "description": "Create rcdoc app",
+  "main": "dist/index.js",
+  "bin": {
+    "rcdoc-create": "./dist/index.js"
+  },
+  "scripts": {
+    "build": "tsup --dts",
+    "dev": "tsup --watch",
+    "prepare": "pnpm build",
+    "prepack": "pnpm build",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "dist",
+    "generators"
+  ],
+  "keywords": [
+    "react",
+    "rcdoc"
+  ],
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.0.1",
+    "consola": "^2.15.3",
+    "fast-glob": "^3.2.11",
+    "fs-extra": "^10.0.0",
+    "inquirer": "^8.2.2",
+    "yeoman-environment": "^3.9.1",
+    "yeoman-generator": "^5.6.1"
+  },
+  "devDependencies": {
+    "@types/yeoman-environment": "^2.10.7",
+    "@types/yeoman-generator": "^5.2.10",
+    "tsup": "^5.11.11"
+  }
+}
