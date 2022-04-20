@@ -8,9 +8,11 @@ import usePathname from './hooks/usePathname';
 
 const App = () => {
   const { config, menus: _menus, packageVersion } = shared;
+
   const { locales } = config;
 
-  const pathname = usePathname();
+  const pathname = usePathname({ history: config.site.history });
+
   // 默认locale
   const defaultLocale = React.useMemo(
     () => (!locales ? false : locales[0]),

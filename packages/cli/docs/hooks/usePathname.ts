@@ -1,7 +1,7 @@
 import React from 'react';
 
 const _windowHistoryWrap = function (type) {
-  const orig = history[type];
+  const orig = window.history[type];
   const e = new Event(type) as any;
   return function () {
     const rv = orig.apply(this, arguments);
@@ -17,15 +17,25 @@ const PROXY_EVENTS = [
   { name: 'replaceState', replace: true },
 ];
 
-const usePathname = () => {
+type UsePathnameProps = {
+  (props?: {
+    /**
+     * @default 'browser'
+     */
+    history?: 'hash' | 'browser';
+  }): string;
+};
+
+const usePathname: UsePathnameProps = ({ history = 'browser' }) => {
   const [pathname, updatePn] = React.useState(() => window.location.pathname);
   React.useEffect(() => {
     const updatePnCallback = () => {
-      updatePn(window.location.pathname);
+      const { pathname, hash } = window.location;
+      updatePn(history === 'hash' ? hash.substring(1) : pathname);
     };
     // 监听url change
     PROXY_EVENTS.filter((el) => el.replace).forEach((event) => {
-      history[event.name] = _windowHistoryWrap(event.name);
+      window.history[event.name] = _windowHistoryWrap(event.name);
     });
     PROXY_EVENTS.forEach((event) => {
       window.addEventListener(event.name, updatePnCallback);
