@@ -43,7 +43,7 @@ const App = () => {
   }, [pathname, isDefaultLocale, currentLocale, JSON.stringify(locales)]);
 
   // 是否有多语言menu数据
-  const hasLocaleMenu = React.useMemo(() => Object.keys(_menus).length > 1, [_menus]);
+  // const hasLocaleMenu = React.useMemo(() => Object.keys(_menus).length > 1, [_menus]);
 
   // 当前语言目录数据
   const currentLangMenus = React.useMemo(() => _menus[currentLocale[0]], [currentLocale, _menus]);
@@ -109,14 +109,13 @@ const App = () => {
     <MdocSiteContext.Provider
       value={{
         ...shared,
-        locale:
-          !locales || !hasLocaleMenu
-            ? false
-            : {
-                current: currentLocale,
-                default: defaultLocale,
-                ...switchData,
-              },
+        locale: !locales
+          ? false
+          : {
+              current: currentLocale,
+              default: defaultLocale,
+              ...switchData,
+            },
         menus,
         navs,
         versions,

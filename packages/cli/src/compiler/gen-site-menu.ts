@@ -161,7 +161,7 @@ export function genSiteMenu() {
     }),
   );
 
-  const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes);
+  const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes, langs || ['']);
 
   return { routes: [...mergeMenus, ...allRedirectRoutes], menus: langsMenus };
 }
@@ -175,16 +175,19 @@ function localesCompatibleRoute(
 ) {
   const defaultLangRoutes = allRoutes.filter((r) => r.lang === defaultLang);
   const otherLang = locales[1][0];
-  const othersLangRoutes = allRoutes.reduce((a, v) => {
-    if (v.lang === otherLang) {
-      if (!a[v.lang]) {
-        a[v.lang] = [v];
-      } else {
-        a[v.lang].push(v);
+  const othersLangRoutes = allRoutes.reduce(
+    (a, v) => {
+      if (v.lang === otherLang) {
+        if (!a[v.lang]) {
+          a[v.lang] = [v];
+        } else {
+          a[v.lang].push(v);
+        }
       }
-    }
-    return a;
-  }, {});
+      return a;
+    },
+    { [otherLang]: [] },
+  );
 
   // Correct compatitly route lang & langpath
   Object.entries(othersLangRoutes).forEach(([lang, routes]: [string, any[]]) => {
@@ -200,14 +203,6 @@ function localesCompatibleRoute(
       }
     });
   });
-}
-
-// get langs arr by locales
-function getLangs(data: NavItem[]) {
-  return data.reduce<string[]>((a, v) => {
-    if (!a.includes(v.lang)) a.push(v.lang);
-    return a;
-  }, []);
 }
 
 function getRoutesDataByLang(data) {
@@ -248,10 +243,8 @@ function getRoutesDataByLang(data) {
   return [routes, redirectRoutes];
 }
 
-function generateMenus(data: NavItem[]) {
-  const cloneData = JSON.parse(JSON.stringify(data)) as NavItem[];
+function generateMenus(data: NavItem[], langs: string[]) {
   const allRedirectRoutes = [];
-  const langs = getLangs(cloneData);
   const langsMenus = langs.reduce((a, v) => {
     const flattenRoutes = data.filter((r) => r.lang === v);
     const [routes, redirectRoutes] = getRoutesDataByLang(flattenRoutes);

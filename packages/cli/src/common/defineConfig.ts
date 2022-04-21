@@ -28,6 +28,8 @@ type ApiParserProps = {
 type NavItem = {
   title?: string;
   path?: string;
+  /** 是否首页 */
+  index?: boolean;
   simulator?: boolean;
   children?: NavItem[];
 };

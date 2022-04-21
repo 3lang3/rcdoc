@@ -41,8 +41,8 @@ export function getLocaleFromPathname(pathname, locales) {
  * @param {*} isDefaultLang
  * @returns
  */
-export function getMenuByPathname(menu, pathname, isDefaultLang) {
-  const paths = pathname.substr(1).split('/');
+export function getMenuByPathname(menu = [], pathname, isDefaultLang) {
+  const paths = pathname.substr(1).split('/').filter(Boolean);
   const parentPath = '/' + paths[isDefaultLang ? 0 : 1];
   return menu.filter((el) => el.path.startsWith(parentPath));
 }

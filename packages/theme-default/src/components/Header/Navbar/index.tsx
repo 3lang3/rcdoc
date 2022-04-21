@@ -14,6 +14,7 @@ export const NavbarLink = ({ path, type = 'navlink', ...props }) => {
   }
   return type === 'navlink' ? (
     <NavLink
+      end={props.index}
       className={({ isActive }) =>
         clsx(props.className, {
           'doc-navbar__link--active': isActive,
@@ -46,7 +47,7 @@ const NavbarItem = ({ nav }) => {
   return (
     <Dropdown className="doc-navbar__item" key={nav.path || nav.title} overlay={overlay}>
       {nav.path ? (
-        <NavbarLink className="doc-navbar__link" path={nav.path}>
+        <NavbarLink className="doc-navbar__link" path={nav.path} index={nav.index}>
           {nav.title}
         </NavbarLink>
       ) : (

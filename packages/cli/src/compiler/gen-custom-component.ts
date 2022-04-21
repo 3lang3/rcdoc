@@ -8,7 +8,9 @@ const GUESS_FOOTER_PATH = ['Footer.js', 'Footer.ts', 'Footer.jsx', 'Footer.tsx']
  * Generate site footer component
  */
 export function genSiteFooter(code: string): string {
-  const footerPath = getExistFile({ files: GUESS_FOOTER_PATH.map((el) => path.join('docs', el)) });
+  const footerPath = getExistFile({
+    files: GUESS_FOOTER_PATH.map((el) => path.join('_rcdoc_', el)),
+  });
   if (footerPath) {
     code += `export { default as Footer} from '${path.relative(PROJECT_SRC_DIR, footerPath)}'\n`;
   } else {

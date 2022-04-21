@@ -16,7 +16,6 @@ function initRoutes({ locales, unprocessedRoutes }) {
       title: title,
       name: `${lang}/${path}`,
       path: isDefaultLang ? `${path}` : `/${lang}${path}`,
-      index: path === '/',
       component: <RouteComponent lazyComponent={route.component} />,
       state: {
         lang,
@@ -24,18 +23,6 @@ function initRoutes({ locales, unprocessedRoutes }) {
       },
     });
   });
-
-  if (Array.isArray(locales)) {
-    locales.forEach((locale) => {
-      routes.push({
-        path: '*',
-        redirect: defaultLang === locale[0] ? '/' : `/${locale[0]}`,
-        state: {
-          lang: locale[0],
-        },
-      });
-    });
-  }
 
   return routes;
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
 import initDemoRoutes from './routes';
 import _routes from '@@rcdoc/site-shared-routes';
 import MobileView from '../../components/Simulator/MobileView';
@@ -26,9 +26,17 @@ const MobileApp = ({ config }) => {
   return (
     <DemoWrapper>
       <Routes>
-        {demoRoutes.map((route) => (
-          <Route key={route.path} path={route.path} element={route.component} />
-        ))}
+        {demoRoutes.map((route) =>
+          route.redirect ? (
+            <Route
+              key={route.path}
+              path={`/~demo${route.path}`}
+              element={<Navigate to={`/~demo${route.redirect}`} />}
+            />
+          ) : (
+            <Route key={route.path} path={route.path} element={route.component} />
+          ),
+        )}
         <Route path="/~demo" element={<MobileView />} />
       </Routes>
     </DemoWrapper>
