@@ -61,6 +61,7 @@ export default defineConfig({
     dynamicImport: true,
   },
   site: {
+    history: 'hash',
     favicon: '/favicon.png',
     github: 'https://github.com/3lang3/rcdoc',
     metas: [

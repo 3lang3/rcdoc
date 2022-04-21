@@ -20,44 +20,34 @@ const Menu = (props) => {
 
   const renderMenuSlug = config?.site?.slug === 'menu';
 
+  const renderMenus = (item, key) => {
+    return (
+      <React.Fragment key={key}>
+        {item.children && item.title ? <MenuTitle item={item} /> : null}
+        {item.group?.title ? <div className="doc-menu__title">{item.group.title}</div> : null}
+        {item.children && item.children.length ? (
+          item.children.map(renderMenus)
+        ) : (
+          <div
+            key={item.path}
+            className={clsx('doc-menu__item', {
+              'doc-menu__item--active': pathname === item.langPath,
+            })}
+          >
+            <MenuLink
+              active={pathname === item.langPath}
+              renderMenuSlug={renderMenuSlug}
+              item={item}
+            />
+          </div>
+        )}
+      </React.Fragment>
+    );
+  };
+
   return (
     <div className="doc-menu">
-      <div className="doc-menu__group">
-        {menus.map((item, key) => (
-          <React.Fragment key={key}>
-            {item.children && item.title ? <MenuTitle item={item} /> : null}
-            {item.children ? (
-              item.children.map((c) => (
-                <div
-                  key={c.path}
-                  className={clsx('doc-menu__item', {
-                    'doc-menu__item--active': pathname === c.langPath,
-                  })}
-                >
-                  <MenuLink
-                    active={pathname === c.langPath}
-                    renderMenuSlug={renderMenuSlug}
-                    item={c}
-                  />
-                </div>
-              ))
-            ) : (
-              <div
-                key={item.path}
-                className={clsx('doc-menu__item', {
-                  'doc-menu__item--active': pathname === item.langPath,
-                })}
-              >
-                <MenuLink
-                  active={pathname === item.langPath}
-                  renderMenuSlug={renderMenuSlug}
-                  item={item}
-                />
-              </div>
-            )}
-          </React.Fragment>
-        ))}
-      </div>
+      <div className="doc-menu__group">{menus.map(renderMenus)}</div>
     </div>
   );
 };

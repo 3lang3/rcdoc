@@ -3,20 +3,21 @@ import clsx from 'clsx';
 import MarkdownPageContext from '../../context';
 
 import './index.less';
+import { Link } from 'react-router-dom';
 
 const SlugNav = ({ slugs }) => {
   return (
     <div className="doc-md--slugs">
       {slugs.map((slug, key) => {
         return (
-          <a
+          <Link
             // eslint-disable-next-line react/no-array-index-key
             key={key}
-            href={`#${slug.id}`}
+            to={`#${slug.id}`}
             className={clsx('doc-md--slug', `doc-md--slug-${slug.depth}`)}
           >
             {slug.text}
-          </a>
+          </Link>
         );
       })}
     </div>

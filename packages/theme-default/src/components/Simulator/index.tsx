@@ -6,7 +6,7 @@ import simulatorModel from './android-device-skin.png';
 import MarkdownPageContext from '../../context';
 import './index.less';
 
-const Simulator = () => {
+const Simulator = ({ hashHistory }) => {
   const location = useLocation();
   // Parser simulator src
   const src = React.useMemo(() => {
@@ -14,7 +14,7 @@ const Simulator = () => {
   }, [location.pathname]);
 
   const initialSrc = React.useMemo(() => {
-    return `/~demo${location.pathname}`;
+    return `${hashHistory ? '#' : ''}/~demo${location.pathname}`;
   }, []);
 
   // Post src to iframe
@@ -58,12 +58,13 @@ export default React.memo(
     const { simulator = true, blank } = frontmatter;
 
     const include = config?.site?.themeConfig?.simulator?.include || [];
+    const hashHistory = config.site?.history === 'hash';
     const renderSimulator =
       include.some((el) => location.pathname.includes(el) && el !== location.pathname) &&
       simulator &&
       !blank;
     if (!renderSimulator) return null;
-    return <Simulator />;
+    return <Simulator hashHistory={hashHistory} />;
   },
   () => true,
 );

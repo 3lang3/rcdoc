@@ -1,22 +1,18 @@
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import clsx from 'clsx';
-import './index.less';
 import Slugs from '../../Slugs';
+import './index.less';
 
 const MenuLink = (props) => {
   const { item, active, renderMenuSlug } = props;
 
-  const itemName = useMemo(() => {
-    const name = (item.title || item.name).split(' ');
-    return `${name[0]} <span>${name.slice(1).join(' ')}</span>`;
-  }, [item.name, item.title]);
+  const itemName = useMemo(() => item.title || item.name, [item.name, item.title]);
 
   return (
     <>
       {item.path ? (
         <>
-          {item.group?.title ? <div className="doc-menu__title">{item.group.title}</div> : null}
           <Link
             className={clsx('doc-menulink')}
             to={item.langPath}

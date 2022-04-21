@@ -23,7 +23,7 @@ const MdContentComponent = ({ children, updatedTime, filePath, frontmatter = {} 
     ] || platform;
 
   // Current page slugs action
-  useActiveSidebarLinks();
+  useActiveSidebarLinks({ history: config.site.history });
 
   // File updatetime
   const updatedTimeStr = React.useMemo(() => {

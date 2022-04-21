@@ -1,4 +1,5 @@
 import React from 'react';
+import { getRealyHash } from './useActiveSidebarLinks';
 
 export default function useAnchorClick() {
   React.useEffect(() => {
@@ -10,7 +11,7 @@ export default function useAnchorClick() {
         event.preventDefault();
         const hash = event.target.hash;
         if (hash) {
-          const anchor = document.querySelector<HTMLAnchorElement>(decodeURIComponent(hash));
+          const anchor = document.querySelector<HTMLAnchorElement>(getRealyHash(hash));
           if (anchor) {
             scrollTop(anchor);
           }

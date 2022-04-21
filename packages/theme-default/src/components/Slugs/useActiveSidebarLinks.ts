@@ -1,7 +1,10 @@
 import React from 'react';
 import useAnchorClick, { scrollTop } from './useAnchorClick';
 
-export default function useActiveSidebarLinks() {
+type UseActiveSidebarLinksProps = { history?: 'browser' | 'hash' };
+
+export default function useActiveSidebarLinks(props?: UseActiveSidebarLinksProps) {
+  const { history: historyType = 'browser' } = props || {};
   let rootActiveLink: HTMLAnchorElement | null = null;
   let activeLink: HTMLAnchorElement | null = null;
 
@@ -19,7 +22,9 @@ export default function useActiveSidebarLinks() {
 
       const [isActive, hash] = isAnchorActive(i, anchor, nextAnchor);
       if (isActive) {
-        history.replaceState(null, document.title, hash ? `#${hash}` : ' ');
+        if (historyType === 'browser') {
+          window.history.replaceState(null, document.title, hash ? `#${hash}` : ' ');
+        }
         activateLink(hash);
         return;
       }
@@ -30,7 +35,7 @@ export default function useActiveSidebarLinks() {
     deactiveLink(activeLink);
     deactiveLink(rootActiveLink);
 
-    activeLink = document.querySelector(`.doc-md--slugs a[href="#${hash}"]`);
+    activeLink = document.querySelector(`.doc-md--slugs a[href*="#${hash}"]`);
 
     if (!activeLink) {
       return;
@@ -62,11 +67,10 @@ export default function useActiveSidebarLinks() {
   }, []);
 }
 
-function init() {
+function init(): void {
   if (!location.hash) return;
-  console.log(location.hash, decodeURIComponent(location.hash));
   try {
-    const target = document.querySelector<HTMLAnchorElement>(decodeURIComponent(location.hash));
+    const target = document.querySelector<HTMLAnchorElement>(getRealyHash(location.hash));
     if (target) {
       scrollTop(target);
     }
@@ -83,7 +87,7 @@ function getAnchors(sidebarLinks: HTMLAnchorElement[]): HTMLAnchorElement[] {
   return [].slice
     .call(document.querySelectorAll('.doc-md-content [data-anchor]'))
     .filter((anchor: HTMLAnchorElement) =>
-      sidebarLinks.some((sidebarLink) => decodeURIComponent(sidebarLink.hash) === `#${anchor.id}`),
+      sidebarLinks.some((sidebarLink) => getRealyHash(sidebarLink.href) === `#${anchor.id}`),
     ) as HTMLAnchorElement[];
 }
 
@@ -137,4 +141,9 @@ function throttleAndDebounce(fn: () => void, delay: number): () => void {
       timeout = setTimeout(fn, delay) as unknown as number;
     }
   };
+}
+
+export function getRealyHash(hash: string): string {
+  const val = hash.split('#').pop();
+  return decodeURIComponent(`#${val}`);
 }

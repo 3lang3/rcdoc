@@ -27,7 +27,9 @@ type UsePathnameProps = {
 };
 
 const usePathname: UsePathnameProps = ({ history = 'browser' }) => {
-  const [pathname, updatePn] = React.useState(() => window.location.pathname);
+  const [pathname, updatePn] = React.useState(() =>
+    history === 'hash' ? window.location.hash.substring(1) : window.location.pathname,
+  );
   React.useEffect(() => {
     const updatePnCallback = () => {
       const { pathname, hash } = window.location;
