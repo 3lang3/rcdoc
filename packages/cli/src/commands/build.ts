@@ -6,6 +6,8 @@ import rcdocBuild from '@rcdoc/build';
 import { build as viteBuild } from 'vite';
 import { PROJECT_DIST_DIR, MDOC_BUILD_CONFIG_FILE, ROOT } from '../common/constant';
 import { getViteConfigForPackage } from '../config/vite.package';
+import context from '../common/context';
+import { resolveConfig } from '../compiler/resolve-config';
 
 // Vitejs build bundles
 // Postcss can't output every component style file.
@@ -23,15 +25,18 @@ const compileBundlesByVite = async () => {
 };
 
 const compileBundlesByMdocBuild = async () => {
+  const { build: buildProps = {} } = context.opts;
   await rcdocBuild['default']({
     cwd: ROOT,
     clean: false,
-    buildArgs: { config: MDOC_BUILD_CONFIG_FILE },
+    buildArgs: { config: MDOC_BUILD_CONFIG_FILE, ...buildProps },
   });
 };
 
-export async function build() {
-  await remove(PROJECT_DIST_DIR);
-  await compileBundlesByVite();
-  await compileBundlesByMdocBuild();
+export function build() {
+  remove(PROJECT_DIST_DIR, async () => {
+    await resolveConfig();
+    await compileBundlesByVite();
+    await compileBundlesByMdocBuild();
+  });
 }

@@ -1,5 +1,22 @@
 import type { UserConfig as ViteConfig } from 'vite';
 
+interface IBundleTypeOutput {
+  file?: string;
+  dist?: string;
+}
+
+export interface BuildCjsType extends IBundleTypeOutput {
+  minify?: boolean;
+  lazy?: boolean;
+}
+
+interface BuildEsmType extends IBundleTypeOutput {
+  mjs?: boolean;
+  minify?: boolean;
+  importLibToEs?: boolean;
+  dist?: string;
+}
+
 /** 配置 Algolia 的 DocSearch 服务 */
 type AlgoliaProps = {
   appId: string;
@@ -121,8 +138,8 @@ export type DefineConfig = {
   >;
   /** 构建配置 */
   build?: {
-    /** 是否启用按需加载，即是否把构建产物进行拆分，在需要的时候下载额外的 JS 再执行 */
-    dynamicImport?: boolean;
+    esm?: boolean | BuildEsmType;
+    cjs?: boolean | BuildCjsType;
   } & Record<string, any>;
   /** 配置解析行为，包含如下配置 */
   resolve?: {
