@@ -31,12 +31,12 @@ export function getBundleOpts(opts: IOpts): IBundleOptions[] {
     );
 
     // Support config esm: 'rollup' and cjs: 'rollup'
-    if (typeof bundleOpts.esm) {
-      bundleOpts.esm = { type: bundleOpts.esm };
-    }
-    if (typeof bundleOpts.cjs) {
-      bundleOpts.cjs = { type: bundleOpts.cjs };
-    }
+    // if (typeof bundleOpts.esm) {
+    //   bundleOpts.esm = { type: bundleOpts.esm };
+    // }
+    // if (typeof bundleOpts.cjs) {
+    //   bundleOpts.cjs = { type: bundleOpts.cjs };
+    // }
 
     return bundleOpts;
   });
@@ -64,7 +64,7 @@ cjs.lazy don't support rollup.
       `
 None format of ${chalk.cyan(
         'cjs | esm',
-      )} is configured, checkout https://github.com/3lang3/rcdoc/build for usage details.
+      )} is configured, checkout https://github.com/3lang3/rcdoc/packages/build for usage details.
 `.trim(),
     );
   }
@@ -130,7 +130,6 @@ export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
 
     // Build cjs
     if (bundleOpts.cjs) {
-      const cjs = bundleOpts.cjs as IBundleTypeOutput;
       log(`Build cjs with babel`);
       await babel({ cwd, rootPath, watch, dispose, type: 'cjs', log, bundleOpts });
     }

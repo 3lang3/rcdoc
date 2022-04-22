@@ -26,7 +26,8 @@ export default {
             importLibToEs: {
               type: 'boolean',
             },
-            dir: noEmptyStr
+            dist: { type: 'string' },
+            dir: noEmptyStr,
           },
         },
       ],
@@ -45,6 +46,7 @@ export default {
             file: noEmptyStr,
             minify: { type: 'boolean' },
             lazy: { type: 'boolean' },
+            dist: { type: 'string' },
           },
         },
       ],
@@ -80,11 +82,7 @@ export default {
       type: 'object',
     },
     include: {
-      oneOf: [
-        { type: 'string' },
-        { type: 'object' },
-        { type: 'array' },
-      ]
+      oneOf: [{ type: 'string' }, { type: 'object' }, { type: 'array' }],
     },
     runtimeHelpers: {
       type: 'boolean',
@@ -106,16 +104,13 @@ export default {
       type: 'object',
     },
     lessInRollupMode: {
-      type: 'object'
+      type: 'object',
     },
     sassInRollupMode: {
-      type: 'object'
+      type: 'object',
     },
     lessInBabelMode: {
-      oneOf: [
-        { type: 'boolean' },
-        { type: 'object' },
-      ],
+      oneOf: [{ type: 'boolean' }, { type: 'object' }],
     },
     browserFiles: {
       type: 'array',
@@ -148,6 +143,6 @@ export default {
     },
     loose: {
       type: 'boolean',
-    }
+    },
   },
 };
