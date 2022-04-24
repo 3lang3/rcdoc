@@ -1,17 +1,19 @@
-import chokidar from 'chokidar'
+import chokidar from 'chokidar';
 import context from '../common/context';
+import { genSiteEntry } from './compile-site';
 import { parseConfig } from './resolve-config';
 
 export function watchConfig() {
-  // Watch all md file
+  // Watch rcdoc config file
   const watcher = chokidar.watch(context.configFilePath, {
-    ignoreInitial: true
-  })
+    ignoreInitial: true,
+  });
 
   watcher.on('change', async () => {
-    console.log('update config')
-    await parseConfig(context.configFilePath)
-  })
+    await parseConfig(context.configFilePath);
+    await genSiteEntry();
+    context.server.restart();
+  });
 
-  context.closes.push(() => watcher.close())
+  context.watchers.push(watcher);
 }

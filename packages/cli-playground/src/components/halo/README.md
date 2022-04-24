@@ -1,6 +1,4 @@
-# Grid
-
-hello mdoc
+# Halo
 
 ```jsx
 /**

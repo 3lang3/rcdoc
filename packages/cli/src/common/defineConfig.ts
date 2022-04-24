@@ -81,6 +81,11 @@ export type DefineConfig = {
   /** 站点额外信息配置 */
   site?: {
     /**
+     * 自动注入component css
+     * @default true
+     */
+    injectComponentCss?: boolean;
+    /**
      * 设置history类型
      * @default 'broswer'
      */

@@ -1,8 +1,12 @@
-import context from "./context";
+import context from './context';
+
+export async function killServer() {
+  await context?.server?.close();
+  context?.watchers.forEach(async (watcher) => await watcher.close());
+}
 
 export function signit() {
-  process.once('SIGINT', () => {
-    context?.server?.close()
-    context?.closes.forEach(close => close())
-  })
+  process.once('SIGINT', async () => {
+    await killServer();
+  });
 }

@@ -58,10 +58,12 @@ export default defineConfig({
     style: './style/index.less',
   },
   build: {
-    dynamicImport: true,
+    cjs: {
+      dist: 'lib23',
+    },
   },
   site: {
-    history: 'hash',
+    injectComponentCss: false,
     favicon: '/favicon.png',
     github: 'https://github.com/3lang3/rcdoc',
     metas: [

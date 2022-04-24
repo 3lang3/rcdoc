@@ -21,12 +21,14 @@ const defaultConfig: DefineConfig = {
     ['en-US', 'English'],
   ],
   resolve: {
+    includes: ['docs', 'src'],
     previewLangs: ['jsx', 'tsx'],
     style: 'index.less',
   },
   site: {
     history: 'broswer',
     slug: 'content',
+    injectComponentCss: true,
   },
   repository: getPackageJsonRepository(),
 };
@@ -94,8 +96,7 @@ export async function parseConfig(configPath) {
   });
 
   const data = config.mod.default || config.mod;
-
-  const mergedData = merge(defaultConfig, data);
+  const mergedData = merge(JSON.parse(JSON.stringify(defaultConfig)), data);
 
   if (mergedData.repository?.url) {
     mergedData.repository.url = getRepoUrl(

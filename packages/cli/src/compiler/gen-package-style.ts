@@ -17,9 +17,6 @@ type Options = {
 export function genPackageStyle(options: Options) {
   const require = createRequire(import.meta.url);
   const styleDepsJson = require(STYLE_DEPS_JSON_FILE);
-  const CSS_LANG = getCssLang();
-  const ext = `.${CSS_LANG}`;
-
   let content = '';
 
   let baseFile = getCssBaseFile();
