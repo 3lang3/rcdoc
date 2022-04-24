@@ -5,17 +5,14 @@ import DesktopApp from './views/desktop';
 import MobileApp from './views/mobile';
 import './index.less';
 
-const App = React.memo(
-  () => {
-    const { config } = React.useContext(MdocSiteContext);
-    return (
-      <Layout>
-        <DesktopApp config={config} />
-        {!!config?.site?.themeConfig?.simulator && <MobileApp config={config} />}
-      </Layout>
-    );
-  },
-  () => true,
-);
+const App = () => {
+  const { config } = React.useContext(MdocSiteContext);
+  return (
+    <Layout>
+      <DesktopApp config={config} />
+      {!!config?.site?.themeConfig?.simulator && <MobileApp config={config} />}
+    </Layout>
+  );
+};
 
 export default App;

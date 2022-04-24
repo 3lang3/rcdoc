@@ -1,7 +1,7 @@
 import glob from 'fast-glob';
 import path from 'path';
 import { kebabCase } from 'lodash-es';
-import { PROJECT_SRC_DIR, PROJECT_DOCS_DIR, PROJECT_CLI_DIST_DIR } from '../common/constant';
+import { PROJECT_CLI_DIST_DIR, ROOT } from '../common/constant';
 import context from '../common/context';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 
@@ -12,26 +12,28 @@ export type MenuItem = {
   langPath?: string;
   isLink?: boolean;
   children?: Array<MenuItem>;
+  headings?: any;
+  relative?: string;
+  lang?: string;
+  filePath?: string;
+  component?: any;
   group?: {
     title: string;
   };
 };
 
 type NavItem = {
-  filePath?: string;
-  isComponentDir?: boolean;
-  relative?: string;
-  lang?: string;
-  component?: any;
   children?: Array<NavItem>;
 } & MenuItem;
 
-function getMenuDataByFilepath(root: string, filePath: string, defaultLang: string) {
+function getMenuDataByFilepath(includes: string[], filePath: string, defaultLang: string) {
+  const root = includes.find((p) => filePath.startsWith(path.join(ROOT, p)));
+  const rootPath = path.join(ROOT, root);
   const { dir } = path.parse(filePath);
   let { title, lang = defaultLang } = getTitleAndLangByFilepath(filePath);
   const { headings, frontmatter } = getMarkdownContentMeta(filePath);
-  const isBaseDir = dir === root;
-  const baseDir = path.join('/', path.relative(root, dir));
+  const isBaseDir = dir === rootPath;
+  const baseDir = path.join('/', path.relative(rootPath, dir));
   const defaultLangFile = title === 'README';
   const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
   const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
@@ -52,7 +54,7 @@ function getMenuDataByFilepath(root: string, filePath: string, defaultLang: stri
   // Overwrite title
   title = frontmatter?.title || headings?.[0] || title;
 
-  let menu: NavItem = {
+  let menu: MenuItem = {
     title,
     lang,
     relative,
@@ -70,35 +72,29 @@ function getMenuDataByFilepath(root: string, filePath: string, defaultLang: stri
   return menu;
 }
 
-function resolveStaticMenus(userConfig): Record<string, NavItem[]> {
-  const { locales } = userConfig;
+function resolveStaticMenus(userConfig): NavItem[] {
+  const { locales, resolve } = userConfig;
   const defaultLang = !locales ? '' : locales[0][0];
 
-  const docsMenus = glob
-    .sync(path.normalize(path.join(PROJECT_DOCS_DIR, '**/*.md')))
+  const menus = glob
+    .sync(
+      resolve.includes.map((dirPath: string) =>
+        path.normalize(path.join(ROOT, dirPath, '**/*.md')),
+      ),
+      { ignore: (resolve.excludes = []) },
+    )
     .map((filePath) => {
-      const menu = getMenuDataByFilepath(PROJECT_DOCS_DIR, filePath, defaultLang);
+      const menu = getMenuDataByFilepath(resolve.includes, filePath, defaultLang);
       if (!locales && menu.lang) return false;
       if (locales && !locales.some((l) => l[0] === menu.lang)) return false;
       return menu;
     })
     .filter(Boolean) as NavItem[];
-
-  const componentMenus = glob
-    .sync(path.normalize(path.join(PROJECT_SRC_DIR, '**/*.md')))
-    .map((filePath) => {
-      const menu = getMenuDataByFilepath(PROJECT_SRC_DIR, filePath, defaultLang);
-
-      if (!locales && menu.lang) return false;
-      if (locales && !locales.some((l) => l[0] === menu.lang)) return false;
-      return { ...menu, isComponentDir: true };
-    })
-    .filter(Boolean) as NavItem[];
-  return { docsMenus, componentMenus };
+  return menus;
 }
 
 export function genSiteMenu() {
-  const { docsMenus, componentMenus } = resolveStaticMenus(context.opts);
+  const menus = resolveStaticMenus(context.opts);
   const { locales, menus: configMenus } = context.opts;
 
   const langs = !locales ? false : locales.map((el) => el[0]);
@@ -114,14 +110,14 @@ export function genSiteMenu() {
       cfgMenuCld.forEach((menuItem) => {
         menuItem.children?.forEach((cPath, idx) => {
           // Get target component menu item
-          const targetMenuIdx = componentMenus.findIndex(
+          const targetMenuIdx = menus.findIndex(
             (el) =>
               el.lang === pathLang &&
               // If not default lang path need add lang to compare
               path.join(pathLang !== defaultLang ? '/' + el.lang : '', el.path) === cPath,
           );
           if (targetMenuIdx === -1) return;
-          const targetMenu = componentMenus[targetMenuIdx];
+          const targetMenu = menus[targetMenuIdx];
           // Replace menu frontmatter.group data
           if (targetMenu && idx === 0) {
             targetMenu.group = { title: menuItem.title };
@@ -129,10 +125,7 @@ export function genSiteMenu() {
           // Recompute menu position
           const correctIdx = idx + loopIdx;
           if (correctIdx !== targetMenuIdx) {
-            [componentMenus[correctIdx], componentMenus[targetMenuIdx]] = [
-              componentMenus[targetMenuIdx],
-              componentMenus[correctIdx],
-            ];
+            [menus[correctIdx], menus[targetMenuIdx]] = [menus[targetMenuIdx], menus[correctIdx]];
           }
         });
         loopIdx += menuItem.children?.length;
@@ -140,7 +133,7 @@ export function genSiteMenu() {
     });
   }
 
-  const mergeMenus = [...docsMenus, ...componentMenus];
+  const mergeMenus = [...menus];
 
   if (Array.isArray(locales)) {
     // Compatile missing translation
@@ -148,18 +141,15 @@ export function genSiteMenu() {
   }
 
   // Filter menu property
-  const menuRoutes = mergeMenus.map(
-    ({ isComponentDir, lang, title, path, langPath, isLink, filePath, group }) => ({
-      lang,
-      isComponentDir,
-      title,
-      path,
-      langPath,
-      isLink,
-      filePath,
-      group,
-    }),
-  );
+  const menuRoutes = mergeMenus.map(({ lang, title, path, langPath, isLink, filePath, group }) => ({
+    lang,
+    title,
+    path,
+    langPath,
+    isLink,
+    filePath,
+    group,
+  }));
 
   const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes, langs || ['']);
 
@@ -233,7 +223,7 @@ function getRoutesDataByLang(data) {
       }
     } else {
       if (v.path !== '/') {
-        a.push({ path: dirname, children: [v], isComponentDir: v.isComponentDir });
+        a.push({ path: dirname, children: [v] });
         redirectRoutes.push({ redirect: v.langPath, path: path.dirname(v.langPath) });
       }
     }

@@ -5,6 +5,7 @@ import slash from 'slash2';
 import { get } from 'lodash-es';
 import type { InlineConfig } from 'vite';
 import hostedGit from 'hosted-git-info';
+import { bundleRequire } from 'bundle-require';
 import { PROJECT_SRC_DIR, PROJECT_POSTCSS_CONFIG_FILE, ROOT, CWD } from './constant';
 import context from './context';
 
@@ -239,4 +240,11 @@ export function getRepoUrl(url: any, platform?: 'gitlab') {
   }
 
   return repoUrl;
+}
+
+export async function resolveJsFile(filepath: string) {
+  const result = await bundleRequire({
+    filepath,
+  });
+  return result.mod.default || result.mod;
 }

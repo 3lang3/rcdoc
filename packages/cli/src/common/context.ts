@@ -6,14 +6,12 @@ type ContextType = {
   opts?: DefineConfig;
   configFilePath?: string;
   server?: ViteDevServer;
-  closes: Array<any>;
   watchers: Array<FSWatcher>;
 };
 
 const context: ContextType = {
   opts: {} as DefineConfig,
   server: undefined,
-  closes: [],
   watchers: [],
 };
 

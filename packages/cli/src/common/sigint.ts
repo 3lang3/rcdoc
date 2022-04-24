@@ -1,12 +1,13 @@
 import context from './context';
 
-export async function killServer() {
-  await context?.server?.close();
-  context?.watchers.forEach(async (watcher) => await watcher.close());
+export async function killWatchers() {
+  await Promise.all(context?.watchers.map(async (watcher) => await watcher.close()));
+  console.log('close all watchers');
 }
 
 export function signit() {
   process.once('SIGINT', async () => {
-    await killServer();
+    await killWatchers();
+    await context?.server?.close();
   });
 }

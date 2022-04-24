@@ -1,31 +1,46 @@
 import path from 'path';
-import fse from 'fs-extra'
-import chokidar from 'chokidar'
-import { PROJECT_SRC_DIR, PROJECT_DOCS_DIR, SITE_SHARED_MENU_FILE } from '../common/constant';
-import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown'
-import { getExistFile, smartOutputFile } from '../common';
+import chokidar from 'chokidar';
+import { SITE_SHARED_MENU_FILE, CWD } from '../common/constant';
+import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 import context from '../common/context';
-import apiParser from './compile-api';
+import { genSiteMenuShared } from './gen-site-menu-shared';
+import { restart } from '../common/restart';
+import { resolveJsFile } from '../common';
 
 export function watchSiteShared() {
   // Watch all md file
-  const watcher = chokidar.watch([path.join(PROJECT_SRC_DIR, '**/*.md'), path.join(PROJECT_DOCS_DIR, '**/*.md')])
+  const watcher = chokidar.watch(
+    context.opts.resolve.includes.map((p) => path.join(CWD, p, '**/*.md')),
+    {
+      ignored: (context.opts.resolve.excludes = []),
+      ignoreInitial: true,
+    },
+  );
 
-  watcher.on('change', async (filePath) => {
-    updateMenuFile(filePath)
-  })
+  watcher
+    .on('change', async (filePath) => {
+      await updateMenuFile(filePath);
+    })
+    .on('add', async (filePath) => {
+      watcher.add(filePath);
+      await restart();
+    })
+    .on('unlink', async (filePath) => {
+      watcher.unwatch(filePath);
+      await restart();
+    });
 
-  context.closes.push(() => watcher.close())
+  context.watchers.push(watcher);
 }
 
 // Update menu file
-function updateMenuFile(filePath: string) {
-  let needUpdate = false
+async function updateMenuFile(filePath: string) {
+  let needUpdate = false;
   // Get new title
   const { headings, frontmatter } = getMarkdownContentMeta(filePath);
   const { title } = getTitleAndLangByFilepath(filePath);
   const updateTitle = frontmatter?.title || headings?.[0] || title;
-  const menus = fse.readJSONSync(SITE_SHARED_MENU_FILE)
+  const menus = await resolveJsFile(SITE_SHARED_MENU_FILE);
 
   Object.keys(menus).forEach((lang) => {
     const routes = menus[lang];
@@ -33,47 +48,25 @@ function updateMenuFile(filePath: string) {
       if (route.filePath === filePath) {
         // Update title
         if (route.title !== updateTitle) {
-          route.title = updateTitle
-          needUpdate = true
+          route.title = updateTitle;
+          needUpdate = true;
         }
         // Update frontmatter data
         if (frontmatter.group && route.group !== frontmatter.group) {
-          route.group = frontmatter.group
-          needUpdate = true
+          route.group = frontmatter.group;
+          needUpdate = true;
         }
-        return
+        return;
       }
       if (route.children) {
-        route.children.forEach(search)
+        route.children.forEach(search);
       }
     }
-    routes.forEach(search)
-  })
+    routes.forEach(search);
+  });
 
   if (needUpdate) {
     // Update shared file
-    smartOutputFile(SITE_SHARED_MENU_FILE, JSON.stringify(menus))
+    genSiteMenuShared(menus);
   }
-}
-
-function updateApiFile(filePath: string) {
-  const { dir } = path.parse(filePath);
-  const content = fse.readFileSync(filePath, 'utf-8');
-  const results = [...content.matchAll(/<API(.*)>/g)]
-  // has api tag
-  if (results.some(r => r[0])) {
-    // collection unique src
-    const srcs = [...new Set(results.map(r => parseSrc(r[1], dir)))]
-    console.log(srcs)
-  }
-}
-
-const GUESS_INDEX_PATH = ['index.ts', 'index.js', 'index.tsx', 'index.jsx']
-
-function parseSrc(str: string, dir) {
-  if (!str || !str.trim()) {
-    return getExistFile({ files: GUESS_INDEX_PATH.map(el => path.join(dir, el)) })
-  }
-  const [, src] = str.match(/src=(?:'|")(.*)(?:'|")/)
-  return src
 }

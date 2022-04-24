@@ -11,7 +11,6 @@ export async function genSitemap() {
     hostname,
     xmlns: { video: false, image: false, news: false, xhtml: false },
   });
-  console.log(hostname);
   const menuJson = fse.readJSONSync(SITE_SHARED_MENU_FILE, 'utf-8');
   const excludes = ['/404'].concat(exclude);
   const writeStream = fse.createWriteStream(path.join(PROJECT_SITE_DIST_DIR, 'sitemap.xml'));

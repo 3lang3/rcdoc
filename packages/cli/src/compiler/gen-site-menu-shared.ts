@@ -7,9 +7,8 @@ function genExportMenus(items) {
 }
 
 export async function genSiteMenuShared(menus) {
-  console.log('generator menu json');
   const code = `
-${genExportMenus(menus)}
+export default ${genExportMenus(menus)}
 `;
   smartOutputFile(SITE_SHARED_MENU_FILE, code);
 }

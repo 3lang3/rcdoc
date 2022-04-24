@@ -3,12 +3,11 @@ import fse from 'fs-extra';
 import { merge } from 'lodash-es';
 import JoyCon from 'joycon';
 import path from 'path';
-import { bundleRequire } from 'bundle-require';
 import strip from 'strip-json-comments';
 import { ROOT, SITE_SHARD_CONFIG_FILE, getPackageJson } from '../common/constant';
 import type { DefineConfig } from '../common/defineConfig';
 import { init } from '../common/context';
-import { getRepoUrl } from '../common';
+import { getRepoUrl, resolveJsFile } from '../common';
 
 const getPackageJsonRepository = () => {
   const { repository } = getPackageJson();
@@ -91,11 +90,7 @@ export async function parseConfig(configPath) {
     }
   }
 
-  const config = await bundleRequire({
-    filepath: configPath,
-  });
-
-  const data = config.mod.default || config.mod;
+  const data = await resolveJsFile(configPath);
   const mergedData = merge(JSON.parse(JSON.stringify(defaultConfig)), data);
 
   if (mergedData.repository?.url) {
