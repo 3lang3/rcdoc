@@ -11,6 +11,7 @@ import Light from './Light';
 import Moon from './Moon';
 import Left from './Left';
 import Right from './Right';
+import Stackblitz from './Stackblitz';
 
 export {
   GitHub as GitHubIcon,
@@ -26,4 +27,5 @@ export {
   Moon as MoonIcon,
   Left as LeftIcon,
   Right as RightIcon,
+  Stackblitz as StackblitzIcon,
 };

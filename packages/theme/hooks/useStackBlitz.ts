@@ -41,6 +41,8 @@ function getStackblitzData(opts: Omit<MDocPreviewerProps, 'children'>) {
     dependencies['react-dom'] = dependencies.react || 'latest';
   }
 
+  dependencies['@babel/runtime'] = '^7.17.9';
+
   // append index.html
   files['public/index.html'] = {
     content: `<!DOCTYPE html>

@@ -3,7 +3,7 @@ import Highlight, { defaultProps } from 'prism-react-renderer';
 import type { Language } from 'prism-react-renderer';
 import React from 'react';
 import clsx from 'clsx';
-import { useCodeSandbox, useCopy, Icons, MdocSiteContext } from '@rcdoc/theme';
+import { useCodeSandbox, useStackBlitz, useCopy, Icons, MdocSiteContext } from '@rcdoc/theme';
 import './index.less';
 
 type DependenciesType = {
@@ -131,6 +131,7 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
   const hasDeps = Object.keys(props?.dependencies || []).length > 0;
 
   const openCsb = useCodeSandbox(props, { simulator: hasSimulator });
+  const openSlb = useStackBlitz(props);
   const [copy, copyStatus] = useCopy();
   const [showSource, setShowSource] = React.useState(() => {
     return defaultShowSource || hasSimulator || (hasDeps && !children);
@@ -149,6 +150,15 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
               onClick={openCsb}
             >
               <Icons.CsbIcon />
+            </button>
+
+            <button
+              type="button"
+              title="在Stackblitz上尝试"
+              className="default-previewer__btn default-previewer__csb"
+              onClick={openSlb}
+            >
+              <Icons.StackblitzIcon />
             </button>
           </>
         ) : null}
