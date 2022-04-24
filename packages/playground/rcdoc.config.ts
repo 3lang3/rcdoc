@@ -59,7 +59,7 @@ export default defineConfig({
   },
   build: {
     cjs: {
-      dist: 'lib23',
+      dist: 'lib',
     },
   },
   site: {
@@ -101,6 +101,9 @@ export default defineConfig({
   vite: {
     optimizeDeps: {
       include: ['@react-vant/icons'],
+    },
+    server: {
+      force: true,
     },
   },
 });

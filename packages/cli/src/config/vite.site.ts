@@ -93,6 +93,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     },
     optimizeDeps: {
       ...context.opts?.vite?.optimizeDeps,
+      include: ['@docsearch/react', ...(context.opts?.vite?.optimizeDeps?.include || [])],
       entries: [
         path.join(SITE_SRC_DIR, 'index.html'),
         path.join(PROJECT_SRC_DIR, 'index.ts'),
@@ -101,6 +102,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     },
     server: {
       port: 4000,
+      ...context.opts?.vite?.server,
     },
   };
 }
