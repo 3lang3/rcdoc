@@ -273,6 +273,7 @@ export function getCSSForDep(dep: string) {
       : []),
     // guess normal css files
     'main',
+    'style',
     'index',
   ].reduce((files, name) => files.concat([`${name}.css`, `${name}.min.css`]), []);
 
