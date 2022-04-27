@@ -274,20 +274,24 @@ importers:
       '@types/react-dom': ^18.0.0
       '@types/react-test-renderer': ^17.0.1
       clsx: ^1.1.1
+      react: ^17.0.2
+      react-dom: ^17.0.2
       react-test-renderer: ^17.0.2
       react-transition-group: ^4.4.2
       typescript: ^4.4.4
     dependencies:
       '@react-vant/icons': 0.0.6
       clsx: 1.1.1
-      react-test-renderer: 17.0.2
-      react-transition-group: 4.4.2
+      react-test-renderer: 17.0.2_react@17.0.2
+      react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
     devDependencies:
       '@rcdoc/build': link:../build
       '@rcdoc/cli': link:../cli
       '@types/jest': 27.4.0
       '@types/react-dom': 18.0.0
       '@types/react-test-renderer': 17.0.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
       typescript: 4.6.3
 
   packages/theme:
@@ -17657,7 +17661,6 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
-    dev: false
 
   /react-is/16.13.1:
     resolution:
@@ -17706,7 +17709,7 @@ packages:
       react: 17.0.2
     dev: false
 
-  /react-shallow-renderer/16.14.1:
+  /react-shallow-renderer/16.14.1_react@17.0.2:
     resolution:
       {
         integrity: sha512-rkIMcQi01/+kxiTE9D3fdS959U1g7gs+/rborw++42m1O9FAQiNI/UNRZExVUoAOprn4umcXf+pFRou8i4zuBg==,
@@ -17715,10 +17718,11 @@ packages:
       react: ^16.0.0 || ^17.0.0
     dependencies:
       object-assign: 4.1.1
+      react: 17.0.2
       react-is: 17.0.2
     dev: false
 
-  /react-test-renderer/17.0.2:
+  /react-test-renderer/17.0.2_react@17.0.2:
     resolution:
       {
         integrity: sha512-yaQ9cB89c17PUb0x6UfWRs7kQCorVdHlutU1boVPEsB8IDZH6n9tHxMacc3y0JoXOJUsZb/t/Mb8FUWMKaM7iQ==,
@@ -17727,12 +17731,13 @@ packages:
       react: 17.0.2
     dependencies:
       object-assign: 4.1.1
+      react: 17.0.2
       react-is: 17.0.2
-      react-shallow-renderer: 16.14.1
+      react-shallow-renderer: 16.14.1_react@17.0.2
       scheduler: 0.20.2
     dev: false
 
-  /react-transition-group/4.4.2:
+  /react-transition-group/4.4.2_react-dom@17.0.2+react@17.0.2:
     resolution:
       {
         integrity: sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==,
@@ -17745,6 +17750,8 @@ packages:
       dom-helpers: 5.2.1
       loose-envify: 1.4.0
       prop-types: 15.8.1
+      react: 17.0.2
+      react-dom: 17.0.2_react@17.0.2
     dev: false
 
   /react/17.0.2:
@@ -17756,7 +17763,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: false
 
   /read-cmd-shim/3.0.0:
     resolution:
@@ -18658,7 +18664,6 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
-    dev: false
 
   /scoped-regex/2.1.0:
     resolution:

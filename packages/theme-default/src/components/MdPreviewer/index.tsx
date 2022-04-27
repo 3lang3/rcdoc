@@ -129,7 +129,6 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
   );
 
   const hasDeps = Object.keys(props?.dependencies || []).length > 0;
-
   const openCsb = useCodeSandbox(props, { simulator: hasSimulator });
   const openSlb = useStackBlitz(props);
   const [copy, copyStatus] = useCopy();

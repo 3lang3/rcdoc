@@ -1,5 +1,13 @@
 # @mdoc/cli
 
+## 0.1.3
+
+### Patch Changes
+
+- dev release
+- Updated dependencies
+  - @rcdoc/vitejs-plugin@0.1.2
+
 ## 0.1.2
 
 ### Patch Changes

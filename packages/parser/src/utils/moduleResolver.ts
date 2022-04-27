@@ -78,7 +78,7 @@ export const getModuleResolvePath = ({
   basePath,
   sourcePath,
   extensions = DEFAULT_EXT,
-  silent = true,
+  silent,
   remarkOpts,
 }: IModuleResolverOpts) => {
   const depResolver = resolve.create.sync({
