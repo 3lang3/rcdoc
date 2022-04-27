@@ -5,10 +5,9 @@ import react from '@vitejs/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import type { InlineConfig } from 'vite';
 import mdParser from '@rcdoc/vitejs-plugin';
-import { isObject, setBuildTarget } from '../common';
+import { getEntryPath, isObject, setBuildTarget } from '../common';
 import {
   PROJECT_SITE_DIST_DIR,
-  PROJECT_SRC_DIR,
   SITE_SRC_DIR,
   getPackageJson,
   ROOT,
@@ -59,6 +58,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
   const title = getTitle(context.opts);
   const themeAlias = getConfigThemeAlias();
 
+  const entry = getEntryPath();
   return {
     base: context.opts?.vite?.base || './',
     root: SITE_SRC_DIR,
@@ -87,7 +87,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     resolve: {
       alias: {
         ...themeAlias,
-        [projectPackageJson.name]: PROJECT_SRC_DIR,
+        [projectPackageJson.name]: entry,
         '@@rcdoc': PROJECT_CLI_DIST_DIR,
       },
     },
@@ -96,7 +96,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
       include: ['@docsearch/react', ...(context.opts?.vite?.optimizeDeps?.include || [])],
       entries: [
         path.join(SITE_SRC_DIR, 'index.html'),
-        path.join(PROJECT_SRC_DIR, 'index.ts'),
+        entry,
         ...(context.opts?.vite?.optimizeDeps?.entries || []),
       ],
     },
@@ -124,7 +124,7 @@ export function getViteConfigForSiteProd(): InlineConfig {
   }, {});
 
   const themeAlias = getConfigThemeAlias();
-
+  const entry = getEntryPath();
   return {
     ...devConfig,
     base: context.opts?.vite?.base || '/',
@@ -132,7 +132,7 @@ export function getViteConfigForSiteProd(): InlineConfig {
       alias: {
         ...projectDepsAlias,
         ...themeAlias,
-        [projectPackageJson.name]: PROJECT_SRC_DIR,
+        [projectPackageJson.name]: entry,
         '@@rcdoc': PROJECT_CLI_DIST_DIR,
       },
     },

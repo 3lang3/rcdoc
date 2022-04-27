@@ -61,6 +61,7 @@ export default defineConfig({
     cjs: {
       dist: 'lib',
     },
+    entry: './src/components/index.ts',
   },
   site: {
     injectComponentCss: false,
@@ -93,9 +94,9 @@ export default defineConfig({
       appId: 'R2IYF7ETH7',
       apiKey: '599cec31baffa4868cae4e79f180729b',
       indexName: 'docsearch',
-      sitemap: {
-        hostname: 'https://3lang3.github.io/react-vant',
-      },
+    },
+    sitemap: {
+      hostname: 'https://react-vant.3lang.dev',
     },
   },
   vite: {
@@ -104,6 +105,7 @@ export default defineConfig({
     },
     server: {
       force: true,
+      host: true,
     },
   },
 });

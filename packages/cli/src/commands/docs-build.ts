@@ -15,7 +15,7 @@ export async function docsBuild() {
   await resolveConfig();
   await compileSite(true);
 
-  if (context.opts?.site?.algolia?.sitemap) {
+  if (context.opts?.site?.sitemap) {
     await genSitemap();
   }
 }

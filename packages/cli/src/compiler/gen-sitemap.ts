@@ -1,17 +1,18 @@
 import fse from 'fs-extra';
 import path from 'path';
 import { SitemapStream } from 'sitemap';
+import { resolveJsFile } from '../common';
 import { PROJECT_SITE_DIST_DIR, SITE_SHARED_MENU_FILE } from '../common/constant';
 import context from '../common/context';
 import type { MenuItem } from './gen-site-menu';
 
 export async function genSitemap() {
-  const { hostname, exclude = [] } = context?.opts?.site?.algolia?.sitemap;
+  const { hostname, exclude = [] } = context?.opts?.site?.sitemap;
   const smis = new SitemapStream({
     hostname,
     xmlns: { video: false, image: false, news: false, xhtml: false },
   });
-  const menuJson = fse.readJSONSync(SITE_SHARED_MENU_FILE, 'utf-8');
+  const menuJson = await resolveJsFile(SITE_SHARED_MENU_FILE);
   const excludes = ['/404'].concat(exclude);
   const writeStream = fse.createWriteStream(path.join(PROJECT_SITE_DIST_DIR, 'sitemap.xml'));
 

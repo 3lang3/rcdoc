@@ -14,7 +14,7 @@
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "paths": {
-      "react-vant": ["src/index.ts"]
+      "react-vant": ["src/components/index.ts"]
     }
   },
   "exclude": ["node_modules", "dist"]

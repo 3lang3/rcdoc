@@ -4,7 +4,7 @@
 import path from 'path';
 import { remove } from 'fs-extra';
 import rcdocBuild from '@rcdoc/build';
-import { build as viteBuild, createLogger } from 'vite';
+import { build as viteBuild } from 'vite';
 import { PROJECT_DIST_DIR, MDOC_BUILD_CONFIG_FILE, ROOT } from '../common/constant';
 import { getViteConfigForPackage } from '../config/vite.package';
 import context from '../common/context';
@@ -18,7 +18,7 @@ import chalk from 'chalk';
 // fallback3: glup workflow https://juejin.cn/post/6962088402174869517#heading-4
 
 const compileBundlesByVite = async () => {
-  const bundleDir = context.opts?.build.bundleDir || '';
+  const { bundleDir = '' } = context.opts?.build;
   const viteBundleDir = path.join(PROJECT_DIST_DIR, bundleDir);
   const configs = [
     getViteConfigForPackage({ outputDir: viteBundleDir, format: 'es' }),

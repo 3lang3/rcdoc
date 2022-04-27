@@ -78,7 +78,7 @@ export const getModuleResolvePath = ({
   basePath,
   sourcePath,
   extensions = DEFAULT_EXT,
-  silent,
+  silent = true,
   remarkOpts,
 }: IModuleResolverOpts) => {
   const depResolver = resolve.create.sync({
@@ -89,10 +89,8 @@ export const getModuleResolvePath = ({
   });
 
   try {
-    let resolvePath = depResolver(
-      fs.statSync(basePath).isDirectory() ? basePath : path.parse(basePath).dir,
-      sourcePath,
-    ) as string;
+    const targetPath = fs.statSync(basePath).isDirectory() ? basePath : path.parse(basePath).dir;
+    let resolvePath = depResolver(targetPath, sourcePath) as string;
 
     if (remarkOpts?.alias?.[sourcePath]) {
       resolvePath = path.join(

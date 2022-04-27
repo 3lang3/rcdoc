@@ -29,6 +29,9 @@ const defaultConfig: DefineConfig = {
     slug: 'content',
     injectComponentCss: true,
   },
+  build: {
+    entry: './src',
+  },
   repository: getPackageJsonRepository(),
 };
 

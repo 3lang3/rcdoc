@@ -1,20 +1,17 @@
 import type { UserConfig as ViteConfig } from 'vite';
 
 interface IBundleTypeOutput {
+  /** 入口文件 */
   file?: string;
+  /** 构建输出目录 */
   dist?: string;
-}
-
-export interface BuildCjsType extends IBundleTypeOutput {
+  /** 是否压缩 */
   minify?: boolean;
-  lazy?: boolean;
 }
-
 interface BuildEsmType extends IBundleTypeOutput {
+  /** 是否以.mjs后缀形式输出 */
   mjs?: boolean;
-  minify?: boolean;
   importLibToEs?: boolean;
-  dist?: string;
 }
 
 /** 配置 Algolia 的 DocSearch 服务 */
@@ -22,11 +19,6 @@ type AlgoliaProps = {
   appId: string;
   apiKey: string;
   indexName: string;
-  /** 自动生成sitemap.xml, hostname 配置项用来指定 URL 的域名前缀，excludes 配置项用来忽略某些不需要包含在 sitemap 中的路由。 */
-  sitemap?: {
-    hostname: string;
-    exclude?: string[];
-  };
 } & Record<string, any>;
 
 /** API组件解析配置 */
@@ -127,6 +119,11 @@ export type DefineConfig = {
     algolia?: AlgoliaProps;
     /**  配置 <API /> 解析的行为 */
     apiParser?: ApiParserProps;
+    /** 自动生成sitemap.xml, hostname 配置项用来指定 URL 的域名前缀，excludes 配置项用来忽略某些不需要包含在 sitemap 中的路由。 */
+    sitemap?: {
+      hostname: string;
+      exclude?: string[];
+    };
   } & Record<string, any>;
   /** 自定义vite配置 */
   vite?: Pick<
@@ -143,9 +140,29 @@ export type DefineConfig = {
   >;
   /** 构建配置 */
   build?: {
+    /**
+     * 自定义esm输出
+     * @default 'es''
+     */
     esm?: boolean | BuildEsmType;
-    cjs?: boolean | BuildCjsType;
+    /**
+     * 自定义cjs输出
+     *  @default 'cjs'
+     */
+    cjs?: boolean | IBundleTypeOutput;
+    /**
+     * vite bundle 打包输出目录
+     * @default '.''
+     */
     bundleDir?: string;
+    /** 构建入口
+     * @default 'src/index'
+     */
+    /** 构建入口
+     * 会自动触探目录下的index文件
+     * @default 'src'
+     */
+    entry?: string;
   } & Record<string, any>;
   /** 配置解析行为，包含如下配置 */
   resolve?: {

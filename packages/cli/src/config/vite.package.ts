@@ -1,6 +1,6 @@
 import type { InlineConfig, LibraryFormats } from 'vite';
-import { getExistFile, setBuildTarget } from '../common';
-import { CWD, getPackageJson, PROJECT_SRC_DIR } from '../common/constant';
+import { getEntryPath, getExistFile, setBuildTarget } from '../common';
+import { CWD, getPackageJson } from '../common/constant';
 
 export function getViteConfigForPackage({
   outputDir,
@@ -19,10 +19,7 @@ export function getViteConfigForPackage({
     ...Object.keys((format !== 'umd' && pkgJSON.dependencies) || {}),
     ...Object.keys(pkgJSON.peerDependencies || {}),
   ];
-  const entry = getExistFile({
-    cwd: PROJECT_SRC_DIR,
-    files: ['index.ts', 'index.tsx', 'index.js', 'index.jsx'],
-  });
+  const entry = getEntryPath();
   return {
     root: CWD,
     logLevel: 'silent',
@@ -30,7 +27,7 @@ export function getViteConfigForPackage({
     publicDir: '___public___',
     resolve: {
       alias: {
-        [pkgJSON.name]: PROJECT_SRC_DIR,
+        [pkgJSON.name]: entry,
       },
     },
     build: {

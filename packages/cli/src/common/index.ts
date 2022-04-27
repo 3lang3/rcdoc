@@ -248,3 +248,23 @@ export async function resolveJsFile(filepath: string) {
   });
   return result.mod.default || result.mod;
 }
+
+export function getEntryPath() {
+  const { entry } = context.opts?.build;
+  try {
+    /**
+     * FIXME
+     * file is not exists
+     */
+    fse.readFileSync(path.join(CWD, entry));
+    return path.join(CWD, entry);
+  } catch (error) {
+    const files = ['index.ts', 'index.tsx', 'index.js', 'index.jsx'].map((el) =>
+      path.join(entry, el),
+    );
+    const entryFilePath = getExistFile({
+      files,
+    });
+    return entryFilePath;
+  }
+}

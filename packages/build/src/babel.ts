@@ -1,5 +1,5 @@
-import { join, extname, relative } from 'path';
-import { existsSync, remove, readJSONSync } from 'fs-extra';
+import { join, extname, relative, dirname } from 'path';
+import { existsSync, remove, readJSONSync, lstatSync } from 'fs-extra';
 import vfs from 'vinyl-fs';
 import signale from 'signale';
 import through from 'through2';
@@ -12,6 +12,14 @@ import chalk from 'chalk';
 import getBabelConfig from './getBabelConfig';
 import { Dispose, IBundleOptions } from './types';
 
+function getSrcPath(cwd: string, entry: string | string[]) {
+  const entryPath = Array.isArray(entry) ? entry[0] : entry;
+  const stat = lstatSync(entryPath);
+  if (stat.isDirectory()) {
+    return join(cwd, entryPath);
+  }
+  return join(cwd, dirname(entryPath));
+}
 interface IBabelOpts {
   cwd: string;
   rootPath?: string;
@@ -40,6 +48,7 @@ export default async function (opts: IBabelOpts) {
     watch,
     log,
     bundleOpts: {
+      entry,
       outDir = './',
       target = 'browser',
       runtimeHelpers,
@@ -53,7 +62,8 @@ export default async function (opts: IBabelOpts) {
       loose,
     },
   } = opts;
-  const srcPath = join(cwd, 'src');
+
+  const srcPath = getSrcPath(cwd, entry);
   const targetModeOps = type === 'esm' ? opts.bundleOpts.esm : opts.bundleOpts.cjs;
   let targetDir = type === 'esm' ? 'es' : 'cjs';
   if (typeof targetModeOps !== 'boolean' && targetModeOps.dist) {
@@ -127,6 +137,8 @@ export default async function (opts: IBabelOpts) {
       })
       .pipe(gulpIf((f) => !disableTypeCheck && isTsFile(f.path), gulpTs(tsConfig)))
       .pipe(
+        // @TODO
+        // Need support scss & stylus
         gulpIf((f) => lessInBabelMode && /\.less$/.test(f.path), gulpLess(lessInBabelMode || {})),
       )
       .pipe(
