@@ -1,5 +1,13 @@
 # mdoc-theme-default
 
+## 0.1.4
+
+### Patch Changes
+
+- dev release
+- Updated dependencies
+  - @rcdoc/theme@0.1.4
+
 ## 0.1.3
 
 ### Patch Changes
