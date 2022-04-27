@@ -160,15 +160,6 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
             >
               <Icons.StackblitzIcon />
             </button>
-
-            <button
-              type="button"
-              title="在新窗口打开"
-              className="default-previewer__btn default-previewer__csb"
-              onClick={openSlb}
-            >
-              <Icons.HttpLinkIcon />
-            </button>
           </>
         ) : null}
         <button
