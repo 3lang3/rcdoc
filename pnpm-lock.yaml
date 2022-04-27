@@ -317,6 +317,7 @@ importers:
       '@vant/touch-emulator': ^1.3.2
       clsx: ^1.1.1
       prism-react-renderer: ^1.2.1
+      qrcode.react: ^3.0.1
       react: ^17.0.2
       react-dom: ^17.0.2
       react-router-dom: 6.2.1
@@ -329,6 +330,7 @@ importers:
       '@vant/touch-emulator': 1.3.2
       clsx: 1.1.1
       prism-react-renderer: 1.2.1_react@17.0.2
+      qrcode.react: 3.0.1_react@17.0.2
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
@@ -17565,6 +17567,17 @@ packages:
     resolution: { integrity: sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc= }
     engines: { node: '>=0.6.0', teleport: '>=0.2.0' }
     dev: true
+
+  /qrcode.react/3.0.1_react@17.0.2:
+    resolution:
+      {
+        integrity: sha512-uCNm16ClMCrdM2R20c/zqmdwHcbMQf3K7ey39EiK/UgEKbqWeM0iH2QxW3iDVFzjQKFzH23ICgOyG4gNsJ0/gw==,
+      }
+    peerDependencies:
+      react: ^16.8.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      react: 17.0.2
+    dev: false
 
   /qs/6.5.3:
     resolution:

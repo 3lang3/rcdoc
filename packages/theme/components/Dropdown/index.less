@@ -21,6 +21,10 @@ html {
 }
 
 .doc-dropdown {
+  --mdoc-dropdown-offset-x: 0px;
+  --mdoc-dropdown-offset-y: 0px;
+  --mdoc-dropdown-overlay-width: 10rem;
+
   position: relative;
   transition: opacity 0.2s ease-out;
 
@@ -49,29 +53,40 @@ html {
     visibility: hidden;
     pointer-events: none;
     opacity: 0;
-    transform: translateY(-0.625rem);
+    transform: translate(0, -0.625rem);
+    &.topCenter {
+      right: 50%;
+      transform: translate(50%, 0.625rem);
+    }
   }
 
   &__child {
     list-style: none;
-    background-color: var(--mdoc-dropdown-background);
-    border-radius: var(--mdoc-radius);
-    box-shadow: var(--mdoc-shadow-md);
+    max-height: 80vh;
+    min-width: var(--mdoc-dropdown-overlay-width);
+    opacity: 1;
+    position: absolute;
+    top: 100%;
     left: inherit;
     right: 0;
-    list-style: none;
-    max-height: 80vh;
-    min-width: 10rem;
-    opacity: 1;
-    overflow-y: auto;
-    padding: 0.5rem;
-    position: absolute;
-    // top: calc(100% + 0.3rem);
-    top: 100%;
-    transform: translateY(0);
+    transform: translate(0, 0);
     transition-property: opacity, transform, visibility;
     transition-duration: var(--mdoc-transition-fast);
     transition-timing-function: var(--mdoc-transition-timing-default);
     z-index: 100;
+    &.topCenter {
+      top: inherit;
+      bottom: 100%;
+      right: 50%;
+      transform: translate(50%, 0);
+    }
+    &_content {
+      transform: translate(var(--mdoc-dropdown-offset-x), var(--mdoc-dropdown-offset-y));
+      overflow-y: auto;
+      padding: 0.5rem;
+      background-color: var(--mdoc-dropdown-background);
+      border-radius: var(--mdoc-radius);
+      box-shadow: var(--mdoc-shadow-md);
+    }
   }
 }

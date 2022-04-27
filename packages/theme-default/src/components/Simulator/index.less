@@ -19,6 +19,28 @@
     box-sizing: border-box;
   }
 
+  &__actions {
+    border: 1px solid var(--mdoc-border-color);
+    margin-top: 20px;
+    padding: 5px 25px;
+    border-radius: 18px;
+    background-color: var(--mdoc-menu-color-background-active);
+    color: var(--mdoc-menu-color);
+    svg {
+      opacity: 0.7;
+      display: block;
+      width: 20px;
+      transition: opacity 0.2s;
+      &:last-child {
+        margin-right: 0;
+      }
+
+      &:hover {
+        opacity: 1;
+      }
+    }
+  }
+
   &__wrapper {
     background-repeat: no-repeat;
     background-size: cover;

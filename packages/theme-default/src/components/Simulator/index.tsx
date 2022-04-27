@@ -5,6 +5,9 @@ import { LinerLoader } from '../LazyFallback';
 import simulatorModel from './android-device-skin.png';
 import MarkdownPageContext from '../../context';
 import './index.less';
+import Flex from '@rcdoc/theme/components/Flex';
+import Dropdown from '@rcdoc/theme/components/Dropdown';
+import { QRCodeCanvas } from 'qrcode.react';
 
 const Simulator = ({ hashHistory }) => {
   const location = useLocation();
@@ -43,6 +46,31 @@ const Simulator = ({ hashHistory }) => {
         <LinerLoader type="mobile" />
         <Icons.DeviceBarIcon className="doc-simulator__bar" />
         <iframe className="doc-simulator__iframe" src={initialSrc}></iframe>
+      </div>
+      <div style={{ textAlign: 'center' }}>
+        <Flex inline className="doc-simulator__actions" align="center" justify="center">
+          <Icons.HttpLinkIcon
+            alt="新窗口预览"
+            style={{ marginRight: 10 }}
+            onClick={() => window.open(src, '_blank')}
+          />
+          <Dropdown
+            offset={['0px', '-15px']}
+            arrow={false}
+            width={120}
+            placement="topCenter"
+            overlay={[
+              <QRCodeCanvas
+                style={{ display: 'block' }}
+                key="qrcode"
+                size={100}
+                value={`${window.location.host}${src}`}
+              />,
+            ]}
+          >
+            <Icons.QrcodeIcon alt="手机扫二维码预览" />
+          </Dropdown>
+        </Flex>
       </div>
     </div>
   );

@@ -12,6 +12,7 @@ import Moon from './Moon';
 import Left from './Left';
 import Right from './Right';
 import Stackblitz from './Stackblitz';
+import Qrcode from './Qrcode';
 
 export {
   GitHub as GitHubIcon,
@@ -28,4 +29,5 @@ export {
   Left as LeftIcon,
   Right as RightIcon,
   Stackblitz as StackblitzIcon,
+  Qrcode as QrcodeIcon,
 };

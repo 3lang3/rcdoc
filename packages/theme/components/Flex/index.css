@@ -3,8 +3,9 @@
   --justify: initial;
   --wrap: initial;
   --direction: initial;
+  --display: flex;
 
-  display: flex;
+  display: var(--display);
   box-sizing: border-box;
   align-items: var(--align);
   justify-content: var(--justify);
