@@ -54,13 +54,13 @@ export function getViteConfigForPackage({
           exports: 'named',
           // preserveModules: format !== 'umd',
           // entryFileNames: format !== 'umd' ? '[name].js' : `${name}${minify ? '.min' : ''}.js`,
-          // assetFileNames: (assetInfo) => {
-          //   if (assetInfo.name == 'style.css') {
-          //     if (minify) return `${name}.min.css`
-          //     return `${name}.css`
-          //   }
-          //   return assetInfo.name;
-          // },
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name == 'style.css') {
+              if (minify) return `index.min.css`;
+              return `index.css`;
+            }
+            return assetInfo.name;
+          },
           globals: {
             react: 'React',
           },

@@ -145,6 +145,7 @@ export type DefineConfig = {
   build?: {
     esm?: boolean | BuildEsmType;
     cjs?: boolean | BuildCjsType;
+    bundleDir?: string;
   } & Record<string, any>;
   /** 配置解析行为，包含如下配置 */
   resolve?: {
