@@ -74,7 +74,11 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
     name: PLUGIN_NAME,
     configResolved(resolvedConfig) {
       // store the resolved config
-      remarkOpts = { prefix: 'MdocDemo', alias: resolvedConfig?.resolve?.alias, ...userOptions };
+      remarkOpts = {
+        prefix: 'MdocDemo',
+        alias: getViteAlias(resolvedConfig?.resolve?.alias),
+        ...userOptions,
+      };
       reactBabelPlugin = resolvedConfig.plugins.find((el) => el.name === 'vite:react-babel');
     },
     configureServer(_server) {
@@ -155,3 +159,14 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
 };
 
 export default plugin;
+
+// Process vite alias to adapt to parser resolver
+function getViteAlias(alias = []) {
+  if (!alias) return {};
+  return alias.reduce((a, alia) => {
+    if (typeof alia.find === 'string' && typeof alia.replacement === 'string') {
+      a[alia.find] = alia['replacement'];
+    }
+    return a;
+  }, {});
+}

@@ -87,7 +87,6 @@ export const getModuleResolvePath = ({
     symlinks: false,
     mainFiles: ['index', 'package.json'],
   });
-
   try {
     const targetPath = fs.statSync(basePath).isDirectory() ? basePath : path.parse(basePath).dir;
     let resolvePath = depResolver(targetPath, sourcePath) as string;

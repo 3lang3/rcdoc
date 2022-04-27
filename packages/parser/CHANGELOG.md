@@ -1,5 +1,11 @@
 # @mdoc/core
 
+## 0.1.3
+
+### Patch Changes
+
+- dev release
+
 ## 0.1.2
 
 ### Patch Changes

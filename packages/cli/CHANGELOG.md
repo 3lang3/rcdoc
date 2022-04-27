@@ -1,5 +1,16 @@
 # @mdoc/cli
 
+## 0.1.4
+
+### Patch Changes
+
+- dev release
+- Updated dependencies
+  - @rcdoc/build@0.1.3
+  - @rcdoc/theme@0.1.3
+  - rcdoc-theme-default@0.1.3
+  - @rcdoc/vitejs-plugin@0.1.3
+
 ## 0.1.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @mdoc/webpack-loader
 
+## 1.0.4
+
+### Patch Changes
+
+- Updated dependencies
+  - @rcdoc/parser@0.1.3
+
 ## 1.0.3
 
 ### Patch Changes
