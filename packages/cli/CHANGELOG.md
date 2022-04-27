@@ -1,5 +1,15 @@
 # @mdoc/cli
 
+## 0.1.2
+
+### Patch Changes
+
+- dev release
+- Updated dependencies
+  - @rcdoc/build@0.1.2
+  - @rcdoc/theme@0.1.2
+  - rcdoc-theme-default@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes
