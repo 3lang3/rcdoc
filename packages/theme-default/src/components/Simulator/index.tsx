@@ -64,7 +64,7 @@ const Simulator = ({ hashHistory }) => {
                 style={{ display: 'block' }}
                 key="qrcode"
                 size={100}
-                value={`${window.location.host}${src}`}
+                value={`${window.location.origin}${src}`}
               />,
             ]}
           >

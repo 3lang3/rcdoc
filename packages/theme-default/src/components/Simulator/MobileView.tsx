@@ -1,6 +1,7 @@
 import React from 'react';
 import { menus } from '@@rcdoc/site-shared';
 import { Link } from 'react-router-dom';
+import { MobileHeader } from '@@rcdoc/site-custom-component';
 import { Icons, MdocSiteContext } from '@rcdoc/theme';
 import Logo from '../Logo';
 import './mobileView.less';
@@ -23,23 +24,29 @@ export default () => {
     );
   }, []);
 
-  return (
-    <div className="doc-mobile">
-      <div className="doc-mobile-header">
+  const renderDefaultHeader = React.useCallback(() => {
+    return (
+      <>
         <div className="doc-mobile-header__logo">
           <Logo />
           {config.description && (
             <div className="doc-mobile-header__desc">{config.description}</div>
           )}
         </div>
+      </>
+    );
+  }, []);
 
-        {/* <p>
-          如果你想查阅完整的组件文档，请在桌面浏览器中访问：
-          <a href="https://mobile.ant.design" target="_blank">
-            https://mobile.ant.design
-          </a>
-        </p> */}
+  return (
+    <div className="doc-mobile">
+      <div className="doc-mobile-header">
+        {typeof MobileHeader === 'boolean' ? (
+          renderDefaultHeader()
+        ) : (
+          <MobileHeader renderDefaultHeader={renderDefaultHeader} />
+        )}
       </div>
+
       <div className="doc-mobile-content">{routes.map(renderMenu)}</div>
     </div>
   );

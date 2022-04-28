@@ -129,8 +129,11 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
   );
 
   const hasDeps = Object.keys(props?.dependencies || []).length > 0;
-  const openCsb = useCodeSandbox(props, { simulator: hasSimulator });
-  const openSlb = useStackBlitz(props);
+  const openCsb = useCodeSandbox(
+    { ...props, ...config.resolve?.codesandbox },
+    { simulator: hasSimulator },
+  );
+  const openSlb = useStackBlitz({ ...props, ...config.resolve?.stackblitz });
   const [copy, copyStatus] = useCopy();
   const [showSource, setShowSource] = React.useState(() => {
     return defaultShowSource || hasSimulator || (hasDeps && !children);

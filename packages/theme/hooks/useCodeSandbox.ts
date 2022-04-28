@@ -40,7 +40,9 @@ function getTextContent(raw: string) {
  * get serialized data that use to submit to codesandbox.io
  * @param opts  previewer props
  */
-function getCSBData(opts: Omit<MDocPreviewerProps, 'children'>) {
+function getCSBData(
+  opts: Omit<MDocPreviewerProps, 'children'> & { extra?: string; margin?: string },
+) {
   const isTSX = opts.lang === 'tsx';
   const ext = isTSX ? '.tsx' : '.jsx';
   const files: Record<string, { content: string }> = {};
@@ -88,7 +90,7 @@ function getCSBData(opts: Omit<MDocPreviewerProps, 'children'>) {
   };
 
   // append index.html
-  files['index.html'] = { content: '<div style="margin: 16px;" id="root"></div>' };
+  files['index.html'] = { content: `<div id="root" style="margin: ${opts.margin || ''}"></div>` };
 
   // append entry file
   files[entryFileName] = {
@@ -103,6 +105,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 ${CSSDeps.map(({ css }) => `import '${css}';`).join('\n')}
 import App from './App';
+${opts.extra ? `${opts.extra}\n` : '\n'}
 
 ReactDOM.render(
   <App />,

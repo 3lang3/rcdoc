@@ -17,7 +17,9 @@ function getTextContent(raw: string) {
  * get serialized data that use to submit to codesandbox.io
  * @param opts  previewer props
  */
-function getStackblitzData(opts: Omit<MDocPreviewerProps, 'children'>) {
+function getStackblitzData(
+  opts: Omit<MDocPreviewerProps, 'children'> & { extra?: string; margin?: string },
+) {
   const isTSX = opts.lang === 'tsx';
   const ext = isTSX ? '.tsx' : '.jsx';
   const files: Record<string, { content: string }> = {};
@@ -51,7 +53,7 @@ function getStackblitzData(opts: Omit<MDocPreviewerProps, 'children'>) {
       <title>${title}</title>
     </head>
     <body>
-      <div style="margin: 16px;" id="root"></div>
+      <div id="root" style="margin: ${opts.margin || ''}"></div>
     </body>
   </html>
   `.trim(),
@@ -60,16 +62,17 @@ function getStackblitzData(opts: Omit<MDocPreviewerProps, 'children'>) {
   // append entry file
   files[entryFileName] = {
     content: `/**
-* This is an auto-generated demo by mdoc
+* This is an auto-generated demo by rcdco
 * if you think it is not working as expected,
 * please report the issue at
-* https://github.com/3lang3/vite-plugin-react-mdoc/issues
+* https://github.com/3lang3/rcdco/issues
 **/
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 ${CSSDeps.map(({ css }) => `import '${css}';`).join('\n')}
 import App from './App';
+${opts.extra ? `${opts.extra}\n` : '\n'}
 
 ReactDOM.render(
   <App />,
