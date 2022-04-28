@@ -22,7 +22,6 @@ const defaultConfig: DefineConfig = {
   resolve: {
     includes: ['docs', 'src'],
     previewLangs: ['jsx', 'tsx'],
-    style: 'index.less',
   },
   site: {
     history: 'broswer',
@@ -31,6 +30,7 @@ const defaultConfig: DefineConfig = {
   },
   build: {
     entry: './src',
+    style: 'index.less',
   },
   repository: getPackageJsonRepository(),
 };

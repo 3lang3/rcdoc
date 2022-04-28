@@ -41,8 +41,8 @@ export function hasDefaultExport(code: string) {
 export function getComponents(): Array<string> {
   const EXCLUDES = ['.DS_Store'];
   const dirs = glob
-    .sync(path.normalize(path.join(PROJECT_SRC_DIR, '**', context.opts?.resolve.style)))
-    .map((dir) => dir.replace(path.join('/', context.opts?.resolve.style), ''));
+    .sync(path.normalize(path.join(PROJECT_SRC_DIR, '**', context.opts?.build.style)))
+    .map((dir) => dir.replace(path.join('/', context.opts?.build.style), ''));
 
   return dirs
     .filter((dir) => !EXCLUDES.includes(dir))

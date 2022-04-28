@@ -1,26 +1,53 @@
 import path from 'path';
 import { PROJECT_SRC_DIR, SITE_CUSTOM_COMPONENT_FILE } from '../common/constant';
-import { getExistFile, smartOutputFile } from '../common';
+import { ENTRY_EXTS, getExistFile, smartOutputFile } from '../common';
 
-const GUESS_FOOTER_PATH = ['Footer.js', 'Footer.ts', 'Footer.jsx', 'Footer.tsx'];
+function generateGuessPath(componentName) {
+  return ENTRY_EXTS.map((ext) => `${componentName}.${ext}`);
+}
+
+type CustomComponentItem = {
+  path: string;
+  fileName: string;
+  exportName?: string;
+  exportDefault?: string;
+};
+
+const CUSTOM_COMPONENTS_ARR: CustomComponentItem[] = [
+  {
+    path: '.',
+    fileName: 'Footer',
+  },
+  {
+    fileName: 'Header',
+    exportName: 'MobileHeader',
+    exportDefault: 'false',
+    path: './mobile',
+  },
+];
 
 /**
- * Generate site footer component
+ * Generate mobile view header component
  */
-export function genSiteFooter(code: string): string {
-  const footerPath = getExistFile({
-    files: GUESS_FOOTER_PATH.map((el) => path.join('_rcdoc_', el)),
+export function genCustomComponent(item: CustomComponentItem): string {
+  const componentPath = getExistFile({
+    files: generateGuessPath(item.fileName).map((el) => path.join('_rcdoc_', item.path, el)),
   });
-  if (footerPath) {
-    code += `export { default as Footer} from '${path.relative(PROJECT_SRC_DIR, footerPath)}'\n`;
-  } else {
-    code += `export const Footer = () => null\n`;
+  const exportName = item.exportName || item.fileName;
+  const exportDefault = item.exportDefault || '() => null';
+  if (componentPath) {
+    return `export { default as ${exportName} } from '${path.relative(
+      PROJECT_SRC_DIR,
+      componentPath,
+    )}'\n`;
   }
-  return code;
+  return `export const ${exportName} = ${exportDefault}\n`;
 }
 
 export default () => {
-  let code = '';
-  code += genSiteFooter(code);
+  const code = CUSTOM_COMPONENTS_ARR.reduce((a, v) => {
+    a += genCustomComponent(v);
+    return a;
+  }, '');
   smartOutputFile(SITE_CUSTOM_COMPONENT_FILE, code);
 };

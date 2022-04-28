@@ -119,6 +119,7 @@ export type DefineConfig = {
     algolia?: AlgoliaProps;
     /**  配置 <API /> 解析的行为 */
     apiParser?: ApiParserProps;
+
     /** 自动生成sitemap.xml, hostname 配置项用来指定 URL 的域名前缀，excludes 配置项用来忽略某些不需要包含在 sitemap 中的路由。 */
     sitemap?: {
       hostname: string;
@@ -155,6 +156,19 @@ export type DefineConfig = {
      * @default '.''
      */
     bundleDir?: string;
+    /**
+     * 组件样式路径，默认为 index.less
+     * @example
+     * 如果你的组件结构如下
+     * - components
+     *  - button
+     *    - index.ts
+     *    - style
+     *     - index.less
+     * 则设置为 './style/index.less' 即可
+     * @default 'index.less'
+     */
+    style?: string;
     /** 构建入口
      * @default 'src/index'
      */
@@ -187,10 +201,21 @@ export type DefineConfig = {
      */
     passivePreview?: boolean;
     /**
-     * 组建样式
-     * @default index.less
+     * codesandbox demo配置
      */
-    style?: string;
+    codesandbox?: {
+      /** div#root的margin属性 */
+      margin?: string;
+      extra?: string;
+    };
+    /**
+     * stackBlitz demo配置
+     */
+    stackblitz?: {
+      /** div#root的margin属性 */
+      margin?: string;
+      extra?: string;
+    };
   };
   /**
    * 设置 `repository` 后，会在页面底部生成相应的**编辑功能**按钮

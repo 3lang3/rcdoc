@@ -3,7 +3,7 @@ import { get } from 'lodash-es';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
 import { smartOutputFile, normalizePath } from '../common';
-import { getCssLang, getCssBaseFile } from '../common/css';
+import { getCssBaseFile } from '../common/css';
 import { STYLE_DEPS_JSON_FILE } from '../common/constant';
 import context from '../common/context';
 
@@ -31,7 +31,7 @@ export function genPackageStyle(options: Options) {
 
   content += styleDepsJson.sequence
     .map((componentFilePath: string) => {
-      let stylePath = path.join(componentFilePath, '..', context.opts?.resolve?.style);
+      let stylePath = path.join(componentFilePath, '..', context.opts?.build?.style);
 
       if (!existsSync(stylePath)) {
         return '';

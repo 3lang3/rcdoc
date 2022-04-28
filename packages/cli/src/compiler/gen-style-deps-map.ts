@@ -10,7 +10,7 @@ const { existsSync } = fse;
 
 export function checkStyleExists(component: string) {
   const CSS_LANG = getCssLang();
-  const stylePath = join(component, '..', context.opts?.resolve?.style);
+  const stylePath = join(component, '..', context.opts?.build?.style);
   return existsSync(stylePath);
 }
 
