@@ -5,6 +5,7 @@ export default defineConfig({
   description: '轻量、可靠的移动端 React 组件库',
   // logo: '/logo-1.png',
   locales: false,
+  homepage: 'https://rcdoc.js.org',
   // locales: [['zh', '中文'], ['en', 'English']],
   navs: [
     {
@@ -55,13 +56,16 @@ export default defineConfig({
   },
   resolve: {
     includes: ['docs', 'src'],
-    style: './style/index.less',
+    stackblitz: {
+      extra: 'import "react-vant/lib/index.css";',
+    },
   },
   build: {
     cjs: {
       dist: 'lib',
     },
     entry: './src/components/index.ts',
+    style: './style/index.less',
   },
   site: {
     injectComponentCss: false,
