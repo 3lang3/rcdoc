@@ -1,7 +1,7 @@
 import path from 'path';
 import slash from 'slash2';
 import { get } from 'lodash-es';
-import react from '@vitejs/plugin-react';
+import react from '@rcdoc/plugin-react';
 import { createHtmlPlugin } from 'vite-plugin-html';
 import type { InlineConfig } from 'vite';
 import mdParser from '@rcdoc/vitejs-plugin';
@@ -75,7 +75,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     root: SITE_SRC_DIR,
     publicDir: path.join(CWD, context.opts?.vite?.publicDir || 'public'),
     plugins: [
-      react(),
+      react({ resolveNodeModules: true }),
       mdParser({
         passivePreview: context.opts.resolve?.passivePreview,
         previewLangs: context.opts.resolve?.previewLangs,
