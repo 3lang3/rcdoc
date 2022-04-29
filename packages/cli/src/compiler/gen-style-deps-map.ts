@@ -1,5 +1,6 @@
 import { join } from 'path';
 import fse from 'fs-extra';
+import slash from 'slash2';
 import { getCssLang } from '../common/css';
 import { getDeps, clearDepsCache } from './get-deps';
 import { getComponents, smartOutputFile } from '../common';
@@ -90,7 +91,7 @@ export async function genStyleDepsMap() {
     const map = {} as DepsMap;
 
     components.forEach((component) => {
-      map[component] = analyzeComponentDeps(components, component);
+      map[slash(component)] = analyzeComponentDeps(components, component);
     });
     const sequence = getSequence(components, map);
 

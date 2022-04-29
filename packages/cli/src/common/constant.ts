@@ -1,4 +1,5 @@
-import { existsSync, readFileSync } from 'fs';
+import slash from 'slash2';
+import { readFileSync } from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 

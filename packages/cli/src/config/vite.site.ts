@@ -17,6 +17,7 @@ import {
 import { getConfigThemeAlias } from '../common';
 import context from '../common/context';
 import type { DefineConfig } from '../common/defineConfig';
+const projectPackageJson = getPackageJson();
 
 function getTitle(config: DefineConfig) {
   let { title } = config;
@@ -51,12 +52,22 @@ function getHTMLHeadScripts(scripts: DefineConfig['site']['headScripts']) {
   return '';
 }
 
+const IGNORE_BUILD_ALIAS_DEPS = ['react', 'react-dom', 'react-router-dom'];
+
 export function getViteConfigForSiteDev(): InlineConfig {
   setBuildTarget('site');
 
-  const projectPackageJson = getPackageJson();
   const title = getTitle(context.opts);
   const themeAlias = getConfigThemeAlias();
+
+  // @FIXME
+  // enforce alias redirect to not root dir
+  const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
+    if (!IGNORE_BUILD_ALIAS_DEPS.includes(v)) {
+      a[v] = slash(path.join(ROOT, 'node_modules', v));
+    }
+    return a;
+  }, {});
 
   const entry = getEntryPath();
   return {
@@ -86,6 +97,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
     ],
     resolve: {
       alias: {
+        ...projectDepsAlias,
         ...themeAlias,
         [projectPackageJson.name]: entry,
         '@@rcdoc': PROJECT_CLI_DIST_DIR,
@@ -93,7 +105,12 @@ export function getViteConfigForSiteDev(): InlineConfig {
     },
     optimizeDeps: {
       ...context.opts?.vite?.optimizeDeps,
-      include: ['@docsearch/react', ...(context.opts?.vite?.optimizeDeps?.include || [])],
+      include: [
+        'react',
+        'react-dom',
+        'react-router-dom',
+        ...(context.opts?.vite?.optimizeDeps?.include || []),
+      ],
       entries: [
         path.join(SITE_SRC_DIR, 'index.html'),
         entry,
@@ -107,35 +124,13 @@ export function getViteConfigForSiteDev(): InlineConfig {
   };
 }
 
-const IGNORE_BUILD_ALIAS_DEPS = ['react', 'react-dom'];
-
 export function getViteConfigForSiteProd(): InlineConfig {
   const devConfig = getViteConfigForSiteDev();
   const outDir = get(context.opts, 'build.site.outputDir', PROJECT_SITE_DIST_DIR);
 
-  const projectPackageJson = getPackageJson();
-  // @FIXME
-  // enforce alias redirect to not root dir in docs:build
-  const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
-    if (!IGNORE_BUILD_ALIAS_DEPS.includes(v)) {
-      a[v] = slash(path.join(ROOT, 'node_modules', v));
-    }
-    return a;
-  }, {});
-
-  const themeAlias = getConfigThemeAlias();
-  const entry = getEntryPath();
   return {
     ...devConfig,
     base: context.opts?.vite?.base || '/',
-    resolve: {
-      alias: {
-        ...projectDepsAlias,
-        ...themeAlias,
-        [projectPackageJson.name]: entry,
-        '@@rcdoc': PROJECT_CLI_DIST_DIR,
-      },
-    },
     build: {
       outDir,
       brotliSize: false,

@@ -1,3 +1,4 @@
+import slash from 'slash2';
 import { smartOutputFile, normalizePath, replaceExt } from '../common';
 import {
   getPackageJson,
@@ -22,7 +23,7 @@ export { default as menus} from '${normalizePath(SITE_SHARED_MENU_FILE)}';
 
 function genStyles() {
   const CSS_LANG = getCssLang();
-  return `import '${replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`)}'`;
+  return `import '${slash(replaceExt(PACKAGE_STYLE_FILE, `.${CSS_LANG}`))}'`;
 }
 
 function genExportVersion() {

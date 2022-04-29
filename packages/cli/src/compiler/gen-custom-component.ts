@@ -1,4 +1,5 @@
 import path from 'path';
+import slash from 'slash2';
 import { PROJECT_SRC_DIR, SITE_CUSTOM_COMPONENT_FILE } from '../common/constant';
 import { ENTRY_EXTS, getExistFile, smartOutputFile } from '../common';
 
@@ -36,9 +37,8 @@ export function genCustomComponent(item: CustomComponentItem): string {
   const exportName = item.exportName || item.fileName;
   const exportDefault = item.exportDefault || '() => null';
   if (componentPath) {
-    return `export { default as ${exportName} } from '${path.relative(
-      PROJECT_SRC_DIR,
-      componentPath,
+    return `export { default as ${exportName} } from '${slash(
+      path.relative(PROJECT_SRC_DIR, componentPath),
     )}'\n`;
   }
   return `export const ${exportName} = ${exportDefault}\n`;

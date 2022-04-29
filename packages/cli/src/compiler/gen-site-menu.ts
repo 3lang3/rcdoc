@@ -1,7 +1,8 @@
 import glob from 'fast-glob';
 import path from 'path';
+import slash from 'slash2';
 import { kebabCase } from 'lodash-es';
-import { PROJECT_CLI_DIST_DIR, ROOT } from '../common/constant';
+import { CWD, PROJECT_CLI_DIST_DIR, ROOT } from '../common/constant';
 import context from '../common/context';
 import { getMarkdownContentMeta, getTitleAndLangByFilepath } from '../common/markdown';
 
@@ -36,7 +37,7 @@ function getMenuDataByFilepath(includes: string[], filePath: string, defaultLang
   const baseDir = path.join('/', path.relative(rootPath, dir));
   const defaultLangFile = title === 'README';
   const routePath = path.join(baseDir, defaultLangFile ? '' : kebabCase(title));
-  const relative = path.relative(PROJECT_CLI_DIST_DIR, filePath);
+  const relative = slash(path.relative(PROJECT_CLI_DIST_DIR, filePath));
   // Lazy load for reduce bundle
   const component = `React.lazy(() => import(/* @vite-ignore */'${relative}'))`;
 
@@ -52,15 +53,15 @@ function getMenuDataByFilepath(includes: string[], filePath: string, defaultLang
     title = path.basename(dir);
   }
   // Overwrite title
-  title = frontmatter?.title || headings?.[0] || title;
+  title = frontmatter?.title || headings?.[0] || title || '';
 
   let menu: MenuItem = {
-    title,
+    title: title.replace(/[\r\n]/g, ''),
     lang,
     relative,
-    path: routePath,
-    langPath: lang !== defaultLang ? path.join('/', lang, routePath) : routePath,
-    filePath,
+    path: slash(routePath),
+    langPath: slash(lang !== defaultLang ? path.join('/', lang, routePath) : routePath),
+    filePath: slash(filePath),
     isLink,
     component,
   };
@@ -78,13 +79,11 @@ function resolveStaticMenus(userConfig): NavItem[] {
 
   const menus = glob
     .sync(
-      resolve.includes.map((dirPath: string) =>
-        path.normalize(path.join(ROOT, dirPath, '**/*.md')),
-      ),
+      resolve.includes.map((dirPath: string) => slash(path.join(dirPath, '**/*.md'))),
       { ignore: (resolve.excludes = []) },
     )
     .map((filePath) => {
-      const menu = getMenuDataByFilepath(resolve.includes, filePath, defaultLang);
+      const menu = getMenuDataByFilepath(resolve.includes, path.join(CWD, filePath), defaultLang);
       if (!locales && menu.lang) return false;
       if (locales && !locales.some((l) => l[0] === menu.lang)) return false;
       return menu;

@@ -1,5 +1,5 @@
 import path from 'path';
-import { get } from 'lodash-es';
+import slash from 'slash2';
 import fse from 'fs-extra';
 import { createRequire } from 'module';
 import { smartOutputFile, normalizePath } from '../common';
@@ -46,5 +46,5 @@ export function genPackageStyle(options: Options) {
     .filter((item: string) => !!item)
     .join('\n');
 
-  smartOutputFile(options.outputPath, content);
+  smartOutputFile(options.outputPath, slash(content));
 }

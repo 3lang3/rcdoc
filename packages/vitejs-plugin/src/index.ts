@@ -1,5 +1,6 @@
 import fs from 'fs';
 import path from 'path';
+import slash from 'slash2';
 import { createFilter } from '@rollup/pluginutils';
 import type { FilterPattern } from '@rollup/pluginutils';
 import { ModuleNode, PluginOption, ViteDevServer } from 'vite';
@@ -105,9 +106,9 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
 
         if (demo.filePath) {
           return {
-            code: `import ${demo.name}, { ${FILE_PATH_EXPORT_NAME} } from '${
-              demo.filePath
-            }';\nexport default ${
+            code: `import ${demo.name}, { ${FILE_PATH_EXPORT_NAME} } from '${slash(
+              demo.filePath,
+            )}';\nexport default ${
               demo.name
             };\nexport const previewerProps = { code: ${FILE_PATH_EXPORT_NAME}, ...${JSON.stringify(
               demo.props,
@@ -123,7 +124,6 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
           map: { mappings: '' },
         };
       }
-
       if (importedIdSet.has(id)) {
         const idSource = fs.readFileSync(id, 'utf8');
         return `${idSource}\n export const ${FILE_PATH_EXPORT_NAME} = ${JSON.stringify(idSource)}`;
@@ -132,10 +132,10 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
     async transform(code, id) {
       if (filter(id)) {
         const { code: content, demos } = await transformer(code, id, reactBabelPlugin, remarkOpts);
-        cache.set(id, demos);
+        cache.set(slash(id), demos);
         demos.forEach((demo) => {
           if (demo.filePath) {
-            importedIdSet.set(demo.filePath, id);
+            importedIdSet.set(slash(demo.filePath), id);
           }
         });
         return { code: content };
@@ -145,7 +145,7 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
       if (filter(ctx.file)) {
         const source = await ctx.read();
         const { demos } = await transformer(source, ctx.file, reactBabelPlugin, remarkOpts);
-        cache.set(ctx.file, demos);
+        cache.set(slash(ctx.file), demos);
         const updateModules: ModuleNode[] = [];
         demos.forEach((demo) => {
           if (demo.filePath) return;

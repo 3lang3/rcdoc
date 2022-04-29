@@ -1,3 +1,4 @@
+import slash from 'slash2';
 import { smartOutputFile } from '../common';
 import { SITE_SHARED_MENU_FILE } from '../common/constant';
 
@@ -10,5 +11,5 @@ export async function genSiteMenuShared(menus) {
   const code = `
 export default ${genExportMenus(menus)}
 `;
-  smartOutputFile(SITE_SHARED_MENU_FILE, code);
+  smartOutputFile(SITE_SHARED_MENU_FILE, slash(code));
 }

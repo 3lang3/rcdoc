@@ -108,7 +108,6 @@ export default defineConfig({
       include: ['@react-vant/icons'],
     },
     server: {
-      force: true,
       host: true,
     },
   },
