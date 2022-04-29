@@ -24,6 +24,26 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
+  "exports": {
+    ".": {
+      "node": {
+        "import": "./bundle/react-vant.es.js",
+        "require": "./bundle/react-vant.js"
+      },
+      "require": "./bundle/react-vant.js",
+      "import": "./es/index.js",
+      "types": "./es/index.d.ts"
+    },
+    "./es": "./es/index.js",
+    "./lib": "./lib/index.js",
+    "./es/": "./es/",
+    "./lib/": "./lib/",
+    "./bundle/": "./bundle/",
+    "./2x": "./2x/es/index.js",
+    "./2x/": "./2x/",
+    "./package.json": "./package.json",
+    "./*": "./*"
+  },
   "devDependencies": {
     "@rcdoc/build": "workspace:*",
     "@rcdoc/cli": "workspace:*",

@@ -113,7 +113,7 @@ export function genSiteMenu() {
             (el) =>
               el.lang === pathLang &&
               // If not default lang path need add lang to compare
-              path.join(pathLang !== defaultLang ? '/' + el.lang : '', el.path) === cPath,
+              slash(path.join(pathLang !== defaultLang ? '/' + el.lang : '', el.path)) === cPath,
           );
           if (targetMenuIdx === -1) return;
           const targetMenu = menus[targetMenuIdx];

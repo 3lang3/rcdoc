@@ -52,7 +52,7 @@ function getHTMLHeadScripts(scripts: DefineConfig['site']['headScripts']) {
   return '';
 }
 
-const IGNORE_BUILD_ALIAS_DEPS = ['react', 'react-dom', 'react-router-dom'];
+const IGNORE_BUILD_ALIAS_DEPS = ['react', 'react-dom', 'react-router-dom', '@rcdoc/cli'];
 
 export function getViteConfigForSiteDev(): InlineConfig {
   setBuildTarget('site');
@@ -102,6 +102,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
         [projectPackageJson.name]: entry,
         '@@rcdoc': PROJECT_CLI_DIST_DIR,
       },
+      dedupe: ['react', 'react-dom'],
     },
     optimizeDeps: {
       ...context.opts?.vite?.optimizeDeps,

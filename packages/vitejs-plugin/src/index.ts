@@ -85,7 +85,8 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
     configureServer(_server) {
       server = _server;
     },
-    resolveId(id) {
+    resolveId(_id) {
+      const id = slash(_id);
       const mat = id.match(/\.md\.MdocDemo\d+\.(.*)\.(jsx|tsx)$/);
       if (mat && mat.length > 2) {
         const [, sourceIdBase64] = mat;
@@ -94,7 +95,8 @@ const plugin = (options: MDocOptions = {}): PluginOption => {
         return idPath;
       }
     },
-    load(id) {
+    load(_id) {
+      let id = slash(_id);
       const mat = id.match(/\.md\.MdocDemo(\d+)(\..*)\.(jsx|tsx)$/);
       if (mat && mat.length >= 2) {
         const [, index, sourceId, suffix] = mat;
