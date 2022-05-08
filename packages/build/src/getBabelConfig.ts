@@ -16,10 +16,12 @@ interface IGetBabelConfigOpts {
   };
   lazy?: boolean;
   loose?: boolean;
-  lessInBabelMode?: boolean | {
-    paths?: any[];
-    plugins?: any[];
-  };
+  lessInBabelMode?:
+    | boolean
+    | {
+        paths?: any[];
+        plugins?: any[];
+      };
 }
 
 function transformImportLess2Css() {
@@ -31,13 +33,25 @@ function transformImportLess2Css() {
         if (re.test(path.node.source.value)) {
           path.node.source.value = path.node.source.value.replace(re, '.css');
         }
-      }
-    }
-  }
+      },
+    },
+  };
 }
 
 export default function (opts: IGetBabelConfigOpts) {
-  const { target, loose, typescript, type, runtimeHelpers, filePath, browserFiles, nodeFiles, nodeVersion, lazy, lessInBabelMode } = opts;
+  const {
+    target,
+    loose,
+    typescript,
+    type,
+    runtimeHelpers,
+    filePath,
+    browserFiles,
+    nodeFiles,
+    nodeVersion,
+    lazy,
+    lessInBabelMode,
+  } = opts;
   let isBrowser = target === 'browser';
   // rollup 场景下不会传入 filePath
   if (filePath) {
@@ -51,32 +65,47 @@ export default function (opts: IGetBabelConfigOpts) {
       }
     }
   }
-  const targets = isBrowser ? { browsers: ['last 2 versions', 'IE 10'] } : { node: nodeVersion || 6 };
+  const targets = isBrowser
+    ? { browsers: ['last 2 versions', 'IE 10'] }
+    : { node: nodeVersion || 6 };
 
   return {
     opts: {
       presets: [
+        [
+          require.resolve('@babel/preset-env'),
+          {
+            targets,
+            modules: type === 'esm' ? false : 'auto',
+            loose,
+          },
+        ],
         ...(typescript ? [require.resolve('@babel/preset-typescript')] : []),
-        [require.resolve('@babel/preset-env'), {
-          targets,
-          modules: type === 'esm' ? false : 'auto',
-          loose
-        }],
         ...(isBrowser ? [require.resolve('@babel/preset-react')] : []),
       ],
       plugins: [
-        ...((type === 'cjs' && lazy && !isBrowser)
-          ? [[require.resolve('@babel/plugin-transform-modules-commonjs'), {
-            lazy: true,
-          }]]
+        ...(type === 'cjs'
+          ? [
+              [
+                require.resolve('@babel/plugin-transform-modules-commonjs'),
+                {
+                  lazy,
+                },
+              ],
+            ]
           : []),
         ...(lessInBabelMode ? [transformImportLess2Css] : []),
         ...(isBrowser ? [require.resolve('babel-plugin-react-require')] : []),
         ...(runtimeHelpers
-          ? [[require.resolve('@babel/plugin-transform-runtime'), {
-            useESModules: isBrowser && (type === 'esm'),
-            version: require('@babel/runtime/package.json').version,
-          }]]
+          ? [
+              [
+                require.resolve('@babel/plugin-transform-runtime'),
+                {
+                  useESModules: isBrowser && type === 'esm',
+                  version: require('@babel/runtime/package.json').version,
+                },
+              ],
+            ]
           : []),
       ],
     },

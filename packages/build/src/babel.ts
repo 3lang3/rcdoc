@@ -30,6 +30,7 @@ interface IBabelOpts {
   dispose?: Dispose[];
   importLibToEs?: boolean;
   bundleOpts: IBundleOptions;
+  needTransform?: boolean;
 }
 
 interface ITransformOpts {
@@ -46,6 +47,7 @@ export default async function (opts: IBabelOpts) {
     rootPath,
     type,
     watch,
+    needTransform,
     log,
     bundleOpts: {
       entry,
@@ -75,7 +77,7 @@ export default async function (opts: IBabelOpts) {
 
   function transform(opts: ITransformOpts) {
     const { file, type } = opts;
-    const { opts: babelOpts, isBrowser } = getBabelConfig({
+    let { opts: babelOpts, isBrowser } = getBabelConfig({
       target,
       type,
       loose,
@@ -87,6 +89,13 @@ export default async function (opts: IBabelOpts) {
       nodeVersion,
       lessInBabelMode,
     });
+
+    if (!needTransform) {
+      babelOpts = {
+        presets: [],
+        plugins: type === 'cjs' ? ['@babel/plugin-transform-modules-commonjs'] : [],
+      };
+    }
     babelOpts.presets.push(...extraBabelPresets);
     babelOpts.plugins.push(...extraBabelPlugins);
 
@@ -135,7 +144,7 @@ export default async function (opts: IBabelOpts) {
         allowEmpty: true,
         base: srcPath,
       })
-      .pipe(gulpIf((f) => !disableTypeCheck && isTsFile(f.path), gulpTs(tsConfig)))
+      .pipe(gulpIf((f) => !disableTypeCheck && isTsFile(f.path), gulpTs({ ...tsConfig })))
       .pipe(
         // @TODO
         // Need support scss & stylus

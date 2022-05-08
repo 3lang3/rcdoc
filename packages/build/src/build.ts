@@ -95,7 +95,7 @@ interface IExtraBuildOpts {
 }
 
 export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
-  const { cwd, rootPath, watch, buildArgs = {}, clean = true } = opts;
+  const { cwd, rootPath, watch, buildArgs = {}, clean = true, needTransform = true } = opts;
   const { pkg } = extraOpts;
 
   const dispose: Dispose[] = [];
@@ -131,7 +131,7 @@ export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
     // Build cjs
     if (bundleOpts.cjs) {
       log(`Build cjs with babel`);
-      await babel({ cwd, rootPath, watch, dispose, type: 'cjs', log, bundleOpts });
+      await babel({ cwd, rootPath, watch, dispose, type: 'cjs', log, bundleOpts, needTransform });
     }
 
     // Build esm
@@ -139,7 +139,17 @@ export async function build(opts: IOpts, extraOpts: IExtraBuildOpts = {}) {
       const esm = bundleOpts.esm as IEsm;
       log(`Build esm with babel`);
       const importLibToEs = esm && esm.importLibToEs;
-      await babel({ cwd, rootPath, watch, dispose, type: 'esm', importLibToEs, log, bundleOpts });
+      await babel({
+        cwd,
+        rootPath,
+        watch,
+        dispose,
+        type: 'esm',
+        importLibToEs,
+        log,
+        bundleOpts,
+        needTransform,
+      });
     }
   }
 

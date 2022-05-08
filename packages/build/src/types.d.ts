@@ -104,8 +104,8 @@ export interface IBundleOptions {
 
 export interface IOpts {
   cwd: string;
-  /** 
-   * 构建时清空outputDir 
+  /**
+   * 构建时清空outputDir
    * @default true
    * */
   clean?: boolean;
@@ -113,6 +113,7 @@ export interface IOpts {
   buildArgs?: IBundleOptions;
   rootConfig?: IBundleOptions;
   rootPath?: string;
+  needTransform?: boolean;
 }
 
 export type Dispose = () => void;
