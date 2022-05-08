@@ -1,5 +1,11 @@
 # @mdoc/build
 
+## 0.1.10
+
+### Patch Changes
+
+- dev release
+
 ## 0.1.9
 
 ### Patch Changes
