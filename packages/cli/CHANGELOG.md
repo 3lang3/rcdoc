@@ -1,5 +1,13 @@
 # @mdoc/cli
 
+## 0.1.12
+
+### Patch Changes
+
+- dev release
+- Updated dependencies
+  - @rcdoc/build@0.1.5
+
 ## 0.1.11
 
 ### Patch Changes
