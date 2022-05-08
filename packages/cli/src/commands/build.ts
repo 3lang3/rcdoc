@@ -33,6 +33,7 @@ const compileBundlesByMdocBuild = async () => {
   await rcdocBuild['default']({
     cwd: ROOT,
     clean: false,
+    needTransform: false,
     buildArgs: { config: MDOC_BUILD_CONFIG_FILE, ...buildProps },
   });
 };

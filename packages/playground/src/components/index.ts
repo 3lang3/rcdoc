@@ -7,3 +7,4 @@ export { default as Flex } from './flex';
 export { default as Image } from './image';
 export { default as Lazyload } from './lazyload';
 export { default as Skeleton } from './skeleton';
+export { default as List } from './list';
