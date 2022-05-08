@@ -144,7 +144,7 @@ export default async function (opts: IBabelOpts) {
         allowEmpty: true,
         base: srcPath,
       })
-      .pipe(gulpIf((f) => !disableTypeCheck && isTsFile(f.path), gulpTs({ ...tsConfig })))
+      .pipe(gulpIf((f) => !disableTypeCheck && isTsFile(f.path), gulpTs(tsConfig)))
       .pipe(
         // @TODO
         // Need support scss & stylus

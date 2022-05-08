@@ -29,7 +29,7 @@
     "@babel/plugin-syntax-jsx": "^7.16.7",
     "@babel/preset-react": "^7.16.7",
     "@babel/preset-typescript": "^7.16.7",
-    "@babel/traverse": "^7.16.10",
+    "@babel/traverse": "7.16.10",
     "@babel/types": "^7.16.8",
     "@mapbox/hast-util-to-jsx": "^2.0.0",
     "debug": "^4.3.3",
