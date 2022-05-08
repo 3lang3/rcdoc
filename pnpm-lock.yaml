@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 importers:
   .:
@@ -53,6 +53,7 @@ importers:
       slash2: ^2.0.0
       through2: ^4.0.2
       tsup: ^5.11.11
+      typescript: ^4.4.4
       update-notifier: ^5.1.0
       vinyl-fs: ^3.0.3
       yargs-parser: ^21.0.1
@@ -80,6 +81,7 @@ importers:
       signale: 1.4.0
       slash2: 2.0.0
       through2: 4.0.2
+      typescript: registry.npmmirror.com/typescript/4.6.3
       update-notifier: 5.1.0
       vinyl-fs: 3.0.3
       yargs-parser: 21.0.1
@@ -278,12 +280,14 @@ importers:
       react-dom: ^17.0.2
       react-test-renderer: ^17.0.2
       react-transition-group: ^4.4.2
+      tslib: ^2.4.0
       typescript: ^4.4.4
     dependencies:
       '@react-vant/icons': 0.0.6
       clsx: 1.1.1
       react-test-renderer: 17.0.2_react@17.0.2
-      react-transition-group: 4.4.2_react-dom@17.0.2+react@17.0.2
+      react-transition-group: 4.4.2_sfoxds7t5ydpegc3knd667wn6m
+      tslib: registry.npmmirror.com/tslib/2.4.0
     devDependencies:
       '@rcdoc/build': link:../build
       '@rcdoc/cli': link:../cli
@@ -10884,7 +10888,7 @@ packages:
       plugin-error: 1.0.1
       source-map: 0.7.3
       through2: 3.0.2
-      typescript: 4.6.3
+      typescript: registry.npmmirror.com/typescript/4.6.3
       vinyl: 2.2.1
       vinyl-fs: 3.0.3
     dev: false
@@ -17156,7 +17160,7 @@ packages:
       scheduler: 0.20.2
     dev: false
 
-  /react-transition-group/4.4.2_react-dom@17.0.2+react@17.0.2:
+  /react-transition-group/4.4.2_sfoxds7t5ydpegc3knd667wn6m:
     resolution:
       {
         integrity: sha512-/RNYfRAMlZwDSr6z4zNKV6xu53/e2BuaBbGhbyYIXTrmgu/bGHzmqOs7mJSJBHy9Ud+ApHx3QjrkKSp1pxvlFg==,
@@ -19818,7 +19822,7 @@ packages:
       source-map: 0.7.3
       sucrase: 3.20.3
       tree-kill: 1.2.2
-      typescript: 4.6.3
+      typescript: registry.npmmirror.com/typescript/4.6.3
     transitivePeerDependencies:
       - supports-color
       - ts-node
@@ -24715,6 +24719,17 @@ packages:
       yn: registry.npmmirror.com/yn/3.1.1
     dev: true
 
+  registry.npmmirror.com/tslib/2.4.0:
+    resolution:
+      {
+        integrity: sha512-d6xOpEDfsi2CZVlPQzGeux8XMwLT9hssAsaPYExaQMuYskwb+x1x7J371tWlbBdWHroy99KnVB6qIkUbs5X3UQ==,
+        registry: https://registry.npm.taobao.org/,
+        tarball: https://registry.npmmirror.com/tslib/-/tslib-2.4.0.tgz,
+      }
+    name: tslib
+    version: 2.4.0
+    dev: false
+
   registry.npmmirror.com/typescript/4.6.3:
     resolution:
       {
@@ -24726,7 +24741,6 @@ packages:
     version: 4.6.3
     engines: { node: '>=4.2.0' }
     hasBin: true
-    dev: true
 
   registry.npmmirror.com/unbox-primitive/1.0.1:
     resolution:
