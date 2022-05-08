@@ -90,12 +90,12 @@ export default async function (opts: IBabelOpts) {
       lessInBabelMode,
     });
 
-    // if (!needTransform) {
-    //   babelOpts = {
-    //     presets: [],
-    //     plugins: type === 'cjs' ? ['@babel/plugin-transform-modules-commonjs'] : [],
-    //   };
-    // }
+    if (!needTransform) {
+      babelOpts = {
+        presets: [],
+        plugins: type === 'cjs' ? ['@babel/plugin-transform-modules-commonjs'] : [],
+      };
+    }
     babelOpts.presets.push(...extraBabelPresets);
     babelOpts.plugins.push(...extraBabelPlugins);
 
@@ -152,7 +152,7 @@ export default async function (opts: IBabelOpts) {
       )
       .pipe(
         gulpIf(
-          (f) => isTransform(f.path) && type !== 'esm',
+          (f) => isTransform(f.path),
           through.obj((file, env, cb) => {
             try {
               file.contents = Buffer.from(
