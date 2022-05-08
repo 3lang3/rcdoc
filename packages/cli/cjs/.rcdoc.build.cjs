@@ -5,4 +5,5 @@ module.exports = {
   loose: true,
   extractCSS: true,
   lessInBabelMode: true,
+  // runtimeHelpers: true
 };
