@@ -60,6 +60,7 @@ export function getViteConfigForPackage({
           },
           globals: {
             react: 'React',
+            'react-dom': 'ReactDOM',
           },
         },
       },

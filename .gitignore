@@ -5,3 +5,4 @@ pnpm-global
 .DS_Store
 # log
 *.log
+.vscode

@@ -84,12 +84,12 @@ export default function (opts: IGetBabelConfigOpts) {
         ...(isBrowser ? [require.resolve('@babel/preset-react')] : []),
       ],
       plugins: [
-        ...(type === 'cjs'
+        ...(type === 'cjs' && lazy
           ? [
               [
                 require.resolve('@babel/plugin-transform-modules-commonjs'),
                 {
-                  lazy,
+                  lazy: true,
                 },
               ],
             ]
