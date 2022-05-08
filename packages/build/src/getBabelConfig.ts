@@ -2,6 +2,7 @@ import { extname } from 'path';
 import { ModuleFormat } from 'rollup';
 
 interface IGetBabelConfigOpts {
+  needTransform?: boolean;
   target: 'browser' | 'node';
   type?: ModuleFormat;
   typescript?: boolean;
@@ -24,7 +25,7 @@ interface IGetBabelConfigOpts {
       };
 }
 
-function transformImportLess2Css() {
+export function transformImportLess2Css() {
   return {
     name: 'transform-import-less-to-css',
     visitor: {
@@ -51,6 +52,7 @@ export default function (opts: IGetBabelConfigOpts) {
     nodeVersion,
     lazy,
     lessInBabelMode,
+    needTransform,
   } = opts;
   let isBrowser = target === 'browser';
   // rollup 场景下不会传入 filePath
@@ -71,18 +73,20 @@ export default function (opts: IGetBabelConfigOpts) {
 
   return {
     opts: {
-      presets: [
-        [
-          require.resolve('@babel/preset-env'),
-          {
-            targets,
-            modules: type === 'esm' ? false : 'auto',
-            loose,
-          },
-        ],
-        ...(typescript ? [require.resolve('@babel/preset-typescript')] : []),
-        ...(isBrowser ? [require.resolve('@babel/preset-react')] : []),
-      ],
+      presets: needTransform
+        ? [
+            [
+              require.resolve('@babel/preset-env'),
+              {
+                targets,
+                modules: type === 'esm' ? false : 'auto',
+                loose,
+              },
+            ],
+            ...(typescript ? [require.resolve('@babel/preset-typescript')] : []),
+            ...(isBrowser ? [require.resolve('@babel/preset-react')] : []),
+          ]
+        : [],
       plugins: [
         ...(type === 'cjs' && lazy
           ? [

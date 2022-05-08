@@ -9,7 +9,7 @@ import gulpTs from 'gulp-typescript';
 import gulpLess from 'gulp-less';
 import gulpIf from 'gulp-if';
 import chalk from 'chalk';
-import getBabelConfig from './getBabelConfig';
+import getBabelConfig, { transformImportLess2Css } from './getBabelConfig';
 import { Dispose, IBundleOptions } from './types';
 
 function getSrcPath(cwd: string, entry: string | string[]) {
@@ -88,14 +88,9 @@ export default async function (opts: IBabelOpts) {
       nodeFiles,
       nodeVersion,
       lessInBabelMode,
+      needTransform,
     });
 
-    if (!needTransform) {
-      babelOpts = {
-        presets: [],
-        plugins: type === 'cjs' ? ['@babel/plugin-transform-modules-commonjs'] : [],
-      };
-    }
     babelOpts.presets.push(...extraBabelPresets);
     babelOpts.plugins.push(...extraBabelPlugins);
 
