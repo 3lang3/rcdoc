@@ -14,7 +14,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "dev": "tsc -p . -w --incremental",
-    "build": "rimraf dist && run-s build-bundle",
+    "build": "rimraf dist && run-s build-bundle build-types",
     "prepare": "pnpm build",
     "build-bundle": "esbuild src/index.ts --bundle --platform=node --target=node12 --external:@babel/* --external:@rollup/* --external:resolve --external:react-refresh/* --outfile=dist/index.js && npm run patch-dist",
     "patch-dist": "ts-node scripts/patchEsbuildDist.ts dist/index.js viteReact",

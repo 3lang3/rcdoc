@@ -98,7 +98,7 @@ export default function viteReact(opts: Options = {}): PluginOption[] {
     babelrc: false,
     configFile: false,
     ...opts.babel,
-  } as ReactBabelOptions;
+  } as unknown as ReactBabelOptions;
 
   babelOptions.plugins ||= [];
   babelOptions.presets ||= [];

@@ -2,6 +2,7 @@
   "include": ["src"],
   "exclude": ["**/*.spec.ts"],
   "compilerOptions": {
+    "baseUrl": ".",
     "outDir": "dist",
     "target": "ES2018",
     "module": "CommonJS",
@@ -9,7 +10,9 @@
     "strict": true,
     "declaration": true,
     "sourceMap": true,
+    "skipLibCheck": true,
     "noUnusedLocals": true,
+    "noImplicitAny": false,
     "esModuleInterop": true
   }
 }
