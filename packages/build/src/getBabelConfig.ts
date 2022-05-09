@@ -88,7 +88,7 @@ export default function (opts: IGetBabelConfigOpts) {
           ]
         : [],
       plugins: [
-        ...(type === 'cjs' && lazy
+        ...(type === 'cjs'
           ? [
               [
                 require.resolve('@babel/plugin-transform-modules-commonjs'),

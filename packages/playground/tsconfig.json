@@ -11,6 +11,7 @@
     "baseUrl": ".",
     "resolveJsonModule": true,
     "skipLibCheck": true,
+    "lib": ["DOM", "ES2015"],
     "allowSyntheticDefaultImports": true,
     "typeRoots": ["src/typings", "node_modules/@types"],
     "paths": {
