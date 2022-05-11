@@ -8,10 +8,18 @@ import { CWD, GENERATOR_DIR, GENERATOR_DIR_DIR } from './constant';
 
 const PROMPTS = [
   {
+    name: 'name',
+    message: '请输入项目名称',
+  },
+  {
+    name: 'site',
+    message: '是否开启站点模式?',
+  },
+  {
     name: 'preprocessor',
-    message: 'Select css preprocessor',
+    message: '请选择 css 处理器',
     type: 'list',
-    choices: ['Less', 'Sass'],
+    choices: ['Less', 'Sass', 'Stylu'],
   },
 ];
 
