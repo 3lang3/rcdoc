@@ -27,11 +27,11 @@ jobs:
           yarn docs:build
       - name: Generator 404 file
         run: |
-          cp ./docs-dist/index.html ./docs-dist/404.html
+          cp ./packages/playground/docs-dist/index.html ./packages/playground/docs-dist/404.html
       - name: Deploy 🚀
         uses: peaceiris/actions-gh-pages@v3
         if: ${{ github.ref == 'refs/heads/main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: docs-dist
+          publish_dir: ./packages/playground/docs-dist
           cname: rcdoc.3lang.dev
