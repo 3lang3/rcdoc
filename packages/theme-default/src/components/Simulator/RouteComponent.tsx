@@ -27,7 +27,10 @@ export const SimulatorRouteComponent = ({
                   'doc-simulator-demo__header--back': !inIframe,
                 })}
               >
-                <span className="doc-simulator-demo__back" onClick={() => navigate(-1)}>
+                <span
+                  className="doc-simulator-demo__back"
+                  onClick={() => navigate((window.history.length <= 1 ? '/~demo' : -1) as any)}
+                >
                   <Icons.LeftIcon />
                 </span>
                 {title}
