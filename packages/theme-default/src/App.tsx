@@ -2,7 +2,7 @@ import React from 'react';
 import { MdocSiteContext } from '@rcdoc/theme';
 import Layout from './components';
 import DesktopApp from './views/desktop';
-import MobileApp from './views/mobile';
+import SimulatorApp from './views/simulator';
 import './index.less';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
   return (
     <Layout>
       <DesktopApp config={config} />
-      {!!config?.site?.themeConfig?.simulator && <MobileApp config={config} />}
+      {!!config?.site?.themeConfig?.simulator && <SimulatorApp config={config} />}
     </Layout>
   );
 };

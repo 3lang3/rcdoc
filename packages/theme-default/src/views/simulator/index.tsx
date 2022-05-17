@@ -1,13 +1,14 @@
 import React from 'react';
-import { Routes, Route, useNavigate, Navigate } from 'react-router-dom';
+import { Routes, Route, useNavigate, Navigate, useLocation } from 'react-router-dom';
 import initDemoRoutes from './routes';
 import _routes from '@@rcdoc/site-shared-routes';
 import MobileView from '../../components/Simulator/MobileView';
 import DemoWrapper from '../../components/Simulator/DemoWrapper';
 import { isMobile } from '../../common';
 
-const MobileApp = ({ config }) => {
+const SimulatorApp = ({ config }) => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const demoRoutes = React.useMemo(() => {
     return initDemoRoutes({
@@ -18,7 +19,7 @@ const MobileApp = ({ config }) => {
 
   React.useEffect(() => {
     // Mobile view redirect to /~demo path
-    if (isMobile) {
+    if (isMobile && !location.pathname.startsWith('/~demo')) {
       navigate('/~demo', { replace: true });
     }
   }, []);
@@ -43,4 +44,4 @@ const MobileApp = ({ config }) => {
   );
 };
 
-export default MobileApp;
+export default SimulatorApp;
