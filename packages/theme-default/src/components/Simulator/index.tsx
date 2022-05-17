@@ -43,7 +43,6 @@ const Simulator = ({ hashHistory }) => {
   return (
     <div className="doc-simulator">
       <div className="doc-simulator__wrapper" style={{ backgroundImage: `url(${simulatorModel})` }}>
-        <LinerLoader type="mobile" />
         <Icons.DeviceBarIcon className="doc-simulator__bar" />
         <iframe className="doc-simulator__iframe" src={initialSrc}></iframe>
       </div>

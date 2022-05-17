@@ -7,14 +7,9 @@ type LinerLoaderProps = {
   type?: 'mobile' | 'site';
 } & React.HTMLAttributes<HTMLDivElement>;
 
-export const LinerLoader = ({ type = 'site', className, ...props }: LinerLoaderProps) => {
+export const LinerLoader = ({ className, ...props }: LinerLoaderProps) => {
   return (
-    <div
-      className={clsx('doc-content__loader', {
-        'doc-content__loader--mobile': type === 'mobile',
-      })}
-      {...props}
-    >
+    <div className={clsx('doc-content__loader', className)} {...props}>
       <span className="doc-content__loader-bar1" />
       <span className="doc-content__loader-bar2" />
     </div>
@@ -36,5 +31,6 @@ export const LazyFallback: React.FC<LazyFallbackProps> = ({ mode = 'site' }) => 
       document.body.classList.remove('show-content-loader');
     };
   }, []);
-  return null;
+  if (mode === 'site') return null;
+  return <LinerLoader />;
 };
