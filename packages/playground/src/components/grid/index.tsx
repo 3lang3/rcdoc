@@ -1,6 +1,6 @@
 import React from 'react';
 import { Space } from 'react-vant';
-import type { ButtonProps, OtherProps } from './index.d';
+import type { ButtonProps, OtherProps } from './PropsType';
 
 import './index.less';
 

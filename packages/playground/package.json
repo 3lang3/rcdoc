@@ -3,7 +3,7 @@
   "name": "react-vant",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/es/index.js",
   "scripts": {
     "dev": "rcdoc dev",
     "build": "rcdoc build",
@@ -24,26 +24,6 @@
   "peerDependencies": {
     "react": ">=16.14.0",
     "react-dom": ">=16.14.0"
-  },
-  "exports": {
-    ".": {
-      "node": {
-        "import": "./bundle/react-vant.es.js",
-        "require": "./bundle/react-vant.js"
-      },
-      "require": "./bundle/react-vant.js",
-      "import": "./es/index.js",
-      "types": "./es/index.d.ts"
-    },
-    "./es": "./es/index.js",
-    "./lib": "./lib/index.js",
-    "./es/": "./es/",
-    "./lib/": "./lib/",
-    "./bundle/": "./bundle/",
-    "./2x": "./2x/es/index.js",
-    "./2x/": "./2x/",
-    "./package.json": "./package.json",
-    "./*": "./*"
   },
   "devDependencies": {
     "@rcdoc/build": "workspace:*",
