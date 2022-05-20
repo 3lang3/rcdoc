@@ -4,59 +4,35 @@ import consola from 'consola';
 import { join } from 'path';
 import Yeoman from 'yeoman-environment';
 import Generator from 'yeoman-generator';
-import { CWD, GENERATOR_DIR, GENERATOR_DIR_DIR } from './constant';
-
-const PROMPTS = [
-  {
-    name: 'name',
-    message: '请输入项目名称',
-  },
-  {
-    name: 'site',
-    message: '是否开启站点模式?',
-  },
-  {
-    name: 'preprocessor',
-    message: '请选择 css 处理器',
-    type: 'list',
-    choices: ['Less', 'Sass', 'Stylu'],
-  },
-];
+import { CWD, GENERATOR_DIR, GENERATOR_DIR_SITE, GENERATOR_DIR_LIB } from './constant';
 
 export class ReactVanGenerator extends Generator {
   inputs = {
     name: '',
-    cssLang: '',
+    mode: '',
+    locale: true,
     preprocessor: '',
   };
 
-  constructor(name: string) {
+  constructor(opts) {
     super([], {
       env: Yeoman.createEnv([], {
-        cwd: join(CWD, name),
+        cwd: join(CWD, opts.name),
       }),
       resolved: GENERATOR_DIR,
     });
 
-    this.inputs.name = name;
+    this.inputs = opts;
   }
-
-  // async prompting() {
-  //   return this.prompt<Record<string, string>>(PROMPTS).then((inputs) => {
-  //     const preprocessor = inputs.preprocessor.toLowerCase();
-  //     const cssLang = preprocessor === 'sass' ? 'scss' : preprocessor;
-  //
-  //     this.inputs.cssLang = cssLang;
-  //     this.inputs.preprocessor = preprocessor;
-  //   });
-  // }
 
   writing() {
     consola.info(`Creating project in ${join(CWD, this.inputs.name)}\n`);
     /**
     @see {@link https://github.com/mrmlnc/fast-glob#how-to-write-patterns-on-windows}
     */
-    const templatePath = join(GENERATOR_DIR_DIR).replace(/\\/g, '/');
+    const templatePath = join(
+      this.inputs.mode === 'site' ? GENERATOR_DIR_SITE : GENERATOR_DIR_LIB,
+    ).replace(/\\/g, '/');
     const templateFiles = glob.sync(join(templatePath, '**', '*').replace(/\\/g, '/'), {
       dot: true,
     });
@@ -87,6 +63,6 @@ export class ReactVanGenerator extends Generator {
 
     console.log();
     consola.success(`Successfully created ${chalk.yellow(name)}.`);
-    consola.success(`Run ${chalk.yellow(`cd ${name} && yarn start`)} to start development!`);
+    consola.success(`Run ${chalk.yellow(`cd ${name} && yarn dev`)} to start development!`);
   }
 }

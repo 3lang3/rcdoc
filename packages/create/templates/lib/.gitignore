@@ -1,0 +1,6 @@
+docs-dist
+.rcdoc
+dist
+node_modules
+# misc
+.DS_Store
