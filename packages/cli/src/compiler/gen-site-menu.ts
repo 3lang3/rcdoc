@@ -94,8 +94,9 @@ function resolveStaticMenus(userConfig): NavItem[] {
 
 export function genSiteMenu() {
   const menus = resolveStaticMenus(context.opts);
-  const { locales, menus: configMenus } = context.opts;
+  const { locales, menus: configMenus, navs = [] } = context.opts;
 
+  const hasNavs = !!navs.length;
   const langs = !locales ? false : locales.map((el) => el[0]);
   const defaultLang = !locales ? '' : langs[0];
 
@@ -150,7 +151,7 @@ export function genSiteMenu() {
     group,
   }));
 
-  const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes, langs || ['']);
+  const { allRedirectRoutes, langsMenus } = generateMenus(menuRoutes, langs || [''], hasNavs);
 
   return { routes: [...mergeMenus, ...allRedirectRoutes], menus: langsMenus };
 }
@@ -194,7 +195,7 @@ function localesCompatibleRoute(
   });
 }
 
-function getRoutesDataByLang(data) {
+function getRoutesDataByLang(data: NavItem[], hasNavs?: boolean) {
   const redirectRoutes = [];
 
   function searchParent(children: NavItem[], parentPath: string) {
@@ -214,17 +215,20 @@ function getRoutesDataByLang(data) {
   const routes = data.reduce((a, v) => {
     const dirname = path.dirname(v.path);
     const target = searchParent(a, dirname);
+
     if (target) {
       if (target.children) {
         target.children.push(v);
       } else {
         target.children = [v];
       }
+      return a;
+    }
+    if (v.path !== '/') {
+      a.push({ path: dirname, children: [v] });
+      redirectRoutes.push({ redirect: v.langPath, path: path.dirname(v.langPath) });
     } else {
-      if (v.path !== '/') {
-        a.push({ path: dirname, children: [v] });
-        redirectRoutes.push({ redirect: v.langPath, path: path.dirname(v.langPath) });
-      }
+      if (!hasNavs) a.push(v);
     }
     return a;
   }, []);
@@ -232,11 +236,11 @@ function getRoutesDataByLang(data) {
   return [routes, redirectRoutes];
 }
 
-function generateMenus(data: NavItem[], langs: string[]) {
+function generateMenus(data: NavItem[], langs: string[], hasNavs?: boolean) {
   const allRedirectRoutes = [];
   const langsMenus = langs.reduce((a, v) => {
     const flattenRoutes = data.filter((r) => r.lang === v);
-    const [routes, redirectRoutes] = getRoutesDataByLang(flattenRoutes);
+    const [routes, redirectRoutes] = getRoutesDataByLang(flattenRoutes, hasNavs);
     a[v] = routes;
     allRedirectRoutes.push(...redirectRoutes);
     return a;

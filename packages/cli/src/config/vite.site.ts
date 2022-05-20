@@ -62,7 +62,7 @@ export function getViteConfigForSiteDev(): InlineConfig {
 
   // @FIXME
   // enforce alias redirect to not root dir
-  const projectDepsAlias = Object.keys(projectPackageJson.dependencies).reduce((a, v) => {
+  const projectDepsAlias = Object.keys(projectPackageJson.dependencies || {}).reduce((a, v) => {
     if (!IGNORE_BUILD_ALIAS_DEPS.includes(v)) {
       a[v] = slash(path.join(ROOT, 'node_modules', v));
     }

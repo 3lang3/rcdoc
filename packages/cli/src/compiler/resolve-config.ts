@@ -11,7 +11,7 @@ import { getRepoUrl, resolveJsFile } from '../common';
 
 const getPackageJsonRepository = () => {
   const { repository } = getPackageJson();
-  return repository;
+  return repository || {};
 };
 
 const defaultConfig: DefineConfig = {
