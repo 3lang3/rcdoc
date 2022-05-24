@@ -98,6 +98,8 @@ importers:
       '@rcdoc/theme': workspace:*
       '@rcdoc/vitejs-plugin': workspace:*
       '@types/fs-extra': ^9.0.13
+      '@types/react': ^18.0.9
+      '@types/react-dom': ^18.0.5
       babel-jest: ^27.5.1
       bundle-require: ^3.0.4
       chalk: ^5.0.0
@@ -116,9 +118,9 @@ importers:
       lodash-es: ^4.17.21
       ora: ^6.0.1
       rcdoc-theme-default: workspace:*
-      react: ^17.0.2
+      react: ^18.1.0
       react-docgen-typescript: ^2.2.2
-      react-dom: ^17.0.2
+      react-dom: ^18.1.0
       react-router-dom: ^6.2.1
       rollup-plugin-postcss: ^4.0.2
       sass: ^1.49.10
@@ -156,10 +158,10 @@ importers:
       lodash-es: 4.17.21
       ora: 6.1.0
       rcdoc-theme-default: link:../theme-default
-      react: 17.0.2
+      react: 18.1.0
       react-docgen-typescript: 2.2.2_typescript@4.6.4
-      react-dom: 17.0.2_react@17.0.2
-      react-router-dom: 6.3.0_react-dom@17.0.2+react@17.0.2
+      react-dom: 18.1.0_react@18.1.0
+      react-router-dom: 6.3.0_react-dom@18.1.0+react@18.1.0
       rollup-plugin-postcss: 4.0.2
       sass: 1.51.0
       sitemap: 7.1.1
@@ -171,6 +173,8 @@ importers:
     devDependencies:
       '@jest/types': 27.5.1
       '@types/fs-extra': 9.0.13
+      '@types/react': 18.0.9
+      '@types/react-dom': 18.0.5
       tsup: 5.12.7_typescript@4.6.4
 
   packages/create:
@@ -362,16 +366,16 @@ importers:
       clsx: ^1.1.1
       copy-text-to-clipboard: ^3.0.1
       lz-string: ^1.4.4
-      react: ^17.0.2
-      react-dom: ^17.0.2
+      react: ^18.1.0
+      react-dom: ^18.1.0
       typescript: ^4.4.4
     dependencies:
       clsx: 1.1.1
       copy-text-to-clipboard: 3.0.1
       lz-string: 1.4.4
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
     devDependencies:
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
       typescript: 4.6.4
 
   packages/theme-default:
@@ -383,23 +387,23 @@ importers:
       clsx: ^1.1.1
       prism-react-renderer: ^1.2.1
       qrcode.react: ^3.0.1
-      react: ^17.0.2
-      react-dom: ^17.0.2
+      react: ^18.1.0
+      react-dom: ^18.1.0
       react-router-dom: 6.2.1
       typescript: ^4.4.4
       vite: ^2.9.1
     dependencies:
       '@docsearch/css': 3.0.0
-      '@docsearch/react': 3.0.0_react-dom@17.0.2+react@17.0.2
+      '@docsearch/react': 3.0.0_react-dom@18.1.0+react@18.1.0
       '@rcdoc/theme': link:../theme
       '@vant/touch-emulator': 1.3.2
       clsx: 1.1.1
-      prism-react-renderer: 1.3.1_react@17.0.2
-      qrcode.react: 3.0.1_react@17.0.2
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-router-dom: 6.2.1_react-dom@17.0.2+react@17.0.2
+      prism-react-renderer: 1.3.1_react@18.1.0
+      qrcode.react: 3.0.1_react@18.1.0
+      react-router-dom: 6.2.1_react-dom@18.1.0+react@18.1.0
     devDependencies:
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
       typescript: 4.6.4
       vite: 2.9.8
 
@@ -2739,7 +2743,7 @@ packages:
       }
     dev: false
 
-  /@docsearch/react/3.0.0_react-dom@17.0.2+react@17.0.2:
+  /@docsearch/react/3.0.0_react-dom@18.1.0+react@18.1.0:
     resolution:
       {
         integrity: sha512-yhMacqS6TVQYoBh/o603zszIb5Bl8MIXuOc6Vy617I74pirisDzzcNh0NEaYQt50fVVR3khUbeEhUEWEWipESg==,
@@ -2753,8 +2757,8 @@ packages:
       '@algolia/autocomplete-preset-algolia': 1.5.2_algoliasearch@4.13.0
       '@docsearch/css': 3.0.0
       algoliasearch: 4.13.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
     transitivePeerDependencies:
       - '@algolia/client-search'
     dev: false
@@ -4100,6 +4104,15 @@ packages:
       }
     dev: true
 
+  /@types/react-dom/18.0.5:
+    resolution:
+      {
+        integrity: sha512-OWPWTUrY/NIrjsAPkAk1wW9LZeIjSvkXRhclsFO8CZcZGCOg2G0YZy4ft+rOyYxy8B7ui5iZzi9OkDebZ7/QSA==,
+      }
+    dependencies:
+      '@types/react': 18.0.9
+    dev: true
+
   /@types/react-test-renderer/17.0.2:
     resolution:
       {
@@ -4113,6 +4126,17 @@ packages:
     resolution:
       {
         integrity: sha512-YfhQ22Lah2e3CHPsb93tRwIGNiSwkuz1/blk4e6QrWS0jQzCSNbGLtOEYhPg02W0yGTTmpajp7dCTbBAMN3qsg==,
+      }
+    dependencies:
+      '@types/prop-types': 15.7.5
+      '@types/scheduler': 0.16.2
+      csstype: 3.0.11
+    dev: true
+
+  /@types/react/18.0.9:
+    resolution:
+      {
+        integrity: sha512-9bjbg1hJHUm4De19L1cHiW0Jvx3geel6Qczhjd0qY5VKVE2X5+x77YxAepuCwVh4vrgZJdgEJw48zrhRIeF4Nw==,
       }
     dependencies:
       '@types/prop-types': 15.7.5
@@ -15618,7 +15642,7 @@ packages:
       prettier: 2.6.2
     dev: true
 
-  /prism-react-renderer/1.3.1_react@17.0.2:
+  /prism-react-renderer/1.3.1_react@18.1.0:
     resolution:
       {
         integrity: sha512-xUeDMEz074d0zc5y6rxiMp/dlC7C+5IDDlaEUlcBOFE2wddz7hz5PNupb087mPwTt7T9BrFmewObfCBuf/LKwQ==,
@@ -15626,7 +15650,7 @@ packages:
     peerDependencies:
       react: '>=0.14.9'
     dependencies:
-      react: 17.0.2
+      react: 18.1.0
     dev: false
 
   /proc-log/1.0.0:
@@ -15790,7 +15814,7 @@ packages:
     engines: { node: '>=0.6.0', teleport: '>=0.2.0' }
     dev: true
 
-  /qrcode.react/3.0.1_react@17.0.2:
+  /qrcode.react/3.0.1_react@18.1.0:
     resolution:
       {
         integrity: sha512-uCNm16ClMCrdM2R20c/zqmdwHcbMQf3K7ey39EiK/UgEKbqWeM0iH2QxW3iDVFzjQKFzH23ICgOyG4gNsJ0/gw==,
@@ -15798,7 +15822,7 @@ packages:
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
     dependencies:
-      react: 17.0.2
+      react: 18.1.0
     dev: false
 
   /queue-microtask/1.2.3:
@@ -15863,6 +15887,7 @@ packages:
       object-assign: 4.1.1
       react: 17.0.2
       scheduler: 0.20.2
+    dev: true
 
   /react-dom/18.1.0_react@18.1.0:
     resolution:
@@ -15875,7 +15900,6 @@ packages:
       loose-envify: 1.4.0
       react: 18.1.0
       scheduler: 0.22.0
-    dev: true
 
   /react-is/16.13.1:
     resolution:
@@ -15903,7 +15927,7 @@ packages:
     engines: { node: '>=0.10.0' }
     dev: false
 
-  /react-router-dom/6.2.1_react-dom@17.0.2+react@17.0.2:
+  /react-router-dom/6.2.1_react-dom@18.1.0+react@18.1.0:
     resolution:
       {
         integrity: sha512-I6Zax+/TH/cZMDpj3/4Fl2eaNdcvoxxHoH1tYOREsQ22OKDYofGebrNm6CTPUcvLvZm63NL/vzCYdjf9CUhqmA==,
@@ -15913,12 +15937,12 @@ packages:
       react-dom: '>=16.8'
     dependencies:
       history: 5.3.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-router: 6.2.1_react@17.0.2
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+      react-router: 6.2.1_react@18.1.0
     dev: false
 
-  /react-router-dom/6.3.0_react-dom@17.0.2+react@17.0.2:
+  /react-router-dom/6.3.0_react-dom@18.1.0+react@18.1.0:
     resolution:
       {
         integrity: sha512-uaJj7LKytRxZNQV8+RbzJWnJ8K2nPsOOEuX7aQstlMZKQT0164C+X2w6bnkqU3sjtLvpd5ojrezAyfZ1+0sStw==,
@@ -15928,12 +15952,12 @@ packages:
       react-dom: '>=16.8'
     dependencies:
       history: 5.3.0
-      react: 17.0.2
-      react-dom: 17.0.2_react@17.0.2
-      react-router: 6.3.0_react@17.0.2
+      react: 18.1.0
+      react-dom: 18.1.0_react@18.1.0
+      react-router: 6.3.0_react@18.1.0
     dev: false
 
-  /react-router/6.2.1_react@17.0.2:
+  /react-router/6.2.1_react@18.1.0:
     resolution:
       {
         integrity: sha512-2fG0udBtxou9lXtK97eJeET2ki5//UWfQSl1rlJ7quwe6jrktK9FCCc8dQb5QY6jAv3jua8bBQRhhDOM/kVRsg==,
@@ -15942,10 +15966,10 @@ packages:
       react: '>=16.8'
     dependencies:
       history: 5.3.0
-      react: 17.0.2
+      react: 18.1.0
     dev: false
 
-  /react-router/6.3.0_react@17.0.2:
+  /react-router/6.3.0_react@18.1.0:
     resolution:
       {
         integrity: sha512-7Wh1DzVQ+tlFjkeo+ujvjSqSJmkt1+8JO+T5xklPlgrh70y7ogx75ODRW0ThWhY7S+6yEDks8TYrtQe/aoboBQ==,
@@ -15954,7 +15978,7 @@ packages:
       react: '>=16.8'
     dependencies:
       history: 5.3.0
-      react: 17.0.2
+      react: 18.1.0
     dev: false
 
   /react-shallow-renderer/16.15.0_react@17.0.2:
@@ -16038,6 +16062,7 @@ packages:
     dependencies:
       loose-envify: 1.4.0
       object-assign: 4.1.1
+    dev: true
 
   /react/18.1.0:
     resolution:
@@ -16047,7 +16072,6 @@ packages:
     engines: { node: '>=0.10.0' }
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /read-cmd-shim/3.0.0:
     resolution:
@@ -16946,7 +16970,6 @@ packages:
       }
     dependencies:
       loose-envify: 1.4.0
-    dev: true
 
   /scoped-regex/2.1.0:
     resolution:
