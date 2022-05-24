@@ -1,5 +1,13 @@
 # mdoc-theme-default
 
+## 0.1.11
+
+### Patch Changes
+
+- update react & react-dom 18
+- Updated dependencies
+  - @rcdoc/theme@0.1.7
+
 ## 0.1.10
 
 ### Patch Changes

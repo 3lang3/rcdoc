@@ -1,5 +1,14 @@
 # @mdoc/cli
 
+## 0.1.22
+
+### Patch Changes
+
+- update react & react-dom 18
+- Updated dependencies
+  - @rcdoc/theme@0.1.7
+  - rcdoc-theme-default@0.1.11
+
 ## 0.1.21
 
 ### Patch Changes

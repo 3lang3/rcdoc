@@ -1,5 +1,11 @@
 # @mdoc/theme
 
+## 0.1.7
+
+### Patch Changes
+
+- update react & react-dom 18
+
 ## 0.1.6
 
 ### Patch Changes
