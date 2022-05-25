@@ -69,15 +69,14 @@ function getStackblitzData(
 **/
 
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client'
 ${CSSDeps.map(({ css }) => `import '${css}';`).join('\n')}
 import App from './App';
 ${opts.extra ? `${opts.extra}\n` : '\n'}
 
-ReactDOM.render(
-  <App />,
-  document.querySelector('#root'),
-);`,
+const container = document.querySelector('#root')
+const root = createRoot(container)
+root.render(<App />)`,
   };
 
   // append other imported local files
