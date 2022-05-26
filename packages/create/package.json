@@ -4,7 +4,7 @@
   "description": "Create rcdoc app",
   "main": "dist/index.js",
   "bin": {
-    "rcdoc-create": "./dist/index.js"
+    "create": "./dist/index.js"
   },
   "scripts": {
     "build": "tsup --dts",
@@ -26,7 +26,7 @@
   },
   "license": "MIT",
   "dependencies": {
-    "chalk": "^5.0.1",
+    "chalk": "^4",
     "consola": "^2.15.3",
     "fast-glob": "^3.2.11",
     "fs-extra": "^10.0.0",

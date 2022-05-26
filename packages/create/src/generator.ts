@@ -44,25 +44,13 @@ export class ReactVanGenerator extends Generator {
     });
   }
 
-  install() {
-    console.log();
-    consola.info('Install dependencies...\n');
-
-    process.chdir(this.inputs.name);
-
-    this.installDependencies({
-      npm: false,
-      bower: false,
-      yarn: true,
-      skipMessage: true,
-    });
-  }
-
   end() {
     const { name } = this.inputs;
 
     console.log();
     consola.success(`Successfully created ${chalk.yellow(name)}.`);
-    consola.success(`Run ${chalk.yellow(`cd ${name} && yarn dev`)} to start development!`);
+    consola.success(
+      `Run ${chalk.yellow(`cd ${name} && yarn install && yarn dev`)} to start development!`,
+    );
   }
 }

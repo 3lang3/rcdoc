@@ -19,18 +19,18 @@ const PROMPTS = [
       { name: '文档模式(eg: https://rcdoc.3lang.dev)', value: 'lib' },
     ],
   },
-  {
-    name: 'locale',
-    message: '是否开启多语言',
-    type: 'confirm',
-    default: true,
-  },
-  {
-    name: 'preprocessor',
-    message: '请选择css预处理器',
-    type: 'list',
-    choices: ['Less', 'Sass', 'Stylus'],
-  },
+  // {
+  //   name: 'locale',
+  //   message: '是否开启多语言',
+  //   type: 'confirm',
+  //   default: true,
+  // },
+  // {
+  //   name: 'preprocessor',
+  //   message: '请选择css预处理器',
+  //   type: 'list',
+  //   choices: ['Less', 'Sass', 'Stylus'],
+  // },
 ];
 
 export default async function run() {
