@@ -1,10 +1,10 @@
 import React from 'react';
 import useAnchorClick, { scrollTop } from './useAnchorClick';
 
-type UseActiveSidebarLinksProps = { history?: 'browser' | 'hash' };
+type UseActiveSidebarLinksProps = { history?: 'broswer' | 'hash' };
 
 export default function useActiveSidebarLinks(props?: UseActiveSidebarLinksProps) {
-  const { history: historyType = 'browser' } = props || {};
+  const { history: historyType = 'broswer' } = props || {};
   let rootActiveLink: HTMLAnchorElement | null = null;
   let activeLink: HTMLAnchorElement | null = null;
 
@@ -22,7 +22,7 @@ export default function useActiveSidebarLinks(props?: UseActiveSidebarLinksProps
 
       const [isActive, hash] = isAnchorActive(i, anchor, nextAnchor);
       if (isActive) {
-        if (historyType === 'browser') {
+        if (historyType === 'broswer') {
           window.history.replaceState(null, document.title, hash ? `#${hash}` : ' ');
         }
         activateLink(hash);
