@@ -84,8 +84,8 @@ export const getModuleResolvePath = ({
   const depResolver = resolve.create.sync({
     extensions,
     alias: remarkOpts?.alias,
-    symlinks: false,
     mainFiles: ['index', 'package.json'],
+    conditionNames: ['node', 'import', 'require'],
   });
   try {
     const targetPath = fs.statSync(basePath).isDirectory() ? basePath : path.parse(basePath).dir;
