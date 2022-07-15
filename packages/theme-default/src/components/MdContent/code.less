@@ -96,25 +96,20 @@
       font-style: normal;
     }
   }
-  ul li,
-  ol li {
-    position: relative;
-    margin: 5px 0 5px 10px;
-    padding-left: 15px;
-    color: var(--mdoc-md-text-color);
-    font-size: 15px;
-    line-height: 26px;
-    &::before {
-      position: absolute;
-      top: 0;
-      left: 0;
-      box-sizing: border-box;
-      width: 6px;
-      height: 6px;
-      margin-top: 10px;
-      border: 1px solid var(--mdoc-border-color);
-      border-radius: 50%;
-      content: '';
+  ul {
+    list-style-type: disc;
+  }
+  ol {
+    list-style-type: decimal;
+  }
+  ul,
+  ol {
+    margin: 8px 0 8px 30px;
+    li {
+      position: relative;
+      margin: 5px 0 5px 0;
+      color: var(--mdoc-md-text-color);
+      font-size: 14px;
     }
   }
   hr {

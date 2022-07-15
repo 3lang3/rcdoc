@@ -17,11 +17,15 @@ type CustomComponentItem = {
 const CUSTOM_COMPONENTS_ARR: CustomComponentItem[] = [
   {
     path: '.',
-    fileName: 'Footer',
+    fileName: 'Footer', // 全局底部内容
+  },
+  {
+    path: '.',
+    fileName: 'HeaderExtra', // 全局 Header 额外区域内容自定义
   },
   {
     fileName: 'Header',
-    exportName: 'MobileHeader',
+    exportName: 'MobileHeader', // 模拟器头部内容
     exportDefault: 'false',
     path: './mobile',
   },

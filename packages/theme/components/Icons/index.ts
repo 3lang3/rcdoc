@@ -13,6 +13,7 @@ import Left from './Left';
 import Right from './Right';
 import Stackblitz from './Stackblitz';
 import Qrcode from './Qrcode';
+import Reload from './Reload';
 
 export {
   GitHub as GitHubIcon,
@@ -30,4 +31,5 @@ export {
   Right as RightIcon,
   Stackblitz as StackblitzIcon,
   Qrcode as QrcodeIcon,
+  Reload as ReloadIcon,
 };

@@ -105,7 +105,7 @@ export default defineConfig({
   },
   vite: {
     optimizeDeps: {
-      include: ['@react-vant/icons', 'react-transition-group'],
+      include: ['react-transition-group'],
     },
     server: {
       host: true,

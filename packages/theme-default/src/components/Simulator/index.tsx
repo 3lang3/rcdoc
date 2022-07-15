@@ -1,13 +1,14 @@
 import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Icons, MdocSiteContext } from '@rcdoc/theme';
-import { LinerLoader } from '../LazyFallback';
 import simulatorModel from './android-device-skin.png';
 import MarkdownPageContext from '../../context';
 import './index.less';
 import Flex from '@rcdoc/theme/components/Flex';
 import Dropdown from '@rcdoc/theme/components/Dropdown';
 import { QRCodeCanvas } from 'qrcode.react';
+
+const RCDOC_SIMULATOR_IFRAME_ID = 'rcdoc-simulator-iframe';
 
 const Simulator = ({ hashHistory }) => {
   const location = useLocation();
@@ -26,7 +27,7 @@ const Simulator = ({ hashHistory }) => {
   // it will request site resource again
   React.useLayoutEffect(() => {
     if (!src) return;
-    const iframe = document.querySelector('iframe');
+    const iframe = document.querySelector<HTMLIFrameElement>(`#${RCDOC_SIMULATOR_IFRAME_ID}`);
     if (iframe) {
       iframe.contentWindow.postMessage(
         {
@@ -44,15 +45,18 @@ const Simulator = ({ hashHistory }) => {
     <div className="doc-simulator">
       <div className="doc-simulator__wrapper" style={{ backgroundImage: `url(${simulatorModel})` }}>
         <Icons.DeviceBarIcon className="doc-simulator__bar" />
-        <iframe className="doc-simulator__iframe" src={initialSrc}></iframe>
+        <iframe
+          id={RCDOC_SIMULATOR_IFRAME_ID}
+          className="doc-simulator__iframe"
+          src={initialSrc}
+        ></iframe>
       </div>
       <div style={{ textAlign: 'center' }}>
         <Flex inline className="doc-simulator__actions" align="center" justify="center">
-          <Icons.HttpLinkIcon
-            alt="新窗口预览"
-            style={{ marginRight: 10 }}
-            onClick={() => window.open(src, '_blank')}
-          />
+          <a className="doc-simulator__actions__item" title="新窗口预览" href={src} target="_blank">
+            <Icons.HttpLinkIcon />
+          </a>
+
           <Dropdown
             offset={['0px', '-15px']}
             arrow={false}
@@ -67,8 +71,23 @@ const Simulator = ({ hashHistory }) => {
               />,
             ]}
           >
-            <Icons.QrcodeIcon alt="手机扫二维码预览" />
+            <Icons.QrcodeIcon className="doc-simulator__actions__item" alt="手机扫二维码预览" />
           </Dropdown>
+          <a
+            className="doc-simulator__actions__item"
+            title="重新加载Demo"
+            onClick={() => {
+              const iframe = document.querySelector<HTMLIFrameElement>(
+                `#${RCDOC_SIMULATOR_IFRAME_ID}`,
+              );
+              if (iframe) {
+                iframe.contentWindow.location.reload();
+              }
+            }}
+            target="_blank"
+          >
+            <Icons.ReloadIcon />
+          </a>
         </Flex>
       </div>
     </div>

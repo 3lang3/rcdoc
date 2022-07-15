@@ -1,70 +1,47 @@
-# FAQ
+### 介绍
 
-### Does it support mini program?
+参照 [Vant](https://vant-contrib.gitee.io/vant) 打造的 React 框架移动端组件库。
 
-antd-mobile itself only supports React stack.
+### 特性
 
-For Alipay mini programs, you can use [antd-mini](https://mini.ant.design/).
+- 🚀 性能极佳，组件平均体积小于 1KB（min+gzip）
+- 💎 70+ 个高质量组件，覆盖移动端主流场景.
+- 💪 使用 TypeScript 编写，提供完整的类型定义.
+- 📝 提供完善的文档和组件示例.
+- 🎨 支持主题定制，内置 700+ 个主题变量.
+- 😎 支持按需引入和 Tree Shaking.
+- ⚡️ 支持 [Vite](https://github.com/3lang3/react-vant-template/tree/main/template/vite)和 Parcel@2.
+- 🌵 现代浏览器
+- 🌝 支持 SSR([nextjs](https://github.com/3lang3/react-vant-template/tree/main/next/nextjs), [remix](https://github.com/3lang3/react-vant-template/tree/main/next/remix)).
 
-There is no corresponding twin component library for mini programs on WeChat and other platforms, and community members are welcome to develop them.
+### 快速上手
 
-### Does it support React Native?
+请参考[快速上手](/guide/quickstart)章节。
 
-No. Consider using [antd-mobile-rn](https://github.com/ant-design/ant-design-mobile-rn).
+### 浏览器支持
 
-### Why did you jump from v2 to v5? Where did v3 and v4 go?
+支持现代浏览器以及 Chrome >= 51、iOS >= 10.0
 
-V2 has been released a long time ago. In the last two years, we have developed two versions of v3 and v4 within the company, but they have not been released to the community in the end.
+### 周边生态
 
-### Should I start using the v5 version now?
+| 项目                                     | 描述                     |
+| ---------------------------------------- | ------------------------ |
+| [rcdoc](https://github.com/3lang3/rcdoc) | 开箱即用的组件库搭建工具 |
 
-For new projects, we recommend using the v5 version directly.
+### 链接
 
-For old projects, we recommend a gradual [migration plan](./migration).
+- [意见反馈](https://github.com/3lang3/react-vant/issues)
+- [更新日志](https://github.com/3lang3/react-vant/releases)
+- [码云镜像](https://react-vant-gitee.3lang.dev/)
 
-### How to solve the error after installing antd-mobile v5 in the umi project?
+### 贡献者
 
-Due to the conflict between the old version of the umi plugin and antd-mobile v5, you may encounter errors similar to the following:
+<a href="https://github.com/3lang3/react-vant/graphs/contributors">
+  <img style="width: 420px;" src="https://opencollective.com/react-vant/contributors.svg?width=620"/>
+</a>
 
-```
-These dependencies were not found:
+- 部分图形设计来自[BiscuitCoder](https://biscuitcoder.github.io)
 
-* antd-mobile/es/button in ./src/pages/home-my/index.tsx
-* antd-mobile/es/button/style in ./src/pages/home-my/index.tsx
-...
-```
+### 开源协议
 
-The solution is to upgrade the plug-in:
-
-1. If your project relies on `@umijs/preset-react` (you can see it in the `package.json` file), please upgrade it to the latest version
-2. If your project relies on `@umijs/plugin-antd` (you can see it in the `package.json` file), please upgrade it to the latest version
-3. If your project has no dependencies on the above two npm packages, you can install the latest version of the `@umijs/plugin-antd-mobile` plugin
-
-### How do I migrate from v2 to v5?
-
-Please refer to the [migration guide](./migration).
-
-### How to avoid the 300ms delay of click?
-
-Add this into `head` element：
-
-```html
-<meta name="viewport" content="width=device-width" />
-```
-
-Or add some global style:
-
-```css
-html {
-  touch-action: manipulation;
-}
-```
-
-For the detailed explanation, please refer to:
-
-- [300ms tap delay, gone away](https://developers.google.com/web/updates/2013/12/300ms-tap-delay-gone-away)
-- [More Responsive Tapping on iOS](https://webkit.org/blog/5610/more-responsive-tapping-on-ios/)
-
-### About React Hot Loader
-
-React Hot Loader is relatively intrusive to the project, and many components in antd-mobile (such as Swiper Tabs Form TabBar SideBar Dropdown Space Steps) are not compatible with it, and React Hot Loader itself is also recommended in the README. Don't use it anymore, so please consider removing React Hot Loader or replacing it with [React Fast Refresh](https://github.com/facebook/react/issues/16604).
+本项目基于 [MIT](https://zh.wikipedia.org/wiki/MIT%E8%A8%B1%E5%8F%AF%E8%AD%89) 协议，请自由地享受和参与开源

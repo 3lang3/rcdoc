@@ -5,6 +5,7 @@ import Logo from '../Logo';
 import SearchInput from '../SearchInput';
 import Navbar from './Navbar';
 import { DarkModeAction, GithubAction, LangAction, VersionAction } from './HeaderAction';
+import HeaderExtra from '../UserDefineComponent/HeaderExtra';
 
 import './index.less';
 
@@ -16,6 +17,7 @@ const Header = () => {
         <Logo />
         {Array.isArray(navs) && navs.length && <Navbar navs={navs} />}
       </Flex>
+      <HeaderExtra />
       <Flex className="doc-header-action" align="center" justify="flex-end">
         {config?.site.algolia ? <SearchInput {...config?.site.algolia} /> : null}
         <VersionAction />

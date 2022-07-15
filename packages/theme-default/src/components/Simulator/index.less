@@ -22,18 +22,23 @@
   &__actions {
     border: 1px solid var(--mdoc-border-color);
     margin-top: 20px;
-    padding: 5px 25px;
+    padding: 5px 15px;
     border-radius: 18px;
     background-color: var(--mdoc-menu-color-background-active);
-    color: var(--mdoc-menu-color);
+
+    &__item {
+      color: var(--mdoc-menu-color);
+      margin-right: 8px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+
     svg {
       opacity: 0.7;
       display: block;
       width: 20px;
       transition: opacity 0.2s;
-      &:last-child {
-        margin-right: 0;
-      }
 
       &:hover {
         opacity: 1;

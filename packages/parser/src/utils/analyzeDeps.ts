@@ -138,6 +138,7 @@ function analyzeDeps(
             extensions: LOCAL_MODULE_EXT,
             remarkOpts,
           });
+
           const resolvePathParsed = path.parse(resolvePath);
 
           if (resolvePath.includes('node_modules')) {

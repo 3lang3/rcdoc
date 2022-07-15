@@ -4781,7 +4781,10 @@ packages:
     dev: true
 
   /ansi-wrap/0.1.0:
-    resolution: { integrity: sha1-qCJQ3bABXponyoLoLqYDu/pF768= }
+    resolution:
+      {
+        integrity: sha512-ZyznvL8k/FZeQHr2T6LzcJ/+vBApDnMNZvfVFy3At0knswWd6rJ3/0Hhmpu8oqa6C92npmozs890sX9Dl6q+Qw==,
+      }
     engines: { node: '>=0.10.0' }
     dev: false
 
@@ -4891,7 +4894,10 @@ packages:
     dev: true
 
   /arr-diff/4.0.0:
-    resolution: { integrity: sha1-1kYQdP6/7HHn4VI1dhoyml3HxSA= }
+    resolution:
+      {
+        integrity: sha512-YVIQ82gZPGBebQV/a8dar4AitzCQs0jjXwMPZllpXMaGjXPYVUawSxQrRsjhjupyVxEvbHgUmIhKVlND+j02kA==,
+      }
     engines: { node: '>=0.10.0' }
 
   /arr-filter/1.1.2:
@@ -4916,7 +4922,10 @@ packages:
     dev: false
 
   /arr-union/3.1.0:
-    resolution: { integrity: sha1-45sJrqne+Gao8gbiiK9jkZuuOcQ= }
+    resolution:
+      {
+        integrity: sha512-sKpyeERZ02v1FeCZT8lrfJq5u6goHCtpTAzPwJYe7c8SPFOboNjNg1vz2L4VTn9T4PQxEx13TbXLmYUcS6Ug7Q==,
+      }
     engines: { node: '>=0.10.0' }
 
   /array-differ/3.0.0:
@@ -5058,7 +5067,10 @@ packages:
     dev: false
 
   /assign-symbols/1.0.0:
-    resolution: { integrity: sha1-WWZ/QfrdTyDMvCu5a41Pf3jsA2c= }
+    resolution:
+      {
+        integrity: sha512-Q+JC7Whu8HhmTdBph/Tq59IoRtoy6KAm5zzPv00WdujX82lbAL8K7WVjne7vdCsAmbF4AYaDOPyO3k0kl8qIrw==,
+      }
     engines: { node: '>=0.10.0' }
 
   /ast-types-flow/0.0.7:
@@ -5456,7 +5468,10 @@ packages:
     dev: false
 
   /boolbase/1.0.0:
-    resolution: { integrity: sha1-aN/1++YMUes3cl6p4+0xDcwed24= }
+    resolution:
+      {
+        integrity: sha512-JZOSA7Mo9sNGB8+UjSgzdLtokWAky1zbztM3WRLCbZ70/3cTANmQmOdR7y2g+J0e2WXywy1yS468tY+IruqEww==,
+      }
     dev: false
 
   /boxen/5.1.2:
@@ -7046,7 +7061,10 @@ packages:
     dev: true
 
   /decamelize/1.2.0:
-    resolution: { integrity: sha1-9lNNFRSCabIDUue+4m9QH5oZEpA= }
+    resolution:
+      {
+        integrity: sha512-z2S+W9X73hAUUki+N+9Za2lBlun89zigOyGrsax+KUQ6wKW4ZoWpEYBkGhQjwAjjDCkWxhY0VKEhk8wzY7F5cA==,
+      }
     engines: { node: '>=0.10.0' }
 
   /decimal.js/10.3.1:
@@ -8703,7 +8721,10 @@ packages:
       is-extendable: 0.1.1
 
   /extend-shallow/3.0.2:
-    resolution: { integrity: sha1-Jqcarwc7OfshJxcnRhMcJwQCjbg= }
+    resolution:
+      {
+        integrity: sha512-BwY5b5Ql4+qZoefgMj2NUmx+tehVTH/Kf4k1ZEtOHNFcm2wSxMRo992l6X3TIgni2eZVTZ85xMOjF31fwZAj6Q==,
+      }
     engines: { node: '>=0.10.0' }
     dependencies:
       assign-symbols: 1.0.0
@@ -9188,7 +9209,10 @@ packages:
     dev: false
 
   /fs.realpath/1.0.0:
-    resolution: { integrity: sha1-FQStJSMVjKpA20onh8sBQRmU6k8= }
+    resolution:
+      {
+        integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==,
+      }
 
   /fsevents/1.2.13:
     resolution:
@@ -10450,7 +10474,10 @@ packages:
     dev: false
 
   /inflight/1.0.6:
-    resolution: { integrity: sha1-Sb1jMdfQLQwJvJEKEHW6gWW1bfk= }
+    resolution:
+      {
+        integrity: sha512-k92I/b08q4wvFscXCLvqfsHCrjrF7yiXsQuIVvVE7N82W3+aqpzuUdBbfhWcy/FZR3/4IgflMgKLOsvPDrGCJA==,
+      }
     dependencies:
       once: 1.4.0
       wrappy: 1.0.2
@@ -11162,7 +11189,10 @@ packages:
     dev: false
 
   /isarray/1.0.0:
-    resolution: { integrity: sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE= }
+    resolution:
+      {
+        integrity: sha512-VLghIWNM6ELQzo7zwmcg0NmTVyWKYjvIeM83yjp0wRDTmUnrM678fQbcKBo6n2CJEF0szoG//ytg+TKla89ALQ==,
+      }
 
   /isbinaryfile/4.0.10:
     resolution:
@@ -11182,7 +11212,10 @@ packages:
       isarray: 1.0.0
 
   /isobject/3.0.1:
-    resolution: { integrity: sha1-TkMekrEalzFjaqH5yNHMvP2reN8= }
+    resolution:
+      {
+        integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==,
+      }
     engines: { node: '>=0.10.0' }
 
   /istanbul-lib-coverage/3.2.0:
@@ -14337,7 +14370,10 @@ packages:
     dev: true
 
   /once/1.4.0:
-    resolution: { integrity: sha1-WDsap3WWHUsROsF9nFC6753Xa9E= }
+    resolution:
+      {
+        integrity: sha512-lNaJgI+2Q5URQBkccEKHTQOPaXdUxnZZElQTZY0MFUAuaEqe1E+Nyvgdz/aIyNi6Z9MzO5dv1H8n58/GELp3+w==,
+      }
     dependencies:
       wrappy: 1.0.2
 
@@ -14792,7 +14828,10 @@ packages:
     engines: { node: '>=8' }
 
   /path-is-absolute/1.0.1:
-    resolution: { integrity: sha1-F0uSaHNVNP+8es5r9TpanhtcX18= }
+    resolution:
+      {
+        integrity: sha512-AVbw3UJ2e9bq64vSaS9Am0fje1Pa8pbGqTTsmXfaIiMpnr5DlDhfJOuLj9Sf95ZPVDAUerDfEk88MPmPe7UCQg==,
+      }
     engines: { node: '>=0.10.0' }
 
   /path-key/2.0.1:
@@ -16374,7 +16413,10 @@ packages:
       picomatch: 2.3.1
 
   /rechoir/0.6.2:
-    resolution: { integrity: sha1-hSBLVNuoLVdC4oyWdW70OvUOM4Q= }
+    resolution:
+      {
+        integrity: sha512-HFM8rkZ+i3zrV+4LQjwQ0W+ez98pApMGM3HUrN04j3CqzPOzl9nmP15Y8YXNm8QHGv/eacOVEjqhmWpkRV0NAw==,
+      }
     engines: { node: '>= 0.10' }
     dependencies:
       resolve: 1.22.0
@@ -17517,7 +17559,10 @@ packages:
     deprecated: See https://github.com/lydell/source-map-url#deprecated
 
   /source-map/0.5.7:
-    resolution: { integrity: sha1-igOdLRAh0i0eoUyA2OpGi6LvP8w= }
+    resolution:
+      {
+        integrity: sha512-LbrmJOMUSdEVxIKvdcJzQC+nQhe8FUZQTXQy6+I75skNgn3OoQ0DZA8YnFa7gp8tqtL3KPf1kmo0R5DoApeSGQ==,
+      }
     engines: { node: '>=0.10.0' }
 
   /source-map/0.6.1:
@@ -17653,6 +17698,7 @@ packages:
       {
         integrity: sha512-ji9qxRnOVfcuLDySj9qzhGSEFVobyt1kIOSkj1qZzYLzq7Tos/oUUWvotUPQLlrsidqsK6tBH89Bc9kL5zHA6w==,
       }
+    deprecated: 'Modern JS already guarantees Array#sort() is a stable sort, so this library is deprecated. See the compatibility table on MDN: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort#browser_compatibility'
     dev: false
 
   /stack-trace/0.0.10:
@@ -19465,7 +19511,10 @@ packages:
     engines: { node: '>=0.10.0' }
 
   /util-deprecate/1.0.2:
-    resolution: { integrity: sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8= }
+    resolution:
+      {
+        integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==,
+      }
 
   /uvu/0.5.3:
     resolution:
@@ -19677,7 +19726,10 @@ packages:
     dev: false
 
   /vinyl-sourcemaps-apply/0.2.1:
-    resolution: { integrity: sha1-q2VJ1h0XLCsbh75cUI0jnI74dwU= }
+    resolution:
+      {
+        integrity: sha512-+oDh3KYZBoZC8hfocrbrxbLUeaYtQK7J5WU5Br9VqWqmCll3tFJqKp97GC9GmMsVIL0qnx2DgEDVxdo5EZ5sSw==,
+      }
     dependencies:
       source-map: 0.5.7
     dev: false
@@ -20004,7 +20056,10 @@ packages:
       strip-ansi: 6.0.1
 
   /wrappy/1.0.2:
-    resolution: { integrity: sha1-tSQ9jz7BqjXxNkYFvA0QNuMKtp8= }
+    resolution:
+      {
+        integrity: sha512-l4Sp/DRseor9wL6EvV2+TuQn63dMkPjZ/sp9XkghTEbV9KlPS1xUsZ3u7/IQO4wxtcFB4bgpQPRcR3QCvezPcQ==,
+      }
 
   /write-file-atomic/3.0.3:
     resolution:
