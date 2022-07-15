@@ -1,5 +1,11 @@
 # @mdoc/theme
 
+## 0.1.8
+
+### Patch Changes
+
+- release rc
+
 ## 0.1.7
 
 ### Patch Changes
