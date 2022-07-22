@@ -32,7 +32,7 @@
     "@rcdoc/parser": "workspace:*"
   },
   "devDependencies": {
-    "tsup": "^5.11.11"
+    "tsup": "5.12.9"
   },
   "publishConfig": {
     "access": "public",
