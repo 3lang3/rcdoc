@@ -83,7 +83,7 @@
   --duration-quickly: 0.15s;
   --c-black: #000;
   --c-white: #fff;
-  --c-blue-0: #f0f6ff;
+  --c-blue-0: #d3e3fd;
   --c-blue-10: #e3edff;
   --c-blue-20: #cddfff;
   --c-blue-30: #b2ceff;
@@ -93,7 +93,7 @@
   --c-blue-70: #4d8dff;
   --c-blue-80: #3880ff;
   --c-blue-90: #1b6dff;
-  --c-blue-100: #0054e9;
+  --c-blue-100: #3f45ff;
   --c-gray-0: #f3f3f3;
   --c-gray-10: #e4e4e4;
   --c-gray-20: #c8c8c8;
@@ -269,49 +269,58 @@
 
   --mdoc-font-size-base: 100%;
   --mdoc-line-height-base: 1.65;
-  --mdoc-font-family-base: -apple-system, BlinkMacSystemFont, Inter, Helvetica, Arial, sans-serif,
-    'Apple Color Emoji', 'Segoe UI emoji';
+  --mdoc-font-family-base: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans,
+    sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
 html {
-  --mdoc-background-color: var(--c-white);
+  --mdoc-background-color: #f6f8fc;
   --mdoc-font-color-base: var(--c-carbon-90);
   --mdoc-link-color: var(--c-blue-90);
   --mdoc-navbar-color: var(--c-carbon-100);
+  --mdoc-navbar-link-color: var(--c-black);
   --mdoc-hover-base-color: rgba(0, 0, 0, 0.1);
-  --mdoc-menu-color: var(--c-indigo-80);
+  --mdoc-menu-color: var(--c-gray-70);
   --mdoc-menu-category-color: var(--c-gray-100);
   --mdoc-menu-color-background-active: var(--c-blue-0);
-  --mdoc-header-background-color: rgba(255, 255, 255, 0.7);
+  --mdoc-header-background-color: #f6f8fc07;
   --mdoc-border-color: #f3f3f3;
+  --mdoc-md-wrapper-background-color: var(--c-white);
   --mdoc-md-table-border-color: #f1f4f8;
   --mdoc-md-text-color: #34495e;
   --mdoc-md-code-color: #58727e;
   --mdoc-md-code-background-color: #f7f8fa;
   --mdoc-md-quote-background-color: #fff7d7;
   --mdoc-md-quote-border-color: #ffdc48;
-  --mdoc-previewer-tabs-text-color: #58727e;
-  --mdoc-previewer-tabs-text-active-color: #001e3c;
+  --mdoc-previewer-tabs-text-color: #001e3c;
+  --mdoc-scrollbar-background: #dfe4ee;
+  --mdoc-prism-background-color: #f6f8fa;
+  --mdoc-prism-color: #393a34;
 }
 
 html[data-theme='dark'] {
-  --mdoc-background-color: #03060b;
+  --mdoc-background-color: #1c1c1d;
   --mdoc-font-color-base: var(--c-carbon-10);
   --mdoc-navbar-color: var(--c-gray-0);
+  --mdoc-navbar-link-color: var(--c-white);
   --mdoc-hover-base-color: rgba(255, 255, 255, 0.1);
   --mdoc-menu-color: var(--c-gray-20);
   --mdoc-menu-category-color: var(--c-gray-0);
   --mdoc-menu-color-background-active: var(--mdoc-hover-overlay);
-  --mdoc-header-background-color: rgba(0, 0, 0, 0.35);
+  --mdoc-header-background-color: #1c1c1d35;
   --mdoc-border-color: #2f2f2f;
+  --mdoc-md-wrapper-background-color: #333;
   --mdoc-md-table-border-color: var(--mdoc-border-color);
   --mdoc-md-text-color: #fff;
   --mdoc-md-code-color: #cdcdcd;
   --mdoc-md-code-background-color: #272727;
   --mdoc-md-quote-background-color: #2f2f2f;
   --mdoc-md-quote-border-color: #776102;
-  --mdoc-previewer-tabs-text-color: #58727e;
-  --mdoc-previewer-tabs-text-active-color: #66d9ef;
+  --mdoc-previewer-tabs-text-color: #fff;
+  --mdoc-scrollbar-background: #333;
+  --mdoc-prism-background-color: var(--mdoc-background-color);
+  --mdoc-prism-color: #ddd;
 }
 
 html {

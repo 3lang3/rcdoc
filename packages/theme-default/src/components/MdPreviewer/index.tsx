@@ -36,20 +36,15 @@ function getSourceType(file: string) {
 
 const FileTabs = ({
   files,
-  defaultCode,
-  defaultLang,
+  current,
+  setCurrent,
 }: {
   files: [string, DependenciesType][];
-  defaultCode: string;
-  defaultLang: string;
+  current: any;
+  setCurrent: any;
 }) => {
-  const [current, setCurrent] = React.useState<any>({
-    code: defaultCode,
-    lang: defaultLang,
-  });
-
-  const code = React.useMemo(() => current.code, [current]);
-  const lang = React.useMemo(() => current.lang, [current]);
+  const code = React.useMemo(() => current?.code, [current]);
+  const lang = React.useMemo(() => current?.lang, [current]);
 
   return (
     <div className="default-previewer__tabs">
@@ -135,8 +130,14 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
   );
   const openSlb = useStackBlitz({ ...props, ...config.resolve?.stackblitz });
   const [copy, copyStatus] = useCopy();
+
   const [showSource, setShowSource] = React.useState(() => {
     return defaultShowSource || hasSimulator || (hasDeps && !children);
+  });
+
+  const [current, setCurrent] = React.useState<{ code: string; lang: string }>({
+    code: props.code,
+    lang: props.lang,
   });
 
   return hasDeps ? (
@@ -168,7 +169,7 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
           type="button"
           title="复制"
           className="default-previewer__btn default-previewer__copy"
-          onClick={() => copy(props.code)}
+          onClick={() => copy(current.code)}
         >
           {copyStatus === 'ready' ? (
             <Icons.CopyIcon />
@@ -192,7 +193,7 @@ export default ({ children, defaultShowSource, ...props }: MDocPreviewerProps) =
           {files.length === 1 ? (
             <DefaultRender {...props} />
           ) : (
-            <FileTabs files={files} defaultCode={props.code} defaultLang={props.lang} />
+            <FileTabs files={files} current={current} setCurrent={setCurrent} />
           )}
         </div>
       )}

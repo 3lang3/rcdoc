@@ -27,7 +27,7 @@ const useTheme = (): [string, () => void] => {
 export default () => {
   const [theme, toggleTheme] = useTheme();
   return (
-    <Flex onClick={toggleTheme} className="doc-navbar__item doc-header-action__dark">
+    <Flex onClick={toggleTheme} align="center" className="doc-navbar__item doc-header-action__dark">
       {theme === 'light' ? <Icons.MoonIcon /> : <Icons.LightIcon />}
     </Flex>
   );

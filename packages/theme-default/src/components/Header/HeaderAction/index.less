@@ -2,11 +2,15 @@
   .doc-navbar__item {
     margin: 0;
     padding: 0 10px;
-    opacity: 0.7;
     transition: opacity 0.2s;
 
     &:hover {
-      opacity: 1;
+      color: var(--c-blue-100);
+    }
+
+    svg {
+      width: 24px;
+      height: 24px;
     }
   }
   &__lang {
@@ -20,8 +24,7 @@
   }
   &__github {
     svg {
-      width: 22px;
-      height: 22px;
+      transform: scale(1.15);
     }
   }
 }

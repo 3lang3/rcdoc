@@ -2,8 +2,8 @@
 
 :root {
   --device-padding: 1rem;
-  --device-width: 344px;
-  --device-height: 704px;
+  --device-width: 324px;
+  --device-height: 620px;
   --device-frame-width: 12px;
   --device-safe-area-top: 20px;
   --device-safe-area-bottom: 22px;
@@ -47,10 +47,10 @@
   }
 
   &__wrapper {
+    background-color: var(--mdoc-md-wrapper-background-color);
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 44px;
-    box-shadow: 0 2px 8px rgb(2 8 20 / 10%), 0 8px 16px rgb(2 8 20 / 8%);
     height: var(--device-height);
     overflow: hidden;
     position: relative;
@@ -78,7 +78,7 @@
 
   &-demo {
     min-height: 100vh;
-    background-color: #f7f7f7;
+    background-color: var(--mdoc-background-color);
 
     &__item {
       margin-bottom: 20px;
@@ -97,7 +97,6 @@
       overflow: hidden;
       pointer-events: auto;
       text-transform: capitalize;
-      border-bottom: 1px solid #eee;
       position: relative;
       background-color: #fff;
 

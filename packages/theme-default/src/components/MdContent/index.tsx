@@ -4,8 +4,8 @@ import MdPreviewer from '../MdPreviewer';
 import MdApi from '../MdApi';
 import useActiveSidebarLinks from '../Slugs/useActiveSidebarLinks';
 import MarkdownPageContext from '../../context';
-import './index.less';
 import { Flex, Icons, MdocSiteContext } from '@rcdoc/theme';
+import './index.less';
 
 const previewer = (props) => <MdPreviewer defaultShowSource {...props} />;
 const api = (props) => <MdApi {...props} />;
@@ -44,7 +44,7 @@ const MdContentComponent = ({ children, updatedTime, filePath, frontmatter = {} 
         'doc-md-content--blank': blank,
       })}
     >
-      {children({ previewer, api })}
+      <div className="doc-md-content__wrapper">{children({ previewer, api })}</div>
       {showBottomMeta && (
         <Flex align="center" justify="space-between" className="doc-md-content__meta">
           {repoPlatform && (

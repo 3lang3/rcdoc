@@ -1,5 +1,6 @@
 ---
-slugs: false
+fluid: true
+slug: false
 ---
 
 # HOME

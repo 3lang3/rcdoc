@@ -3,15 +3,22 @@
 
 .doc-md-content {
   width: 100%;
-  margin: 0 auto;
   height: 100%;
-  padding: 24px;
+  margin: 0 auto;
+  padding: 20px 24px;
   box-sizing: border-box;
   position: relative;
   word-break: break-all;
 
-  @media (min-width: 1400px) {
-    max-width: 80rem;
+  &__wrapper {
+    margin: 0 auto;
+    padding: 24px 40px;
+    background-color: var(--mdoc-md-wrapper-background-color);
+    border-radius: 20px;
+  }
+
+  @media (min-width: 1680px) {
+    max-width: 60vw;
     padding: 24px 80px;
   }
 

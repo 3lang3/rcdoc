@@ -9,21 +9,20 @@
   bottom: 0;
   z-index: 2;
   padding: 12px 0 24px;
-  border-right: 1px solid var(--mdoc-border-color);
-  overflow-y: auto;
+  overflow-y: scroll;
   box-sizing: border-box;
 
+  &::-webkit-scrollbar-track {
+    background: 0 0;
+  }
   &::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-    background-color: transparent;
+    width: 16px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: transparent;
-    border-radius: 6px;
-  }
-  &:hover::-webkit-scrollbar-thumb {
-    background-color: rgba(69, 90, 100, 0.2);
+    background: var(--mdoc-scrollbar-background);
+    background-clip: content-box;
+    border: 4px solid #0000;
+    border-radius: 8px;
   }
   &__group {
     margin-bottom: 16px;
@@ -38,7 +37,7 @@
       background-color: var(--mdoc-menu-color-background-active);
       border-radius: var(--mdoc-base-radius);
       .doc-menulink {
-        color: var(--mdoc-menu-category-color);
+        color: var(--c-blue-100);
       }
     }
   }

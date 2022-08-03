@@ -23,7 +23,7 @@
     line-height: 1.5;
   }
   h1 {
-    margin: 30px 0;
+    margin: 10px 0 30px;
     font-size: 30px;
     cursor: default;
     font-weight: bold;
@@ -75,6 +75,10 @@
     td {
       padding: 8px;
       border-top: 1px solid var(--mdoc-md-table-border-color);
+      font-weight: 400;
+      font-family: Consolas, Menlo, Monaco, Andale Mono, Ubuntu Mono, monospace;
+      -webkit-font-smoothing: subpixel-antialiased;
+      font-size: 0.8125rem;
       &:first-child {
         padding-left: 0;
         // version tag
@@ -83,7 +87,6 @@
           padding: 2px 6px;
           color: var(--mdoc-link-color);
           font-weight: 600;
-          font-size: 11px;
           background-color: fade(@van-doc-blue, 10%);
           border-radius: 20px;
         }
@@ -94,6 +97,7 @@
     }
     em {
       font-style: normal;
+      color: #ac9739;
     }
   }
   ul {
@@ -124,7 +128,6 @@
     display: inline;
     margin: 0 2px;
     padding: 2px 5px;
-    font-size: 14px;
     font-family: inherit;
     font-weight: 600;
     word-break: keep-all;
