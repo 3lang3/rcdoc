@@ -1,5 +1,12 @@
 # @mdoc/cli
 
+## 0.1.26
+
+### Patch Changes
+
+- Updated dependencies
+  - rcdoc-theme-default@0.1.15
+
 ## 0.1.25
 
 ### Patch Changes
