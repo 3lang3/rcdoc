@@ -17,16 +17,18 @@ body {
   --scrollbar-radius: 8px;
 }
 
-::-webkit-scrollbar {
-  width: var(--scrollbar-width);
-  &-track {
-    background: 0 0;
-  }
-  &-thumb {
-    background: var(--scrollbar-background);
-    background-clip: content-box;
-    border: var(--scrollbar-padding) solid #0000;
-    border-radius: var(--scrollbar-radius);
+body {
+  &::-webkit-scrollbar {
+    width: var(--scrollbar-width);
+    &-track {
+      background: 0 0;
+    }
+    &-thumb {
+      background: var(--scrollbar-background);
+      background-clip: content-box;
+      border: var(--scrollbar-padding) solid #0000;
+      border-radius: var(--scrollbar-radius);
+    }
   }
 }
 
