@@ -34,7 +34,8 @@
   }
 
   &__sublink {
-    display: block;
+    display: flex;
+    align-items: center;
     border-radius: 0.25rem;
     color: var(--mdoc-font-color-base);
     font-size: 0.85rem;
@@ -46,7 +47,12 @@
     &:hover,
     &:active,
     &:focus {
-      background-color: var(--mdoc-hover-base-color);
+      color: var(--c-blue-100);
+      background-color: var(--mdoc-menu-color-background-active);
+    }
+
+    svg {
+      width: 18px !important;
     }
   }
 }

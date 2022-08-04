@@ -1,3 +1,10 @@
+---
+simulator:
+  compact: false
+  style:
+    background: '#fff'
+---
+
 # Image 图片
 
 ## 介绍

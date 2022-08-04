@@ -11,17 +11,17 @@ We have published a shadow npm package for v2 which is name as `antd-mobile-v2`.
 First, install `antd-mobile-v2`:
 
 ```bash
-$ npm install --save antd-mobile-v2
+npm install --save antd-mobile-v2
 # or
-$ yarn add antd-mobile-v2
+yarn add antd-mobile-v2
 ```
 
 And then, replace everything that uses `antd-mobile` with `antd-mobile-v2`. For example:
 
 ```diff
-import {Button} from 'antd-mobile'
+- import {Button} from 'antd-mobile'
 // ⬇️
-import {Button} from 'antd-mobile-v2'
++ import {Button} from 'antd-mobile-v2'
 ```
 
 Next, remove the old `antd-mobile` dependency. And try to run/test/build your project. Check if everything is working fine.
