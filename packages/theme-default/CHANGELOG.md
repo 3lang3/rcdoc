@@ -1,5 +1,11 @@
 # mdoc-theme-default
 
+## 0.1.17
+
+### Patch Changes
+
+- dev release
+
 ## 0.1.16
 
 ### Patch Changes
