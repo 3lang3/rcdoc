@@ -10,6 +10,36 @@ body {
     'Segoe UI Emoji', 'Segoe UI Symbol';
 }
 
+:root {
+  --scrollbar-width: 16px;
+  --scrollbar-background: var(--mdoc-scrollbar-background);
+  --scrollbar-padding: 4px;
+  --scrollbar-radius: 8px;
+}
+
+::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+  &-track {
+    background: 0 0;
+  }
+  &-thumb {
+    background: var(--scrollbar-background);
+    background-clip: content-box;
+    border: var(--scrollbar-padding) solid #0000;
+    border-radius: var(--scrollbar-radius);
+  }
+}
+
+.mdoc-simulator--body {
+  --scrollbar-width: 6px;
+  --scrollbar-background: #dfe4ee;
+  --scrollbar-padding: 0;
+  --scrollbar-radius: 3px;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 p {
   margin: 0;
 }

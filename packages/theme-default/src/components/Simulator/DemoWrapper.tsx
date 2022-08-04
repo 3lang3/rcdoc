@@ -19,6 +19,7 @@ const DemoWrapper = ({ children }) => {
       // Avoid iframe rerender to request hole site resource everytime
       window.addEventListener('message', onMessage);
       document.body.setAttribute('ontouchstart', '');
+      document.body.classList.add('mdoc-simulator--body');
     }
 
     return () => {

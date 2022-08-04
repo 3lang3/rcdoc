@@ -2,10 +2,10 @@ import React from 'react';
 import { useLocation } from 'react-router-dom';
 import { Icons, MdocSiteContext } from '@rcdoc/theme';
 import MarkdownPageContext from '../../context';
-import './index.less';
 import Flex from '@rcdoc/theme/components/Flex';
 import Dropdown from '@rcdoc/theme/components/Dropdown';
 import { QRCodeCanvas } from 'qrcode.react';
+import './index.less';
 
 const RCDOC_SIMULATOR_IFRAME_ID = 'rcdoc-simulator-iframe';
 
