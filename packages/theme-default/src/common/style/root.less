@@ -272,6 +272,13 @@
   --mdoc-font-family-base: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans,
     sans-serif, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji',
     'Segoe UI Emoji', 'Segoe UI Symbol';
+  --mdoc-menu-width: 300px;
+}
+
+:root {
+  @media (max-width: 1680px) {
+    --mdoc-menu-width: 240px;
+  }
 }
 
 html {
@@ -295,8 +302,8 @@ html {
   --mdoc-md-quote-border-color: #ffdc48;
   --mdoc-previewer-tabs-text-color: #001e3c;
   --mdoc-scrollbar-background: #dfe4ee;
-  --mdoc-prism-background-color: #f6f8fa;
   --mdoc-prism-color: #393a34;
+  --bar-active-color: var(--c-blue-30);
 }
 
 html[data-theme='dark'] {
@@ -319,8 +326,8 @@ html[data-theme='dark'] {
   --mdoc-md-quote-border-color: #776102;
   --mdoc-previewer-tabs-text-color: #fff;
   --mdoc-scrollbar-background: #333;
-  --mdoc-prism-background-color: var(--mdoc-background-color);
   --mdoc-prism-color: #ddd;
+  --bar-active-color: var(--c-carbon-70);
 }
 
 html {
