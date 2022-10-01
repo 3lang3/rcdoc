@@ -46,7 +46,7 @@
     "yargs-parser": "^21.0.1"
   },
   "devDependencies": {
-    "tsup": "^5.11.11"
+    "tsup": "5.12.9"
   },
   "publishConfig": {
     "access": "public",

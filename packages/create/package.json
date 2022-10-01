@@ -35,8 +35,8 @@
     "yeoman-generator": "^5.6.1"
   },
   "devDependencies": {
-    "@types/yeoman-environment": "^2.10.7",
-    "@types/yeoman-generator": "^5.2.10",
-    "tsup": "^5.11.11"
+    "@types/yeoman-environment": "2.10.8",
+    "@types/yeoman-generator": "5.2.11",
+    "tsup": "5.12.9"
   }
 }

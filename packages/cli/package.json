@@ -66,11 +66,11 @@
     "vite-plugin-html": "^3.0.6"
   },
   "devDependencies": {
-    "@jest/types": "^27.5.1",
-    "@types/fs-extra": "^9.0.13",
-    "@types/react": "^18.0.9",
-    "@types/react-dom": "^18.0.5",
-    "tsup": "^5.11.11"
+    "@jest/types": "27.5.1",
+    "@types/fs-extra": "9.0.13",
+    "@types/react": "18.0.21",
+    "@types/react-dom": "18.0.6",
+    "tsup": "5.12.9"
   },
   "publishConfig": {
     "access": "public",

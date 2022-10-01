@@ -54,10 +54,10 @@
     "unist-util-visit": "4.0.0"
   },
   "devDependencies": {
-    "@types/hast": "^2.3.4",
-    "@types/node": "^17.0.10",
-    "mdast": "^3.0.0",
-    "tsup": "^5.11.11"
+    "@types/hast": "2.3.4",
+    "@types/node": "17.0.45",
+    "mdast": "3.0.0",
+    "tsup": "5.12.9"
   },
   "publishConfig": {
     "access": "public",
