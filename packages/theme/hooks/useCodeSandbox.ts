@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import LZString from 'lz-string';
+import * as LZString from 'lz-string';
 
 type DependenciesType = {
   type: string;
