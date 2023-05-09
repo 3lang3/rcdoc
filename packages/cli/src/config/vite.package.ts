@@ -37,8 +37,17 @@ export function getViteConfigForPackage({
         entry,
         formats: [format],
         fileName: (fmt: string) => {
+          const isModulePkg = pkgJSON.type === 'module';
+          const isESMFile = /esm?/.test(fmt);
+          const ext = (function () {
+            if ((isModulePkg && isESMFile) || (!isModulePkg && !isESMFile)) {
+              return 'js';
+            } else {
+              return isESMFile ? 'mjs' : 'cjs';
+            }
+          })();
           const suffix = fmt === 'umd' ? '' : `.${fmt}`;
-          return minify ? `${name}${suffix}.min.js` : `${name}${suffix}.js`;
+          return minify ? `${name}${suffix}.min.${ext}` : `${name}${suffix}.${ext}`;
         },
       },
       cssTarget: ['chrome61'],
