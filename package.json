@@ -4,7 +4,8 @@
   "repository": {
     "type": "git",
     "url": "git@github.com:3lang3/rcdoc.git",
-    "branch": "main"
+    "branch": "main",
+    "package": "./packages/cli"
   },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf packages/**/node_modules",
