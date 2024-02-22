@@ -75,5 +75,11 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:3lang3/rcdoc.git",
+    "branch": "main",
+    "package": "./packages/cli"
   }
 }
