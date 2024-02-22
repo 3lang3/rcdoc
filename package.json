@@ -1,6 +1,11 @@
 {
   "private": true,
   "packageManager": "pnpm",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:3lang3/rcdoc.git",
+    "branch": "main"
+  },
   "scripts": {
     "clean": "rm -rf node_modules && rm -rf packages/**/node_modules",
     "prepare": "husky install",
