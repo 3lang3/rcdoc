@@ -1,11 +1,14 @@
 {
   "name": "@rcdoc/plugin-react",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:3lang3/rcdoc.git",
+    "branch": "main",
+    "package": "./packages/plugin-react"
+  },
   "license": "MIT",
-  "author": "Evan You",
-  "contributors": [
-    "Alec Larson"
-  ],
+  "author": "3lang3",
   "files": [
     "dist",
     "src"
@@ -22,11 +25,6 @@
   },
   "engines": {
     "node": ">=12.0.0"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/vitejs/vite.git",
-    "directory": "packages/plugin-react"
   },
   "publishConfig": {
     "access": "public",

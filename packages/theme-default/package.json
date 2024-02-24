@@ -1,14 +1,20 @@
 {
   "name": "rcdoc-theme-default",
-  "version": "0.1.18",
+  "version": "0.1.19",
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:3lang3/rcdoc.git",
+    "branch": "main",
+    "package": "./packages/theme-default"
+  },
+  "license": "MIT",
+  "author": "3lang3",
   "dependencies": {
     "@docsearch/css": "^3.0.0",
     "@docsearch/react": "3",

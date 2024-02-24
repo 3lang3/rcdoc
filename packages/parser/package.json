@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/parser",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project inspirt by [dumi](https://github.com/umijs/dumi).",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -22,8 +22,14 @@
     }
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:3lang3/rcdoc.git",
+    "branch": "main",
+    "package": "./packages/parser"
+  },
+  "license": "MIT",
+  "author": "3lang3",
   "dependencies": {
     "@babel/core": "^7.16.10",
     "@babel/plugin-syntax-jsx": "^7.16.7",

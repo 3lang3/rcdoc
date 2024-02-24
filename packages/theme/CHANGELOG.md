@@ -1,5 +1,11 @@
 # @mdoc/theme
 
+## 0.1.9
+
+### Patch Changes
+
+- update pkg info
+
 ## 0.1.8
 
 ### Patch Changes

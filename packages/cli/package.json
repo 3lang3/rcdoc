@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/cli",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -23,8 +23,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.16.10",
     "@babel/preset-env": "^7.16.11",
@@ -81,5 +79,7 @@
     "url": "git@github.com:3lang3/rcdoc.git",
     "branch": "main",
     "package": "./packages/cli"
-  }
+  },
+  "license": "MIT",
+  "author": "3lang3"
 }

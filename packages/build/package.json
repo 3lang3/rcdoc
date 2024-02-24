@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/build",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -15,8 +15,6 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "@babel/core": "^7.16.10",
     "@babel/plugin-transform-modules-commonjs": "^7.16.8",
@@ -51,5 +49,13 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:3lang3/rcdoc.git",
+    "branch": "main",
+    "package": "./packages/build"
+  },
+  "license": "MIT",
+  "author": "3lang3"
 }
