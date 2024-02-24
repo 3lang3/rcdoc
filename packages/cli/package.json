@@ -76,7 +76,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:3lang3/rcdoc.git",
+    "url": "git+https://github.com/3lang3/rcdoc",
     "branch": "main",
     "package": "./packages/cli"
   },
