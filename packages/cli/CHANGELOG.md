@@ -1,5 +1,16 @@
 # @mdoc/cli
 
+## 0.2.0
+
+### Minor Changes
+
+- f783a07: ignore test
+- f783a07: ignore
+
+### Patch Changes
+
+- b02c646: update ver
+
 ## 0.1.31
 
 ### Patch Changes

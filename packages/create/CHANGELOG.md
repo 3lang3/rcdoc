@@ -1,5 +1,11 @@
 # @rcdoc/create
 
+## 0.0.1
+
+### Patch Changes
+
+- b7832d7: update ver
+
 ## 0.0.0
 
 ### Patch Changes
