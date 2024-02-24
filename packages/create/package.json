@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/create",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create rcdoc app",
   "main": "dist/index.js",
   "bin": {
@@ -28,7 +28,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:3lang3/rcdoc.git",
+    "url": "git+https://github.com/3lang3/rcdoc.git",
     "branch": "main",
     "package": "./packages/create"
   },

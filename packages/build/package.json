@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/build",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "",
   "main": "dist/index.js",
   "bin": {
@@ -52,7 +52,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:3lang3/rcdoc.git",
+    "url": "git+https://github.com/3lang3/rcdoc.git",
     "branch": "main",
     "package": "./packages/build"
   },

@@ -1,6 +1,6 @@
 {
   "name": "rcdoc-theme-default",
-  "version": "0.1.19",
+  "version": "0.1.20",
   "description": "",
   "main": "src/index.tsx",
   "scripts": {
@@ -9,7 +9,7 @@
   "keywords": [],
   "repository": {
     "type": "git",
-    "url": "git@github.com:3lang3/rcdoc.git",
+    "url": "git+https://github.com/3lang3/rcdoc.git",
     "branch": "main",
     "package": "./packages/theme-default"
   },

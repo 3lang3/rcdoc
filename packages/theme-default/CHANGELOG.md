@@ -1,5 +1,13 @@
 # mdoc-theme-default
 
+## 0.1.20
+
+### Patch Changes
+
+- ignore test
+- Updated dependencies
+  - @rcdoc/theme@0.1.10
+
 ## 0.1.19
 
 ### Patch Changes

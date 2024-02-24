@@ -1,5 +1,11 @@
 # @mdoc/build
 
+## 0.1.13
+
+### Patch Changes
+
+- ignore test
+
 ## 0.1.12
 
 ### Patch Changes
