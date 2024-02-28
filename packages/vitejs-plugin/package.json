@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/vitejs-plugin",
-  "version": "0.1.10",
+  "version": "0.2.0",
   "description": "A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project inspirt by [dumi](https://github.com/umijs/dumi).",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -22,12 +22,7 @@
     }
   },
   "keywords": [],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/3lang3/rcdoc.git",
-    "branch": "main",
-    "package": "./packages/vitejs-plugin"
-  },
+  "repository": "https://github.com/3lang3/rcdoc.git",
   "license": "MIT",
   "author": "3lang3",
   "dependencies": {

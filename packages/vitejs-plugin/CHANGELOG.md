@@ -1,5 +1,11 @@
 # @mdoc/vitejs-plugin-react
 
+## 0.2.0
+
+### Minor Changes
+
+- ignore
+
 ## 0.1.10
 
 ### Patch Changes
