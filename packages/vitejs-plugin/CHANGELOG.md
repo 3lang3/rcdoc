@@ -1,5 +1,13 @@
 # @mdoc/vitejs-plugin-react
 
+## 0.2.1
+
+### Patch Changes
+
+- ignore
+- Updated dependencies
+  - @rcdoc/parser@0.1.9
+
 ## 0.2.0
 
 ### Minor Changes

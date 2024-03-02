@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/parser",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "description": "A plugin enables you to import a Markdown file as various formats on your [vite](https://github.com/vitejs/vite) project inspirt by [dumi](https://github.com/umijs/dumi).",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",

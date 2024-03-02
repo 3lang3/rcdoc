@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/create",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Create rcdoc app",
   "main": "dist/index.js",
   "bin": {

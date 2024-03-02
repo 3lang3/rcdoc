@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/plugin-react",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/3lang3/rcdoc.git",
