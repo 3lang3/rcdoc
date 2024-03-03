@@ -1,12 +1,7 @@
 {
   "name": "@rcdoc/plugin-react",
-  "version": "0.0.5",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/3lang3/rcdoc.git",
-    "branch": "main",
-    "package": "./packages/plugin-react"
-  },
+  "version": "0.0.6",
+  "repository": "https://github.com/3lang3/rcdoc.git",
   "license": "MIT",
   "author": "3lang3",
   "files": [

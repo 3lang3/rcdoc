@@ -1,5 +1,11 @@
 # @rcdoc/create
 
+## 0.0.4
+
+### Patch Changes
+
+- ignore
+
 ## 0.0.3
 
 ### Patch Changes

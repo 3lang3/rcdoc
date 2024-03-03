@@ -1,5 +1,11 @@
 ## <small>1.3.1 (2022-04-13)</small>
 
+## 0.0.6
+
+### Patch Changes
+
+- ignore
+
 ## 0.0.5
 
 ### Patch Changes

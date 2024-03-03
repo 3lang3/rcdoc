@@ -1,6 +1,6 @@
 {
   "name": "@rcdoc/cli",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "",
   "type": "module",
   "main": "dist/index.js",
@@ -73,12 +73,7 @@
     "access": "public",
     "registry": "https://registry.npmjs.org/"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/3lang3/rcdoc",
-    "branch": "main",
-    "package": "./packages/cli"
-  },
+  "repository": "https://github.com/3lang3/rcdoc.git",
   "license": "MIT",
   "author": "3lang3"
 }
