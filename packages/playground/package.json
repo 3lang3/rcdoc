@@ -15,7 +15,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@react-vant/icons": "^0.0.6",
+    "@react-vant/icons": "^0.1.0",
     "clsx": "^1.1.1",
     "react-test-renderer": "^17.0.2",
     "react-transition-group": "^4.4.2",
